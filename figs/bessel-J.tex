@@ -1,0 +1,26 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  width=12cm, height=7cm,
+  xlabel=$x$, ylabel={$J_m(x)$},
+  xmin=0, xmax=20, ymin=-0.5, ymax=1.05,
+  legend style={at={(0.97,0.97)}, anchor=north east, font=\small},
+  grid=both, grid style={dashed, gray!30},
+  no marks
+]
+  \addplot[blue, thick, solid] table {bessel-J0.dat};
+  \addlegendentry{$J_0(x)$}
+  \addplot[red, thick, dashed] table {bessel-J1.dat};
+  \addlegendentry{$J_1(x)$}
+  \addplot[green!60!black, thick, dashdotted] table {bessel-J2.dat};
+  \addlegendentry{$J_2(x)$}
+  \addplot[purple!70!black, thick, densely dotted] table {bessel-J3.dat};
+  \addlegendentry{$J_3(x)$}
+\end{axis}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,23 @@
+# Build artifacts
+build/
+.lyceum-trash/
+
+# macOS
+.DS_Store
+
+# LaTeX intermediates (if produced outside build/)
+*.aux
+*.log
+*.nav
+*.snm
+*.toc
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.pass*.txt
+
+# Python bytecode (tools/build.py imports tools/layout_check.py)
+__pycache__/
+
+videos

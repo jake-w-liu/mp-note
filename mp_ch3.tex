@@ -1,0 +1,1165 @@
+% Beamer slide deck for Mathematical Physics
+% "Mathematical Physics"
+% Chapter 3: Method of Frobenius
+% Self-contained: no external figures or bibliography.
+
+\documentclass[11pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\usetheme{Madrid}
+
+\author[]{Compiled by Jake W. Liu}
+\title[Method of Frobenius]{Chapter 3: Method of Frobenius}
+\subtitle{Mathematical Physics}
+\date{\today}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{frametitle continuation}[from second]
+
+\AtBeginSection[]
+{
+ \begin{frame}<beamer>
+ \frametitle{Table of contents}
+ \tableofcontents[currentsection]
+ \end{frame}
+}
+
+\usepackage{Kyushu}
+
+% Neutralize \index so source markup (if any) is harmless.
+\makeatletter
+\@ifundefined{index}{\newcommand{\index}[1]{}}{\renewcommand{\index}[1]{}}
+\makeatother
+
+\begin{document}
+
+\newcounter{sfchapter}
+\setcounter{sfchapter}{3}
+\renewcommand{\thesection}{\arabic{sfchapter}.\arabic{section}}
+\numberwithin{equation}{section}
+
+\begin{frame}[c]\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\begin{frame}{Where we are going}
+\footnotesize
+Separation of variables turns many partial differential equations (PDEs) into linear,
+second-order, homogeneous ordinary differential equations. Two recurring examples are
+\begin{itemize}
+  \item the \textbf{guitar string}, which gives the harmonic-oscillator equation
+        \[
+          \frac{d^2 y}{dx^2}+k^2y=0,
+        \]
+  \item the \textbf{drum}, which gives Bessel's equation
+        \[
+          x^2\frac{d^2y}{dx^2}+x\frac{dy}{dx}+(k^2x^2-m^2)y=0.
+        \]
+\end{itemize}
+Here $k$ is a wave number, and $m$ is the nonnegative integer angular order of a drum
+mode.
+The string equation is solved by $\cos kx$ and $\sin kx$, but Bessel's equation has
+no elementary solutions for integer $m$: we need a systematic series method.
+On an interval where the coefficient of $y''$ is nonzero, a linear homogeneous
+second-order equation can be written as
+\[
+  y''+P(x)y'+Q(x)y=0.
+\]
+Here \emph{linear} means that $y,y',y''$ occur only to the first power and are not
+multiplied together; \emph{homogeneous} means that the right-hand side is zero.  The
+method of Frobenius is such a series method for this class of equations; it succeeds
+at ordinary points and regular singular points, defined later.
+\end{frame}
+
+% ======================================================================
+\section{The guitar string and the drum head}
+% ======================================================================
+
+\begin{frame}[allowframebreaks=1.00]{Guitar string: the harmonic oscillator by Taylor series}
+\footnotesize
+
+\textbf{Step 1: insert a power series.}  A string of length $L$ fixed at both ends obeys
+\[
+ \frac{d^2y}{ds^2}+k^2y=0,\qquad 0\le s\le L,\qquad y(0)=y(L)=0.
+\]
+Substitute $x=ks$; by
+the chain rule $\dfrac{d^2y}{ds^2}=k^2\dfrac{d^2y}{dx^2}$, so the equation becomes
+\begin{equation}
+  y''+y=0,
+  \label{eq:ho}
+\end{equation}
+and the ends move to $x=0$ and $x=kL$.  We solve \eqref{eq:ho} first and impose the end
+conditions afterwards.
+Assume that $y$ is analytic at $x=0$ and write
+\[
+  y(x)=\sum_{n=0}^{\infty}a_nx^n
+      =a_0+a_1x+a_2x^2+a_3x^3+\cdots.
+\]
+Term-by-term differentiation gives
+\[
+\begin{aligned}
+  y'(x)
+    &=\sum_{n=1}^{\infty}n a_nx^{n-1}
+      =a_1+2a_2x+3a_3x^2+\cdots,\\
+  y''(x)
+    &=\sum_{n=2}^{\infty}n(n-1)a_nx^{n-2}
+      =2a_2+3\cdot2a_3x+4\cdot3a_4x^2+\cdots.
+\end{aligned}
+\]
+Substitution into \eqref{eq:ho} yields
+\[
+  \sum_{n=2}^{\infty}n(n-1)a_nx^{n-2}
+  +\sum_{n=0}^{\infty}a_nx^n=0.
+\]
+\textbf{Step 2: align the powers.}  The powers do not yet match.  Reindexing aligns every
+sum on the same power of $x$.  In the first sum set
+\[
+  j=n-2,
+  \qquad n=j+2.
+\]
+When $n=2$, $j=0$, and as $n\to\infty$, $j\to\infty$.  Therefore
+\[
+\begin{aligned}
+  \sum_{n=2}^{\infty}n(n-1)a_nx^{n-2}
+    &=\sum_{j=0}^{\infty}(j+2)(j+1)a_{j+2}x^j\\
+    &=\sum_{n=0}^{\infty}(n+2)(n+1)a_{n+2}x^n,
+\end{aligned}
+\]
+where the last line only renames the dummy index $j$ as $n$.  Hence
+\[
+  \sum_{n=0}^{\infty}
+  \left[(n+2)(n+1)a_{n+2}+a_n\right]x^n=0.
+\]
+\textbf{Step 3: read off the recurrence.}  A power series is identically zero only when each coefficient is zero.  Thus, for every
+$n\ge0$,
+\[
+  (n+2)(n+1)a_{n+2}+a_n=0,
+\]
+and solving for the next coefficient gives
+\begin{equation}
+  a_{n+2}=-\frac{a_n}{(n+1)(n+2)},
+  \qquad n=0,1,2,\ldots.
+  \label{eq:ho-rec}
+\end{equation}
+The recurrence advances the index by two.  Consequently, $a_0$ generates all even
+coefficients, while $a_1$ generates all odd coefficients.
+\end{frame}
+
+\begin{frame}{Resolving the even recurrence into $\cos x$}
+\footnotesize
+Starting with $a_0$, the recurrence \eqref{eq:ho-rec} gives
+\[
+ a_2=-\frac{a_0}{1\cdot2}=-\frac{a_0}{2!},\qquad
+ a_4=-\frac{a_2}{3\cdot4}=\frac{a_0}{4!}.
+\]
+Each step introduces the next two factors and reverses the sign, so after $j$ steps the
+denominator is $(1\cdot2)(3\cdot4)\cdots\bigl((2j-1)(2j)\bigr)=(2j)!$. Hence
+\[
+ a_{2j}=\frac{(-1)^j a_0}{(2j)!},\qquad j=0,1,2,\ldots.
+\]
+The even part of the solution is therefore
+\[
+ a_0\left(1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots\right)=a_0\cos x.
+\]
+This is the cosine Taylor series from Chapter~1, now recovered from the differential equation.
+\end{frame}
+
+\begin{frame}{Resolving the odd recurrence into $\sin x$}
+\footnotesize
+Starting with $a_1$ instead, the recurrence \eqref{eq:ho-rec} with $n=1$ and then $n=3$ gives
+\[
+ a_3=-\frac{a_1}{2\cdot3}=-\frac{a_1}{3!},\qquad
+ a_5=-\frac{a_3}{4\cdot5}=\frac{a_1}{5!}.
+\]
+Each step again reverses the sign and contributes the next two factors, so after $j$ steps the sign is $(-1)^j$ and the denominator is $(2\cdot3)(4\cdot5)\cdots\bigl((2j)(2j+1)\bigr)=(2j+1)!$. Hence
+\[
+ a_{2j+1}=\frac{(-1)^j a_1}{(2j+1)!},\qquad j=0,1,2,\ldots,
+\]
+so the odd part is $a_1(x-x^3/3!+x^5/5!-\cdots)=a_1\sin x$.
+Both starting coefficients are free, giving
+\[
+ y(x)=a_0\cos x+a_1\sin x,\qquad a_0=y(0),\quad a_1=y'(0).
+\]
+The differential equation determines the shape; endpoint or initial conditions determine
+which combination is needed.
+\end{frame}
+
+\begin{frame}{Applying the endpoint conditions}
+\footnotesize
+The string is fixed at its left end, so $y(0)=a_0=0$.
+The right end $s=L$ is $x=kL$. Thus
+\[
+ 0=y(kL)=a_1\sin(kL).
+\]
+A nonzero mode has $a_1\ne0$, so
+\[
+ kL=n\pi,\qquad\text{i.e.}\qquad k_n=\frac{n\pi}{L},\qquad n=1,2,\ldots.
+\]
+The $n$th mode is $y=A\sin x=A\sin(k_ns)$; the fundamental $n=1$ is half a sine wave
+along the string.  The frequency of a mode is proportional to its wave number, so all
+frequencies are integer multiples of the lowest one: this is why a string sounds
+\emph{harmonic}.  The drum will turn out differently.
+
+The end conditions do not determine the amplitude $A$; an additional
+amplitude or normalization condition is needed.
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Drum: Bessel's equation needs a generalized series}
+\footnotesize
+
+\textbf{Step 1: scale the radial equation.} For a circular drum, separation into
+angular modes gives the following radial equation, which we take as our model
+(the separation itself is carried out in Chapter~5's opening):
+\[
+ \rho^2Y''(\rho)+\rho Y'(\rho)+(k^2\rho^2-m^2)Y(\rho)=0.
+\]
+Here $\rho$ is physical radius, $k>0$ is a wave number, and the nonnegative integer
+$m$ labels angular variation. Put $x=k\rho$ and $Y(\rho)=y(x)$. The chain rule gives
+$Y'(\rho)=k y'(x)$ and $Y''(\rho)=k^2y''(x)$, so, using $k\rho=x$,
+$\rho^2Y''=(k\rho)^2y''=x^2y''$, $\rho Y'=(k\rho)y'=xy'$, and
+$(k^2\rho^2-m^2)Y=(x^2-m^2)y$. This yields Bessel's normalized equation
+\begin{equation}
+ x^2y''+xy'+(x^2-m^2)y=0.\label{eq:bessel}
+\end{equation}
+The rim $\rho=R$ is now $x=kR$; we return to it once we have a solution.
+\par\framebreak\par
+\textbf{Why a power $x^r$?}  Divided by $x^2$, \eqref{eq:bessel} reads
+$y''+\frac1x\,y'+\bigl(1-\frac{m^2}{x^2}\bigr)y=0$.  Its coefficients blow up at $x=0$, a
+\emph{singular point}, where a Taylor series need not capture every solution.
+If $y\approx x^r$ near $x=0$, the terms $x^2y''$, $xy'$ and $m^2y$ are all of size $x^r$,
+while $x^2y$ is of size $x^{r+2}$, much smaller.  Dropping it leaves the \emph{Euler
+equation} $x^2y''+xy'-m^2y=0$, which $y=x^r$ solves exactly when
+$r(r-1)+r-m^2=r^2-m^2=0$.  So solutions should start like $x^r$, with higher powers added
+by the dropped term.  On $x>0$ we therefore try the \emph{Frobenius ansatz}:
+\begin{equation}
+  y(x)=x^r\sum_{n=0}^{\infty}a_nx^n
+      =\sum_{n=0}^{\infty}a_nx^{n+r},
+  \qquad a_0\ne0.
+  \label{eq:frob-series}
+\end{equation}
+Its derivatives keep every sum starting at $n=0$ (since $r$ is unknown, no term may be
+dropped; the $n=0$ terms will give the condition on $r$):
+\[
+\begin{aligned}
+  y'(x)
+    &=\sum_{n=0}^{\infty}(n+r)a_nx^{n+r-1},\\
+  y''(x)
+    &=\sum_{n=0}^{\infty}(n+r)(n+r-1)a_nx^{n+r-2}.
+\end{aligned}
+\]
+\par\framebreak\par
+\textbf{Step 2: substitute and align powers.}  Substitute into \eqref{eq:bessel}; multiplying
+$x^2$ into $x^{n+r-2}$, $x$ into $x^{n+r-1}$, and $x^2-m^2$ into $x^{n+r}$ gives
+\[
+\begin{aligned}
+0={}&\sum_{n=0}^{\infty}(n+r)(n+r-1)a_nx^{n+r}
++\sum_{n=0}^{\infty}(n+r)a_nx^{n+r}\\
+&+\sum_{n=0}^{\infty}a_nx^{n+r+2}
+-m^2\sum_{n=0}^{\infty}a_nx^{n+r}.
+\end{aligned}
+\]
+Only the third sum has the shifted power $x^{n+r+2}$.  Set $j=n+2$, so $n=j-2$:
+\[
+  \sum_{n=0}^{\infty}a_nx^{n+r+2}
+    =\sum_{j=2}^{\infty}a_{j-2}x^{j+r}
+    =\sum_{n=2}^{\infty}a_{n-2}x^{n+r}.
+\]
+With the bookkeeping convention $a_{-2}=a_{-1}=0$, this last sum may start at $n=0$
+without adding nonzero terms.
+\par\framebreak\par
+\textbf{Step 3: read off the indicial equation.}  All four sums now carry $x^{n+r}$:
+\[
+  \sum_{n=0}^{\infty}
+  \left[
+    (n+r)(n+r-1)a_n+(n+r)a_n-m^2a_n+a_{n-2}
+  \right]x^{n+r}=0.
+\]
+Since
+\[
+  (n+r)(n+r-1)+(n+r)
+  =(n+r)\bigl[(n+r-1)+1\bigr]
+  =(n+r)^2,
+\]
+the coefficient equation is
+\begin{equation}
+  \left[(n+r)^2-m^2\right]a_n+a_{n-2}=0,
+  \qquad n=0,1,2,\ldots.
+  \label{eq:bessel-coeff}
+\end{equation}
+At $n=0$, $a_{-2}=0$, so $(r^2-m^2)a_0=0$.  Because $a_0\ne0$, the indicial equation is
+\begin{equation}
+  r^2-m^2=0
+  \quad\Longleftrightarrow\quad
+  (r-m)(r+m)=0,
+  \label{eq:indicial-bessel}
+\end{equation}
+so $r=m$ or $r=-m$, the exponents the Euler equation predicted.
+Near $x=0$ the solution behaves like $a_0x^r$.  For $m\ge1$, the root $r=-m$ gives
+$x^{-m}$, which blows up at the drum's center, while $r=m\ge0$ gives a solution that
+stays finite there (for $m=0$ the two roots coincide).
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{The Bessel recurrence and $J_m(x)$}
+\footnotesize
+Choose the regular root $r=m$. Since $(n+m)^2-m^2=n(n+2m)$,
+\eqref{eq:bessel-coeff} becomes
+\begin{equation}
+ n(n+2m)a_n+a_{n-2}=0.\label{eq:bessel-rec}
+\end{equation}
+At $n=1$, $a_{-1}=0$ gives $(1+2m)a_1=0$, so $a_1=0$, and then $a_3=a_5=\cdots=0$.
+For the even coefficients, set $n=2$ and then $n=4$:
+\[
+\begin{aligned}
+ a_2&=-\frac{a_0}{2(2+2m)}=-\frac{a_0}{4(m+1)},\\
+ a_4&=-\frac{a_2}{4(4+2m)}=-\frac{a_2}{8(m+2)}=\frac{a_0}{32(m+1)(m+2)}.
+\end{aligned}
+\]
+At the $j$th step ($n=2j$) the factor is $(2j)(2j+2m)=4j(j+m)$, so iterating
+$a_{2j}=-a_{2j-2}/[4j(j+m)]$ from $a_0$ gives
+\[
+ a_{2j}=(-1)^j a_0\prod_{i=1}^{j}\frac1{4i(i+m)}
+       =\frac{(-1)^j a_0}{4^{j}\,j!\,\prod_{i=1}^{j}(i+m)}.
+\]
+\par\framebreak\par
+Since $\prod_{i=1}^{j}(i+m)=(m+1)(m+2)\cdots(m+j)=(m+j)!/m!$ and $4^{j}=2^{2j}$,
+\begin{equation}
+ a_{2j}=\frac{(-1)^j m!a_0}{2^{2j}j!(m+j)!},\qquad a_{2j+1}=0.
+ \label{eq:bessel-coeffs}
+\end{equation}
+The overall scale is still arbitrary. The conventional choice $a_0=1/(2^m m!)$ cancels
+$m!$, and since $x^{2j+m}/2^{2j+m}=(x/2)^{2j+m}$, each term of \eqref{eq:frob-series} with
+$r=m$ becomes
+\[
+ a_{2j}x^{2j+m}=\frac{(-1)^j}{j!(m+j)!}\left(\frac{x}{2}\right)^{2j+m}.
+\]
+Summing gives the Bessel function of the first kind:
+\begin{equation}
+ J_m(x)=\sum_{j=0}^{\infty}\frac{(-1)^j}{j!(m+j)!}
+           \left(\frac{x}{2}\right)^{2j+m},\qquad m=0,1,2,\ldots.
+ \label{eq:Jm}
+\end{equation}
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{What the other Bessel root is trying to say}
+\footnotesize
+
+The root $r=+m$ gave the solution that is finite at the center of the drum.  A
+second-order equation has two independent solutions: what does the other root give?
+Write the order as $\nu$, so that noninteger orders can be allowed below, and set
+$r=-\nu$ in \eqref{eq:bessel-coeff} with $m$ replaced by $\nu$.  Since
+$(n-\nu)^2-\nu^2=n(n-2\nu)$,
+\begin{equation}
+ n(n-2\nu)a_n+a_{n-2}=0.
+ \label{eq:bessel-negative-root-rec}
+\end{equation}
+
+\textbf{Integer orders: the pure series fails.}  Before dividing, check whether
+$n(n-2\nu)$ can vanish.  For the drum mode $\nu=m=1$,
+\[
+ n(n-2)a_n+a_{n-2}=0,
+\]
+and at $n=2$ this requires $0\cdot a_2+a_0=0$, contradicting $a_0\ne0$.
+For any integer $m\ge1$ the same happens at $n=2m$: the factor $n(n-2m)$ vanishes there,
+while $a_{2m-2}$, a nonzero multiple of $a_0$, does not.  For $m=0$ the two roots
+coincide and give only one series.  So the second solution is not a pure Frobenius series.  It is called $Y_m$,
+is singular at the origin, and is constructed by reduction of order later in this
+chapter.
+
+\par\framebreak\par
+\textbf{Noninteger orders: the other root works.}  For noninteger $\nu>0$ (Bessel's
+equation \eqref{eq:bessel} with $m^2$ replaced by $\nu^2$), the steps
+\eqref{eq:bessel-rec}--\eqref{eq:bessel-coeffs} with $r=\nu$ give
+$a_{2j}=(-1)^ja_0/[2^{2j}j!\prod_{i=1}^{j}(i+\nu)]$. By $\Gamma(z+1)=z\Gamma(z)$ (Chapter~2),
+$\prod_{i=1}^{j}(i+\nu)=\Gamma(\nu+j+1)/\Gamma(\nu+1)$; choosing $a_0=1/[2^\nu\Gamma(\nu+1)]$
+gives
+\[
+ J_{\nu}(x)=\sum_{j=0}^{\infty}
+ \frac{(-1)^j}{j!\,\Gamma(j+\nu+1)}\left(\frac{x}{2}\right)^{2j+\nu},
+ \qquad x>0.
+\]
+For $r=-\nu$, the even-index factors $2j(2j-2\nu)$ in \eqref{eq:bessel-negative-root-rec}
+never vanish because $\nu$ is not an integer, so the same calculation with $\nu\to-\nu$
+gives a second solution $J_{-\nu}$.  Their first terms are
+\[
+ J_\nu(x)\sim\frac{x^\nu}{2^\nu\Gamma(\nu+1)},\qquad
+ J_{-\nu}(x)\sim\frac{2^\nu x^{-\nu}}{\Gamma(1-\nu)}.
+\]
+One tends to zero and the other diverges as $x\to0^+$, so they cannot be constant
+multiples of each other. They are the two independent solutions.
+
+\par\framebreak\par
+\textbf{Example: half order gives elementary functions.}
+For $\nu=1/2$, \eqref{eq:bessel-negative-root-rec} with $2\nu=1$ is
+$n(n-1)a_n+a_{n-2}=0$.  At $n=0,1$ it reads $0=0$, so $a_0,a_1$ are both free.  For
+$n\ge2$, $a_n=-a_{n-2}/[n(n-1)]$, exactly the string recurrence \eqref{eq:ho-rec} (with
+$n-2$ in place of $n$).  Hence $\sum_n a_nx^n=a_0\cos x+a_1\sin x$, and restoring
+$x^r=x^{-1/2}$,
+\[
+ y(x)=x^{-1/2}\bigl(a_0\cos x+a_1\sin x\bigr).
+\]
+The series for $J_{-1/2}$ has only the powers $x^{2j-1/2}=x^{-1/2}x^{2j}$, even powers
+after the factor $x^{-1/2}$, so it is the pure $\cos$ branch; $J_{1/2}$ has only
+$x^{2j+1/2}=x^{-1/2}x^{2j+1}$, the pure $\sin$ branch.  The leading terms fix the
+amplitudes, using $\Gamma(1/2)=\sqrt\pi$ and $\Gamma(3/2)=\sqrt\pi/2$:
+\[
+\begin{aligned}
+ J_{-1/2}&\sim\frac{(x/2)^{-1/2}}{\Gamma(1/2)}=\sqrt{\tfrac2\pi}\,x^{-1/2},
+ &\qquad a_0x^{-1/2}\cos x&\sim a_0x^{-1/2},\\
+ J_{1/2}&\sim\frac{(x/2)^{1/2}}{\Gamma(3/2)}=\sqrt{\tfrac2\pi}\,x^{1/2},
+ &\qquad a_1x^{-1/2}\sin x&\sim a_1x^{1/2},
+\end{aligned}
+\]
+so $a_0=a_1=\sqrt{2/\pi}$ and
+\[
+ J_{-1/2}(x)=\sqrt{\frac{2}{\pi x}}\cos x,\qquad
+ J_{1/2}(x)=\sqrt{\frac{2}{\pi x}}\sin x.
+\]
+Thus a special function may be an elementary function at particular orders.
+\end{frame}
+
+\begin{frame}{The Bessel functions of the first kind $J_0,\dots,J_3$}
+\footnotesize
+\begin{center}
+  \includegraphics[width=0.86\linewidth]{figs/bessel-J.pdf}
+\end{center}
+Near the origin, $J_0(0)=1$, while $J_m(0)=0$ for every integer $m\ge1$: a drum mode that
+varies with angle must vanish at the center.  The next frame gives the local and
+large-$x$ formulas behind the picture.
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Bessel asymptotics and drum eigenvalues}
+\footnotesize
+The $j=0$ and $j=1$ terms of the defining series \eqref{eq:Jm} are $\frac{(x/2)^m}{m!}$ and
+$-\frac{(x/2)^{m+2}}{(m+1)!}=-\frac{(x/2)^m}{m!}\cdot\frac{x^2}{4(m+1)}$, using $(m+1)!=(m+1)\,m!$.
+Factoring out the $j=0$ term gives, for fixed $m$,
+\[
+ J_m(x)=\frac1{m!}\left(\frac{x}{2}\right)^m
+ \left[1-\frac{x^2}{4(m+1)}+O(x^4)\right]\qquad(x\to0).
+\]
+Thus $J_0\to1$, while $J_m$ vanishes like $x^m$ for $m\ge1$.
+For fixed $m$ and large positive $x$,
+\[
+  J_m(x)=\sqrt{\frac{2}{\pi x}}
+  \cos\left(x-\frac{m\pi}{2}-\frac{\pi}{4}\right)
+  +O(x^{-3/2}),
+\]
+(derived by steepest descent on the Schl\"afli contour in Chapter~5),
+so the oscillation amplitude decays like $x^{-1/2}$.  If a drum has radius $R$, the rim
+condition is $J_m(kR)=0$. Writing $\alpha_{m,n}$ for the $n$th positive zero of
+$J_m$, the allowed radial wave numbers are
+\[
+ k_{m,n}=\frac{\alpha_{m,n}}{R}.
+\]
+The frequencies are therefore proportional to the zeros of $J_m$, which are not evenly
+spaced: for $m=0$, $\alpha_{0,n}\approx2.405,\,5.520,\,8.654$, in ratios
+$1:2.30:3.60$.  Unlike the string's $kL=n\pi$, a drum is not harmonic.
+\end{frame}
+
+\begin{frame}{Choose the series by classifying the point}
+\footnotesize
+First put the equation in the form $y''+P(x)y'+Q(x)y=0$ and set $z=x-x_0$.
+Here \emph{analytic at $x_0$} means representable by a convergent Taylor series there.
+\begin{itemize}
+ \item \textbf{Ordinary point:} $P$ and $Q$ are analytic at $x_0$.
+       An ordinary Taylor series supplies both independent solutions.
+ \item \textbf{Regular singular point:} the point is not ordinary, but $zP$ and
+       $z^2Q$ are analytic at $z=0$. Use a power $z^r$ times a Taylor series.
+ \item \textbf{Irregular singular point:} neither test holds.
+       Frobenius is not guaranteed to work.
+\end{itemize}
+Near a regular singular point the equation looks like an Euler equation, so solutions
+start like powers $z^r$, as for Bessel.  We use this test as a recipe first; the next
+section makes the Euler picture precise.
+\end{frame}
+
+\begin{frame}{The method of Frobenius: the recipe}
+\footnotesize
+To analyze a linear second-order equation near $x=x_0$, with $z=x-x_0$:
+\begin{enumerate}
+  \item Divide by the coefficient of $y''$ to get $y''+P(x)y'+Q(x)y=0$ ($x_0$ itself
+        may be a zero of that coefficient).
+  \item Classify $x_0$. At an ordinary point, use a Taylor series with free
+        initial coefficients. At a regular singular point, use
+        \[
+          y(x)=\sum_{k=0}^{\infty}a_k z^{k+r},\qquad a_0\ne0.
+        \]
+  \item Differentiate, reindex so the powers match, and equate coefficients, as in the
+        string and Bessel examples.
+  \item For a Frobenius series, set the coefficient of the lowest power to zero.
+        This gives the \emph{indicial equation} for $r$.
+  \item For each root $r$, solve the recurrence from the remaining coefficients.  Where
+        its denominator vanishes, do not divide: go back to the undivided equation, which
+        may force a coefficient, leave one free, or be contradictory (as at $n=2m$ for
+        Bessel's root $r=-m$).
+  \item Substitute back and check the result against the equation and any initial or
+        boundary conditions.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Example: Airy's equation by series}
+\footnotesize
+Airy's equation
+\begin{equation}
+ y''-xy=0\label{eq:airy}
+\end{equation}
+is the simplest model of a \emph{turning point}, where a wave (or a quantum particle)
+passes from a region where it can propagate into one where it cannot.  Written as
+$y''+\kappa^2y=0$ with $\kappa^2=-x$, the squared local wave number changes sign at $x=0$:
+solutions oscillate for $x<0$ and grow or decay for $x>0$.
+
+At $x=0$, the coefficients $P=0$ and $Q=-x$ are analytic, so $x=0$ is an ordinary point
+and a Taylor series is enough. Write
+\[
+ y=\sum_{n=0}^{\infty}a_nx^n,\qquad
+ y'=\sum_{n=1}^{\infty}na_nx^{n-1}.
+\]
+Differentiate once more, then shift the index so that the power is $x^n$:
+\[
+ y''=\sum_{j=2}^{\infty}j(j-1)a_jx^{j-2}
+     =\sum_{n=0}^{\infty}(n+2)(n+1)a_{n+2}x^n.
+\]
+For the other term, multiplication by $x$ shifts the coefficients in the opposite way:
+\[
+ xy=\sum_{j=0}^{\infty}a_jx^{j+1}
+    =\sum_{n=1}^{\infty}a_{n-1}x^n.
+\]
+\par\framebreak\par
+Because the sum for $xy$ starts at $x^1$, the constant coefficient in $y''-xy=0$ comes
+only from the $n=0$ term of $y''$, namely $2\cdot1\cdot a_2$; hence $a_2=0$.
+For $n\ge1$, equating the coefficients of $x^n$ gives
+\begin{equation}
+ (n+2)(n+1)a_{n+2}=a_{n-1}.\label{eq:airy-coeff}
+\end{equation}
+Set $k=n-1$ to write this as a forward recurrence:
+\begin{equation}
+ a_{k+3}=\frac{a_k}{(k+3)(k+2)},\qquad k=0,1,2,\ldots.
+ \label{eq:airy-rec}
+\end{equation}
+The coefficients separate into three chains. The chain starting at $a_2$ vanishes; the
+other two start from $a_0$ and $a_1$, which the equation leaves free:
+\[
+ a_3=\frac{a_0}{3\cdot2}=\frac{a_0}{6},\quad
+ a_6=\frac{a_3}{6\cdot5}=\frac{a_0}{180};
+ \qquad
+ a_4=\frac{a_1}{4\cdot3}=\frac{a_1}{12},\quad
+ a_7=\frac{a_4}{7\cdot6}=\frac{a_1}{504}.
+\]
+Setting the free coefficients to $(1,0)$ and $(0,1)$ defines
+\[
+ f_0(x)=1+\frac{x^3}{6}+\frac{x^6}{180}+\cdots,
+ \qquad
+ f_1(x)=x+\frac{x^4}{12}+\frac{x^7}{504}+\cdots,
+\]
+and every solution is
+\begin{equation}
+ y(x)=a_0f_0(x)+a_1f_1(x),\qquad a_0=y(0),\quad a_1=y'(0),
+ \label{eq:airy-series}
+\end{equation}
+since $f_0(0)=1$, $f_0'(0)=0$, $f_1(0)=0$, and $f_1'(0)=1$.
+\end{frame}
+
+\begin{frame}{Standard Airy solutions $Ai$ and $Bi$}
+\footnotesize
+For $x\to+\infty$, only one combination of $f_0$ and $f_1$ (up to a constant factor)
+decays; the others grow.  With its standard normalization this decaying solution is
+$Ai$.  A second standard solution, $Bi$, grows there.  Both are fixed by their values at
+$0$:
+\begin{equation}
+\begin{aligned}
+  Ai(0)&=\frac{1}{3^{2/3}\Gamma(2/3)},
+  &
+  Ai'(0)&=-\frac{1}{3^{1/3}\Gamma(1/3)},\\[0.4em]
+  Bi(0)&=\frac{1}{3^{1/6}\Gamma(2/3)}=\sqrt3\,Ai(0),
+  &
+  Bi'(0)&=\frac{3^{1/6}}{\Gamma(1/3)}=-\sqrt3\,Ai'(0).
+\end{aligned}
+  \label{eq:airy-ic}
+\end{equation}
+We quote these constants: they come from integral representations of $Ai$ and $Bi$,
+not from the series (those of $Ai$ are derived at the end of this chapter).  Since $a_0=y(0)$ and $a_1=y'(0)$ in \eqref{eq:airy-series},
+\begin{equation}
+\begin{aligned}
+  Ai(x)&=Ai(0)\,f_0(x)+Ai'(0)\,f_1(x),\\
+  Bi(x)&=Bi(0)\,f_0(x)+Bi'(0)\,f_1(x).
+\end{aligned}
+  \label{eq:AiBi-series}
+\end{equation}
+The two initial-value pairs are not proportional, so every Airy solution can be
+written $c_1Ai+c_2Bi$.
+\end{frame}
+
+\begin{frame}{The Airy functions $Ai$ and $Bi$}
+\footnotesize
+\begin{center}
+  \includegraphics[width=0.81\linewidth]{figs/airy-ai-bi.pdf}
+\end{center}
+For $x<0$ both oscillate; for $x>0$, $Ai(x)$ decays while $Bi(x)$ grows (formulas
+\eqref{eq:airy-neg-asymptotic}--\eqref{eq:airy-pos-asymptotic} at the end of this
+chapter).  A condition of decay at $x\to+\infty$ therefore selects $Ai$.
+\end{frame}
+
+% ======================================================================
+\section{When will the method of Frobenius work?}
+% ======================================================================
+
+\begin{frame}[allowframebreaks=1.00]{Classifying the point $x_0$}
+\footnotesize
+
+So far the classification test was a recipe.  Why are $zP$ and $z^2Q$ the right things to
+test?  Look at the leading terms of $y''+P(x)y'+Q(x)y=0$ near $z=x-x_0=0$.  At a regular
+singular point the limits
+\[
+ p_0=\lim_{z\to0}zP(x),\qquad q_0=\lim_{z\to0}z^2Q(x)
+\]
+exist.  Multiplying the equation by $z^2$ gives $z^2y''+(zP)\,zy'+(z^2Q)\,y=0$; replacing
+$zP\to p_0$ and $z^2Q\to q_0$ near $z=0$ leaves an Euler equation,
+\[
+ z^2y''+p_0zy'+q_0y\approx0.
+\]
+Substitute $y\approx a_0z^r$. Since $y'\approx ra_0z^{r-1}$ and
+$y''\approx r(r-1)a_0z^{r-2}$,
+\[
+ z^2y''+p_0zy'+q_0y\approx\bigl[r(r-1)+p_0r+q_0\bigr]a_0z^r,
+\]
+so setting the coefficient of $a_0z^r$ to zero gives the indicial equation
+\begin{equation}
+ F(r)\equiv r(r-1)+p_0r+q_0=0.
+ \label{eq:general-indicial}
+\end{equation}
+\textbf{Check with Bessel.}  Dividing \eqref{eq:bessel} by $x^2$ gives $xP=1$ and
+$x^2Q=x^2-m^2$, both analytic at $0$, so $p_0=1$, $q_0=-m^2$ and
+$F(r)=r(r-1)+r-m^2=r^2-m^2$: the roots $r=\pm m$ of \eqref{eq:indicial-bessel}.
+
+\par\framebreak\par
+\textbf{Which roots give a series?}  With $zP=p_0+p_1z+\cdots$ and $z^2Q=q_0+q_1z+\cdots$,
+insert $y=\sum_k a_kz^{k+r}$.  The term $a_kz^{r+k}$ in $z^2y''+p_0zy'+q_0y$ gives
+$F(r+k)\,a_kz^{r+k}$ (the computation above with $r\to r+k$); the $p_j,q_j$ terms with
+$j\ge1$ raise the power, so they bring only earlier coefficients to $z^{r+k}$.  Its
+coefficient therefore reads $F(r+k)\,a_k+(\text{terms in }a_0,\dots,a_{k-1})=0$, and
+$a_k$ is determined unless $F(r+k)=0$, that is, unless $r+k$ is the other root.
+For Bessel, $F(\pm m+n)=n(n\pm2m)$, the factors in \eqref{eq:bessel-rec} and
+\eqref{eq:bessel-negative-root-rec}.  So, at a regular singular point with roots $r_1,r_2$:
+\begin{itemize}
+ \item \textbf{Gap $r_1-r_2$ not an integer} (complex roots included): $r+k$ never hits the
+       other root, so both roots give Frobenius series.
+ \item \textbf{Integer gap $r_1-r_2=N\ge1$:} the larger root always works, since
+       $r_1+k\ne r_2$.  From $r_2$, $F(r_2+N)=0$ and the undivided equation decides:
+       consistent, giving a second series (Euler example below), or contradictory (Bessel
+       at $n=2m$), in which case the second solution has a logarithm (next frame).
+ \item \textbf{Repeated root:} only one series; the second solution has a logarithm (next frame).
+\end{itemize}
+The series converge at least up to the nearest other singularity of the normalized
+equation, complex ones included (Fuchs' theorem, quoted).
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Where the logarithm in the second solution comes from}
+\footnotesize
+
+A logarithm appears when finding the second solution requires integrating $1/x$.
+The simplest example is $x^2y''+xy'=0$ on $x>0$.  Trying $y=x^r$ gives
+$r(r-1)+r=r^2=0$, a repeated root, and one solution is $y_1=1$.  Dividing by $x$ gives
+$xy''+y'=(xy')'=0$; integrating twice,
+\[
+ xy'=C_1,\qquad y'=\frac{C_1}{x},\qquad
+ y=C_0+C_1\ln x.
+\]
+So the independent second solution is $\ln x$, not another power of $x$.
+
+
+\textbf{Why every repeated root does this.}  The roots of \eqref{eq:general-indicial},
+$r^2+(p_0-1)r+q_0=0$, add up to $1-p_0$, so a double root has $2r=1-p_0$.
+The next section builds a second solution as $y_2=v\int e^{-\int P}/v^2$ from a known
+solution $v$.  Near $z=0$, $v\approx z^r$ and $P\approx p_0/z$, so $e^{-\int P}\approx z^{-p_0}$ and
+\[
+ \frac{e^{-\int P}}{v^2}\approx z^{-p_0-2r}=z^{-1},
+\]
+whose integral is $\ln z$.  (Above, $p_0=1$ and $r=0$.)  For an integer gap $N=r_1-r_2$, the
+same steps with $v\approx z^{r_1}$ give $z^{-p_0-2r_1}(1+c_1z+\cdots)=z^{-N-1}(1+c_1z+\cdots)$, since
+$-p_0-2r_1=r_2-r_1-1$; its $c_Nz^{-1}$ term integrates to $\ln z$ unless $c_N=0$ (the consistent case).
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Example: an irregular singular point}
+\footnotesize
+
+\textbf{The equation $x^4y''+2x^3y'+y=0$.}  For $x\ne0$, divide by $x^4$:
+\[
+  y''+\frac{2}{x}y'+\frac{1}{x^4}y=0,\qquad
+  P(x)=\frac{2}{x},\quad Q(x)=\frac{1}{x^4}.
+\]
+Although $xP(x)=2$ is analytic, $x^2Q(x)=1/x^2$ is not, so the regular-singular test
+fails: $x=0$ is an irregular singular point.
+
+The lowest-power balance shows why a Frobenius series fails. If its first
+term is $a_0x^r$ with $a_0\ne0$, then
+\[
+\begin{aligned}
+ x^4y''+2x^3y'&=a_0\bigl[r(r-1)+2r\bigr]x^{r+2}+\text{higher powers}\\
+ &=a_0r(r+1)x^{r+2}+\text{higher powers},
+ \qquad y=a_0x^r+\text{higher powers}.
+\end{aligned}
+\]
+Only the last term supplies $x^r$, so its coefficient cannot cancel. It would
+require $a_0=0$, contrary to the assumed leading term.
+
+\par\framebreak\par
+A change of variables confirms the diagnosis.  Set $u=1/x$ and write
+$y(x)=Y(u)$.  Since $du/dx=-1/x^2=-u^2$, the chain rule gives $d/dx=-u^2\,d/du$, so
+\[
+ y'=-u^2Y_u,
+ \qquad
+ y''=-u^2\frac{d}{du}\bigl(-u^2Y_u\bigr)=u^4Y_{uu}+2u^3Y_u.
+\]
+With $x^4=u^{-4}$ and $2x^3=2u^{-3}$,
+\[
+ x^4y''+2x^3y'+y=\Bigl(Y_{uu}+\frac2uY_u\Bigr)-\frac2uY_u+Y,
+\]
+so the differential equation becomes $Y_{uu}+Y=0$. Thus
+\[
+ y(x)=c_1\cos\left(\frac1x\right)
+      +c_2\sin\left(\frac1x\right).
+\]
+These solutions oscillate infinitely often near the origin and cannot be
+represented there by a power times a Taylor series.
+\end{frame}
+
+\begin{frame}{Example: an Euler equation with an integer root gap}
+\footnotesize
+
+Consider $x^2y''-6y=0$ for $x>0$. It is an \emph{Euler} (equidimensional) equation:
+each derivative $y^{(j)}$ is multiplied by a constant times $x^j$, so $x^r$ is mapped
+to a multiple of $x^r$. In normalized form,
+\[
+ y''-\frac6{x^2}y=0,
+\]
+so $xP(x)=0$ and $x^2Q(x)=-6$: the origin is regular singular.
+Here a pure power already solves the full equation. Substitute
+\[
+ y=x^r,\quad y'=rx^{r-1},\quad y''=r(r-1)x^{r-2}.
+\]
+Then
+\[
+ x^2y''-6y=[r(r-1)-6]x^r=0,
+\]
+so $(r-3)(r+2)=0$. Therefore
+\[
+ y_1=x^3,\qquad y_2=x^{-2},\qquad
+ y=c_1x^3+c_2x^{-2}.
+\]
+The roots differ by the integer $5$, yet both solutions are pure powers.
+In terms of $F$ from \eqref{eq:general-indicial}, here $F(r)=(r-3)(r+2)$: from $r_2=-2$, the
+step $k=5$ has $F(3)=0$, but
+here $zP$ and $z^2Q$ have no higher terms, so the undivided equation reads
+$0\cdot a_5=0$.  It is consistent, and the free $a_5$ just adds a multiple of $x^3$.
+\end{frame}
+
+% ======================================================================
+\section{Second solutions}
+% ======================================================================
+
+\begin{frame}[allowframebreaks=1.00]{Reduction of order: building the second solution}
+\footnotesize
+
+Suppose we know one solution $v$ of $u''+P(x)u'+Q(x)u=0$, nonzero on the interval
+considered, and want a second.  Why the method is called \emph{reduction of order}: writing
+$y=vw$, the terms without derivatives of $w$ cancel because $v$ is a solution, leaving
+$vw''+(2v'+Pv)w'=0$, a first-order equation for $w'$.
+The Wronskian solves it neatly (below, $W=v^2w'$).
+
+\textbf{Step 1: an equation for the Wronskian.}  Let $y$ be any solution.  Multiply
+$y''+Py'+Qy=0$ by $v$ and $v''+Pv'+Qv=0$ by $y$, and subtract; the $Q$ terms cancel:
+\[
+  vy''-yv''+P(vy'-yv')=0.
+\]
+Define the Wronskian $W[v,y]=vy'-v'y$.  Its derivative is
+$W'=v'y'+vy''-v''y-v'y'=vy''-yv''$, so the last display says
+\begin{equation}
+  W'+PW=0.
+  \label{eq:abel-w}
+\end{equation}
+Picture: $W$ is the determinant of $\bigl(\begin{smallmatrix}v&y\\v'&y'\end{smallmatrix}\bigr)$,
+whose columns are the (value, slope) pairs of the two solutions.  If $y=cv$ the columns are
+parallel and $W=0$; so $W\ne0$ means $y$ is not a multiple of $v$.
+
+\textbf{Step 2: solve the Wronskian equation.}  Separate variables in \eqref{eq:abel-w},
+$dW/W=-P\,dx$, and integrate from a reference point $x_*$:
+\begin{equation}
+  W[v,y](x)=C_1
+  \exp\left(-\int_{x_*}^{x}P(t)\,dt\right).
+  \label{eq:abel-identity}
+\end{equation}
+This is Abel's identity for the Wronskian.
+
+\textbf{Step 3: integrate once more to recover $y$.}  By the quotient rule and
+\eqref{eq:abel-identity},
+\[
+  \left(\frac{y}{v}\right)'
+    =\frac{v y'-y v'}{v^2}
+    =\frac{W[v,y]}{v^2}
+    =C_1\frac{\exp\left(-\int_{x_*}^{x}P(t)\,dt\right)}{v^2(x)}.
+\]
+Integrate from $x_*$ to $x$ and multiply by $v$.  The integration constant $C_0$ adds only
+$C_0v$, a multiple of the known solution, so choose $C_0=0$, $C_1=1$:
+\begin{equation}
+ y_2(x)=v(x)\int_{x_*}^x
+ \frac{\exp\left(-\int_{x_*}^sP(t)\,dt\right)}{v^2(s)}\,ds.
+ \label{eq:reduction}
+\end{equation}
+By construction ($C_1=1$), $W[v,y_2]=\exp\bigl(-\int_{x_*}^{x}P(t)\,dt\bigr)\ne0$, so $y_2$ is
+independent of $v$.
+\end{frame}
+
+\begin{frame}{Reduction-of-order example: harmonic oscillator}
+\footnotesize
+
+For $y''+y=0$, take the known solution $v(x)=\cos x$. Here $P(x)=0$.
+Work on $(-\pi/2,\pi/2)$, where $v\ne0$, and choose $x_*=0$.
+The exponential in \eqref{eq:reduction} is $\exp(-\int_0^s0\,dt)=1$, so
+\[
+\begin{aligned}
+ y_2(x)&=\cos x\int_0^x\frac{ds}{\cos^2s}
+       =\cos x\int_0^x\sec^2s\,ds\\
+       &=\cos x[\tan s]_0^x
+        =\cos x\tan x=\sin x.
+\end{aligned}
+\]
+The independence check uses the derivatives of sine and cosine:
+\[
+ W[\cos x,\sin x]
+ =\cos x\cos x-(-\sin x)\sin x=\cos^2x+\sin^2x=1,
+\]
+the value $\exp(-\int_0^x0\,dt)=1$ predicted by Step~3.
+Thus reduction of order recovers the familiar second solution.
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Reduction-of-order example: Bessel's second solution}
+\footnotesize
+For integer $m$ the root $r=-m$ gave no series, so we build the missing solution with
+\eqref{eq:reduction}.  Bessel's equation divided by $x^2$ has $P(x)=1/x$.  Take the regular
+solution $v=J_m$ \eqref{eq:Jm} on an interval in $(0,\infty)$ where $J_m\ne0$, and a
+reference point $x_*>0$ there; then
+$\exp\bigl(-\int_{x_*}^{s}dt/t\bigr)=\exp[-\log(s/x_*)]=x_*/s$.
+Dropping the constant factor $x_*$, a second solution is
+\begin{equation}
+  \widetilde Y_m(x)=J_m(x)
+  \int_{x_*}^{x}\frac{ds}{sJ_m^2(s)}.
+  \label{eq:Ytilde}
+\end{equation}
+Its Wronskian is the one found in Step~3 divided by $x_*$:
+$W[J_m,\widetilde Y_m]=(x_*/x)/x_*=1/x\ne0$.
+
+The standard function $Y_m$ (full definition in Chapter~5) is normalized so that
+$W[J_m,Y_m]=2/(\pi x)$.  This choice makes $Y_m$ oscillate at large $x$ with the same
+amplitude $A=\sqrt{2/(\pi x)}$ as $J_m$, like $\sin$ next to $\cos$: if $J_m\approx A\cos\theta$
+and $Y_m\approx A\sin\theta$ with $\theta=x-m\pi/2-\pi/4$, the $A'$ terms cancel and
+$W\approx A^2(\cos^2\theta+\sin^2\theta)=2/(\pi x)$.
+Since $J_m,\widetilde Y_m$ are independent, $Y_m=\alpha\widetilde Y_m+CJ_m$ for some constants
+$\alpha,C$. The Wronskian is linear in its second slot and $W[J_m,J_m]=0$, so
+$W[J_m,Y_m]=\alpha/x$; matching $2/(\pi x)$ gives $\alpha=2/\pi$:
+\begin{equation}
+ Y_m(x)=\frac2\pi\widetilde Y_m(x)+C J_m(x).
+ \label{eq:Ym}
+\end{equation}
+The Wronskian fixes the scale but not $C$; changing $x_*$ changes only $C$.
+\end{frame}
+
+\begin{frame}{Near the origin, $Y_m$ blows up}
+\footnotesize
+This is why a drum, finite at its center, excludes $Y_m$.
+For $m\ge1$, the leading term of \eqref{eq:Jm} is $J_m(s)\approx s^m/(2^m m!)$, so the
+integrand in \eqref{eq:Ytilde} is a negative power and its integral is dominated by the
+small-$s$ end:
+\[
+  \frac{1}{sJ_m^2(s)}\approx\frac{2^{2m}(m!)^2}{s^{2m+1}},\qquad
+  \int_{x_*}^{x}\frac{ds}{sJ_m^2(s)}
+    \approx-\frac{2^{2m}(m!)^2}{2m}\,x^{-2m}
+\]
+(the lower limit adds only a constant).  Multiplying by $J_m(x)\approx x^m/(2^m m!)$ and
+using $m!/m=(m-1)!$,
+\[
+ \widetilde Y_m(x)\approx-\frac{2^{m}\,m!}{2m}x^{-m}
+ =-2^{m-1}(m-1)!\,x^{-m}\to-\infty.
+\]
+For $m=0$, $J_0(s)=1-s^2/4+\cdots$, so $1/(sJ_0^2(s))=1/s+O(s)$, the integral is
+$\log x+\text{const}+O(x^2)$, and $\widetilde Y_0(x)\approx\log x\to-\infty$.
+By \eqref{eq:Ym} the same holds for $Y_m$ (the added $CJ_m$ stays bounded); Chapter~5
+supplies the constants.
+
+The logarithm is present for $m\ge1$ too, only hidden: the expansion of $1/(sJ_m^2)$ also
+contains a $1/s$ term, for example $1/(sJ_1^2(s))=4/s^3+1/s+\cdots$, so $\widetilde Y_m$ carries a
+$J_m(x)\log x$ piece beneath the stronger $x^{-m}$ term.  This is the logarithm forced by the
+failed $n=2m$ step.
+\end{frame}
+
+\begin{frame}{The Bessel functions of the second kind $Y_0,\dots,Y_3$}
+\footnotesize
+\begin{center}
+  \includegraphics[width=0.86\linewidth]{figs/bessel-Y.pdf}
+\end{center}
+
+\medskip
+Unlike $J_m$, each $Y_m$ plunges to $-\infty$ as $x\to 0^+$: the second Bessel solution is
+singular at the center, so it is excluded for a drum (finite there) but needed on
+annular domains.
+\end{frame}
+
+% ======================================================================
+\section{Airy functions in the complex plane}
+% ======================================================================
+
+\begin{frame}[allowframebreaks=1.00]{The Airy integral from a Fourier transform}
+\footnotesize
+\textbf{Why more than the series.} Chapter~7's quantum particle above a floor, like any wave
+near a turning point, needs two global facts: which solution decays as $x\to+\infty$, and
+where $Ai$ vanishes. The series hides both: for $x>0$ every term of $f_0$ and $f_1$ is
+positive, so $Ai=Ai(0)f_0+Ai'(0)f_1$ ($Ai'(0)<0$) decays only by cancellation. An integral
+representation makes both facts visible.
+
+\textbf{Transforming the equation.} Use the Fourier convention
+\[
+ \widehat y(t)=\int_{-\infty}^{\infty}y(x)e^{-itx}\,dx,
+ \qquad
+ y(x)=\frac1{2\pi}\int_{-\infty}^{\infty}\widehat y(t)e^{itx}\,dt,
+\]
+and write $\mathcal F\{y\}=\widehat y$. One integration by parts (boundary terms dropped) gives
+$\mathcal F\{y'\}=-\int y\,(-it)e^{-itx}\,dx=it\,\widehat y$; applied twice,
+$\mathcal F\{y''\}=(it)^2\widehat y=-t^2\widehat y$. Differentiating the transform in $t$ gives
+$\widehat y'(t)=\int(-ix)y\,e^{-itx}\,dx=-i\,\mathcal F\{xy\}$, so $\mathcal F\{xy\}=i\widehat y'$
+(mind the sign: it fixes the phase below). Transforming $y''-xy=0$ gives a
+\emph{first-order} equation:
+\[
+ -t^2\widehat y-i\widehat y'=0,
+ \qquad
+ \frac{\widehat y'}{\widehat y}=\frac{t^2}{-i}=it^2,
+ \qquad
+ \widehat y(t)=C e^{it^3/3}.
+\]
+Only one constant survives because only one solution has a Fourier transform: $Bi$ grows as
+$x\to+\infty$, so the transform finds the decaying solution. (A factor $e^{\varepsilon x}$,
+$\varepsilon\to0^+$, damps the slowly decaying left tail and justifies the dropped boundary terms.)
+
+\par\framebreak\par
+\textbf{Back to $x$.} In the inverse transform, the negative-$t$ integrand is the complex
+conjugate of the positive-$t$ one, so
+\[
+\begin{aligned}
+ y(x)&=\frac{C}{2\pi}\int_{-\infty}^{\infty}e^{i(t^3/3+xt)}\,dt
+ =\frac{C}{2\pi}\int_0^\infty\Bigl[e^{i(t^3/3+xt)}+e^{-i(t^3/3+xt)}\Bigr]dt\\
+ &=\frac{C}{\pi}\int_0^\infty\cos\Bigl(\frac{t^3}{3}+xt\Bigr)dt.
+\end{aligned}
+\]
+The standard choice $C=1$ gives
+\begin{equation}
+ Ai(x)=\frac1\pi\int_0^\infty
+ \cos\left(\frac{t^3}{3}+xt\right)dt,
+ \label{eq:airy-integral}
+\end{equation}
+an oscillatory integral, taken as the limit of $\int_0^T$ as $T\to\infty$. Since
+$C=\widehat y(0)=\int y\,dx$, this normalization says
+\begin{equation}
+ \int_{-\infty}^{\infty}Ai(x)e^{-itx}\,dx=e^{it^3/3},
+ \qquad
+ \int_{-\infty}^{\infty}Ai(x)\,dx=1.
+ \label{eq:airy-fourier}
+\end{equation}
+
+\par\framebreak\par
+\textbf{The values at $0$.} Now we can derive the constants quoted in \eqref{eq:airy-ic}.
+At $x=0$, substitute $t=3^{1/3}u$ (so $t^3/3=u^3$) and use Chapter~2's sector integral
+$\int_0^\infty\cos(u^p)\,du=\Gamma(1+\frac1p)\cos\frac{\pi}{2p}$ with $p=3$, then
+$\Gamma(\frac43)=\frac13\Gamma(\frac13)$ and the reflection formula
+$\Gamma(\frac13)\Gamma(\frac23)=\pi/\sin\frac\pi3=2\pi/\sqrt3$:
+\[
+ Ai(0)=\frac{3^{1/3}}{\pi}\,\Gamma\bigl(\tfrac43\bigr)\cos\frac\pi6
+ =\frac{3^{1/3}}{\pi}\cdot\frac{\Gamma(\frac13)}{3}\cdot\frac{\sqrt3}{2}
+ =\frac{3^{1/3}}{3\,\Gamma(\frac23)}=\frac{1}{3^{2/3}\Gamma(\frac23)}.
+\]
+For the slope, differentiate \eqref{eq:airy-integral}:
+$Ai'(0)=-\frac1\pi\int_0^\infty t\sin(t^3/3)\,dt=-\frac{3^{2/3}}{\pi}\,\mathrm{Im}\int_0^\infty ue^{iu^3}du$.
+The same sector rotation, on the ray $u=re^{i\pi/6}$ where $iu^3=-r^3$ and $u\,du=e^{i\pi/3}r\,dr$, gives
+$\int_0^\infty ue^{iu^3}du=e^{i\pi/3}\int_0^\infty re^{-r^3}dr=e^{i\pi/3}\,\Gamma(\frac23)/3$, so
+\[
+ Ai'(0)=-\frac{3^{2/3}}{\pi}\cdot\frac{\sqrt3}{2}\cdot\frac{\Gamma(\frac23)}{3}
+ =-\frac{3^{2/3}}{3\,\Gamma(\frac13)}=-\frac{1}{3^{1/3}\Gamma(\frac13)}.
+\]
+A solution is fixed by $y(0)$ and $y'(0)$ \eqref{eq:airy-series}, so the integral is
+exactly the $Ai$ of \eqref{eq:airy-ic}.
+
+\par\framebreak\par
+\textbf{The Wronskian.} For $y''-xy=0$ the normalized coefficient is $P=0$, so Abel's identity
+\eqref{eq:abel-identity} makes $W[Ai,Bi]=Ai\,Bi'-Ai'\,Bi$ constant. At $x=0$, with
+$Bi(0)=\sqrt3\,Ai(0)$, $Bi'(0)=-\sqrt3\,Ai'(0)$ and the values above,
+\begin{equation}
+ W[Ai,Bi]=-2\sqrt3\,Ai(0)Ai'(0)
+ =\frac{2\sqrt3}{3\,\Gamma(\frac13)\Gamma(\frac23)}
+ =\frac{2\sqrt3}{3}\cdot\frac{\sqrt3}{2\pi}=\frac1\pi .
+ \label{eq:airy-wronskian}
+\end{equation}
+Since $W\ne0$ everywhere, $Ai$ and $Bi$ stay independent for every $x$.
+
+\textbf{A representation for $Bi$.} The growing companion has the real-axis representation
+(quoted; the Fourier argument cannot produce it)
+\[
+ Bi(x)=\frac1\pi\int_0^\infty
+ \left[
+ e^{-t^3/3+xt}
+ +\sin\left(\frac{t^3}{3}+xt\right)
+ \right]dt.
+\]
+The exponential term carries the growth for $x>0$; the sine term carries the oscillation
+for $x<0$. Both are used on the next frame.
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Large-argument behavior by stationary phase}
+\footnotesize
+\textbf{Negative argument: oscillation.} For $x=-q$ with $q\to+\infty$, write
+\eqref{eq:airy-integral} as $Ai(-q)=\frac1\pi\,\mathrm{Re}\,J(q)$ with
+$J(q)=\int_0^\infty e^{i\phi(t)}dt$, $\phi(t)=t^3/3-qt$. Then
+$\phi'(t)=t^2-q$ has one stationary point $t_0=\sqrt q$, with
+\[
+ \phi(t_0)=-\frac23q^{3/2},
+ \qquad \phi''(t_0)=2\sqrt q>0.
+\]
+Chapter~1's stationary-phase rule, here
+$\int e^{i\phi}\,dt\sim e^{i\phi(t_0)}e^{i\pi/4}\sqrt{2\pi/\phi''(t_0)}$ for $\phi''(t_0)>0$,
+applies: the large parameter is hidden in $\phi$, since
+$t=\sqrt q\,\tau$ turns the phase into $q^{3/2}(\tau^3/3-\tau)$. The endpoint $t=0$ is not
+stationary: one integration by parts, $e^{i\phi}dt=d(e^{i\phi})/(i\phi')$, leaves the boundary
+term $-1/(i\phi'(0))=1/(iq)$, of size $1/q\ll q^{-1/4}$. So
+\[
+ J(q)\sim e^{-2iq^{3/2}/3}e^{i\pi/4}\sqrt{\frac{2\pi}{2\sqrt q}}
+ =\sqrt\pi\,q^{-1/4}e^{\,i(\pi/2-\chi)},
+ \qquad \chi(q)=\frac23q^{3/2}+\frac\pi4 .
+\]
+Since $\cos(\frac\pi2-\chi)=\sin\chi$ and $\sin(\frac\pi2-\chi)=\cos\chi$, $\frac1\pi\mathrm{Re}\,J$
+gives $Ai$ and $\frac1\pi\mathrm{Im}\,J$ gives $Bi$ (its sine term; the exponential term
+$\frac1\pi\int_0^\infty e^{-t^3/3-qt}dt\approx\frac1{\pi q}$ is negligible):
+\begin{equation}
+ Ai(-q)\sim\frac{q^{-1/4}}{\sqrt\pi}\sin\chi,
+ \qquad
+ Bi(-q)\sim\frac{q^{-1/4}}{\sqrt\pi}\cos\chi,
+ \qquad q\to+\infty.
+ \label{eq:airy-neg-asymptotic}
+\end{equation}
+\textbf{Picture.} In the turning-point form $y''+\kappa^2y=0$, $\kappa=\sqrt q$ is the local wave
+number: waves shorten as $q$ grows, and $\chi$ accumulates their phase, $\chi'(q)=\kappa$.
+The envelope is what the constant Wronskian demands: for $A\sin\chi$, $A\cos\chi$ with slowly
+varying $A$, $W\approx A^2\chi'=A^2\sqrt q$ ($W$ is taken in $x=-q$, so $d/dx=-d/dq$), and $W=1/\pi$ forces $A=q^{-1/4}/\sqrt\pi$.
+
+\textbf{Positive argument: exponential split.} For $x>0$ the phase $t^3/3+xt$ has
+derivative $t^2+x$, with no real zero: the stationary points move to $t=\pm i\sqrt x$, where
+$e^{i(t^3/3+xt)}=e^{\mp 2x^{3/2}/3}$.  $Ai$ uses the upper saddle, $Bi$ its growing exponential term:
+\begin{equation}
+ Ai(x)\sim\frac{x^{-1/4}}{2\sqrt\pi}\,e^{-2x^{3/2}/3},
+ \qquad
+ Bi(x)\sim\frac{x^{-1/4}}{\sqrt\pi}\,e^{+2x^{3/2}/3},
+ \qquad x\to+\infty.
+ \label{eq:airy-pos-asymptotic}
+\end{equation}
+\par\framebreak\par
+For $Ai$, shift the full-line form $\frac1{2\pi}\int e^{i(t^3/3+xt)}dt$ up to $t=i\sqrt x+s$, $s$ real:
+\[
+ \tfrac13(i\sqrt x+s)^3=-\tfrac i3x^{3/2}-xs+i\sqrt x\,s^2+\tfrac13s^3,\qquad x(i\sqrt x+s)=ix^{3/2}+xs,
+\]
+the exponent becomes $-\frac23x^{3/2}-\sqrt x\,s^2+\frac i3s^3$, and the Gaussian
+$\int e^{-\sqrt x s^2}ds=\sqrt{\pi/\sqrt x}$ gives $\frac1{2\pi}e^{-2x^{3/2}/3}\sqrt\pi\,x^{-1/4}$ (hence
+the $\frac12$).  For $Bi$, the term $e^{-t^3/3+xt}$ of its representation peaks
+at $t=\sqrt x$ with value $\frac23x^{3/2}$ and second derivative $-2\sqrt x$, so Laplace's
+method (Chapter~1) gives
+$\frac1\pi e^{2x^{3/2}/3}\sqrt{2\pi/(2\sqrt x)}=\frac{x^{-1/4}}{\sqrt\pi}e^{2x^{3/2}/3}$.
+
+\textbf{Why a special function.} At $x=0$ the saddles $t=\pm\sqrt{-x}$ merge and neither
+formula holds; $Ai$ is the smooth bridge between them.
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Zeros, rotated arguments, and the outgoing pair}
+\footnotesize
+\textbf{Zeros.} For $x>0$, $Ai$ is positive and decaying, while for $x<0$ it oscillates
+\eqref{eq:airy-neg-asymptotic}. In fact all zeros of $Ai$, even complex ones, lie on the
+negative real axis (quoted; DLMF~\S9.9). Writing $Ai(-q_p)=0$,
+\[
+ q_p:\;2.3381,\;4.0879,\;5.5206,\ldots
+\]
+The asymptotic \eqref{eq:airy-neg-asymptotic} estimates them without numerics:
+$\sin\chi=0$ needs $\chi\approx p\pi$ ($p=1,2,\ldots$, since $\chi>\pi/4$), i.e.\ 
+$\frac23q_p^{3/2}\approx p\pi-\frac\pi4=\frac{(4p-1)\pi}{4}$, so
+\[
+ q_p\approx\Bigl[\frac{3\pi(4p-1)}{8}\Bigr]^{2/3}:\qquad 2.32,\;4.08,\;5.52,\ldots
+\]
+Already at $p=1$ this is within $1\%$; the zeros grow like $p^{2/3}$.
+
+\textbf{Rotated solutions.} If $y''(x)=xy(x)$ and $w(z)=y(ze^{i\theta})$, the chain rule gives
+$w''(z)=e^{2i\theta}y''(ze^{i\theta})=e^{3i\theta}z\,w(z)$, so $w$ is again an Airy solution
+when $e^{3i\theta}=1$, e.g.\ $\theta=-2\pi/3$. Hence $Ai(ze^{-2\pi i/3})$ is a combination of $Ai$
+and $Bi$; matching value and slope at $z=0$ with \eqref{eq:airy-ic} identifies it:
+\begin{equation}
+ Bi(z)-iAi(z)=2e^{-i\pi/6}\,Ai\left(ze^{-2\pi i/3}\right).
+ \label{eq:airy-connection}
+\end{equation}
+At $z=0$ the left side has value $(\sqrt3-i)Ai(0)=2e^{-i\pi/6}Ai(0)$ and slope
+$-(\sqrt3+i)Ai'(0)=2e^{-i\pi/6}e^{-2\pi i/3}Ai'(0)$, the right side's value and slope (the slope
+carries the chain-rule factor $e^{-2\pi i/3}$).  Equal value and slope give equal solutions.
+
+\par\framebreak\par
+\textbf{The outgoing pair.} The combinations
+\begin{equation}
+ w_1(z)=\sqrt\pi\,[Bi(z)+iAi(z)],\qquad
+ w_2(z)=\sqrt\pi\,[Bi(z)-iAi(z)]
+ \label{eq:fock-w}
+\end{equation}
+(the Fock--Airy functions) are traveling rather than standing waves. By
+\eqref{eq:airy-neg-asymptotic},
+\[
+ w_2(-q)\sim q^{-1/4}(\cos\chi-i\sin\chi)=q^{-1/4}e^{-i\chi(q)},
+\]
+a single phase, just as $e^{-ikx}=\cos kx-i\sin kx$ travels while $\sin kx$ stands. With the time
+factor $e^{+i\omega t}$ common in engineering, $e^{i(\omega t-\chi(q))}$ moves toward larger
+$q$, away from the turning point: $w_2$ is outgoing, the Airy analogue of the Hankel function
+$H^{(2)}=J-iY$ of Chapter~5. (With $e^{-i\omega t}$ the roles of $w_1$ and $w_2$ swap.)
+
+\textbf{Where $w_2$ vanishes.} By \eqref{eq:airy-connection},
+$w_2(z)=2\sqrt\pi\,e^{-i\pi/6}Ai(ze^{-2\pi i/3})$, and the prefactor never vanishes. So
+$w_2(z)=0$ exactly when $ze^{-2\pi i/3}=-q_p$, i.e.\
+$z=-q_pe^{2\pi i/3}=q_pe^{i\pi}e^{2\pi i/3}=q_pe^{-i\pi/3}$: the zeros of $w_2$ sit on the ray
+$\arg z=-\pi/3$. In wave problems near a curved surface these complex zeros set the decay rates
+of the outgoing modes.
+\end{frame}
+
+\begin{frame}{Chapter summary}
+\scriptsize
+\begin{itemize}
+  \item A Frobenius expansion has the form
+        $y=\sum_{k=0}^{\infty}a_k(x-x_0)^{k+r}$ with $a_0\ne0$.
+  \item The lowest-power coefficient gives the indicial equation.  Higher coefficients
+        give a recurrence, but every zero recurrence denominator must be checked in the
+        original, undivided coefficient equation.
+  \item The harmonic oscillator produces the even and odd Taylor chains $\cos x$ and
+        $\sin x$.
+  \item Bessel's equation has indicial roots $\pm m$.  The regular root gives $J_m$; for
+        positive integer $m$, the negative-root branch fails a compatibility equation,
+        and the missing solution is $Y_m$.
+  \item Airy (ordinary point): Taylor solutions $f_0,f_1$; the decaying $Ai$ has the Fourier
+        integral \eqref{eq:airy-integral}; $W[Ai,Bi]=1/\pi$; oscillation for $x<0$,
+        decay/growth for $x>0$; zeros of $Ai$ at $-q_p$.
+  \item Ordinary points have two analytic solutions.  Regular singular points have at
+        least one Frobenius solution; an integer root gap may introduce a logarithm or a
+        compatibility degeneracy.  Irregular singular points have no general Frobenius
+        guarantee.
+  \item Reduction of order gives
+        \[
+          y_2=v\int\frac{e^{-\int P}}{v^2}\,dx,
+        \]
+        and its nonzero Wronskian proves independence
+        from $v$.
+\end{itemize}
+\end{frame}
+
+\end{document}

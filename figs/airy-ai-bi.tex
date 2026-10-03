@@ -1,0 +1,22 @@
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  width=11cm, height=7cm,
+  xlabel={$x$}, ylabel={},
+  xmin=-8, xmax=2, ymin=-0.65, ymax=3.6,
+  legend style={at={(0.03,0.97)}, anchor=north west, font=\small},
+  grid=both, grid style={dashed, gray!30},
+  no marks
+]
+  \addplot[blue, very thick] table[x=x,y=Ai] {airy-ai-bi.dat};
+  \addlegendentry{$\operatorname{Ai}(x)$}
+  \addplot[red, very thick, dashed] table[x=x,y=Bi] {airy-ai-bi.dat};
+  \addlegendentry{$\operatorname{Bi}(x)$}
+\end{axis}
+\end{tikzpicture}
+\end{document}
