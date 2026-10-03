@@ -137,6 +137,9 @@ stationarity alone would not. For example, $-J$ has a maximum at the same curve.
 
 \begin{frame}{The general Euler--Lagrange calculation}
 \small
+\textbf{Goal.} The last three slides handled one energy. For a general integrand, find the
+differential equation that every minimizing (or stationary) curve must satisfy.
+
 Let $J[u]=\int_a^b F(x,u(x),u'(x))\dd x$, where $F(x,s,v)$ has three independent inputs: $F_s$ is its derivative in the value $s$,
 $F_v$ in the slope $v$, both evaluated at $(x,u(x),u'(x))$. In \eqref{eq:first-variation}, the chain rule on
 $\frac{\mathrm d}{\mathrm d\varepsilon}F(x,u+\varepsilon\eta,u'+\varepsilon\eta')\big|_{\varepsilon=0}$
@@ -303,6 +306,8 @@ The same solution now has both an \emph{analytic} and a \emph{variational} descr
 
 \begin{frame}{From boundary Fourier data to an analytic polynomial}
 \small
+\textbf{Goal.} Find the harmonic function in the disk with given boundary values $g(\theta)$.
+
 On the unit circle, prescribe a finite trigonometric sum with real coefficients:
 \[
  g(\theta)=a_0+\sum_{n=1}^M\bigl(a_n\cos n\theta+b_n\sin n\theta\bigr).
@@ -401,6 +406,10 @@ coaxial cable (units with permittivity $1$).
 
 \begin{frame}{Analytic coordinate changes: the gradient calculation}
 \small
+\textbf{Goal.} Show that Dirichlet energy does not change when the region is mapped by an
+analytic function, so that a hard region can be mapped onto a disk. This slide computes how the
+gradient changes; the next computes the area.
+
 Let $w=f(z)=X(x,y)+iY(x,y)$ map $\Omega$ one-to-one onto $\widetilde\Omega$,
 with $f$ analytic and $f'\ne0$. Such a map is \emph{conformal}.
 Write $f'=a+ib$. Since $f'=X_x+iY_x$ (Chapter 1), Cauchy--Riemann gives
@@ -585,6 +594,9 @@ Orthogonality thus helps \emph{find} eigenfunctions, not only expand functions i
 
 \begin{frame}{A beta integral estimates the first string eigenvalue}
 \small
+\textbf{Goal.} Estimate the lowest eigenvalue $\lambda_1$ without solving the equation, using
+the bound $\lambda_1\le\R[u]$ for any trial shape $u$.
+
 For $-u''=\lambda u$ on $(0,1)$ with $u(0)=u(1)=0$, Chapter 4 gives
 $\lambda_1=\pi^2$; this is \eqref{eq:sl-variational} with $p=w=1$, $V=0$.
 Try $u=x(1-x)$, the simplest polynomial arch that fits both ends, shaped like
@@ -688,12 +700,16 @@ as for the string, stiffness over mass is the squared frequency, here over $c^2$
 carry no tension or density.
 \end{frame}
 
-\begin{frame}{Polar geometry supplies the Bessel weight}
+\begin{frame}[allowframebreaks=1.00]{Polar geometry supplies the Bessel weight}
 \small
+\textbf{Goal.} Write the Rayleigh quotient $\Q/\N$ of the disk problem in polar coordinates, for a
+mode $R(r)\cos(m\theta)$, as a one-dimensional problem in $r$.
+
 Use a unit disk. In polar coordinates the radial and angular directions are perpendicular; a step $\dd\theta$ moves a distance $r\dd\theta$, so the angular slope is $u_\theta/r$ and
 \[
  |\nabla u|^2=u_r^2+\frac{u_\theta^2}{r^2},\qquad \dd A=r\dd r\dd\theta.
 \]
+\par\framebreak\par
 For a fixed integer angular order $m\ge0$, set $u=R(r)\cos(m\theta)$. Then
 $u_r=R'\cos(m\theta)$ and $u_\theta=-mR\sin(m\theta)$.
 For $m\ge1$, $\int_0^{2\pi}\cos^2(m\theta)\dd\theta
@@ -881,8 +897,11 @@ so $\lambda_p=q_p>0$: Airy zeros select the allowed energies,
 just as Bessel zeros selected the disk frequencies in \eqref{eq:disk-spectrum}.
 \end{frame}
 
-\begin{frame}{A quadratic potential selects a Gaussian}
+\begin{frame}[allowframebreaks=1.00]{A quadratic potential selects a Gaussian}
 \small
+\textbf{Goal.} Find the normalized function that minimizes the oscillator energy $\Q$ below, and the
+minimum value, without solving a differential equation.
+
 On the whole real line, use real smooth rapidly decaying $\psi$ with
 $\int\psi^2\dd x=1$. The dimensionless oscillator energy is
 \[

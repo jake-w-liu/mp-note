@@ -107,6 +107,9 @@ neighboring orders.
 
 \begin{frame}[allowframebreaks=1.00]{Reading off the integer-order series}
 \footnotesize
+\textbf{Goal.} The generating function \eqref{eq:genf} defines $J_m(x)$ as a coefficient. We
+want the explicit power series of that coefficient, to compare with Chapter~3.
+
 \textbf{Expand, then collect one power.} Since $g=e^{xt/2}e^{-x/(2t)}$,
 \[
  e^{xt/2}=\sum_{j=0}^{\infty}\frac{(x/2)^j}{j!}t^j,
@@ -235,6 +238,7 @@ relate neighboring orders.
 \textbf{Why recurrences?} They give every $J_m$ from $J_0$ and $J_1$, and they turn
 $J_m'$ into Bessel functions; the boundary conditions and the Fourier--Bessel norm later
 need exactly that.
+The goal is a relation among $J_{m-1}$, $J_m$, $J_{m+1}$ and then one for $J_m'$.
 Differentiate both sides of the generating function \eqref{eq:genf} in $t$. With $g=e^{x(t-t^{-1})/2}$ and
 $\partial_t(t-t^{-1})=1+t^{-2}$, the chain rule gives $g_t=\frac x2(1+t^{-2})g$; termwise differentiation
 of the series gives $g_t=\sum_m mJ_m(x)t^{m-1}$. Multiply both by $t$ before comparing coefficients:
@@ -261,7 +265,8 @@ For $x\ne0$, divide by $x/2$:
 
 \begin{frame}[allowframebreaks=1.00]{Differentiating in $x$: the derivative recurrence}
 \footnotesize
-Differentiate the same generating function in $x$:
+The $t$-derivative gave the relation among neighboring orders. To express the derivative $J_m'$
+itself through neighboring orders, differentiate the same generating function in $x$:
 \begin{equation}
  g_x=\tfrac12(t-t^{-1})g,
  \qquad g_x=\sum_{m=-\infty}^{\infty}J_m'(x)t^m.
@@ -322,6 +327,13 @@ for the spherical Bessel functions.
 
 \begin{frame}[allowframebreaks=1.00]{Bessel's real integral representation}
 \footnotesize
+\textbf{Goal.} Write $J_m(x)$ as a real integral over $[0,\pi]$,
+\[
+ J_m(x)=\frac1\pi\int_0^\pi\cos(m\theta-x\sin\theta)\,d\theta,
+\]
+which is \eqref{eq:int-rep} below. The route: split the Jacobi--Anger expansion into its real
+(cosine) and imaginary (sine) parts, then project each onto the matching Fourier mode on $[0,\pi]$.
+
 For real $x$, start from the
 Jacobi--Anger expansion \eqref{eq:jacobi-anger} and pair the orders $m$ and
 $-m$.  Since $J_{-m}=(-1)^mJ_m$ by \eqref{eq:neg-order}, for $m\ge1$
@@ -402,6 +414,9 @@ because the integrand is analytic for all $t\ne0$ (Cauchy's theorem, Chapter~1) 
 
 \begin{frame}[allowframebreaks=1.00]{Noninteger order needs an open contour}
 \footnotesize
+\textbf{Goal.} Extend the contour formula \eqref{eq:schlafli} from integer order $n$ to a general
+order $\nu$, and check that it reproduces the general-order series \eqref{eq:series-gamma}.
+
 The Schl\"afli loop \eqref{eq:schlafli} is legal only because $t^{-n-1}$ is
 single-valued for integer $n$. For a general order $\nu$, one trip around $0$ multiplies
 $t^{-\nu-1}$ by $e^{-2\pi i\nu}\ne1$, so a closed loop does not close up. The power
@@ -477,6 +492,7 @@ $\mathrm{Re}\,z=\pi/2-\arg t$ runs from $3\pi/2$ to $-\pi/2$), which cancels the
 \footnotesize
 \textbf{Why two limits?} Near the axis ($x\to0$) we must know which solutions stay
 finite; far out ($x\to\infty$) we need the zeros and the travelling-wave form.
+First the small-$x$ limit: the goal is to show $J_m(x)\approx(x/2)^m/m!$ with the next correction.
 
 For fixed $m\ge0$, take the first two terms of \eqref{eq:series} and factor out
 $(x/2)^m/m!$, using $(m+1)!=(m+1)m!$:
@@ -502,6 +518,10 @@ modulus~$1$ and oscillates faster and faster as $x$ grows. The oscillations canc
 except near $\theta=\pm\pi/2$ ($t=\pm i$), where $\sin\theta$ is stationary. Steepest
 descent (Chapter~1, \S1.9) makes this precise: deform the loop so that the cancellation
 becomes exponential decay away from $t=\pm i$.
+
+\textbf{Goal.} Show that, for fixed integer $n$ and $x\to+\infty$,
+$J_n(x)\approx\sqrt{2/(\pi x)}\,\cos\bigl(x-\tfrac{n\pi}2-\tfrac\pi4\bigr)$, the formula
+\eqref{eq:largex} derived in this frame and the next.
 
 For fixed integer $n$, write \eqref{eq:schlafli} as
 \[
@@ -759,6 +779,10 @@ where $\gamma\approx0.5772$ is the Euler--Mascheroni constant of Chapter~2.
 
 \begin{frame}[allowframebreaks=1.00]{Large-$x$ behavior of $J_\nu$ and $Y_\nu$}
 \footnotesize
+\textbf{Goal.} Find the large-$x$ form of $Y_\nu$, given the cosine law for $J_\nu$ and the
+definition \eqref{eq:neumann-def} of $Y_\nu$ as a combination of $J_{\nu}$ and $J_{-\nu}$.
+The expected result is the same amplitude with a sine in place of the cosine.
+
 For fixed real order $\nu$, set
 \[
  \chi_\nu(x)=x-\frac{\nu\pi}{2}-\frac\pi4,\qquad A(x)=\sqrt{\frac2{\pi x}}.
@@ -769,6 +793,7 @@ The cosine law \eqref{eq:largex} also holds for fixed noninteger $\nu$ (quoted, 
  J_\nu(x)=A(x)\cos\chi_\nu(x)+O(x^{-3/2}).
  \label{eq:Jlarge}
 \end{equation}
+\par\framebreak\par
 Since $\chi_{-\nu}=x+\frac{\nu\pi}2-\frac\pi4=\chi_\nu+\pi\nu$, insert \eqref{eq:Jlarge} for $J_\nu$ and $J_{-\nu}$ into the
 definition \eqref{eq:neumann-def} of $Y_\nu$ for fixed noninteger $\nu$:
 \[
@@ -842,6 +867,11 @@ in ratios $1:2.30:3.60$. A string's are $1:2:3$; a drum's overtones are not harm
 \begin{frame}[allowframebreaks=1.00]{Drum modes: orthogonality}
 \footnotesize
 We want to expand a drum shape in these modes, so we need their orthogonality and norms.
+Precisely, we will show that for the positive zeros $\alpha_{m,j}$ of $J_m$,
+\[
+ \int_0^1xJ_m(\alpha_{m,j}x)J_m(\alpha_{m,k}x)\,dx=\frac12J_{m+1}^2(\alpha_{m,j})\,\delta_{jk};
+\]
+this frame does the case $j\ne k$ and the next the case $j=k$.
 Chapter~4's drum example put $y(x)=J_m(\alpha x)$, $0\le x\le1$, in Sturm--Liouville form:
 \begin{equation}
  (xy')'-\frac{m^2}{x}y=-\alpha^2x\,y,
@@ -950,6 +980,9 @@ vanish at the rim where every mode does, like the sine series of $f=1$ in Chapte
 
 \begin{frame}[allowframebreaks=1.00]{The three-dimensional radial equation}
 \footnotesize
+\textbf{Goal.} Show that the radial equation for waves in three dimensions is Bessel's
+equation of half-integer order $n+\tfrac12$, which defines the spherical Bessel functions.
+
 Waves in three dimensions (sound from a small source, scattering by a sphere) obey the
 Helmholtz equation $(\nabla^2+k^2)\psi=0$. In spherical coordinates the radial part of
 $\nabla^2$ is $r^{-2}(r^2R')'$ (the full Laplacian is written out in Chapter~6), and the angular

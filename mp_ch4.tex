@@ -292,6 +292,10 @@ only the interval, weight, and norm will change.
 \begin{frame}[allowframebreaks=1.00]{Linear operators and formal adjoints}
 \footnotesize
 
+\textbf{Goal.} Eigenvalues of a symmetric matrix are real and its eigenvectors are orthogonal.
+We want the same for differential operators, so we must find out which of them behave like
+symmetric matrices. The test is integration by parts.
+
 \textbf{A linear operator acts on functions.} It satisfies
 $L(au+bv)=aLu+bLv$. Differentiation, multiplication by a fixed function, and
 $Au(x)=\int_{x_0}^{x}u(t)\,dt$ are examples.
@@ -452,6 +456,11 @@ allowed functions; the next frame computes it in a cleaner form.
 \begin{frame}[allowframebreaks=1.00]{The Sturm--Liouville expression and Green's identity}
 \footnotesize
 
+\textbf{Goal.} The previous frame left an unevaluated boundary term and the condition $p_1=p_0'$
+for formal self-adjointness. Here we rewrite such an expression in its standard compact form and
+find the boundary term exactly, as a formula called Green's identity; the eigenvalue theorem
+needs it.
+
 \textbf{Step 1: put the expression in divergence form.}  When $p_1=p_0'$ (the self-adjointness condition \eqref{eq:pp1}), the first two terms in \eqref{eq:Lgen} combine by the product rule:
 \begin{align*}
   (p_0u')'
@@ -572,6 +581,11 @@ with real $p,q,w$ and boundary conditions that make the boundary form \eqref{eq:
 rest line by springs of stiffness $-q(x)$, vibrating in a mode $u(x)\cos\omega t$,
 obeys \eqref{eq:SLeq} with $\lambda=\omega^2$, which should come out real.
 
+\textbf{Goal.} Prove that every eigenvalue $\lambda$ is real and that eigenfunctions belonging to
+different eigenvalues are orthogonal with weight $w$. This repeats the matrix argument of the
+previous section, with Green's identity supplying the symmetry.
+
+\par\framebreak\par
 \textbf{Step 1: insert two eigenfunctions into Green's identity.}  Let
 $\ell[u_i]=-\lambda_iwu_i$ and $\ell[u_j]=-\lambda_jwu_j$.
 By \eqref{eq:l2ip}, with $\overline w=w$,
@@ -599,6 +613,9 @@ so $\lambda_i=\overline{\lambda_i}$: every eigenvalue is real.  With $\lambda_j$
 
 \begin{frame}[allowframebreaks=0.98]{Example: Legendre equation}
 \footnotesize
+
+\textbf{Goal.} Show that the Legendre equation is a Sturm--Liouville problem, read off its
+$p$, $q$, $w$, and conclude that the Legendre polynomials are orthogonal.
 
 Separating Laplace's equation in spherical coordinates (Chapter~6) gives, in $x=\cos\theta$
 and for a nonnegative integer $n$, the Legendre equation
@@ -635,6 +652,11 @@ orthogonality with weight $w=1$:
 
 \begin{frame}[allowframebreaks=1.00]{Example: Bessel equation and circular-drum modes}
 \footnotesize
+
+\textbf{Goal.} Show that the radial drum modes $J_m(\alpha s)$ solve a Sturm--Liouville problem
+with weight $s$, and that modes with different $\alpha$ are orthogonal:
+$\int_0^1J_m(\alpha_is)J_m(\alpha_js)\,s\,ds=0$. The only extra work, compared with Legendre, is
+checking the boundary form at the drum's center $s=0$ and its rim $s=1$.
 
 For a fixed nonnegative integer angular order $m$, the Bessel function $J_m(x)$ (the regular series solution of Chapter~3) satisfies
 \begin{equation}
@@ -749,6 +771,9 @@ For distinct positive $\alpha_i,\alpha_j$ we have $\alpha_i^2\neq\alpha_j^2$, he
 \begin{frame}[allowframebreaks=1.00]{Bringing an equation to Sturm--Liouville form}
 \footnotesize
 
+\textbf{Goal.} Rewrite a given second-order equation as $(pu')'+qu=-\lambda wu$ by an integrating
+factor, so the theorem applies. Hermite first, then the general rule.
+
 \textbf{Step 1: fully worked example---Hermite.}
 Start from Hermite's equation (the quantum oscillator reduces to it, Chapter~6)
 \begin{equation}
@@ -814,6 +839,7 @@ $Qu''+Q'u'+Q\frac{p_2}{p_0}u=0$, and $Qu''+Q'u'=(Qu')'$, so
 Equivalently, without first dividing by $p_0$, multiply the original equation
 \eqref{eq:gen2nd} by $Q/p_0$ (not by $Q$ alone).
 
+\par\framebreak\par
 If the spectral parameter occurs as
 \begin{equation}
   p_0u''+p_1u'+\bigl(r_0(x)+\lambda r_1(x)\bigr)u=0,

@@ -87,6 +87,10 @@ at ordinary points and regular singular points, defined later.
 \begin{frame}[allowframebreaks=1.00]{Guitar string: the harmonic oscillator by Taylor series}
 \footnotesize
 
+\textbf{Goal.} Find every solution of the string equation below, and the wave numbers $k$ for
+which it can vanish at both ends. We know the answer ($\cos$ and $\sin$) from calculus; the point
+is to find it with a power-series method that will also work for Bessel's equation.
+
 \textbf{Step 1: insert a power series.}  A string of length $L$ fixed at both ends obeys
 \[
  \frac{d^2y}{ds^2}+k^2y=0,\qquad 0\le s\le L,\qquad y(0)=y(L)=0.
@@ -768,13 +772,20 @@ $0\cdot a_5=0$.  It is consistent, and the free $a_5$ just adds a multiple of $x
 \begin{frame}[allowframebreaks=1.00]{Reduction of order: building the second solution}
 \footnotesize
 
-Suppose we know one solution $v$ of $u''+P(x)u'+Q(x)u=0$, nonzero on the interval
-considered, and want a second.  Why the method is called \emph{reduction of order}: writing
+\textbf{Goal.} Given one solution $v$ of $u''+P(x)u'+Q(x)u=0$, nonzero on the interval
+considered, find a second, independent one:
+\[
+ y_2(x)=v(x)\int^x\frac{e^{-\int^sP}}{v(s)^2}\,ds
+ \qquad\text{(precise form: \eqref{eq:reduction}).}
+\]
+
+Why the method is called \emph{reduction of order}: writing
 $y=vw$, the terms without derivatives of $w$ cancel because $v$ is a solution, leaving
 $vw''+(2v'+Pv)w'=0$, a first-order equation for $w'$.
 The Wronskian solves it neatly (below, $W=v^2w'$).
 
-\textbf{Step 1: an equation for the Wronskian.}  Let $y$ be any solution.  Multiply
+\textbf{Step 1: an equation for the Wronskian.}  To get rid of $Q$, which we cannot
+control, combine the two equations so that it cancels.  Let $y$ be any solution.  Multiply
 $y''+Py'+Qy=0$ by $v$ and $v''+Pv'+Qv=0$ by $y$, and subtract; the $Q$ terms cancel:
 \[
   vy''-yv''+P(vy'-yv')=0.
@@ -798,6 +809,7 @@ $dW/W=-P\,dx$, and integrate from a reference point $x_*$:
 \end{equation}
 This is Abel's identity for the Wronskian.
 
+\par\framebreak\par
 \textbf{Step 3: integrate once more to recover $y$.}  By the quotient rule and
 \eqref{eq:abel-identity},
 \[
@@ -923,6 +935,13 @@ where $Ai$ vanishes. The series hides both: for $x>0$ every term of $f_0$ and $f
 positive, so $Ai=Ai(0)f_0+Ai'(0)f_1$ ($Ai'(0)<0$) decays only by cancellation. An integral
 representation makes both facts visible.
 
+\textbf{Goal.} Find an integral formula for the solution $Ai$ of Airy's equation
+$y''-xy=0$ \eqref{eq:airy} that decays at $+\infty$.
+
+\textbf{Why a Fourier transform.} Under a Fourier transform, $y''$ becomes multiplication by
+$-t^2$, and multiplication by $x$ becomes a derivative in $t$. So the equation, which has a
+variable coefficient $x$, turns into one that is only first order and is solved at once.
+
 \textbf{Transforming the equation.} Use the Fourier convention
 \[
  \widehat y(t)=\int_{-\infty}^{\infty}y(x)e^{-itx}\,dx,
@@ -1020,6 +1039,12 @@ for $x<0$. Both are used on the next frame.
 
 \begin{frame}[allowframebreaks=1.00]{Large-argument behavior by stationary phase}
 \footnotesize
+\textbf{Goal.} Find how $Ai(x)$ and $Bi(x)$ behave for large $|x|$, starting from the integral
+\eqref{eq:airy-integral}: oscillation with a slowly decaying envelope for $x<0$, and
+exponential decay or growth for $x>0$ (the formulas
+\eqref{eq:airy-neg-asymptotic}--\eqref{eq:airy-pos-asymptotic} below). The tool is Chapter~1's
+stationary phase and steepest descent.
+
 \textbf{Negative argument: oscillation.} For $x=-q$ with $q\to+\infty$, write
 \eqref{eq:airy-integral} as $Ai(-q)=\frac1\pi\,\mathrm{Re}\,J(q)$ with
 $J(q)=\int_0^\infty e^{i\phi(t)}dt$, $\phi(t)=t^3/3-qt$. Then
@@ -1096,7 +1121,7 @@ $\frac23q_p^{3/2}\approx p\pi-\frac\pi4=\frac{(4p-1)\pi}{4}$, so
 \]
 Already at $p=1$ this is within $1\%$; the zeros grow like $p^{2/3}$.
 
-\textbf{Rotated solutions.} If $y''(x)=xy(x)$ and $w(z)=y(ze^{i\theta})$, the chain rule gives
+\textbf{Rotated solutions} (a third Airy solution, needed for the pair below). If $y''(x)=xy(x)$ and $w(z)=y(ze^{i\theta})$, the chain rule gives
 $w''(z)=e^{2i\theta}y''(ze^{i\theta})=e^{3i\theta}z\,w(z)$, so $w$ is again an Airy solution
 when $e^{3i\theta}=1$, e.g.\ $\theta=-2\pi/3$. Hence $Ai(ze^{-2\pi i/3})$ is a combination of $Ai$
 and $Bi$; matching value and slope at $z=0$ with \eqref{eq:airy-ic} identifies it:

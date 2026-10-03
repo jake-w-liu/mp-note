@@ -139,6 +139,11 @@ integer $n$, and \emph{regularity at the center} kept only $r^n$.
 \begin{frame}[allowframebreaks=1.00]{Three-dimensional Laplace equation in spherical coordinates}
 \footnotesize
 
+\textbf{Goal.} Solve Laplace's equation $\nabla^2\psi=0$ outside or inside a sphere, for example
+the potential of charges near a sphere. Separation of variables will split it into a radial
+equation, solved here, and an angular equation, solved on the next frames, whose solutions are
+the Legendre polynomials.
+
 In spherical coordinates $r$ is radius, $\theta$ is the polar angle measured from
 the positive vertical axis, and $\phi$ is the azimuthal angle around that axis.
 We use the spherical Laplacian without deriving this coordinate formula:
@@ -209,6 +214,10 @@ $m\neq0$ come later as a short extension.
 
 \begin{frame}[allowframebreaks=1.00]{Axisymmetry: the ordinary Legendre equation}
 \footnotesize
+
+\textbf{Goal.} Solve the angular equation from the previous frame in the axisymmetric case, and
+find which values of the separation constant $\lambda$ give a solution that is finite at both
+poles. The answer is $\lambda=n(n+1)$, with the Legendre polynomials $P_n$ as the solutions.
 
 \textbf{Step 1: assume no azimuthal dependence and change variables.}  If $\psi$ is independent of $\phi$
 (axisymmetry about the polar axis), the angular eigenproblem at the end of the previous frame, with $y=v(\theta)$, reduces to
@@ -324,7 +333,11 @@ The generating function (next section) produces all the $P_n$ with this normaliz
 \footnotesize
 
 We want all $P_n$ at once, with the normalization $P_n(1)=1$ built in. A point charge
-supplies them.
+supplies them. The goal is to show that
+\[
+ \frac1{\sqrt{1-2xt+t^2}}=\sum_{n=0}^{\infty}P_n(x)\,t^n,
+\]
+which is \eqref{eq:legendre-gen} below.
 
 \textbf{Step 1: write the axisymmetric potential.}  Place a point charge one unit from the origin on the positive polar axis. For a field point
 with spherical coordinates $(r,\theta,\phi)$, the law of cosines gives the distance to the charge,
@@ -391,7 +404,12 @@ gives $a_2=-3a_0$, i.e.\ $P_2\propto3x^2-1$.
 \begin{frame}[allowframebreaks=1.00]{Three-term recurrence}
 \footnotesize
 
-We want $P_{n+1}$ from the two previous polynomials, without another series expansion.
+We want $P_{n+1}$ from the two previous polynomials, without another series expansion. The
+goal is the relation
+\[
+ (n+1)P_{n+1}(x)=(2n+1)\,x\,P_n(x)-n\,P_{n-1}(x),
+\]
+which is \eqref{eq:legendre-recur} below; we get it from the generating function.
 
 \textbf{Step 1: differentiate the generating function.}  Let
 $D(x,t)=1-2xt+t^2$, so $g=D^{-1/2}$. Differentiating with respect to $t$ gives
@@ -558,7 +576,12 @@ derivative, gives Rodrigues' formula.
 \footnotesize
 
 Chapter~4's Legendre example already gave $\int_{-1}^1P_nP_m\,dx=0$ for $n\ne m$ from the
-Sturm--Liouville theorem, but not $\int_{-1}^1P_n^2\,dx$; Rodrigues' formula gives both.
+Sturm--Liouville theorem, but not $\int_{-1}^1P_n^2\,dx$; Rodrigues' formula gives both. The
+goal is
+\[
+ \int_{-1}^{1}P_n(x)P_m(x)\,dx=\frac{2}{2n+1}\,\delta_{nm},
+\]
+which is \eqref{eq:legendre-orthogonality-full} below.
 
 Assume without loss of generality that $m\ge n$. Use Rodrigues' formula \eqref{eq:rodrigues-legendre} for
 the higher-degree polynomial:
@@ -635,7 +658,7 @@ Fourier--Legendre coefficient on the next slide.
 \footnotesize
 
 We want to expand a given $f$ on $[-1,1]$ in Legendre polynomials, as Chapter~4 expanded
-in sines. We quote \emph{completeness}: every $f$ with $\int_{-1}^1 f^2\,dx<\infty$ (the space
+in sines; that is, to find the coefficients $a_n$ in $f=\sum_n a_nP_n$. We quote \emph{completeness}: every $f$ with $\int_{-1}^1 f^2\,dx<\infty$ (the space
 $L^2$ of Chapter~4) is the sum of such a series,
 \[
   f(x)=\sum_{n=0}^{\infty}a_nP_n(x),
@@ -905,6 +928,10 @@ $e^{-\xi^2/2}H_n(\xi)$, with $\xi$ a scaled position (derived in the next frame)
 
 \begin{frame}[allowframebreaks=1.00]{Quantum harmonic oscillator}
 \footnotesize
+
+\textbf{Goal.} Find the allowed energies $E$ and the wavefunctions $\psi$ of a quantum particle in
+a quadratic potential well. We will see that the Schr\"odinger equation reduces to Hermite's
+equation, and that the requirement that $\psi$ be normalizable forces $E_n=(n+\tfrac12)\hbar\omega$.
 
 Near the bottom of any potential well, $V$ is approximately quadratic, so the oscillator
 models every small vibration (atoms in a molecule or a crystal).
@@ -1241,6 +1268,9 @@ $L_3=1-3x+\tfrac32 x^2-\tfrac16 x^3$.
 \begin{frame}[allowframebreaks=1.00]{Laguerre orthogonality and norm}
 \footnotesize
 
+\textbf{Goal.} Show that $\int_0^\infty L_m(x)L_n(x)e^{-x}\,dx=\delta_{mn}$, that is, the
+Laguerre polynomials are orthogonal on $[0,\infty)$ with weight $e^{-x}$, and already normalized.
+
 \textbf{Step 2: Sturm--Liouville form and orthogonality.}
 Multiplying \eqref{eq:laguerre-eq} by $e^{-x}$ and using
 $\bigl(xe^{-x}y'\bigr)'=e^{-x}\bigl[xy''+(1-x)y'\bigr]$ produces the SL form
@@ -1270,7 +1300,6 @@ $(1-t)^{-(k+1)}=\sum_{j\ge0}\binom{k+j}{k}t^j$.
 So $t^{n}$ comes from $j=n-k$, $0\le k\le n$, with factor $\binom{n}{k}$, and
 $[t^n]\,g=\sum_{k=0}^{n}\frac{(-x)^k}{k!}\binom{n}{k}=L_n(x)$ by \eqref{eq:laguerre-series}.
 
-\par\framebreak\par
 Now integrate two generating functions against the weight.
 For real $s,t$ near zero, put
 \[
@@ -1294,6 +1323,10 @@ so the standard $L_n$ are already orthonormal (no normalizing constant is needed
 
 \begin{frame}[allowframebreaks=1.00]{Laguerre recurrences}
 \footnotesize
+
+\textbf{Goal.} Two recurrences for the Laguerre polynomials,
+$(n+1)L_{n+1}=(2n+1-x)L_n-nL_{n-1}$ and $xL_n'=n(L_n-L_{n-1})$, both from the generating function
+\eqref{eq:laguerre-gen}.
 
 \textbf{Step 4: three-term recurrence from $\partial_t g$.}
 A recurrence builds $L_{n+1}$ from $L_n$ and $L_{n-1}$ without the series.
@@ -1344,6 +1377,9 @@ Check at $n=1$: $xL_1'=-x=1\cdot(L_1-L_0)$.
 
 \begin{frame}[allowframebreaks=1.00]{Laguerre Rodrigues formula from a contour integral}
 \footnotesize
+
+\textbf{Goal.} Derive Rodrigues' formula $L_n(x)=\frac{e^x}{n!}\frac{d^n}{dx^n}(x^ne^{-x})$,
+which builds any single $L_n$ directly.
 
 \textbf{Step 6: Schl{\"a}fli integral and Rodrigues formula.}
 The $L_n$ are Taylor coefficients of $g$; Cauchy's formula writes them as contour

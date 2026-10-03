@@ -691,6 +691,8 @@ $z\notin\mathbb Z$ --- no further computation needed.
 
 A Taylor series uses nonnegative powers. Near a singularity we also need
 $1/(z-z_0),1/(z-z_0)^2,\ldots$. Their combination is a \emph{Laurent series}.
+The goal is to show that a function holomorphic on a ring around $z_0$ always has such an
+expansion, and to find a formula for its coefficients.
 
 Suppose $f$ is holomorphic in the annulus $r<|z-z_0|<R$. For $z$ in it, take
 counterclockwise circles $C_1,C_2$ about $z_0$ of radii $r<\rho_2<|z-z_0|<\rho_1<R$.
@@ -699,6 +701,8 @@ with a minus sign because the ring's inner boundary runs clockwise,
 \[
  f(z)=\frac1{2\pi i}\oint_{C_1}\frac{f(\xi)\,d\xi}{\xi-z}-\frac1{2\pi i}\oint_{C_2}\frac{f(\xi)\,d\xi}{\xi-z}.
 \]
+\par\framebreak\par
+
 On $C_1$, expand the kernel exactly as on the Taylor slide: nonnegative powers of $z-z_0$.
 On $C_2$ now $|\xi-z_0|<|z-z_0|$, so expand the other way:
 \[
@@ -713,8 +717,6 @@ throughout the annulus:
   +\underbrace{\sum_{n=1}^{\infty}a_{-n}(z-z_0)^{-n}}_{\text{principal part}}.
  \label{eq:laurent}
 \end{equation}
-
-\par\framebreak\par
 
 To extract a coefficient, multiply by
 $(z-z_0)^{-k-1}$ and integrate on a centered circle
@@ -1438,6 +1440,10 @@ Chapter~3 applies this rule to the Airy integral at large negative argument.
 
 \begin{frame}[allowframebreaks=1.00]{Worked example: large binomial coefficient}
 \footnotesize
+
+\textbf{Goal.} Find how the binomial coefficient $\binom nm=n!/\bigl(m!\,(n-m)!\bigr)$ behaves
+when $n$ is large, with the ratio $t=m/n$ held fixed. To use steepest descent we first need
+$\binom nm$ as a contour integral of the form \eqref{eq:sd-int} with $s=n$.
 
 Let $m,n$ be integers with $0<m<n$. As $n\to\infty$, keep $t=m/n$ away from $0$ and $1$. From
 $(1+z)^n=\sum_{k=0}^n\binom nk z^k$, Cauchy's coefficient formula \eqref{eq:laurent-coef}

@@ -469,6 +469,15 @@ It computes \(\Gamma\) at negative arguments from positive ones: at \(z=\tfrac12
 \(0,-1,-2,\dots\) show up openly as zeros of the denominator, and one formula covers every
 \(z\) where \(\Gamma\) is finite, with no integral to converge.
 
+\textbf{Goal.} Show that
+\[
+ \Gamma(z)=\lim_{n\to\infty}\frac{n^z\,n!}{z(z+1)\cdots(z+n)},
+ \qquad z\notin\{0,-1,-2,\dots\}.
+\]
+The plan: replace \(e^{-t}\) in Euler's integral \eqref{eq:gamma-def} by a finite-\(n\) look-alike whose
+integral can be done exactly, because it is a polynomial times a power of \(t\) (Steps~1--2); then
+remove the restriction \(\operatorname{Re}z>0\) (Step~3).
+
 \textbf{Step 1: truncate the exponential.} Since \((1-t/n)^n\to e^{-t}\), define, for
 \(\operatorname{Re}z>0\),
 \[
@@ -532,12 +541,32 @@ Hankel's integral gives \(1/\Gamma(a)\) for \emph{every} complex \(a\) in one fo
 Chapter~5 it turns a Bessel integral of noninteger order into its power series, one \(1/\Gamma\)
 factor per term. The idea is Chapter~1's keyhole contour, opened up.
 
+\textbf{What we will prove.} For every complex number \(a\),
+\[
+  \frac1{\Gamma(a)}=\frac1{2\pi i}\int_{\mathcal H}e^{t}\,t^{-a}\,dt,
+\]
+where \(\mathcal H\) is the loop contour of Step~1 (the numbered form is
+\eqref{eq:hankel-gamma} at the end of Step~2).
+
+\textbf{Where \(e^tt^{-a}\) comes from.} Euler's integral \eqref{eq:gamma-def} at \(z=1-a\) reads
+\(\Gamma(1-a)=\int_0^\infty e^{-r}r^{-a}\,dr\). The substitution \(t=-r\) moves it to the negative
+real axis, where \(e^{-r}=e^{t}\) and \(r^{-a}=(-t)^{-a}\): so \(e^tt^{-a}\) is Euler's integrand
+in disguise. That integral converges only for \(\operatorname{Re}a<1\), because \(r^{-a}\)
+blows up at \(r=0\). Hankel's idea is to go \emph{around} the troublesome point \(t=0\) instead
+of running into it. Since \(t^{-a}\) takes different values on the two sides of the negative axis
+(phases \(e^{\pm i\pi a}\), computed in Step~2), the two legs of the loop do not cancel; they
+leave a factor \(\sin(\pi a)\), which the reflection formula \eqref{eq:gamma-reflect}
+turns into \(1/\Gamma(a)\).
+
+\par\framebreak\par
 \begin{columns}[T]
 \begin{column}{0.60\textwidth}
-\textbf{Step 1: the contour.} Cut the plane along the negative real axis and use
-\(t^{-a}=e^{-a\log t}\) with \(-\pi<\arg t<\pi\). The Hankel contour \(\mathcal H\) comes in from
-\(-\infty\) \emph{below} the cut, circles the origin counterclockwise, and returns to \(-\infty\)
-\emph{above} the cut. On both legs \(e^t\) decays like \(e^{-|t|}\), so the integral of
+\textbf{Step 1: the contour.} The integrand has a branch point at \(t=0\), because
+\(t^{-a}=e^{-a\log t}\) is multivalued unless \(a\) is an integer. Cut the plane along the
+negative real axis and fix the branch with \(-\pi<\arg t<\pi\). The Hankel contour \(\mathcal H\)
+comes in from \(-\infty\) \emph{below} the cut, circles the origin counterclockwise, and returns
+to \(-\infty\) \emph{above} the cut. The loop stays away from \(t=0\), and on both legs \(e^t\)
+decays like \(e^{-|t|}\) while \(t^{-a}\) grows at most like a power of \(|t|\), so the integral of
 \(e^tt^{-a}\) converges for every complex \(a\); differentiating under the integral sign shows
 that it is an entire function of \(a\).
 \end{column}
@@ -559,8 +588,10 @@ that it is an entire function of \(a\).
 \end{column}
 \end{columns}
 
-\par\framebreak\par
-\textbf{Step 2: collapse onto the cut for \(0<a<1\).} The integrand is holomorphic off the cut,
+\smallskip
+\textbf{Step 2: collapse onto the cut for \(0<a<1\).} For \(0<a<1\) the two legs become Euler
+integrals we already know, so we compute there first and extend in Step~3. The aim of this step is
+\(\int_{\mathcal H}e^tt^{-a}\,dt=2i\sin(\pi a)\,\Gamma(1-a)\). The integrand is holomorphic off the cut,
 so by Cauchy's theorem (Chapter~1) the radius \(\varepsilon\) of the circle does not matter; shrink it.
 On the lower leg \(t=re^{-i\pi}\) with \(r:\infty\to\varepsilon\); on the upper leg \(t=re^{i\pi}\) with
 \(r:\varepsilon\to\infty\). On both, \(t=-r\), so \(e^t=e^{-r}\) and \(dt=-dr\), while
@@ -583,8 +614,9 @@ the result \(\sin(\pi a)\Gamma(1-a)/\pi\) equals \(1/\Gamma(a)\):
  \label{eq:hankel-gamma}
 \end{equation}
 
-\textbf{Step 3: extend to every \(a\).} The left side is entire in \(a\); so is the right side,
-because \(\Gamma\) has no zeros. The two sides agree on \((0,1)\), so the identity theorem extends
+\textbf{Step 3: extend to every \(a\).} Step~2 proved the formula only for \(0<a<1\). The left side
+is entire in \(a\) (Step~1); so is the right side, because \(\Gamma\) has no zeros, so \(1/\Gamma\)
+has no poles (at the poles of \(\Gamma\) it is \(0\)). The two sides agree on \((0,1)\), so the identity theorem extends
 \eqref{eq:hankel-gamma} to all complex \(a\).
 \end{frame}
 
@@ -678,6 +710,12 @@ coefficient) and are hard to compute directly. The integrand \(t^ne^{-t}\) of
 \(n!=\Gamma(n+1)=\int_0^\infty t^ne^{-t}\,dt\) (by \eqref{eq:gamma-fact} and \eqref{eq:gamma-def}) has a sharp peak
 where its log-derivative \(n/t-1\) vanishes, at \(t=n\). Laplace's method (Chapter~1) replaces
 that peak by a Gaussian.
+
+\textbf{Goal.} Show that, as \(n\to\infty\),
+\[
+  n!\sim\sqrt{2\pi n}\,\Bigl(\frac ne\Bigr)^n,
+\]
+where \(\sim\) means the ratio of the two sides tends to \(1\).
 
 Set \(t=nx\), so the peak sits at \(x=1\) and \(dt=n\,dx\):
 \[
@@ -951,6 +989,8 @@ Check at \(n=1\): \(\sqrt\pi\,\Gamma(1)/\Gamma(3/2)=\sqrt\pi/(\sqrt\pi/2)=2=\int
 
 \textbf{Why.} Sums \(\sum n^{-s}\) appear in physics (black-body radiation below, the string
 spectrum in Chapter~7); we want them in the same integral language as \(\Gamma\).
+The goal is to rewrite the series \(\sum n^{-s}\) as a single integral,
+\(\zeta(s)=\frac1{\Gamma(s)}\int_0^\infty\frac{t^{s-1}}{e^t-1}\,dt\) (proved as \eqref{eq:zeta-int} in Step~3).
 
 \smallskip\textbf{Step 1: define \(\zeta\) and check convergence.}  For \(s\in\mathbb C\) with
 \(\sigma=\operatorname{Re}s>1\), define
@@ -1008,6 +1048,8 @@ factor, and the Stefan--Boltzmann \(T^4\) law contains
 \footnotesize
 
 \textbf{Why.} It ties \(\zeta\) to the primes; one consequence is that there are infinitely many.
+The goal is to show that \(\sum_n n^{-s}\) equals a product over all primes \(p\),
+\(\zeta(s)=\prod_p(1-p^{-s})^{-1}\) (stated as \eqref{eq:euler-product} below).
 For $\sigma=\operatorname{Re}s>1$, remove from \eqref{eq:zeta-series} one prime factor at a time.  Start with
 \[
  \zeta(s)=1+2^{-s}+3^{-s}+4^{-s}+5^{-s}+\cdots.
