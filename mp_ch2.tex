@@ -170,14 +170,14 @@ By Step~1, \(f(n)=H_n\) for every whole number \(n\).
 \end{itemize}
 
 \textbf{Step 3: the recursion still holds.} The block-stacking rule was
-\(H_n=H_{n-1}+1/n\). Does \(f\) obey the same rule for every \(s\)? Subtract the integrand at
+\(H_n=H_{n-1}+1/n\). Does \(f\) obey the same rule, \(f(s+1)=f(s)+\frac1{s+1}\)? Subtract the integrand at
 \(s\) from the integrand at \(s+1\):
 \begin{align*}
  f(s+1)-f(s)&=\int_0^1\frac{(1-x^{s+1})-(1-x^s)}{1-x}\,dx
  =\int_0^1\frac{x^s(1-x)}{1-x}\,dx\\
  &=\int_0^1x^s\,dx=\frac1{s+1},\qquad f(0)=\int_0^1\frac{1-1}{1-x}\,dx=0.
 \end{align*}
-So \(f\) answers the first question: it is a smooth ``\(H_s\)'' for every \(s\), and it obeys
+So \(f\) answers the first question: it is a smooth ``\(H_s\)'' for every \(s\) with \(\operatorname{Re}s>-1\), and it obeys
 the same recursion as \(H_n\).
 
 \textbf{Example: \(s=\tfrac12\).} Substitute \(x=u^2\), so \(dx=2u\,du\), and use

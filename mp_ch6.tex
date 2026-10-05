@@ -1346,8 +1346,10 @@ $T_n(\cos\theta)=\cos(n\theta)$ keeps every $T_n$ between $-1$ and $1$ on $[-1,1
   \qquad k=1,\ldots,n.
   \label{eq:cheby-nodes}
 \end{equation}
-The angles are equally spaced, but $x=\cos\theta$ crowds the nodes near $\pm1$. These nodes are
-the best interpolation points for polynomials on $[-1,1]$ (quoted).
+The angles are equally spaced, but $x=\cos\theta$ crowds the nodes near $\pm1$. Among all
+choices of $n$ points in $[-1,1]$, these make the largest value of $|\prod_k(x-x_k)|$ as small as
+possible, namely $2^{1-n}$ (quoted); that product controls the error of polynomial interpolation,
+so the Chebyshev nodes are excellent interpolation points.
 
 \textbf{Orthogonality.}
 We want the weight that turns $\int T_nT_m\,w\,dx$ into cosine orthogonality.  Since
