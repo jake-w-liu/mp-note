@@ -473,6 +473,9 @@ large-$x$ formulas behind the picture.
 
 \begin{frame}[allowframebreaks=1.00]{Bessel asymptotics and drum eigenvalues}
 \footnotesize
+\textbf{Goal.} See how \(J_m\) behaves near the drum's center and far from it, and what its zeros mean
+for the drum's frequencies.
+
 \textbf{Near the center (small \(x\)).} Take the first two terms of the series \eqref{eq:Jm}:
 \[
  j=0:\ \frac{(x/2)^m}{m!},\qquad
@@ -726,6 +729,9 @@ equation, complex ones included (Fuchs' theorem, quoted).
 \begin{frame}[allowframebreaks=1.00]{Where the logarithm in the second solution comes from}
 \footnotesize
 
+\textbf{The question.} When the indicial roots are equal (or, sometimes, differ by an integer), only
+one Frobenius series exists. What does the second solution look like?
+
 \textbf{The short answer.} A logarithm appears when building the second solution requires
 integrating \(1/x\), since \(\int dx/x=\ln x\).
 
@@ -754,8 +760,9 @@ The second solution is \(\ln x\), not another power of \(x\).
         \]
         whose integral is \(\ln z\). So \(y_2\approx v\ln z\). (In the example, \(p_0=1\), \(r=0\), \(v=1\).)
 \end{itemize}
-\textbf{Roots differing by an integer \(N\).} The same computation with \(v\approx z^{r_1}\) gives an integrand
-\(z^{-N-1}(1+c_1z+c_2z^2+\cdots)\). Its term \(c_Nz^{-1}\) integrates to \(c_N\ln z\). So a logarithm appears
+\textbf{Roots differing by an integer \(N\).} Now \(r_1-r_2=N\) and \(r_1+r_2=1-p_0\), so
+\(p_0+2r_1=(1-r_1-r_2)+2r_1=1+N\). The same computation with \(v\approx z^{r_1}\) (the corrections in \(v\) and \(P\)
+give a power series factor) yields the integrand \(z^{-(p_0+2r_1)}(1+c_1z+\cdots)=z^{-N-1}(1+c_1z+c_2z^2+\cdots)\). Its term \(c_Nz^{-1}\) integrates to \(c_N\ln z\). So a logarithm appears
 unless \(c_N=0\), which is the ``consistent'' case of the previous frame.
 \end{frame}
 
@@ -959,7 +966,7 @@ annular domains.
 \end{frame}
 
 % ======================================================================
-\section{Airy functions in the complex plane}
+\section{Airy functions: integral and large-argument behavior}
 % ======================================================================
 
 \begin{frame}[allowframebreaks=1.00]{The Airy integral from a Fourier transform}

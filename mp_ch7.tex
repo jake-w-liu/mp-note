@@ -292,6 +292,9 @@ both directions.
 
 \begin{frame}[allowframebreaks=1.00]{Planar integration by parts produces Laplace's equation}
 \small
+\textbf{Goal.} Turn \(\delta\D\) into (boundary term) \(-\) (integral of \(\eta\) times something), as one integration
+by parts did in one dimension, and read off the equation.
+
 \textbf{Step 1: product rule.} \(\partial_x(\eta u_x)=\eta_xu_x+\eta u_{xx}\) and \(\partial_y(\eta u_y)=\eta_yu_y+\eta u_{yy}\). Solve
 for \(\eta_xu_x+\eta_yu_y\):
 \[
@@ -596,6 +599,8 @@ with equality exactly when \(u\) is a multiple of \(\phi_1\). (Same as for a sym
 
 \begin{frame}{Higher modes are stationary, but are not all minima}
 \small
+\textbf{Question.} \(\phi_1\) minimizes \(\R\). What about \(\phi_2,\phi_3,\dots\)? Test a mode \(\phi_j\) by mixing in a little of
+another mode \(\phi_i\).
 Choose two normalized orthogonal modes and keep the norm exactly one:
 \[
  u_\varepsilon=\frac{\phi_j+\varepsilon\phi_i}{\sqrt{1+\varepsilon^2}},
@@ -993,6 +998,7 @@ raising $\int\psi'^2$; the Gaussian is the best balance (the uncertainty princip
 
 \begin{frame}{Gamma normalizes; Chapter 6 gives the other modes}
 \small
+\textbf{Goal.} Fix the constant \(C\) in \(\psi=Ce^{-x^2/2}\), then find all the other oscillator modes.
 Normalize the Gaussian by evenness, $t=x^2$, $\mathrm dx=\mathrm dt/(2\sqrt t)$ ($x>0$), and
 $\Gamma(1/2)=\sqrt\pi$ (Chapter 2):
 \[

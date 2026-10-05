@@ -354,6 +354,9 @@ pick one of them consistently. In general \(z^a=e^{a\log z}\), and the same cut 
 \begin{frame}[allowframebreaks=1.00]{The complex derivative and Cauchy--Riemann}
 \footnotesize
 
+\textbf{Goal.} Define the derivative of a complex function, and find a practical test (the
+Cauchy--Riemann equations) for when it exists.
+
 \textbf{Definition.} The complex derivative of \(f\) at \(z_0\) is
 \begin{equation}
  f'(z_0)=\lim_{h\to0}\frac{f(z_0+h)-f(z_0)}{h}.
@@ -446,6 +449,9 @@ and \(-1\) for imaginary \(h\), so the limit depends on the direction.
 
 \begin{frame}[allowframebreaks=1.00]{Contour integrals and a key circle integral}
 \footnotesize
+
+\textbf{Goal.} Define integrals along paths in the plane, and compute \(\oint z^n\,dz\) around a circle:
+the one integral behind Laurent coefficients and residues.
 
 \textbf{What a contour integral is.} It is an ordinary integral along a chosen path in the
 plane. Describe the path by a parameter: \(z=\gamma(t)\) for \(a\le t\le b\) (with \(\gamma\) smooth, or
@@ -744,8 +750,9 @@ radius \(\rho_2\) inside \(z\):
  r<\rho_2<|z-z_0|<\rho_1<R .
 \]
 \textbf{Step 1: Cauchy's formula for the ring between \(C_2\) and \(C_1\).} The boundary of this ring
-is \(C_1\) counterclockwise plus \(C_2\) \emph{clockwise} (the region must stay on the left). Joining
-the two circles by a slit, as in the proof of \eqref{eq:CIF}, gives
+is \(C_1\) counterclockwise plus \(C_2\) \emph{clockwise} (the region must stay on the left). Join
+the two circles by a slit, as in the proof of \eqref{eq:CIF}: the ring with the slit cut out has no
+holes, so Cauchy's formula applies to its boundary, and the two sides of the slit cancel. This gives
 \[
  f(z)=\frac1{2\pi i}\oint_{C_1}\frac{f(\xi)\,d\xi}{\xi-z}-\frac1{2\pi i}\oint_{C_2}\frac{f(\xi)\,d\xi}{\xi-z},
 \]

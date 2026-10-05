@@ -472,6 +472,10 @@ depend on which solution we follow from \(x=0\). Evaluating the integral represe
  \label{eq:largex}
 \end{equation}
 \par\framebreak\par
+\textbf{Check against an exact case.} Chapter~3 found \(J_{1/2}(x)=\sqrt{2/(\pi x)}\,\sin x\) exactly. The formula
+(which also holds for noninteger order, as quoted later in this chapter) with \(m=\frac12\) gives \(\sqrt{2/(\pi x)}\cos\bigl(x-\frac\pi4-\frac\pi4\bigr)=\sqrt{2/(\pi x)}\sin x\): both the amplitude and the
+phase agree.
+
 \textbf{Physical reading.} With \(x=kr\), \(J_m(kr)\) is a standing cylindrical wave whose amplitude falls
 like \(1/\sqrt r\): the energy, proportional to amplitude\(^2\), is spread over a circle of length \(2\pi r\),
 and \((1/\sqrt r)^2\cdot2\pi r\) is constant.
@@ -800,6 +804,7 @@ and squaring removes the sign. With the off-diagonal case \eqref{eq:bessel-orth-
 
 \begin{frame}[allowframebreaks=1.00]{Fourier--Bessel coefficients}
 \footnotesize
+\textbf{Goal.} Expand a radial drum shape in the modes \(J_m(\alpha_{m,j}x)\) and find the coefficients.
 For a radial function of fixed angular order $m$, write
 \begin{equation}
  f(x)=\sum_{j=1}^{\infty}a_jJ_m(\alpha_{m,j}x),\qquad 0<x<1.
