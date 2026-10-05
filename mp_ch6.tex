@@ -112,20 +112,30 @@ and therefore
 \end{equation}
 because the left member depends only on $\theta$ and the right member only on $r$.
 
-For the angular equation $v''+\lambda v=0$, periodicity $v(\theta+2\pi)=v(\theta)$ forces $\lambda=n^2$ with $n=0,1,2,\ldots$:
-for $\lambda=n^2>0$ the solutions $A\cos(n\theta)+B\sin(n\theta)$ are $2\pi$-periodic;
-for $\lambda=0$, $v=A+B\theta$ reduces to the constant $n=0$ mode; and $\lambda<0$
-gives nonperiodic exponentials. The radial equation $r(ru')'-n^2u=0$
-is Cauchy--Euler; expanding the derivative,
+\par\framebreak\par
+\textbf{Step 2: the angular equation \(v''+\lambda v=0\).} Going once around the circle brings us back to
+the same point, so \(v\) must be \(2\pi\)-periodic: \(v(\theta+2\pi)=v(\theta)\). Check each sign of \(\lambda\):
+\begin{itemize}
+  \item \(\lambda>0\), write \(\lambda=\mu^2\): \(v=A\cos\mu\theta+B\sin\mu\theta\). This has period \(2\pi\) only if \(\mu\) is a
+        whole number \(n\). So \(\lambda=n^2\), \(n=1,2,\dots\).
+  \item \(\lambda=0\): \(v=A+B\theta\). Periodic only if \(B=0\): the constant mode, which we call \(n=0\).
+  \item \(\lambda<0\): \(v\) is a combination of \(e^{\pm\sqrt{-\lambda}\,\theta}\), never periodic. Not allowed.
+\end{itemize}
+So \(\lambda=n^2\) with \(n=0,1,2,\ldots\). \emph{The periodicity condition forced the integer \(n\).}
+
+\textbf{Step 3: the radial equation.} With \(\lambda=n^2\), \eqref{eq:laplace2d-separation} gives \(r(ru')'=n^2u\).
+Expand \((ru')'=ru''+u'\):
 \begin{equation}
-  r^2u''+ru'-n^2u=0,
+  r^2u''+ru'-n^2u=0.
   \label{eq:laplace2d-radial}
 \end{equation}
-and trying $u=r^p$ gives $(p^2-n^2)r^p=0$, so $p=\pm n$ for $n\ge1$. For $n=0$,
-$(ru')'=0$ integrates to $u(r)=D_0+C_0\log r$.
+This is a Cauchy--Euler equation, so try \(u=r^p\): \(r^2p(p-1)r^{p-2}+r\,pr^{p-1}-n^2r^p=(p^2-n^2)r^p=0\).
+So \(p=\pm n\) for \(n\ge1\): \(u=r^n\) or \(r^{-n}\). For \(n=0\) the equation is \((ru')'=0\), so \(ru'=C_0\),
+\(u'=C_0/r\), and \(u=D_0+C_0\log r\).
 
-On an annulus all these radial solutions are allowed. Inside a disk containing $r=0$,
-boundedness removes $\log r$ and all $r^{-n}$ terms:
+\textbf{Step 4: regularity at the center.} On an annulus (\(r\) away from \(0\)), all these radial solutions are
+allowed. But inside a disk that contains \(r=0\), the solution must stay finite there, and \(\log r\) and
+\(r^{-n}\) blow up. Keeping only \(r^n\):
 \begin{equation}
   \psi(r,\theta)
    =A_0+\sum_{n=1}^{\infty}r^n
@@ -300,14 +310,20 @@ chain stops at once and gives $v=x$. The \emph{even} chain with $a_0=1$ gives
   a_4=-\frac{2-6}{4\cdot3}(-1)=-\frac13,\qquad
   a_6=-\frac{2-20}{6\cdot5}\left(-\frac13\right)=-\frac15,
 \]
-and in general $a_{2k}=-1/(2k-1)$, since the ratio is
-$a_{2k+2}/a_{2k}=[2k(2k+1)-2]/[(2k+2)(2k+1)]=2(2k-1)(k+1)/[2(k+1)(2k+1)]=(2k-1)/(2k+1)$. Using
-$\log(1+x)-\log(1-x)=2\bigl(x+\tfrac{x^3}{3}+\tfrac{x^5}{5}+\cdots\bigr)$,
+and in general \(a_{2k}=-1/(2k-1)\). (Check: by \eqref{eq:legendre-coeff-recurrence-lambda} with \(\lambda=2\), \(j=2k\), the
+ratio is \(a_{2k+2}/a_{2k}=[2k(2k+1)-2]/[(2k+2)(2k+1)]\). The numerator factors as
+\(4k^2+2k-2=2(2k-1)(k+1)\) and the denominator as \(2(k+1)(2k+1)\), so the ratio is
+\(\frac{2k-1}{2k+1}\), which is exactly the ratio of \(-\frac1{2k+1}\) to \(-\frac1{2k-1}\).) So
 \[
-  v(x)=1-x\Bigl(x+\frac{x^3}{3}+\frac{x^5}{5}+\cdots\Bigr)
-      =1-\frac{x}{2}\log\frac{1+x}{1-x}.
+  v(x)=1-x^2-\frac{x^4}{3}-\frac{x^6}{5}-\cdots=1-x\Bigl(x+\frac{x^3}{3}+\frac{x^5}{5}+\cdots\Bigr).
 \]
-It is finite inside $(-1,1)$, yet $v(x)\to-\infty$ as $x\to1^-$: useless on the sphere.
+The bracket is a known series: from \(\log(1\pm x)=\pm x-\frac{x^2}2\pm\frac{x^3}{3}-\cdots\), subtracting gives
+\(\log(1+x)-\log(1-x)=2\bigl(x+\frac{x^3}{3}+\frac{x^5}{5}+\cdots\bigr)\). Hence
+\[
+  v(x)=1-\frac{x}{2}\log\frac{1+x}{1-x}.
+\]
+It is finite inside \((-1,1)\), yet \(v(x)\to-\infty\) as \(x\to1^-\) (because \(\log\frac{1+x}{1-x}\to\infty\)): it blows
+up at the north pole, so it is useless on the sphere.
 As quoted, the same happens for every $n$, so we set the starting coefficient of the
 opposite-parity chain to zero.
 
@@ -494,52 +510,64 @@ interior zeros while preserving $\int_{-1}^{1}P_m(x)P_n(x)\,dx=0$ for $m\ne n$
 \begin{frame}[allowframebreaks=1.00]{Rodrigues' formula}
 \footnotesize
 
-The recurrence \eqref{eq:legendre-recur} generates $P_0,P_1,P_2,\ldots$ in order. A complementary formula
-constructs any one polynomial directly. It earns its place because $(x^2-1)^n$
-vanishes to order $n$ at both endpoints, so differentiating it $n$ times turns the
-orthogonality integral into a boundary-free computation (the norm, two slides on):
+\textbf{What it is.} The recurrence \eqref{eq:legendre-recur} produces \(P_0,P_1,P_2,\dots\) one after another.
+Rodrigues' formula gives any single \(P_n\) directly:
 \begin{equation}
  P_n(x)=\frac{1}{2^n n!}\frac{d^n}{dx^n}(x^2-1)^n.
  \label{eq:rodrigues-legendre}
 \end{equation}
-This is Rodrigues' formula. To prove it, start with the
-binomial expansion
+\textbf{Why it is useful.} \((x^2-1)^n=(x-1)^n(x+1)^n\) has a zero of order \(n\) at each end \(x=\pm1\). So when we
+integrate by parts, all boundary terms vanish. This makes the norm of \(P_n\) easy (next frame).
+
+\textbf{Check \(n=2\) first:} \(\frac1{8}\frac{d^2}{dx^2}(x^4-2x^2+1)=\frac{12x^2-4}{8}=\frac{3x^2-1}{2}=P_2\). \checkmark
+
+\textbf{Plan of the proof.} Show that the right side (1) has the same powers as \(P_n\), (2) has
+coefficients obeying the same recurrence as \(P_n\), so it is a multiple of \(P_n\), and (3) equals \(1\) at
+\(x=1\), so the multiple is \(1\).
+\par\framebreak\par
+\textbf{Step 1: expand and differentiate.} By the binomial theorem,
 \[
- (x^2-1)^n
- =\sum_{k=0}^{n}(-1)^k\binom nk x^{2(n-k)}.
+ (x^2-1)^n=\sum_{k=0}^{n}\binom nk (x^2)^{n-k}(-1)^k=\sum_{k=0}^{n}(-1)^k\binom nk x^{2n-2k}.
 \]
-After $n$ derivatives, a term survives only when $2(n-k)\ge n$, or
-$k\le\lfloor n/2\rfloor$, the greatest integer no larger than $n/2$. For those terms
-$\dfrac{d^n}{dx^n}x^{2n-2k}=\dfrac{(2n-2k)!}{(n-2k)!}\,x^{n-2k}$, and
-$\binom nk\dfrac{1}{n!}=\dfrac{1}{k!\,(n-k)!}$. Hence
+Differentiate \(n\) times. A power \(x^{2n-2k}\) survives only if \(2n-2k\ge n\), that is,
+\(k\le n/2\), and then \(\frac{d^n}{dx^n}x^{2n-2k}=\frac{(2n-2k)!}{(n-2k)!}\,x^{n-2k}\). With
+\(\binom nk\frac1{n!}=\frac{1}{k!\,(n-k)!}\),
 \[
  \frac{1}{2^n n!}\frac{d^n}{dx^n}(x^2-1)^n
  =\sum_{k=0}^{\lfloor n/2\rfloor}
-   \frac{(-1)^k(2n-2k)!}
-        {2^n k!\,(n-k)!\,(n-2k)!}\,x^{n-2k}.
+   c_k\,x^{n-2k},
+ \qquad
+ c_k=\frac{(-1)^k\,(2n-2k)!}{2^n\, k!\,(n-k)!\,(n-2k)!}.
 \]
-Call the coefficient of $x^{n-2k}$ here $c_k$. Cancelling the factorials (and using
-$(n-k)/(2n-2k)=\tfrac12$),
+(\(\lfloor n/2\rfloor\) is the largest whole number \(\le n/2\).) So the powers are \(x^n,x^{n-2},x^{n-4},\dots\), the same
+as in \(P_n\).
+\par\framebreak\par
+\textbf{Step 2: the ratio of neighbouring coefficients.} Divide \(c_{k+1}\) by \(c_k\). Most factorials cancel:
+\((2n-2k-2)!/(2n-2k)!=1/[(2n-2k)(2n-2k-1)]\), \(k!/(k+1)!=1/(k+1)\),
+\((n-k)!/(n-k-1)!=n-k\), \((n-2k)!/(n-2k-2)!=(n-2k)(n-2k-1)\). So
 \[
  \frac{c_{k+1}}{c_k}
  =-\frac{(n-k)\,(n-2k)(n-2k-1)}{(k+1)\,(2n-2k)(2n-2k-1)}
- =-\frac{(n-2k)(n-2k-1)}
-         {(2k+2)(2n-2k-1)},
+ =-\frac{(n-2k)(n-2k-1)}{(2k+2)(2n-2k-1)},
 \]
-which is \eqref{eq:legendre-coeff-recurrence} run downward: with $j=n-2k-2$ (so $c_k=a_{j+2}$,
-$c_{k+1}=a_j$, and \eqref{eq:legendre-coeff-recurrence} gives
-$a_j/a_{j+2}=-(j+2)(j+1)/[(n-j)(n+j+1)]$) one has
-$(j+2)(j+1)=(n-2k)(n-2k-1)$, $n-j=2k+2$, $n+j+1=2n-2k-1$. Same degree, parity and
-recurrence, so the sum is a multiple of $P_n$; the normalization below fixes the factor.
-Check $n=2$: $\frac18\frac{d^2}{dx^2}(x^4-2x^2+1)=\frac{12x^2-4}{8}=\frac{3x^2-1}{2}=P_2$.
+using \(\frac{n-k}{2n-2k}=\frac12\).
+
+\textbf{Step 3: compare with the Legendre recurrence.} \eqref{eq:legendre-coeff-recurrence} links the coefficient \(a_j\)
+of \(x^j\) to \(a_{j+2}\): \(\frac{a_j}{a_{j+2}}=-\frac{(j+2)(j+1)}{(n-j)(n+j+1)}\). Put \(j=n-2k-2\). Then \(a_{j+2}\) is the
+coefficient of \(x^{n-2k}\) (that is, \(c_k\)) and \(a_j\) is that of \(x^{n-2k-2}\) (that is, \(c_{k+1}\)). Also
+\[
+ (j+2)(j+1)=(n-2k)(n-2k-1),\qquad n-j=2k+2,\qquad n+j+1=2n-2k-1,
+\]
+so \(a_j/a_{j+2}\) is exactly the ratio in Step~2. Same powers and same recurrence: the right side of
+\eqref{eq:rodrigues-legendre} is a constant multiple of \(P_n\).
+\par\framebreak\par
+\textbf{Step 4: the constant is \(1\) (value at \(x=1\)).} Write \((x^2-1)^n=(x-1)^n(x+1)^n\) and use the Leibniz rule
+\((fg)^{(n)}=\sum_{i=0}^{n}\binom ni f^{(i)}g^{(n-i)}\) with \(f=(x-1)^n\), \(g=(x+1)^n\). Every term with fewer than \(n\)
+derivatives on \((x-1)^n\) still contains a factor \(x-1\), so it is \(0\) at \(x=1\). The only surviving term is
+\(f^{(n)}g=n!\,(x+1)^n\), which at \(x=1\) equals \(n!\,2^n\). Dividing by \(2^nn!\) gives the value \(1\), so the
+right side equals \(P_n\).
 
 \smallskip
-\textbf{Normalization.} Write $(x^2-1)^n=(x-1)^n(x+1)^n$. By the Leibniz rule
-$(fg)^{(n)}=\sum_{i=0}^{n}\binom ni f^{(i)}g^{(n-i)}$, every term with fewer than $n$
-derivatives on $(x-1)^n$ still contains a factor $x-1$ and vanishes at $x=1$. The surviving
-term is $n!\,(1+1)^n=2^nn!$, so dividing by $2^n n!$ gives $P_n(1)=1$.
-
-\medskip
 \textbf{Two consequences needed for the norm.}
 The highest power in $(x^2-1)^n$ is $x^{2n}$. Hence
 \[
@@ -787,18 +815,46 @@ single-valued only if it is zero there. The sign $(-1)^m$ is a convention
 (Condon--Shortley phase); some texts omit it.
 
 \par\framebreak\par
-\emph{Why it solves \eqref{eq:assoc-legendre-expanded}.} Differentiate the Legendre equation
-$(1-x^2)P_n''-2xP_n'+n(n+1)P_n=0$ $m$ times by the Leibniz rule (only two derivatives of
-$1-x^2$ and one of $-2x$ are nonzero). For $u=d^mP_n/dx^m$ this gives
+\textbf{Why it solves \eqref{eq:assoc-legendre-expanded}: two steps.}
+
+\emph{Step 1: differentiate the Legendre equation \(m\) times.} Start from
+\((1-x^2)P_n''-2xP_n'+n(n+1)P_n=0\) and apply \(\frac{d^m}{dx^m}\) to each term, using the Leibniz rule
+\((fg)^{(m)}=\sum_i\binom mi f^{(i)}g^{(m-i)}\). Since \(1-x^2\) has only two nonzero derivatives (\(-2x\) and \(-2\)), and
+\(-2x\) only one (\(-2\)):
+\begin{align*}
+ \tfrac{d^m}{dx^m}\bigl[(1-x^2)P_n''\bigr]&=(1-x^2)P_n^{(m+2)}+m(-2x)P_n^{(m+1)}+\tbinom m2(-2)P_n^{(m)},\\
+ \tfrac{d^m}{dx^m}\bigl[-2xP_n'\bigr]&=-2xP_n^{(m+1)}+m(-2)P_n^{(m)} .
+\end{align*}
+Write \(u=P_n^{(m)}\) and add, with \(n(n+1)u\). The \(u\) terms combine as
+\(n(n+1)-m(m-1)-2m=n(n+1)-m(m+1)\):
 \[
- (1-x^2)u''-2(m+1)xu'+\bigl[n(n+1)-m(m+1)\bigr]u=0,
+ (1-x^2)u''-2(m+1)xu'+\bigl[n(n+1)-m(m+1)\bigr]u=0 .
 \]
-and substituting $u=(1-x^2)^{-m/2}v$ turns it into \eqref{eq:assoc-legendre-expanded}
-(product rule):
+\par\framebreak\par
+\emph{Step 2: change the unknown.} Put \(u=(1-x^2)^{-m/2}v\), that is, \(v=(1-x^2)^{m/2}P_n^{(m)}\) (up to the sign
+\((-1)^m\), this is \(P_n^m\)). By the product rule,
 \[
  (1-x^2)^{m/2}u'=v'+\frac{mx\,v}{1-x^2},\qquad
- (1-x^2)^{m/2}u''=v''+\frac{2mx\,v'}{1-x^2}+\frac{m+m(m+1)x^2}{(1-x^2)^2}\,v.
+ (1-x^2)^{m/2}u''=v''+\frac{2mx\,v'}{1-x^2}+\frac{m+m(m+1)x^2}{(1-x^2)^2}\,v .
 \]
+Multiply the equation of Step~1 by \((1-x^2)^{m/2}\) and insert these:
+\begin{align*}
+ &(1-x^2)v''+2mxv'+\frac{m+m(m+1)x^2}{1-x^2}v\\
+ &\quad-2(m+1)xv'-\frac{2m(m+1)x^2}{1-x^2}v+\bigl[n(n+1)-m(m+1)\bigr]v=0 .
+\end{align*}
+\par\framebreak\par
+\emph{Collect the terms.}
+\begin{itemize}
+  \item \(v'\): \(2mx-2(m+1)x=-2x\).
+  \item \(v\): put everything over \(1-x^2\), writing \(m(m+1)=\frac{m(m+1)(1-x^2)}{1-x^2}\):
+        \[
+         \frac{m+m(m+1)x^2-2m(m+1)x^2-m(m+1)(1-x^2)}{1-x^2}+n(n+1).
+        \]
+        In the numerator the \(x^2\) terms cancel (\(m(m+1)-2m(m+1)+m(m+1)=0\)), leaving
+        \(m-m(m+1)=-m^2\). So the \(v\) coefficient is \(n(n+1)-\frac{m^2}{1-x^2}\).
+\end{itemize}
+So \((1-x^2)v''-2xv'+\bigl[n(n+1)-\frac{m^2}{1-x^2}\bigr]v=0\), which is exactly \eqref{eq:assoc-legendre-expanded}.
+
 For example, $P_1=x$ and $P_2=(3x^2-1)/2$ give
 \[
  P_1^1=-\sqrt{1-x^2},\qquad
