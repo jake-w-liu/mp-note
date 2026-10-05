@@ -78,35 +78,52 @@ differentiate, integrate, and use in later chapters. Write \(\mathbb N=\{1,2,\do
 \begin{frame}[allowframebreaks=1.00]{Block stacking and the harmonic numbers}
 \footnotesize
 
-\textbf{Step 1: find the increment.}  How far can \(n\) identical blocks (length two units, unit mass) overhang a table edge?
-With one block we balance it half off, so its center of mass sits at the edge \(x=0\); the
-overhang is \(H_1=1\).
+\textbf{The question.} We stack \(n\) identical blocks at the edge of a table. Each block has
+length \(2\) and mass \(1\). How far can the top block stick out past the edge without the
+stack falling? Call this largest overhang \(H_n\). Put the table edge at \(x=0\), with the
+table at \(x<0\).
 
-Suppose \(n-1\) stacked blocks already have their center of mass at the edge, with total
-overhang \(H_{n-1}\). Slip one more block underneath with its center at \(-1\), so its right end
-lines up with the table edge; the old stack still balances, now on that end. The new center of mass \(x\) of
-all \(n\) blocks is the mass-weighted average (total mass \(n\) times \(x\) equals the sum of
-mass times position): the top \(n-1\) blocks contribute mass \(n-1\) at position \(0\), and the
-new block mass \(1\) at position \(-1\), so
+\textbf{The balance rule.} A stack does not tip as long as its center of mass is not past the
+edge. The best we can do is to put the center of mass exactly at the edge, \(x=0\).
+
+\textbf{One block.} Its center of mass is its midpoint. Put the midpoint at \(x=0\): the block
+sticks out by half its length, so \(H_1=1\).
+
+\textbf{From \(n-1\) blocks to \(n\) blocks.} Suppose \(n-1\) blocks are already stacked with
+their center of mass at the edge and overhang \(H_{n-1}\).
+\begin{itemize}
+  \item Slide one new block underneath, with its right end at the edge. Its center is then at
+        \(x=-1\). The old stack now rests on this block, still balanced.
+  \item The center of mass \(x\) of all \(n\) blocks is the mass-weighted average of the
+        positions. The old stack has mass \(n-1\) at \(0\); the new block has mass \(1\) at \(-1\):
+        \[
+          n\,x = (n-1)\cdot 0 + 1\cdot(-1)
+          \quad\Longrightarrow\quad
+          x = -\frac1n .
+        \]
+  \item So the center of mass is now \(1/n\) behind the edge. Slide the whole stack forward by
+        \(1/n\). The center of mass is back at the edge, and the overhang grew by \(1/n\).
+\end{itemize}
+\par\framebreak\par
+\textbf{Result.} Each new block adds \(1/n\) to the overhang:
 \[
-  n\,x = (n-1)\cdot 0 + 1\cdot(-1) \;\Longrightarrow\; x = -\tfrac1n .
+  H_n=H_{n-1}+\frac1n .
 \]
-Shifting the whole stack forward by \(1/n\) returns its center of mass to the edge
-and increases the overhang by the same amount. Thus
-\(H_n=H_{n-1}+1/n\); starting from \(H_0=0\) and adding the increments,
+Starting from \(H_0=0\) and adding up the increments,
 \begin{equation}
   H_n = 1 + \tfrac12 + \tfrac13 + \tfrac14 + \cdots + \tfrac1n
       = \sum_{k=1}^{n}\frac1k .
   \label{eq:harmonic}
 \end{equation}
-
-
 \par\framebreak\par
-\textbf{Step 2: name the sequence.}  The series \(1+\tfrac12+\tfrac13+\cdots\) is the \emph{harmonic series}; its partial sums
-\eqref{eq:harmonic} are the \emph{harmonic numbers}
-\(\{1,\tfrac32,\tfrac{11}{6},\tfrac{25}{12},\dots\}\). They diverge, but extraordinarily
-slowly: we will see below that \(H_n\approx\log n+0.577\), so \(H_n>100\) (an overhang of
-\(50\) block lengths) needs roughly \(1.5\times10^{43}\) blocks.
+\textbf{Names.} The infinite series \(1+\tfrac12+\tfrac13+\cdots\) is the \emph{harmonic series}.
+Its partial sums \(H_n\) are the \emph{harmonic numbers}:
+\[
+  H_1=1,\quad H_2=\tfrac32,\quad H_3=\tfrac{11}{6},\quad H_4=\tfrac{25}{12},\quad\dots
+\]
+\textbf{They grow without bound, but very slowly.} We will show below that
+\(H_n\approx\log n+0.577\). For example, an overhang of \(50\) block lengths needs \(H_n>100\), which
+takes about \(1.5\times10^{43}\) blocks.
 
 This raises two questions we now answer.
 \begin{itemize}
@@ -120,71 +137,91 @@ The harmonic series is the special case \(p=1\) of the \(p\)-series
 
 \begin{frame}[allowframebreaks=1.00]{Interpolating the partial sums}
 \footnotesize
-\textbf{A finite sum as an integral.} The geometric identity gives
+\textbf{Goal.} \(H_n\) is defined only for whole numbers \(n\). We look for a smooth function
+\(f(s)\) of a continuous variable \(s\) with \(f(n)=H_n\). The trick is to write \(H_n\) as an
+integral in which \(n\) appears only as a parameter.
+
+\textbf{Step 1: a finite sum as an integral.} The geometric sum formula gives
 \[
- \frac{1-x^n}{1-x}=1+x+\cdots+x^{n-1}\qquad(x\neq1).
+ \frac{1-x^n}{1-x}=1+x+x^2+\cdots+x^{n-1}\qquad(x\neq1).
 \]
-At $x=1$ the left side is $0/0$, but the right side is a polynomial, so the gap
-is a removable singularity: its continuous value there is $1+1+\cdots+1=n$. Integrating each power on $[0,1]$ gives
+(At \(x=1\) the left side is \(0/0\), but the right side is \(n\); so the integrand below has no
+real problem at \(x=1\).) Integrate both sides from \(0\) to \(1\). Each power gives
+\(\int_0^1x^k\,dx=1/(k+1)\), so
 \[
  \int_0^1\frac{1-x^n}{1-x}\,dx
- =\sum_{k=0}^{n-1}\int_0^1x^k\,dx
- =\sum_{k=0}^{n-1}\frac1{k+1}=H_n .
+ =1+\frac12+\cdots+\frac1n=H_n .
 \]
-Nothing on the left needs $n$ to be an integer, which suggests the interpolation
+
+\textbf{Step 2: let \(n\) be any number.} The left side makes sense even when \(n\) is not a whole
+number. So define
 \begin{equation}
- f(s)=\int_0^1\frac{1-x^s}{1-x}\,dx,\qquad \operatorname{Re}s>-1,
+ f(s)=\int_0^1\frac{1-x^s}{1-x}\,dx,\qquad \operatorname{Re}s>-1.
  \label{eq:harmonic-interp}
 \end{equation}
-where $x^s=e^{s\log x}$ uses the real logarithm on $0<x<1$, hence
-$|x^s|=x^{\operatorname{Re}s}$. Only the endpoints can hurt. At zero the sole
-possibly singular term is $x^s$, of size $x^{\operatorname{Re}s}$, and
-$\int_0x^\sigma\,dx$ converges exactly for $\sigma>-1$ (at $\sigma=-1$ it is
-$\int_0dx/x$). At one the gap is again removable: l'H\^opital's rule gives
-$(1-x^s)/(1-x)\to s$.
-Thus $f(n)=H_n$.
+By Step~1, \(f(n)=H_n\) for every whole number \(n\).
 \par\framebreak\par
-\textbf{The recursion survives.} The block-stacking recursion $H_n=H_{n-1}+1/n$ also extends to every $s$: subtract the integrand of \eqref{eq:harmonic-interp} at $s$ from the one at $s+1$,
+\textbf{Why \(\operatorname{Re}s>-1\)?} Here \(x^s=e^{s\log x}\), so \(|x^s|=x^{\operatorname{Re}s}\) on
+\(0<x<1\). The integral can fail only at the two endpoints.
+\begin{itemize}
+  \item At \(x=0\): the term \(x^s\) behaves like \(x^{\operatorname{Re}s}\), and
+        \(\int_0 x^\sigma\,dx\) is finite exactly when \(\sigma>-1\).
+  \item At \(x=1\): by l'H\^opital's rule \((1-x^s)/(1-x)\to s\), a finite value, so there is no
+        problem.
+\end{itemize}
+
+\textbf{Step 3: the recursion still holds.} The block-stacking rule was
+\(H_n=H_{n-1}+1/n\). Does \(f\) obey the same rule for every \(s\)? Subtract the integrand at
+\(s\) from the integrand at \(s+1\):
 \begin{align*}
  f(s+1)-f(s)&=\int_0^1\frac{(1-x^{s+1})-(1-x^s)}{1-x}\,dx
  =\int_0^1\frac{x^s(1-x)}{1-x}\,dx\\
  &=\int_0^1x^s\,dx=\frac1{s+1},\qquad f(0)=\int_0^1\frac{1-1}{1-x}\,dx=0.
 \end{align*}
-So $f$ answers the first question: it is a smooth ``$H_s$'' for noninteger $s$. For example,
-with $x=u^2$ ($dx=2u\,du$) and $(1-u)/(1-u^2)=1/(1+u)$,
+So \(f\) answers the first question: it is a smooth ``\(H_s\)'' for every \(s\), and it obeys
+the same recursion as \(H_n\).
+
+\textbf{Example: \(s=\tfrac12\).} Substitute \(x=u^2\), so \(dx=2u\,du\), and use
+\((1-u)/(1-u^2)=1/(1+u)\):
 \[
  f\bigl(\tfrac12\bigr)=\int_0^1\frac{1-u}{1-u^2}\,2u\,du=2\int_0^1\Bigl(1-\frac1{1+u}\Bigr)du
  =2-2\log2\approx0.614,
 \]
-between $H_0=0$ and $H_1=1$. Once the gamma function is built below,
-$f(s)=\Gamma'(s+1)/\Gamma(s+1)+\gamma$ (quoted; $\gamma\approx0.577$ is the constant found
-next): $f$ is the bridge from $H_n$ to $\Gamma$.
+which lies between \(H_0=0\) and \(H_1=1\), as it should.
+
+\textbf{Looking ahead.} Once the gamma function is built below, one can show (we quote it) that
+\(f(s)=\Gamma'(s+1)/\Gamma(s+1)+\gamma\), where \(\gamma\approx0.577\) is the constant found next.
+So \(f\) links the harmonic numbers to \(\Gamma\).
 \par\framebreak\par
-\textbf{The difference between a staircase and a logarithm.}
-Rewrite each term of $H_n$ as a width-one rectangle over $[k,k+1]$: the integrand
-$1/k$ is constant in $x$, so $\int_k^{k+1}dx/k=1/k$---the same sum, dressed as an
-area. On that interval the curve $1/x$ lies below the flat top
-($1/x<1/k$ for $k<x<k+1$), so each rectangle overtops the curved sliver beneath
-it and the areas compare term by term:
+\textbf{Second question: how fast does \(H_n\) grow?} We compare \(H_n\) with
+\(\log n=\int_1^n dx/x\), which is also a sum of \(1/x\), but a continuous one.
+
+\textbf{Step 1: \(H_n\) is larger than \(\log n\).} Write each term \(1/k\) as the area of a
+rectangle of width \(1\) and height \(1/k\) over \([k,k+1]\): \(\int_k^{k+1}dx/k=1/k\). On that
+interval the curve \(1/x\) lies below the rectangle's top, because \(1/x<1/k\) for \(x>k\). So each
+rectangle has more area than the region under the curve:
 \[
  H_n=\sum_{k=1}^{n}\int_k^{k+1}\frac{dx}{k}
- >\sum_{k=1}^{n}\int_k^{k+1}\frac{dx}{x}
- =\int_1^{n+1}\frac{dx}{x}=\log(n+1)>\log n.
+ \;>\;\sum_{k=1}^{n}\int_k^{k+1}\frac{dx}{x}
+ =\int_1^{n+1}\frac{dx}{x}=\log(n+1)\;>\;\log n.
 \]
-The positive difference $a_n=H_n-\log n$ decreases, since
+\par\framebreak\par
+\textbf{Step 2: the gap \(a_n=H_n-\log n\) shrinks.} Going from \(n\) to \(n+1\), \(H_n\) gains
+\(1/(n+1)\) while \(\log n\) gains \(\log(n+1)-\log n=\int_n^{n+1}dx/x\). Therefore
 \[
- a_{n+1}-a_n=\frac1{n+1}-\bigl(\log(n+1)-\log n\bigr)
+ a_{n+1}-a_n=\frac1{n+1}-\int_n^{n+1}\frac{dx}{x}
  =\int_n^{n+1}\Bigl(\frac1{n+1}-\frac1x\Bigr)dx<0,
 \]
-because $1/x>1/(n+1)$ for $n<x<n+1$.
+because \(1/x>1/(n+1)\) for \(n<x<n+1\). So \(a_1>a_2>a_3>\cdots\).
 
-A decreasing sequence bounded below (here by $0$, since $H_n>\log n$) has a limit. We call it the
-Euler--Mascheroni constant:
+\textbf{Step 3: the gap has a limit.} By Step~1, every \(a_n\) is positive. A decreasing sequence
+that stays above \(0\) must converge. Its limit is the Euler--Mascheroni constant:
 \begin{equation}
  \gamma=\lim_{n\to\infty}(H_n-\log n)=0.577215664901532\ldots.
  \label{eq:euler-gamma}
 \end{equation}
-
+In words: for large \(n\), \(H_n\approx\log n+\gamma\). The harmonic numbers grow like a
+logarithm, which is why the overhang grows so slowly.
 \end{frame}
 
 \begin{frame}{Euler--Mascheroni as a staircase error}
@@ -206,30 +243,45 @@ The harmonic number \(H_n\) is the area of a unit-width staircase. The logarithm
 \begin{frame}[allowframebreaks=1.00]{Definition and the factorial recursion}
 \footnotesize
 
-The factorial $n!$ gets the same treatment as $H_n$: write it as an integral in
-which $n$ appears as an exponent, then let $n$ become a continuous variable.
+\textbf{Goal.} Find a smooth function that equals \(n!\) at the whole numbers. We use the same
+idea as for \(H_n\): write \(n!\) as an integral in which \(n\) is only a parameter, then let
+\(n\) be any number.
 
-\textbf{Step 1: define the interpolation.}  Which integral produces $n!$?
-Integrating by parts lowers the power of $t$ by one at each step, so pair $t^n$
-with a factor that reproduces itself under integration and dies at
-$+\infty$---namely $e^{-t}$. Repeated application gives
-\(\int_0^\infty t^ne^{-t}\,dt=n!\) (Steps~2--3 below: one integration by parts
-yields the recursion, iterated to the base case), and the integral still makes
-sense when \(n\) is not an integer. Replacing \(n\) by \(z-1\) (the historical convention) defines the
-\emph{gamma function}, Euler's integral of the second kind,
+\textbf{Step 1: which integral gives \(n!\)?} Look at \(\int_0^\infty t^ne^{-t}\,dt\).
+Integration by parts moves a derivative onto \(t^n\), which lowers the power by one and brings
+down a factor \(n\). The factor \(e^{-t}\) is the right partner because it stays \(e^{-t}\) (up to
+sign) when integrated, and it kills the boundary terms at \(t=\infty\). One step gives
+\[
+ \int_0^\infty t^ne^{-t}\,dt=n\int_0^\infty t^{n-1}e^{-t}\,dt .
+\]
+Repeating it \(n\) times leaves \(n(n-1)\cdots1\cdot\int_0^\infty e^{-t}\,dt=n!\). (Steps~2--3 below
+carry this out carefully.)
+
+\textbf{Step 2: define \(\Gamma\).} The integral still makes sense when \(n\) is not a whole number.
+By a historical convention we write \(z-1\) in place of \(n\). This defines the \emph{gamma
+function} (Euler's integral):
 \begin{equation}
   \Gamma(z)=\int_0^\infty e^{-t}t^{z-1}\,dt,
   \qquad \operatorname{Re}z>0.
   \label{eq:gamma-def}
 \end{equation}
-With \(\sigma=\operatorname{Re}z\): near \(t=0\) the integrand has size \(t^{\sigma-1}\), which is
-integrable exactly when \(\sigma>0\); at infinity \(e^{-t}\) beats every power.
-Infinitely many functions agree with \(n!\) at the integers; \(\Gamma\) is the standard one
-because it is the only positive function on \(x>0\) with \(f(x+1)=xf(x)\), \(f(1)=1\) and
-\(\log f\) convex (Bohr--Mollerup theorem, quoted).
+\par\framebreak\par
+\textbf{Why \(\operatorname{Re}z>0\)?} Write \(\sigma=\operatorname{Re}z\), so
+\(|t^{z-1}|=t^{\sigma-1}\).
+\begin{itemize}
+  \item Near \(t=0\): \(e^{-t}\approx1\), and \(\int_0 t^{\sigma-1}\,dt\) is finite exactly when
+        \(\sigma>0\).
+  \item Near \(t=\infty\): \(e^{-t}\) decays faster than any power of \(t\) grows, so there is no
+        problem.
+\end{itemize}
+
+\textbf{Why this function and not another?} Many smooth functions pass through the points
+\((n+1,\,n!)\). \(\Gamma\) is the standard choice because of a uniqueness theorem (Bohr--Mollerup,
+quoted): it is the only positive function on \(x>0\) with \(f(1)=1\), \(f(x+1)=xf(x)\), and
+\(\log f\) convex.
 
 \par\framebreak\par
-\textbf{Step 2: derive the recursion.}  Integrate \(\Gamma(z+1)\) by parts with \(u=t^z\),
+\textbf{Step 3: derive the recursion.}  Integrate \(\Gamma(z+1)\) by parts with \(u=t^z\),
 \(dv=e^{-t}dt\), so \(du=z\,t^{z-1}dt\) and \(v=-e^{-t}\):
 \[
   \Gamma(z+1)
@@ -237,16 +289,17 @@ because it is the only positive function on \(x>0\) with \(f(x+1)=xf(x)\), \(f(1
    =\left[-t^ze^{-t}\right]_{0}^{\infty}
      +z\int_0^\infty e^{-t}t^{z-1}\,dt.
 \]
-For \(\sigma>0\), \(|t^ze^{-t}|=t^\sigma e^{-t}\to0\) both as \(t\to0^+\) and as \(t\to\infty\),
-so the boundary term is zero. Therefore
+The boundary term is zero: \(|t^ze^{-t}|=t^\sigma e^{-t}\) tends to \(0\) at \(t=0\) (because
+\(\sigma>0\)) and at \(t=\infty\) (because \(e^{-t}\) wins). The remaining integral is \(\Gamma(z)\).
+Therefore
 \begin{equation}
   \Gamma(z+1)=z\,\Gamma(z).
   \label{eq:gamma-rec}
 \end{equation}
 
-\textbf{Step 3: recover factorials.}  At \(z=1\),
+\textbf{Step 4: recover factorials.}  First the starting value:
 \(\Gamma(1)=\int_0^\infty e^{-t}\,dt=\left[-e^{-t}\right]_{0}^{\infty}=1\).
-For \(n\in\mathbb N\), repeated use of \eqref{eq:gamma-rec} gives
+Then apply \eqref{eq:gamma-rec} again and again, lowering the argument by one each time:
 \[
   \Gamma(n+1)=n\,\Gamma(n)=n(n-1)\Gamma(n-1)=\cdots=n(n-1)\cdots2\cdot1\,\Gamma(1)=n!.
 \]
@@ -263,23 +316,30 @@ Keep track of the shift: \(\Gamma(n+1)=n!\), not \(\Gamma(n)=n!\).
 \begin{frame}[allowframebreaks=1.00]{Worked examples: half-integer values}
 \footnotesize
 
-\textbf{Why half-integers.} The recursion turns every \(\Gamma(m+\tfrac12)\) into a
-multiple of one base value, \(\Gamma(1/2)\) — the values that reappear in
-\(J_{\pm1/2}\) (Chapter~3) and in the spherical-Bessel formulas of Chapter~5.
-That base value turns out to be the Gaussian integral in disguise.
+\textbf{Goal.} Compute \(\Gamma(\tfrac12),\Gamma(\tfrac32),\Gamma(\tfrac52),\dots\) exactly.
+These values appear later in \(J_{\pm1/2}\) (Chapter~3) and in the spherical Bessel functions
+(Chapter~5).
 
-\textbf{Step 1: evaluate the Gaussian integral.}  Let
-\(I=\int_{-\infty}^{\infty}e^{-x^2}\,dx\); the integrand is positive, so \(I>0\).
-Squaring and writing the product as a double integral,
+\textbf{Plan.} The recursion \(\Gamma(z+1)=z\Gamma(z)\) reduces every \(\Gamma(m+\tfrac12)\) to the
+single number \(\Gamma(\tfrac12)\). So we need only \(\Gamma(\tfrac12)\), and it turns out to be the
+Gaussian integral \(\int e^{-x^2}dx\). We first compute that integral.
+
+\textbf{Step 1: the Gaussian integral.}  Let
+\(I=\int_{-\infty}^{\infty}e^{-x^2}\,dx\). There is no elementary antiderivative of \(e^{-x^2}\),
+so we use a trick: compute \(I^2\) instead. (Note \(I>0\), since the integrand is positive.)
+Write \(I^2\) as the product of two copies, with different names for the variables, and combine
+them into one integral over the plane:
 \begin{align*}
   I^2
    &=\left(\int_{-\infty}^{\infty}e^{-x^2}\,dx\right)
      \left(\int_{-\infty}^{\infty}e^{-y^2}\,dy\right)
     =\int_{\mathbb R^2}e^{-(x^2+y^2)}\,dx\,dy.
 \end{align*}
-In polar coordinates
-\(x=r\cos\theta\), \(y=r\sin\theta\), a small area element has sides \(dr\) and
-\(r\,d\theta\), hence \(dx\,dy=r\,dr\,d\theta\). Thus
+\par\framebreak\par
+The integrand depends only on \(x^2+y^2=r^2\), so polar coordinates \(x=r\cos\theta\),
+\(y=r\sin\theta\) are natural. A small polar area element has sides \(dr\) and \(r\,d\theta\), so
+\(dx\,dy=r\,dr\,d\theta\). The extra factor \(r\) is exactly what makes the \(r\)-integral easy,
+since \(\frac{d}{dr}\bigl(-\tfrac12e^{-r^2}\bigr)=re^{-r^2}\):
 \[
   I^2
    =\int_0^{2\pi}\int_0^\infty e^{-r^2}r\,dr\,d\theta
@@ -294,63 +354,74 @@ and because \(I>0\),
   \label{eq:gauss-int}
 \end{equation}
 
-\textbf{Step 2: a Gaussian form of \(\Gamma\), at \(z=\tfrac12\).}  Put \(t=u^2\) in \eqref{eq:gamma-def},
-so \(dt=2u\,du\) and \(t^{z-1}=u^{2z-2}\) for \(u>0\):
+\par\framebreak\par
+\textbf{Step 2: turn \(\Gamma\) into a Gaussian integral.} The integrand of \(\Gamma\) contains
+\(e^{-t}\); to get \(e^{-u^2}\) we substitute \(t=u^2\) in \eqref{eq:gamma-def}. Then
+\(dt=2u\,du\), \(t^{z-1}=u^{2z-2}\), and \(t:0\to\infty\) becomes \(u:0\to\infty\):
 \begin{equation}
   \Gamma(z)=\int_0^\infty e^{-u^2}u^{2z-2}(2u)\,du
   =2\int_0^\infty e^{-u^2}u^{2z-1}\,du,
   \qquad \operatorname{Re}z>0.
   \label{eq:gamma-gauss}
 \end{equation}
-At \(z=\tfrac12\), \(2z-1=0\); since \(e^{-u^2}\) is even, \eqref{eq:gauss-int} gives
+\textbf{Step 3: set \(z=\tfrac12\).} Then \(u^{2z-1}=u^0=1\). Since \(e^{-u^2}\) is even, twice the
+integral over \((0,\infty)\) is the integral over the whole line, which is \eqref{eq:gauss-int}:
 \begin{equation}
   \Gamma\left(\tfrac12\right)=2\int_0^\infty e^{-u^2}\,du
   =\int_{-\infty}^{\infty}e^{-u^2}\,du=\sqrt\pi.
   \label{eq:gamma-half}
 \end{equation}
-One application of the recursion \eqref{eq:gamma-rec}, written as
-\(\Gamma(z)=(z-1)\,\Gamma(z-1)\) at \(z=\tfrac32\), gives
-\(\Gamma(\tfrac32)=\tfrac12\,\Gamma(\tfrac12)=\sqrt\pi/2\).
-Applying it \(m\) times in the same way,
+\par\framebreak\par
+\textbf{Step 4: climb with the recursion.} Use \(\Gamma(z+1)=z\,\Gamma(z)\) repeatedly:
+\[
+ \Gamma\bigl(\tfrac32\bigr)=\tfrac12\,\Gamma\bigl(\tfrac12\bigr)=\frac{\sqrt\pi}{2},\qquad
+ \Gamma\bigl(\tfrac52\bigr)=\tfrac32\,\Gamma\bigl(\tfrac32\bigr)=\frac{3\sqrt\pi}{4},\qquad
+ \Gamma\bigl(\tfrac72\bigr)=\tfrac52\,\Gamma\bigl(\tfrac52\bigr)=\frac{15\sqrt\pi}{8}.
+\]
+The pattern: after \(m\) steps we have multiplied by \(m\) factors \(\tfrac12,\tfrac32,\dots,\tfrac{2m-1}2\),
+each an odd number over \(2\):
 \[
  \Gamma\left(m+\tfrac12\right)
- =\left(m-\tfrac12\right)\left(m-\tfrac32\right)\cdots\tfrac12\;
-  \Gamma\left(\tfrac12\right)
- =\frac{1\cdot3\cdots(2m-1)}{2^m}\sqrt\pi,
+ =\frac{1\cdot3\cdot5\cdots(2m-1)}{2^m}\,\sqrt\pi .
 \]
-since each of the \(m\) factors is (odd number)\(/2\).
-To put it in closed form, separate the even and odd factors of $(2m)!$; the even ones give
-$2\cdot4\cdots(2m)=2^m m!$, so
+\textbf{Step 5 (optional): a closed form.} The product of odd numbers can be written with
+factorials. Split \((2m)!\) into its even and its odd factors. The even factors are
+\(2\cdot4\cdots(2m)=2^m\,m!\). Hence
 \[
- (2m)!=(2^m m!)\,[1\cdot3\cdots(2m-1)]
+ (2m)!=2^m\,m!\cdot\bigl[1\cdot3\cdots(2m-1)\bigr]
  \quad\Longrightarrow\quad
- \frac{1\cdot3\cdots(2m-1)}{2^m}=\frac{(2m)!}{2^m m!\,2^m},
+ 1\cdot3\cdots(2m-1)=\frac{(2m)!}{2^m\,m!},
 \]
 and therefore
 \[
- \Gamma\left(m+\tfrac12\right)=\frac{(2m)!}{4^m m!}\sqrt\pi .
+ \Gamma\left(m+\tfrac12\right)=\frac{(2m)!}{4^m\,m!}\sqrt\pi .
 \]
-For example, $m=2$ gives $\Gamma(\tfrac52)=\tfrac{24}{16\cdot2}\sqrt\pi=\tfrac34\sqrt\pi$, which is
-$\tfrac32\cdot\tfrac12\sqrt\pi$ as the recursion says. The formula also holds at $m=0$.
+Check \(m=2\): \(\frac{24}{16\cdot2}\sqrt\pi=\frac34\sqrt\pi\), as in Step~4. It also holds at \(m=0\).
 \end{frame}
 
 
 \begin{frame}[allowframebreaks=1.00]{Analytic continuation to the left half-plane}
 \footnotesize
 
-\textbf{Why continue.} Bessel series (Chapters~3 and~5) contain \(\Gamma\) at negative
-noninteger arguments, where the integral \eqref{eq:gamma-def} diverges. The outcome, plotted
-after, is a function with poles at \(0,-1,-2,\dots\) whose sign alternates between them.
+\textbf{The problem.} The integral \eqref{eq:gamma-def} defines \(\Gamma(z)\) only for
+\(\operatorname{Re}z>0\). But Bessel series (Chapters~3 and~5) need values such as
+\(\Gamma(-\tfrac12)\), where the integral diverges. We need a definition that works there too.
 
-\textbf{Run the recursion backward.} Dividing \eqref{eq:gamma-rec} by \(z\),
-\(\Gamma(z)=\Gamma(z+1)/z\), and \(\Gamma(z+1)\) is given by the integral whenever
-\(\operatorname{Re}(z+1)>0\):
+\textbf{The idea: run the recursion backward.} Divide \(\Gamma(z+1)=z\Gamma(z)\) by \(z\):
 \[
-  \Gamma(z)=\frac{\Gamma(z+1)}{z}
-           =\frac1z\int_0^\infty e^{-t}t^z\,dt,
-  \qquad \operatorname{Re}z>-1,\quad z\neq0.
+  \Gamma(z)=\frac{\Gamma(z+1)}{z}.
 \]
-Repeating the recursion \(m\) times gives
+Read this as a \emph{definition} of the left side. Example: \(\Gamma(-\tfrac12)\) has no integral,
+but the right side needs only \(\Gamma(\tfrac12)=\sqrt\pi\), which we know:
+\[
+  \Gamma(-\tfrac12)=\frac{\Gamma(\tfrac12)}{-\tfrac12}=-2\sqrt\pi .
+\]
+In general, the right side is defined by the integral whenever \(\operatorname{Re}(z+1)>0\). So this
+extends \(\Gamma\) to the strip \(-1<\operatorname{Re}z\le0\), except at \(z=0\), where we would divide by
+zero.
+\par\framebreak\par
+\textbf{Going further left.} To reach \(\operatorname{Re}z>-2\), \(-3\), \dots, use the recursion
+several times. Applying it \(m\) times gives
 \begin{align*}
   \Gamma(z+m)
    &=(z+m-1)\Gamma(z+m-1)
@@ -358,35 +429,47 @@ Repeating the recursion \(m\) times gives
    &=\cdots
     =(z+m-1)(z+m-2)\cdots(z+1)z\,\Gamma(z).
 \end{align*}
-If \(m\) is chosen so that \(\operatorname{Re}(z+m)>0\), then
-\(\Gamma(z+m)\) is defined by the original integral and
+Solve for \(\Gamma(z)\). If we pick \(m\) large enough that \(\operatorname{Re}(z+m)>0\), the
+numerator below is given by the integral, so the right side is known:
 \begin{equation}
   \Gamma(z)
    =\frac{\Gamma(z+m)}
           {z(z+1)(z+2)\cdots(z+m-1)}.
   \label{eq:gamma-continue}
 \end{equation}
-This defines \(\Gamma\) on the whole plane except \(0,-1,-2,\dots\) (a larger \(m\) gives the
-same value, by the recursion).
-
-\textbf{Poles and residues.} Near \(z=-n\), \(n\in\mathbb N_0\), set \(z=-n+\varepsilon\) and choose
-\(m=n+1\) in \eqref{eq:gamma-continue}:
+This defines \(\Gamma\) everywhere except where a denominator factor is zero, that is, at
+\(z=0,-1,-2,\dots\). (Choosing a larger \(m\) gives the same value, by the recursion, so the
+definition is consistent.)
+\par\framebreak\par
+\textbf{What happens at \(z=0,-1,-2,\dots\)?} Look near \(z=-n\) (\(n=0,1,2,\dots\)). Write
+\(z=-n+\varepsilon\) with \(\varepsilon\) small, and use \eqref{eq:gamma-continue} with \(m=n+1\).
+The last denominator factor is \(z+n=\varepsilon\):
 \[
   \Gamma(-n+\varepsilon)
    =\frac{\Gamma(1+\varepsilon)}
-     {(-n+\varepsilon)(1-n+\varepsilon)\cdots(-1+\varepsilon)\,\varepsilon}.
+     {(-n+\varepsilon)(-n+1+\varepsilon)\cdots(-1+\varepsilon)\cdot\varepsilon}.
 \]
-As \(\varepsilon\to0\), the numerator tends to \(\Gamma(1)=1\), and the \(n\) factors before
-\(\varepsilon\) tend to \((-n)(1-n)\cdots(-1)=(-1)^n n!\) (an empty product \(1\) when \(n=0\)).
-Hence the blow-up is a constant times \(1/\varepsilon\) — first power of the distance to \(-n\),
-i.e.\ a \emph{simple pole}: using \(1/(-1)^n=(-1)^n\),
+As \(\varepsilon\to0\):
+\begin{itemize}
+  \item the numerator tends to \(\Gamma(1)=1\);
+  \item the first \(n\) denominator factors tend to \((-n)(-n+1)\cdots(-1)=(-1)^n\,n!\)
+        (there are \(n\) negative factors; for \(n=0\) there are none, and the product is \(1\));
+  \item the last factor \(\varepsilon\) tends to \(0\).
+\end{itemize}
+So, using \(1/(-1)^n=(-1)^n\),
 \[
-  \Gamma(-n+\varepsilon)\approx\frac{(-1)^n}{n!\,\varepsilon}\qquad(\varepsilon\to0).
+  \Gamma(-n+\varepsilon)\approx\frac{(-1)^n}{n!}\cdot\frac{1}{\varepsilon}\qquad(\varepsilon\to0).
 \]
-Multiplying by \(\varepsilon=z-(-n)\) annihilates the finite part (\(\varepsilon\cdot\text{finite}\to0\))
-and isolates the coefficient of \(1/\varepsilon\), the \emph{residue} — the only coefficient a
-contour integral sees, since on a small circle every \(\varepsilon^k\) integrates to zero except
-\(\varepsilon^{-1}\to2\pi i\):
+\par\framebreak\par
+\textbf{Two names for this behavior.}
+\begin{itemize}
+  \item \(\Gamma\) blows up like a constant times \(1/\varepsilon\), the first power of
+        \(1/(\text{distance to }{-n})\). This is called a \emph{simple pole} (Chapter~1).
+  \item The constant in front of \(1/\varepsilon\) is called the \emph{residue}. It is the number
+        that matters in contour integrals: on a small circle around \(-n\), the term \(1/\varepsilon\)
+        integrates to \(2\pi i\), while the rest (which has no blow-up) integrates to zero.
+\end{itemize}
+To read off the residue, multiply by \(\varepsilon=z+n\) and let \(\varepsilon\to0\):
 \begin{equation}
   \operatorname*{Res}_{z=-n}\Gamma(z)=\lim_{\varepsilon\to0}\varepsilon\,\Gamma(-n+\varepsilon)=\frac{(-1)^n}{n!}.
   \label{eq:gamma-residue}
@@ -398,18 +481,22 @@ contour integral sees, since on a small circle every \(\varepsilon^k\) integrate
 \begin{center}
   \includegraphics[width=0.62\linewidth]{figs/gamma-real.pdf}
 \end{center}
-On the positive real axis, \(\Gamma(n+1)=n!\). For \(-n<x<-n+1\), write
-\(\Gamma(x)=\Gamma(x+n+1)/\bigl(x(x+1)\cdots(x+n)\bigr)\) by \eqref{eq:gamma-continue}: the numerator is
-positive (\(x+n+1\) lies in \((1,2)\)), and exactly \(n\) of the factors, \(x,\dots,x+n-1\), are negative.
-So \(\Gamma\) has sign \((-1)^n\) there, and runs off to \(\pm\infty\) at each end (the poles \eqref{eq:gamma-residue}).
+\textbf{Right half:} \(\Gamma\) passes through \(\Gamma(n+1)=n!\) and grows very fast.
+\textbf{Left half:} \(\Gamma\) blows up at each of \(0,-1,-2,\dots\) (the poles), and its sign
+alternates between them. Why? Take \(x\) between \(-n\) and \(-n+1\), and use
+\eqref{eq:gamma-continue} with \(m=n+1\):
+\(\Gamma(x)=\Gamma(x+n+1)\big/\bigl[x(x+1)\cdots(x+n)\bigr]\).
+The numerator is positive, since \(x+n+1\) lies in \((1,2)\). In the denominator, the \(n\) factors
+\(x,\dots,x+n-1\) are negative and the last one is positive. So \(\Gamma(x)\) has the sign \((-1)^n\).
 \end{frame}
 
 
 \begin{frame}[allowframebreaks=1.00]{Euler's reflection formula}
 \footnotesize
-\textbf{Why we want it.} The continuation reaches the left half-plane only by repeated division.
-The reflection formula links \(\Gamma(z)\) directly to \(\Gamma(1-z)\), where \(1-z\) is the point
-symmetric to \(z\) about \(\tfrac12\). Chapters~3 and~5 use it for the Airy and Bessel Wronskians.
+\textbf{Why we want it.} So far, values of \(\Gamma\) on the left come only from dividing again
+and again. The reflection formula relates \(\Gamma(z)\) to \(\Gamma(1-z)\) in one step. (The points
+\(z\) and \(1-z\) are mirror images about \(\tfrac12\).) Chapters~3 and~5 use it for the Airy and
+Bessel Wronskians.
 \begin{block}{Euler's reflection formula}
 \vspace{-1.2ex}
 \begin{equation}
@@ -419,41 +506,58 @@ symmetric to \(z\) about \(\tfrac12\). Chapters~3 and~5 use it for the Airy and 
 \end{block}
 Check at \(z=\tfrac12\): \(\Gamma(\tfrac12)^2=\pi/\sin(\pi/2)=\pi\), in agreement with \eqref{eq:gamma-half}.
 
-\textbf{Proof for real \(0<a<1\).} With \(\Gamma(1-a)=\int_0^\infty s^{-a}e^{-s}\,ds\)
-(\eqref{eq:gamma-def} at \(z=1-a\)), the product is
+\textbf{Plan of the proof.} First prove it for real \(a\) with \(0<a<1\), where both
+\(\Gamma(a)\) and \(\Gamma(1-a)\) are given by integrals. Then extend to all \(z\) by the
+identity theorem.
+\par\framebreak\par
+\textbf{Step 1: write the product as a double integral.} Use \eqref{eq:gamma-def} twice, with
+different integration variables \(t\) and \(s\):
+\[
+  \Gamma(a)=\int_0^\infty t^{a-1}e^{-t}\,dt,\qquad
+  \Gamma(1-a)=\int_0^\infty s^{-a}e^{-s}\,ds,
+\]
 \[
   \Gamma(a)\Gamma(1-a)
    =\int_0^\infty\!\!\int_0^\infty
       t^{a-1}s^{-a}e^{-(t+s)}\,dt\,ds.
 \]
-To collapse the double integral, set \(t=su\) for each fixed \(s>0\), so \(s\)
-survives only in the exponential. Then \(dt=s\,du\), \(e^{-(t+s)}=e^{-s(1+u)}\), and
-\(t^{a-1}s^{-a}\,dt=(su)^{a-1}s^{-a}(s\,du)=u^{a-1}\,du\). Doing the \(s\)-integral first
-(positive integrand, so the order may be swapped),
-with \(\int_0^\infty e^{-s(1+u)}\,ds=1/(1+u)\),
+\textbf{Step 2: substitute \(t=su\).} For each fixed \(s\), measure \(t\) in units of \(s\). The aim
+is to make the powers of \(s\) cancel. With \(dt=s\,du\):
+\[
+  t^{a-1}s^{-a}\,dt=(su)^{a-1}s^{-a}\,s\,du=u^{a-1}\,du,
+  \qquad
+  e^{-(t+s)}=e^{-s(1+u)}.
+\]
+Now \(s\) appears only in the exponential, so do the \(s\)-integral first (the integrand is
+positive, so the order of integration may be swapped):
 \[
   \Gamma(a)\Gamma(1-a)
    =\int_0^\infty u^{a-1}
-      \left(\int_0^\infty e^{-s(1+u)}\,ds\right)du
+      \underbrace{\left(\int_0^\infty e^{-s(1+u)}\,ds\right)}_{=\,1/(1+u)}du
    =\int_0^\infty\frac{u^{a-1}}{1+u}\,du.
 \]
-Chapter~1 evaluated, by a keyhole contour,
-\(\int_0^\infty x^{-b}(1+x)^{-1}dx=\pi/\sin(\pi b)\) for \(0<b<1\).
-Taking \(b=1-a\), so that \(x^{-b}=x^{a-1}\) and \(\sin(\pi-\pi a)=\sin(\pi a)\), gives
-\(\Gamma(a)\Gamma(1-a)=\pi/\sin(\pi a)\).
+\par\framebreak\par
+\textbf{Step 3: use Chapter~1.} There a keyhole contour gave
+\(\int_0^\infty x^{-b}(1+x)^{-1}dx=\pi/\sin(\pi b)\) for \(0<b<1\). Our integral is this with
+\(b=1-a\) (then \(x^{-b}=x^{a-1}\)), and \(\sin(\pi-\pi a)=\sin(\pi a)\). So
+\[
+  \Gamma(a)\Gamma(1-a)=\frac{\pi}{\sin(\pi a)},\qquad 0<a<1.
+\]
 
-\textbf{All \(z\notin\mathbb Z\).} Both sides are analytic on the connected open set
-\(\mathbb C\setminus\mathbb Z\) and agree on the segment \((0,1)\). By the identity theorem
-(Chapter~1: two functions that agree on a segment agree on their whole connected
-domain), they agree at every noninteger \(z\).
+\textbf{Step 4: extend to all \(z\notin\mathbb Z\).} Both sides of \eqref{eq:gamma-reflect} are
+analytic on \(\mathbb C\setminus\mathbb Z\) (the plane with the integers removed), and they agree
+on the segment \((0,1)\). The identity theorem of Chapter~1 says: two analytic functions that
+agree on a segment agree on their whole connected domain. So the formula holds at every
+noninteger \(z\).
+\par\framebreak\par
+\textbf{Consequence 1: \(\Gamma\) is never zero.} At a noninteger \(z\), the product
+\(\Gamma(z)\Gamma(1-z)\) equals \(\pi/\sin(\pi z)\neq0\), so neither factor can be zero. At the
+positive integers, \(\Gamma(n)=(n-1)!\neq0\). At \(0,-1,-2,\dots\), \(\Gamma\) has poles.
+(We will need this fact: it means \(1/\Gamma\) never blows up.)
 
-\textbf{Consequence: \(\Gamma\) has no zeros.} At a noninteger \(z\) the product
-\(\Gamma(z)\Gamma(1-z)=\pi/\sin(\pi z)\) is nonzero, so neither factor vanishes. At positive integers
-\(\Gamma(n)=(n-1)!\neq0\) by \eqref{eq:gamma-fact}; the remaining integers are poles.
-
-\textbf{The form for \(\Gamma(-z)\).} Replacing \(z\) by \(-z\) in \eqref{eq:gamma-reflect} gives
-$\Gamma(-z)\Gamma(1+z)=\pi/\sin(-\pi z)=-\pi/\sin(\pi z)$ (sine is odd); dividing by
-$\Gamma(z+1)\neq0$,
+\textbf{Consequence 2: a formula for \(\Gamma(-z)\).} Replace \(z\) by \(-z\) in
+\eqref{eq:gamma-reflect}. Since sine is odd, \(\sin(-\pi z)=-\sin(\pi z)\), so
+\(\Gamma(-z)\Gamma(1+z)=-\pi/\sin(\pi z)\). Divide by \(\Gamma(1+z)\), which is not zero:
 \begin{equation}
  \Gamma(-z)=-\frac{\pi}{\Gamma(z+1)\sin(\pi z)},\qquad z\notin\mathbb Z.
  \label{eq:gamma-neg}
@@ -465,72 +569,81 @@ It computes \(\Gamma\) at negative arguments from positive ones: at \(z=\tfrac12
 
 \begin{frame}[allowframebreaks=1.00]{Euler's limit representation}
 \footnotesize
-\textbf{What it is for.} It writes \(\Gamma\) as a limit of finite products, so the poles at
-\(0,-1,-2,\dots\) show up openly as zeros of the denominator, and one formula covers every
-\(z\) where \(\Gamma\) is finite, with no integral to converge.
-
 \textbf{Goal.} Show that
 \[
  \Gamma(z)=\lim_{n\to\infty}\frac{n^z\,n!}{z(z+1)\cdots(z+n)},
  \qquad z\notin\{0,-1,-2,\dots\}.
 \]
-The plan: replace \(e^{-t}\) in Euler's integral \eqref{eq:gamma-def} by a finite-\(n\) look-alike whose
-integral can be done exactly, because it is a polynomial times a power of \(t\) (Steps~1--2); then
-remove the restriction \(\operatorname{Re}z>0\) (Step~3).
+\textbf{Why this is useful.} The right side has no integral, only a product. So it makes sense for
+every \(z\) except \(0,-1,-2,\dots\), and those excluded points are visibly the places where a
+denominator factor is zero: they are the poles of \(\Gamma\).
 
-\textbf{Step 1: truncate the exponential.} Since \((1-t/n)^n\to e^{-t}\), define, for
-\(\operatorname{Re}z>0\),
+\textbf{Plan.} The integral \(\int_0^\infty e^{-t}t^{z-1}dt\) cannot be done in closed form for
+general \(z\). Replace \(e^{-t}\) by a polynomial that approximates it; the resulting integral can be
+done exactly. Then let the approximation get better.
+\par\framebreak\par
+\textbf{Step 1: approximate \(e^{-t}\) by a polynomial.} From calculus,
+\((1+x/n)^n\to e^x\) as \(n\to\infty\). With \(x=-t\):
 \[
- F_n(z)=\int_0^n\left(1-\frac{t}{n}\right)^n t^{z-1}\,dt
- \;\longrightarrow\;\int_0^\infty e^{-t}t^{z-1}\,dt=\Gamma(z)\qquad(n\to\infty).
+ \Bigl(1-\frac tn\Bigr)^n\;\longrightarrow\;e^{-t}.
 \]
-(Since \((1-t/n)^n\le e^{-t}\), the limit can go inside the integral.)
+The left side is a polynomial in \(t\) that is zero at \(t=n\), so we stop the integral there.
+Define, for \(\operatorname{Re}z>0\),
+\[
+ F_n(z)=\int_0^n\left(1-\frac{t}{n}\right)^n t^{z-1}\,dt .
+\]
+As \(n\to\infty\), \(F_n(z)\to\int_0^\infty e^{-t}t^{z-1}\,dt=\Gamma(z)\). (Moving the limit inside
+the integral is allowed because \((1-t/n)^n\le e^{-t}\); we accept this step.)
 
-\textbf{Step 2: evaluate \(F_n\) exactly.} Put \(t=nu\), so \(dt=n\,du\) and
-\((nu)^{z-1}=n^{z-1}u^{z-1}\):
-\(F_n(z)=n^z\int_0^1(1-u)^n u^{z-1}\,du\).
-Integrate by parts with \(u^{z-1}\,du=d(u^z)/z\); the endpoint term vanishes, since
-\((1-u)^n=0\) at \(u=1\) and \(u^z\to0\) at \(u=0\):
+\textbf{Step 2: compute \(F_n\) exactly.} Substitute \(t=nu\), so \(dt=n\,du\), the limits become
+\(0\) and \(1\), and \(t^{z-1}=n^{z-1}u^{z-1}\). The powers of \(n\) combine to \(n^z\):
+\[
+ F_n(z)=n^z\int_0^1(1-u)^n u^{z-1}\,du .
+\]
+\par\framebreak\par
+\textbf{Step 2, continued: integrate by parts.} Differentiate \((1-u)^n\) and integrate
+\(u^{z-1}\) (antiderivative \(u^z/z\)). The boundary term is zero, because \((1-u)^n=0\) at \(u=1\)
+and \(u^z=0\) at \(u=0\):
 \[
  \int_0^1(1-u)^n u^{z-1}\,du
- =\left[\frac{(1-u)^n u^z}{z}\right]_0^1
-  +\frac{n}{z}\int_0^1(1-u)^{n-1}u^z\,du
- =\frac{n}{z}\int_0^1(1-u)^{n-1}u^z\,du .
+ =\frac{n}{z}\int_0^1(1-u)^{n-1}u^{z}\,du .
 \]
-Each such step lowers the power of \(1-u\) by one and raises that of \(u\) by one.
-After \(n\) steps the factors \(\frac{n}{z}\cdot\frac{n-1}{z+1}\cdots\frac{1}{z+n-1}\) remain in front of
-\(\int_0^1u^{z+n-1}\,du=\frac1{z+n}\), so
+The power of \(1-u\) went down by one, the power of \(u\) went up by one, and a factor came out
+in front. Do the same again:
+\[
+ =\frac{n}{z}\cdot\frac{n-1}{z+1}\int_0^1(1-u)^{n-2}u^{z+1}\,du
+ =\cdots
+ =\frac{n}{z}\cdot\frac{n-1}{z+1}\cdots\frac{1}{z+n-1}\int_0^1u^{z+n-1}\,du .
+\]
+The last integral is \(1/(z+n)\). The numerators multiply to \(n!\). Hence
 \[
  \int_0^1(1-u)^n u^{z-1}\,du=\frac{n!}{z(z+1)\cdots(z+n)},
  \qquad
- F_n(z)=\frac{n^z n!}{z(z+1)\cdots(z+n)}.
+ F_n(z)=\frac{n^z\, n!}{z(z+1)\cdots(z+n)}.
 \]
-Since \(F_n(z)\to\Gamma(z)\) for \(\operatorname{Re}z>0\) (Step~3 removes this restriction),
+\par\framebreak\par
+\textbf{Result for \(\operatorname{Re}z>0\).} Since \(F_n(z)\to\Gamma(z)\) (Step~1),
 \begin{equation}
  \Gamma(z)=\lim_{n\to\infty}\frac{n^z n!}{z(z+1)\cdots(z+n)},
  \qquad z\notin\{0,-1,-2,\ldots\}.
  \label{eq:gamma-euler-limit}
 \end{equation}
-\textbf{Step 3: every \(z\) off the poles.} For \(\operatorname{Re}z\le0\) with
-\(z\notin\{0,-1,-2,\dots\}\), pick \(m\) with \(\operatorname{Re}(z+m)>0\). Step~2's limit then
-applies to \(\Gamma(z+m)\), and the continuation rule \eqref{eq:gamma-continue} divides it
-by \(z(z+1)\cdots(z+m-1)\):
-\[
- \Gamma(z)=\frac{\Gamma(z+m)}{z(z+1)\cdots(z+m-1)}
- =\lim_{n\to\infty}\frac{n^{z+m}n!}{z(z+1)\cdots(z+n+m)} ;
-\]
-the denominator concatenates the \(m\) new factors with the \(n+1\) factors
-\((z+m)\cdots(z+m+n)\) of the \(\Gamma(z+m)\) approximant, so it runs from \(z\) to
-\(z+m+n\). Peeling off its last \(m\) factors shows this approximant is just Step~2's
-\(F_n(z)\) times \(m\) correction factors:
+\textbf{Step 3: the formula also holds for \(\operatorname{Re}z\le0\).} So far we know it only for
+\(\operatorname{Re}z>0\). Take any other \(z\) (not a pole) and pick \(m\) with
+\(\operatorname{Re}(z+m)>0\). Two facts:
+\begin{itemize}
+  \item the formula holds for \(z+m\);
+  \item \(\Gamma(z)\) is \(\Gamma(z+m)\) divided by \(z(z+1)\cdots(z+m-1)\), by \eqref{eq:gamma-continue}.
+\end{itemize}
+Write the product formula for \(\Gamma(z+m)\) and divide. The denominator becomes
+\(z(z+1)\cdots(z+m+n)\), and the result can be rearranged as
 \[
  \frac{n^{z+m}n!}{z(z+1)\cdots(z+n+m)}
- =\underbrace{\frac{n^{z}n!}{z(z+1)\cdots(z+n)}}_{=\,F_n(z)}
- \;\prod_{j=1}^{m}\frac{n}{z+n+j},
- \qquad \frac{n}{z+n+j}\longrightarrow1 .
+ =\underbrace{\frac{n^{z}n!}{z(z+1)\cdots(z+n)}}_{\text{the formula at }z}
+ \;\cdot\;\frac{n}{z+n+1}\cdot\frac{n}{z+n+2}\cdots\frac{n}{z+n+m}.
 \]
-Only \(m\) factors, each tending to \(1\), so the product tends to \(1\): the limit is
-again \eqref{eq:gamma-euler-limit}, now for every \(z\) where \(\Gamma\) is finite.
+There are only \(m\) extra factors, and each tends to \(1\) as \(n\to\infty\). So both sides have the
+same limit, and \eqref{eq:gamma-euler-limit} holds at \(z\) too.
 \end{frame}
 
 
@@ -561,14 +674,17 @@ turns into \(1/\Gamma(a)\).
 \par\framebreak\par
 \begin{columns}[T]
 \begin{column}{0.60\textwidth}
-\textbf{Step 1: the contour.} The integrand has a branch point at \(t=0\), because
-\(t^{-a}=e^{-a\log t}\) is multivalued unless \(a\) is an integer. Cut the plane along the
-negative real axis and fix the branch with \(-\pi<\arg t<\pi\). The Hankel contour \(\mathcal H\)
-comes in from \(-\infty\) \emph{below} the cut, circles the origin counterclockwise, and returns
-to \(-\infty\) \emph{above} the cut. The loop stays away from \(t=0\), and on both legs \(e^t\)
-decays like \(e^{-|t|}\) while \(t^{-a}\) grows at most like a power of \(|t|\), so the integral of
-\(e^tt^{-a}\) converges for every complex \(a\); differentiating under the integral sign shows
-that it is an entire function of \(a\).
+\textbf{Step 1: the contour.} The power \(t^{-a}=e^{-a\log t}\) is multivalued, because
+\(\log t\) is (Chapter~1). To make it single-valued, cut the plane along the negative real
+axis and take \(-\pi<\arg t<\pi\).
+
+The Hankel contour \(\mathcal H\) (right) comes in from \(-\infty\) just \emph{below} the cut,
+circles the origin counterclockwise, and goes back to \(-\infty\) just \emph{above} the cut.
+
+\textbf{Why it converges for every \(a\).} The loop never touches \(t=0\). Far out on the legs,
+\(e^t\) decays like \(e^{-|t|}\), much faster than any power \(t^{-a}\) can grow. So the
+integral is finite for every complex \(a\). It is even an \emph{entire} function of \(a\)
+(analytic for all complex \(a\)).
 \end{column}
 \begin{column}{0.38\textwidth}
 \centering
@@ -588,14 +704,24 @@ that it is an entire function of \(a\).
 \end{column}
 \end{columns}
 
-\smallskip
-\textbf{Step 2: collapse onto the cut for \(0<a<1\).} For \(0<a<1\) the two legs become Euler
-integrals we already know, so we compute there first and extend in Step~3. The aim of this step is
-\(\int_{\mathcal H}e^tt^{-a}\,dt=2i\sin(\pi a)\,\Gamma(1-a)\). The integrand is holomorphic off the cut,
-so by Cauchy's theorem (Chapter~1) the radius \(\varepsilon\) of the circle does not matter; shrink it.
-On the lower leg \(t=re^{-i\pi}\) with \(r:\infty\to\varepsilon\); on the upper leg \(t=re^{i\pi}\) with
-\(r:\varepsilon\to\infty\). On both, \(t=-r\), so \(e^t=e^{-r}\) and \(dt=-dr\), while
-\(t^{-a}=r^{-a}e^{\pm i\pi a}\):
+\par\framebreak\par
+\textbf{Step 2: compute the integral when \(0<a<1\).} For these \(a\) the legs turn into Euler
+integrals we know. We aim to show
+\(\int_{\mathcal H}e^tt^{-a}\,dt=2i\sin(\pi a)\,\Gamma(1-a)\).
+
+\textbf{(a) Shrink the circle.} The integrand is analytic away from the cut. By Cauchy's theorem
+(Chapter~1), changing the radius \(\varepsilon\) of the small circle does not change the integral.
+So we may let \(\varepsilon\to0\).
+
+\textbf{(b) The two legs.} On both legs \(t=-r\) with \(r>0\), so \(e^t=e^{-r}\) and \(dt=-dr\). They
+differ only in the angle of \(t\), and that changes \(t^{-a}=r^{-a}e^{-ia\arg t}\):
+\begin{itemize}
+  \item lower leg: \(\arg t=-\pi\), so \(t^{-a}=r^{-a}e^{+i\pi a}\); it runs from \(r=\infty\) in to
+        \(r=\varepsilon\);
+  \item upper leg: \(\arg t=+\pi\), so \(t^{-a}=r^{-a}e^{-i\pi a}\); it runs from \(r=\varepsilon\) out to
+        \(r=\infty\).
+\end{itemize}
+Therefore
 \begin{align*}
  \int_{\mathrm{lower}}e^t t^{-a}\,dt
  &=\int_\infty^\varepsilon e^{-r}\,r^{-a}e^{i\pi a}\,(-dr)
@@ -604,45 +730,87 @@ On the lower leg \(t=re^{-i\pi}\) with \(r:\infty\to\varepsilon\); on the upper 
  &=\int_\varepsilon^\infty e^{-r}\,r^{-a}e^{-i\pi a}\,(-dr)
  =-e^{-i\pi a}\int_\varepsilon^\infty e^{-r}r^{-a}\,dr.
 \end{align*}
-The circle contributes at most \(2\pi\varepsilon\cdot e^{\varepsilon}\varepsilon^{-a}\to0\), since \(a<1\).
-Adding the legs and letting \(\varepsilon\to0\), with \(e^{i\theta}-e^{-i\theta}=2i\sin\theta\) and
-\eqref{eq:gamma-def} at \(z=1-a\), gives \(\int_{\mathcal H}e^tt^{-a}\,dt=2i\sin(\pi a)\,\Gamma(1-a)\).
-Divide by \(2\pi i\); by \eqref{eq:gamma-reflect} in the form \(\sin(\pi a)\Gamma(1-a)=\pi/\Gamma(a)\),
-the result \(\sin(\pi a)\Gamma(1-a)/\pi\) equals \(1/\Gamma(a)\):
+The two legs do not cancel, because the phases \(e^{\pm i\pi a}\) differ.
+\par\framebreak\par
+\textbf{(c) The small circle vanishes.} On it \(|t|=\varepsilon\), \(|e^t|\le e^{\varepsilon}\) and
+\(|t^{-a}|=\varepsilon^{-a}\); its length is \(2\pi\varepsilon\). So its contribution is at most
+\(2\pi\varepsilon\cdot e^{\varepsilon}\varepsilon^{-a}=2\pi e^\varepsilon\varepsilon^{1-a}\), which tends to
+\(0\) because \(a<1\).
+
+\textbf{(d) Add up.} The whole contour is lower leg + circle + upper leg. Let \(\varepsilon\to0\):
+the circle gives \(0\), and both leg integrals become
+\(\int_0^\infty e^{-r}r^{-a}\,dr\), which is Euler's integral \eqref{eq:gamma-def} at \(z=1-a\), that is,
+\(\Gamma(1-a)\). So
+\[
+ \int_{\mathcal H}e^tt^{-a}\,dt
+ =e^{i\pi a}\,\Gamma(1-a)-e^{-i\pi a}\,\Gamma(1-a)
+ =\bigl(e^{i\pi a}-e^{-i\pi a}\bigr)\Gamma(1-a)
+ =2i\sin(\pi a)\,\Gamma(1-a),
+\]
+where the last step is \(e^{i\theta}-e^{-i\theta}=2i\sin\theta\) (Chapter~1) with \(\theta=\pi a\).
+\par\framebreak\par
+\textbf{(e) Use the reflection formula.} Divide the result of (d) by \(2\pi i\):
+\[
+ \frac1{2\pi i}\int_{\mathcal H}e^tt^{-a}\,dt=\frac{2i\sin(\pi a)\,\Gamma(1-a)}{2\pi i}
+ =\frac{\sin(\pi a)\,\Gamma(1-a)}{\pi}.
+\]
+Now rearrange the reflection formula \eqref{eq:gamma-reflect}: from
+\(\Gamma(a)\Gamma(1-a)=\pi/\sin(\pi a)\), multiply both sides by \(\sin(\pi a)/\bigl(\pi\,\Gamma(a)\bigr)\):
+\[
+ \frac{\sin(\pi a)\,\Gamma(1-a)}{\pi}=\frac{1}{\Gamma(a)}.
+\]
+Combining the two displays,
 \begin{equation}
  \frac1{2\pi i}\int_{\mathcal H}e^t t^{-a}\,dt=\frac1{\Gamma(a)}.
  \label{eq:hankel-gamma}
 \end{equation}
 
-\textbf{Step 3: extend to every \(a\).} Step~2 proved the formula only for \(0<a<1\). The left side
-is entire in \(a\) (Step~1); so is the right side, because \(\Gamma\) has no zeros, so \(1/\Gamma\)
-has no poles (at the poles of \(\Gamma\) it is \(0\)). The two sides agree on \((0,1)\), so the identity theorem extends
-\eqref{eq:hankel-gamma} to all complex \(a\).
+\textbf{Step 3: extend to every \(a\).} Step~2 proved the formula only for \(0<a<1\).
+\begin{itemize}
+  \item The left side is entire in \(a\) (Step~1).
+  \item The right side is entire too. \(1/\Gamma\) could fail only where \(\Gamma=0\), and
+        \(\Gamma\) is never zero (reflection-formula frame). At the poles of \(\Gamma\), \(1/\Gamma=0\).
+\end{itemize}
+Two entire functions that agree on the segment \((0,1)\) agree everywhere (identity theorem).
+So \eqref{eq:hankel-gamma} holds for all complex \(a\).
 \end{frame}
 
 
 \begin{frame}[allowframebreaks=1.00]{Worked examples: gamma integrals}
 \footnotesize
 
+\textbf{How to use \(\Gamma\).} Many integrals become Euler's integral
+\(\int_0^\infty e^{-t}t^{z-1}dt=\Gamma(z)\) after a substitution. The trick is to choose the
+substitution that turns the exponent into \(-t\).
+
 \textbf{Example 1.} Evaluate \(\int_0^\infty e^{-x^p}\,dx\) for \(p>0\).
-Set \(t=x^p\), so \(x=t^{1/p}\), \(dx=\frac1p t^{1/p-1}\,dt\), and \(0,\infty\) map to \(0,\infty\). By \eqref{eq:gamma-def} with \(z=1/p\), and
-then the recursion \eqref{eq:gamma-rec} in the form \(\frac1p\Gamma(\frac1p)=\Gamma(1+\frac1p)\),
+\begin{itemize}
+  \item \emph{Substitute} \(t=x^p\), to turn \(e^{-x^p}\) into \(e^{-t}\). Then \(x=t^{1/p}\) and
+        \(dx=\frac1p\,t^{1/p-1}\,dt\). The limits \(x=0,\infty\) become \(t=0,\infty\).
+  \item \emph{Recognize \(\Gamma\).} The integrand is \(e^{-t}t^{z-1}\) with \(z-1=\frac1p-1\), that is,
+        \(z=\frac1p\).
+  \item \emph{Tidy up} with the recursion: \(\Gamma(1+\frac1p)=\frac1p\,\Gamma(\frac1p)\).
+\end{itemize}
 \begin{equation}
   \int_0^\infty e^{-x^p}\,dx
-   =\frac1p\int_0^\infty e^{-t}t^{1/p-1}\,dt
+   =\int_0^\infty e^{-t}\,\frac1p\,t^{1/p-1}\,dt
    =\frac1p\,\Gamma\left(\frac1p\right)
    =\Gamma\left(1+\frac1p\right).
   \label{eq:exp-xp}
 \end{equation}
-At \(p=2\) this is \(\Gamma(\tfrac32)=\sqrt\pi/2\), half of the Gaussian integral \eqref{eq:gauss-int}.
-
+\textbf{Check} at \(p=2\): \(\Gamma(\tfrac32)=\sqrt\pi/2\). This is \(\int_0^\infty e^{-x^2}dx\),
+half of the Gaussian integral \eqref{eq:gauss-int}, as it should be.
+\par\framebreak\par
 \begin{columns}[T]
 \begin{column}{0.68\textwidth}
-\textbf{Example 2: oscillation turned into decay.} For \(p>1\), evaluate \(\int_0^\infty\cos(x^p)\,dx\),
-the real part of \(\int_0^\infty e^{ix^p}dx\). The integrand only oscillates, but on the ray at angle
-\(\pi/(2p)\) it decays like \(e^{-r^p}\), which Example~1 handles. So close the sector in the
-figure (principal branch \(z^p=e^{p\operatorname{Log}z}\); the small arc avoids the branch
-point \(0\)).
+\textbf{Example 2.} For \(p>1\), evaluate \(\int_0^\infty\cos(x^p)\,dx\).
+
+\textbf{Idea.} Write \(\cos(x^p)=\operatorname{Re}e^{ix^p}\) and compute
+\(\int_0^\infty e^{ix^p}dx\). On the real axis, \(e^{ix^p}\) has modulus \(1\) and only oscillates.
+But along the ray at angle \(\pi/(2p)\) it becomes \(e^{-r^p}\), which decays, and Example~1 can
+do that integral. So we rotate the path from the real axis to that ray, using the closed
+sector in the figure and Cauchy's theorem. (We use the principal branch of \(z^p\); the small
+arc of radius \(\varepsilon\) keeps the path away from the branch point \(0\).)
 \end{column}
 \begin{column}{0.30\textwidth}
 \centering
@@ -663,34 +831,69 @@ point \(0\)).
 \end{column}
 \end{columns}
 
-On the slanted ray \(z=re^{i\pi/(2p)}\) we have \(z^p=r^p e^{i\pi/2}=ir^p\), so \(iz^p=-r^p\), and
-\(dz=e^{i\pi/(2p)}\,dr\). By \eqref{eq:exp-xp}, the outward ray integral is
+\textbf{Step 1: the slanted ray.} Parametrize it by \(z=re^{i\pi/(2p)}\), \(r\ge0\). Then
+\[
+  z^p=r^p\,e^{ip\cdot\pi/(2p)}=r^p\,e^{i\pi/2}=i\,r^p,
+  \qquad
+  iz^p=i\cdot i\,r^p=-r^p,
+  \qquad
+  dz=e^{i\pi/(2p)}\,dr .
+\]
+So on the ray \(e^{iz^p}=e^{-r^p}\): pure decay. Going outward and using Example~1 \eqref{eq:exp-xp},
 \[
   \int_{\mathrm{ray}}e^{iz^p}\,dz
    =e^{i\pi/(2p)}\int_0^\infty e^{-r^p}\,dr
    =e^{i\pi/(2p)}\,\Gamma\left(1+\frac1p\right).
 \]
 \par\framebreak\par
-On the outer arc \(z=Re^{i\theta}\), \(0\le\theta\le\pi/(2p)\):
-\(\operatorname{Re}(iz^p)=\operatorname{Re}\bigl(iR^pe^{ip\theta}\bigr)=-R^p\sin(p\theta)\) and \(|dz|=R\,d\theta\).
-With $\varphi=p\theta$ and $\sin\varphi\ge2\varphi/\pi$ on $[0,\pi/2]$ (concavity of sine, as in Chapter~1's proof of Jordan's lemma),
-\begin{align*}
+\textbf{Step 2: the outer arc vanishes as \(R\to\infty\).} On it \(z=Re^{i\theta}\),
+\(0\le\theta\le\pi/(2p)\), and \(|dz|=R\,d\theta\). The size of the integrand is
+\(|e^{iz^p}|=e^{\operatorname{Re}(iz^p)}\), and
+\[
+ iz^p=iR^pe^{ip\theta}=iR^p\bigl(\cos p\theta+i\sin p\theta\bigr)
+ =-R^p\sin p\theta+iR^p\cos p\theta,
+\]
+so \(|e^{iz^p}|=e^{-R^p\sin p\theta}\). Bound the integral by (size of integrand)\(\times|dz|\):
+\[
  \left|\int_{\text{outer arc}}e^{iz^p}dz\right|
- &\le R\int_0^{\pi/(2p)}e^{-R^p\sin(p\theta)}d\theta
-  =\frac Rp\int_0^{\pi/2}e^{-R^p\sin\varphi}d\varphi\\
- &\le\frac Rp\int_0^{\pi/2}e^{-2R^p\varphi/\pi}d\varphi
-  =\frac{\pi}{2p}R^{1-p}(1-e^{-R^p})\longrightarrow0.
-\end{align*}
-This is where \(p>1\) is needed (\(\int_0^\infty\cos x\,dx\) diverges). On the inner arc \(|e^{iz^p}|\le1\) and the length \(\varepsilon\pi/(2p)\to0\).
-Cauchy's theorem around the sector (real segment outward, slanted ray inward) therefore gives, as
-\(R\to\infty\) and \(\varepsilon\to0\),
+ \le\int_0^{\pi/(2p)}e^{-R^p\sin(p\theta)}\,R\,d\theta .
+\]
+Substitute \(\varphi=p\theta\) (\(d\theta=d\varphi/p\); \(\theta=\pi/(2p)\) becomes \(\varphi=\pi/2\)):
+\[
+ \int_0^{\pi/(2p)}e^{-R^p\sin(p\theta)}\,R\,d\theta
+ =\frac Rp\int_0^{\pi/2}e^{-R^p\sin\varphi}\,d\varphi .
+\]
+\par\framebreak\par
+\textbf{Step 2, continued.} On \([0,\pi/2]\) the graph of \(\sin\varphi\) lies above its chord from
+\((0,0)\) to \((\pi/2,1)\), so \(\sin\varphi\ge2\varphi/\pi\) (the same fact as in Chapter~1's Jordan's
+lemma). A larger exponent of \(e^{-(\cdot)}\) gives a smaller value, so
+\[
+ \frac Rp\int_0^{\pi/2}e^{-R^p\sin\varphi}\,d\varphi
+ \le\frac Rp\int_0^{\pi/2}e^{-2R^p\varphi/\pi}\,d\varphi
+ =\frac Rp\left[-\frac{\pi}{2R^p}e^{-2R^p\varphi/\pi}\right]_0^{\pi/2}
+\]
+\[
+ =\frac Rp\cdot\frac{\pi}{2R^p}\bigl(1-e^{-R^p}\bigr)
+ =\frac{\pi}{2p}\,R^{1-p}\bigl(1-e^{-R^p}\bigr).
+\]
+Since \(p>1\), \(R^{1-p}\to0\), so the outer arc vanishes. (This is where \(p>1\) is needed. For
+\(p=1\), \(\int_0^\infty\cos x\,dx\) does not converge.)
+
+\textbf{Step 3: the inner arc vanishes as \(\varepsilon\to0\).} There \(|e^{iz^p}|\le1\) (by the
+computation of Step~2 with \(\varepsilon\) for \(R\)), and the arc has length \(\varepsilon\pi/(2p)\to0\).
+\par\framebreak\par
+\textbf{Step 4: Cauchy's theorem.} The integrand has no singularity inside the sector, so the
+integral around its boundary is zero. Going around: out along the real axis, along the outer
+arc, back in along the ray (opposite to the outward direction of Step~1, hence a minus sign),
+and along the inner arc. Let \(R\to\infty\), \(\varepsilon\to0\); the two arcs drop out:
 \[
   \int_0^\infty e^{ix^p}\,dx-\int_{\mathrm{ray}}e^{iz^p}\,dz=0
   \quad\Longrightarrow\quad
   \int_0^\infty e^{ix^p}\,dx
    =e^{i\pi/(2p)}\,\Gamma\left(1+\frac1p\right).
 \]
-and the real part is
+\textbf{Step 5: take the real part.} \(e^{i\pi/(2p)}=\cos\frac{\pi}{2p}+i\sin\frac{\pi}{2p}\), and
+\(\operatorname{Re}e^{ix^p}=\cos(x^p)\). So
 \begin{equation}
   \int_0^\infty\cos(x^p)\,dx
    =\Gamma\left(1+\frac1p\right)
@@ -698,73 +901,125 @@ and the real part is
   \qquad p>1.
   \label{eq:cos-xp}
 \end{equation}
-Check at \(p=2\) (Fresnel): \(\int_0^\infty\cos(x^2)\,dx=\Gamma(\tfrac32)\cos\tfrac\pi4=\sqrt{\pi/8}\approx0.627\).
+\textbf{Check} at \(p=2\) (the Fresnel integral):
+\(\int_0^\infty\cos(x^2)\,dx=\Gamma(\tfrac32)\cos\tfrac\pi4=\frac{\sqrt\pi}{2}\cdot\frac{\sqrt2}{2}=\sqrt{\pi/8}\approx0.627\).
+(The imaginary part gives \(\int_0^\infty\sin(x^p)\,dx=\Gamma(1+\frac1p)\sin\frac{\pi}{2p}\) in the same way.)
 \end{frame}
 
 
 \begin{frame}[allowframebreaks=1.00]{Stirling's approximation}
 \footnotesize
 
-\textbf{Why we want it.} Large factorials appear in counting problems (Chapter~1's large binomial
-coefficient) and are hard to compute directly. The integrand \(t^ne^{-t}\) of
-\(n!=\Gamma(n+1)=\int_0^\infty t^ne^{-t}\,dt\) (by \eqref{eq:gamma-fact} and \eqref{eq:gamma-def}) has a sharp peak
-where its log-derivative \(n/t-1\) vanishes, at \(t=n\). Laplace's method (Chapter~1) replaces
-that peak by a Gaussian.
+\textbf{Why we want it.} Factorials grow very fast: \(10!=3\,628\,800\) and
+\(20!\approx2.4\times10^{18}\). Counting problems (for example the large binomial coefficient of
+Chapter~1) need \(n!\) for huge \(n\), where computing the product directly is impractical. We
+want a simple formula that is accurate when \(n\) is large.
 
 \textbf{Goal.} Show that, as \(n\to\infty\),
 \[
   n!\sim\sqrt{2\pi n}\,\Bigl(\frac ne\Bigr)^n,
 \]
-where \(\sim\) means the ratio of the two sides tends to \(1\).
+where \(A\sim B\) means that the ratio \(A/B\) tends to \(1\).
 
-Set \(t=nx\), so the peak sits at \(x=1\) and \(dt=n\,dx\):
+\textbf{Starting point.} By \(\Gamma(n+1)=n!\) and Euler's integral \eqref{eq:gamma-def} with
+\(z=n+1\),
 \[
-  n!
-   =\int_0^\infty (nx)^n e^{-nx}n\,dx
-   =n^{n+1}\int_0^\infty e^{n\log x-nx}\,dx
-   =n^{n+1}e^{-n}
-     \int_0^\infty e^{n(\log x-x+1)}\,dx.
+  n!=\int_0^\infty t^n e^{-t}\,dt .
 \]
-Define \(h(x)=\log x-x+1\). Then \(h'(x)=1/x-1\) and \(h''(x)=-1/x^2<0\), so \(h\) is strictly
-concave, with its unique maximum at \(x=1\), where \(h(1)=0\) and \(h''(1)=-1\).
-
-\textbf{Localize near the maximum.} Taylor's theorem with \(h(1)=0\), \(h'(1)=0\), \(h''(1)=-1\) gives
-\(n\,h(x)\approx-\tfrac n2(x-1)^2\) near the maximum, so \(e^{nh(x)}\) stays of order one only
-while \((x-1)^2\lesssim1/n\), that is \(|x-1|\) of order \(n^{-1/2}\). This fixes the natural width of
-the peak; rescaling it to order one motivates writing
+\textbf{Plan (Laplace's method, Chapter~1).} For large \(n\) the integrand has one tall, narrow
+peak. Near the peak it looks like a Gaussian bell curve. We replace the integrand by that Gaussian,
+whose integral we know.
+\par\framebreak\par
+\textbf{Step 1: find the peak of \(t^ne^{-t}\).} It is easier to maximize the logarithm,
+\(\log(t^ne^{-t})=n\log t-t\). Its derivative is
 \[
-  x=1+\frac{u}{\sqrt n},
+  \frac{d}{dt}\bigl(n\log t-t\bigr)=\frac nt-1,
+\]
+which is zero at \(t=n\). The second derivative \(-n/t^2\) is negative, so this is a maximum. The
+peak value is \(n^ne^{-n}\).
+
+\textbf{Step 2: move the peak to \(x=1\).} Substitute \(t=nx\), so \(dt=n\,dx\), and \(t=0,\infty\)
+becomes \(x=0,\infty\):
+\[
+  n!=\int_0^\infty (nx)^n e^{-nx}\,n\,dx
+   =n^{n+1}\int_0^\infty x^n e^{-nx}\,dx .
+\]
+Write \(x^n=e^{n\log x}\), so \(x^ne^{-nx}=e^{n(\log x-x)}\). At the peak \(x=1\) the exponent is
+\(n(0-1)=-n\). Pull that constant out by adding and subtracting \(1\):
+\[
+  n!=n^{n+1}e^{-n}\int_0^\infty e^{n\,h(x)}\,dx,
   \qquad
-  dx=\frac{du}{\sqrt n}.
+  h(x)=\log x-x+1 .
 \]
-As \(x\) runs from \(0\) to \(\infty\), \(u\) runs from \(-\sqrt n\) to
-\(\infty\). Hence
+\par\framebreak\par
+\textbf{Step 3: the shape of \(h\) near its maximum.} Compute the derivatives:
 \[
-  \int_0^\infty e^{nh(x)}\,dx
-   =\frac1{\sqrt n}
-     \int_{-\sqrt n}^{\infty}
-     e^{n\,h(1+u/\sqrt n)}\,du.
+  h(x)=\log x-x+1,\qquad h'(x)=\frac1x-1,\qquad h''(x)=-\frac1{x^2},\qquad h'''(x)=\frac2{x^3}.
 \]
-By the Taylor step above, \(n\,h(x)\approx-\tfrac n2(u/\sqrt n)^2=-u^2/2\) (cubic term \(u^3/(3\sqrt n)\to0\)).
-
-\textbf{Reduce to a Gaussian.} Away from \(x=1\), \(h(x)<0\), so
-\(e^{nh(x)}\) is exponentially small; only the quadratic peak counts. Extending its limits to \(\pm\infty\), and using
-$u=\sqrt2\,v$ with the Gaussian integral \eqref{eq:gauss-int},
+At \(x=1\): \(h(1)=0\), \(h'(1)=0\), \(h''(1)=-1\), \(h'''(1)=2\). Since \(h''<0\) everywhere, \(h\)
+has a single maximum, at \(x=1\), with value \(0\). The Taylor series about \(x=1\) is therefore
 \[
- \int_0^\infty e^{nh(x)}dx
- \sim\frac1{\sqrt n}\int_{-\infty}^{\infty}e^{-u^2/2}du
- =\frac{\sqrt2}{\sqrt n}\int_{-\infty}^{\infty}e^{-v^2}dv
- =\sqrt{\frac{2\pi}{n}}.
+  h(x)=0+0\cdot(x-1)-\frac12(x-1)^2+\frac{2}{3!}(x-1)^3+\cdots
+      =-\frac12(x-1)^2+\frac13(x-1)^3+\cdots .
 \]
-Substitute this into \(n!=n^{n+1}e^{-n}\int_0^\infty e^{nh(x)}\,dx\):
+\textbf{Step 4: the width of the peak.} Keeping only the quadratic term,
+\[
+  e^{n\,h(x)}\approx e^{-n(x-1)^2/2}.
+\]
+This is close to \(1\) when \(n(x-1)^2\) is small and tiny when \(n(x-1)^2\) is large. So the peak
+has width about \(1/\sqrt n\): it gets narrower as \(n\) grows.
+\par\framebreak\par
+\textbf{Step 5: zoom in on the peak.} Measure the distance from \(x=1\) in units of the width:
+\[
+  x=1+\frac{u}{\sqrt n},\qquad dx=\frac{du}{\sqrt n}.
+\]
+As \(x\) runs from \(0\) to \(\infty\), \(u\) runs from \(-\sqrt n\) to \(\infty\). Insert
+\(x-1=u/\sqrt n\) into the Taylor series of Step~3 and multiply by \(n\):
+\[
+  n\,h(x)=n\Bigl[-\frac12\frac{u^2}{n}+\frac13\frac{u^3}{n^{3/2}}+\cdots\Bigr]
+  =-\frac{u^2}{2}+\frac{u^3}{3\sqrt n}+\cdots .
+\]
+As \(n\to\infty\), every term after the first tends to \(0\). So
+\[
+  \int_0^\infty e^{n\,h(x)}\,dx
+   =\frac1{\sqrt n}\int_{-\sqrt n}^{\infty}e^{n\,h}\,du
+   \;\approx\;\frac1{\sqrt n}\int_{-\infty}^{\infty}e^{-u^2/2}\,du .
+\]
+In the last step we also replaced the lower limit \(-\sqrt n\) by \(-\infty\): the integrand is
+extremely small there, so this changes almost nothing. (Both approximations become exact in the
+limit \(n\to\infty\); we accept this without the detailed estimates.)
+\par\framebreak\par
+\textbf{Step 6: the Gaussian integral.} Substitute \(u=\sqrt2\,v\), \(du=\sqrt2\,dv\), and use
+\(\int_{-\infty}^{\infty}e^{-v^2}dv=\sqrt\pi\) \eqref{eq:gauss-int}:
+\[
+  \int_{-\infty}^{\infty}e^{-u^2/2}\,du=\sqrt2\int_{-\infty}^{\infty}e^{-v^2}\,dv=\sqrt{2\pi}.
+\]
+Hence
+\[
+  \int_0^\infty e^{n\,h(x)}\,dx\;\sim\;\frac{\sqrt{2\pi}}{\sqrt n}=\sqrt{\frac{2\pi}{n}} .
+\]
+\textbf{Step 7: put everything together.} Insert this into the result of Step~2, and use
+\(n^{n+1}/\sqrt n=n^n\sqrt n\):
 \begin{equation}
  n!\sim n^{n+1}e^{-n}\sqrt{\frac{2\pi}{n}}
-       =\sqrt{2\pi n}\left(\frac ne\right)^n.
+   =n^ne^{-n}\sqrt{2\pi n}
+   =\sqrt{2\pi n}\left(\frac ne\right)^n.
  \label{eq:stirling}
 \end{equation}
-\textbf{How good is it?} At \(n=10\): \(10!=3\,628\,800\), while \(\sqrt{20\pi}\,(10/e)^{10}\approx3\,598\,696\),
-only \(0.8\%\) low, and the relative error keeps shrinking as \(n\) grows. Taking logarithms,
-\(\log(n!)=n\log n-n+\tfrac12\log(2\pi n)+o(1)\).
+\par\framebreak\par
+\textbf{How good is it?} At \(n=10\):
+\[
+  10!=3\,628\,800,\qquad \sqrt{20\pi}\,\Bigl(\frac{10}{e}\Bigr)^{10}\approx3\,598\,696 .
+\]
+The formula is only \(0.8\%\) low, and the relative error keeps shrinking as \(n\) grows.
+
+\textbf{Logarithmic form.} Taking \(\log\) of \eqref{eq:stirling} (the ratio tends to \(1\), so the
+difference of the logarithms tends to \(0\)):
+\[
+  \log(n!)=n\log n-n+\tfrac12\log(2\pi n)+o(1),
+\]
+where \(o(1)\) means a quantity that tends to \(0\) as \(n\to\infty\). For very large \(n\), the first
+two terms \(n\log n-n\) already dominate; this crude form is common in statistical physics.
 \end{frame}
 
 
@@ -807,9 +1062,12 @@ The continuation \eqref{eq:gamma-continue} has simple poles at \(0,-1,-2,\dots\)
 \begin{frame}[allowframebreaks=1.00]{Definition and trigonometric form}
 \footnotesize
 
-Integrals of \(t^m(1-t)^n\) on \([0,1]\) appear whenever something happens \(m\) times with
-probability \(t\) and \(n\) times with probability \(1-t\), and again as trial functions in
-Chapter~7. We want them in closed form. The \emph{Euler beta function} is
+\textbf{Why we want it.} Integrals of the form \(\int_0^1 t^m(1-t)^n\,dt\) appear often. In
+probability, \(t^m(1-t)^n\) is the chance of a particular sequence with \(m\) successes and \(n\)
+failures when each success has probability \(t\). In Chapter~7 they appear as integrals of trial
+functions. We want a closed formula for them.
+
+\textbf{Definition.} The \emph{Euler beta function} is
 \begin{equation}
   B(p,q)
    =\int_0^1 t^{p-1}(1-t)^{q-1}\,dt,
@@ -817,19 +1075,30 @@ Chapter~7. We want them in closed form. The \emph{Euler beta function} is
   \operatorname{Re}p>0,\quad \operatorname{Re}q>0.
   \label{eq:beta-def}
 \end{equation}
-The two conditions make the endpoint behaviours \(t^{\operatorname{Re}p-1}\) and
-\((1-t)^{\operatorname{Re}q-1}\) integrable.
-
-\textbf{Symmetry.} Substitute \(u=1-t\) (so \(dt=-du\), and \(t=0,1\) become \(u=1,0\)):
+\textbf{Why the conditions?} The integral can fail only at the ends.
+\begin{itemize}
+  \item Near \(t=0\): the integrand behaves like \(t^{p-1}\), integrable when
+        \(\operatorname{Re}p-1>-1\), that is, \(\operatorname{Re}p>0\).
+  \item Near \(t=1\): it behaves like \((1-t)^{q-1}\), integrable when \(\operatorname{Re}q>0\).
+\end{itemize}
+\par\framebreak\par
+\textbf{Property 1: symmetry \(B(p,q)=B(q,p)\).} Substitute \(u=1-t\). Then \(t=1-u\),
+\(dt=-du\), and the limits \(t=0,1\) become \(u=1,0\):
 \[
- B(p,q)=\int_1^0(1-u)^{p-1}u^{q-1}(-du)=\int_0^1u^{q-1}(1-u)^{p-1}\,du=B(q,p).
+ B(p,q)=\int_1^0(1-u)^{p-1}u^{q-1}\,(-du)=\int_0^1u^{q-1}(1-u)^{p-1}\,du=B(q,p).
 \]
+(The minus sign from \(dt=-du\) was used to swap the limits back to \(0\) and \(1\).)
 
-\textbf{Trigonometric form.}  To write both \(t\) and \(1-t\) as squares of \(\sin\)
-and \(\cos\) — the \(\sin^a\cos^b\) shape the polar proof of the beta--gamma identity
-needs (next frame) — set \(t=\sin^2\theta\): then \(dt=2\sin\theta\cos\theta\,d\theta\),
-\(1-t=\cos^2\theta\), and \(\theta\) runs from \(0\) to \(\pi/2\) as \(t\) runs from \(0\) to \(1\).
-So \(t^{p-1}=\sin^{2p-2}\theta\), \((1-t)^{q-1}=\cos^{2q-2}\theta\), and \eqref{eq:beta-def} becomes
+\textbf{Property 2: a trigonometric form.} The next frame needs \(B\) written with sines and
+cosines. Since \(\sin^2\theta+\cos^2\theta=1\), the substitution \(t=\sin^2\theta\) makes
+\(1-t=\cos^2\theta\). The pieces:
+\[
+ dt=2\sin\theta\cos\theta\,d\theta,\qquad
+ t^{p-1}=\sin^{2p-2}\theta,\qquad
+ (1-t)^{q-1}=\cos^{2q-2}\theta,
+\]
+and \(t:0\to1\) becomes \(\theta:0\to\pi/2\). Substituting and collecting powers
+(\(2p-2+1=2p-1\), \(2q-2+1=2q-1\)):
 \begin{equation}
   B(p,q)
    =\int_0^{\pi/2}
@@ -852,46 +1121,61 @@ For \(\operatorname{Re}p>0\) and \(\operatorname{Re}q>0\),
   B(p,q)=\frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}.
 \]
 \end{block}
+\textbf{Why it matters.} Once we know \(\Gamma\), we know \(B\). Every beta integral becomes a
+ratio of gamma values.
 
-\textbf{Strategy} (the Gaussian-integral trick): multiply two gamma integrals and switch to
-polar coordinates; the radius will produce \(\Gamma(p+q)\) and the angle \(B(p,q)\).
-Use the Gaussian gamma representation \eqref{eq:gamma-gauss}:
+\textbf{Strategy.} The same trick as for the Gaussian integral: multiply two gamma integrals,
+get a double integral over a quadrant, and switch to polar coordinates. The radial integral will
+give \(\Gamma(p+q)\), and the angular integral will give \(B(p,q)\).
+
+\textbf{Step 1: two gamma integrals in Gaussian form.} By \eqref{eq:gamma-gauss}, with
+different variable names,
 \[
   \Gamma(p)=2\int_0^\infty e^{-x^2}x^{2p-1}\,dx,
   \qquad
   \Gamma(q)=2\int_0^\infty e^{-y^2}y^{2q-1}\,dy.
 \]
-Writing the product as one integral over the first quadrant,
-\begin{align*}
+Multiply them. The product of two single integrals is a double integral over the first quadrant
+\(x,y\ge0\), and \(e^{-x^2}e^{-y^2}=e^{-(x^2+y^2)}\):
+\[
   \Gamma(p)\Gamma(q)
-   &=4\int_0^\infty\int_0^\infty
-     e^{-(x^2+y^2)}
+   =4\int_0^\infty\!\!\int_0^\infty
+     e^{-(x^2+y^2)}\,
      x^{2p-1}y^{2q-1}\,dx\,dy.
-\end{align*}
-
+\]
 \par\framebreak\par
-Set \(x=r\cos\theta\), \(y=r\sin\theta\) with \(r\ge0\), \(0\le\theta\le\pi/2\) (the first quadrant);
-as in the Gaussian integral \eqref{eq:gauss-int}, \(dx\,dy=r\,dr\,d\theta\). Then \(x^2+y^2=r^2\), \(x^{2p-1}=r^{2p-1}\cos^{2p-1}\theta\), and
-\(y^{2q-1}=r^{2q-1}\sin^{2q-1}\theta\), so the integrand splits into a radial part times an angular part,
-with radial power \(r^{2p-1}r^{2q-1}\cdot r=r^{2(p+q)-1}\) (the last \(r\) from the area element). Thus
+\textbf{Step 2: polar coordinates.} Set \(x=r\cos\theta\), \(y=r\sin\theta\). The first quadrant
+is \(r\ge0\), \(0\le\theta\le\pi/2\), and \(dx\,dy=r\,dr\,d\theta\). Each piece of the integrand:
+\[
+ e^{-(x^2+y^2)}=e^{-r^2},\qquad
+ x^{2p-1}=r^{2p-1}\cos^{2p-1}\theta,\qquad
+ y^{2q-1}=r^{2q-1}\sin^{2q-1}\theta .
+\]
+Collect the powers of \(r\), including the \(r\) from \(dx\,dy\):
+\(r^{2p-1}\cdot r^{2q-1}\cdot r=r^{2p+2q-1}=r^{2(p+q)-1}\). The integrand is now (function of
+\(r\))\(\times\)(function of \(\theta\)), so the double integral splits into a product:
 \[
  \Gamma(p)\Gamma(q)
  =4\left(\int_0^\infty e^{-r^2}r^{2(p+q)-1}\,dr\right)
    \left(\int_0^{\pi/2}\cos^{2p-1}\theta\sin^{2q-1}\theta\,d\theta\right).
 \]
-Split \(4=2\cdot2\). By \eqref{eq:gamma-gauss} with \(z=p+q\), and by \eqref{eq:beta-trig} with
-\(p,q\) interchanged plus the symmetry \(B(q,p)=B(p,q)\),
-\[
-  2\int_0^\infty e^{-r^2}r^{2(p+q)-1}\,dr
-  =\Gamma(p+q),
-  \qquad
-  2\int_0^{\pi/2}
-    \sin^{2q-1}\theta
-    \cos^{2p-1}\theta\,d\theta
-  =B(p,q),
-\]
-so \(\Gamma(p)\Gamma(q)=\Gamma(p+q)B(p,q)\).
-Dividing by \(\Gamma(p+q)\), which is nonzero because \(\Gamma\) has no zeros, gives
+\par\framebreak\par
+\textbf{Step 3: recognize the two factors.} Write \(4=2\cdot2\) and give one \(2\) to each factor.
+\begin{itemize}
+  \item Radial factor: this is \eqref{eq:gamma-gauss} with \(z=p+q\):
+        \[
+          2\int_0^\infty e^{-r^2}r^{2(p+q)-1}\,dr=\Gamma(p+q).
+        \]
+  \item Angular factor: this is the trigonometric form \eqref{eq:beta-trig} with the roles of
+        \(p\) and \(q\) swapped (\(\sin\) carries \(q\), \(\cos\) carries \(p\)), so it equals \(B(q,p)\),
+        which is \(B(p,q)\) by symmetry:
+        \[
+          2\int_0^{\pi/2}\sin^{2q-1}\theta\cos^{2p-1}\theta\,d\theta=B(q,p)=B(p,q).
+        \]
+\end{itemize}
+So \(\Gamma(p)\Gamma(q)=\Gamma(p+q)\,B(p,q)\).
+
+\textbf{Step 4: divide.} \(\Gamma(p+q)\neq0\), because \(\Gamma\) is never zero. Dividing by it,
 \begin{equation}
   B(p,q)
    =\frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}.
@@ -899,83 +1183,113 @@ Dividing by \(\Gamma(p+q)\), which is nonzero because \(\Gamma\) has no zeros, g
 \end{equation}
 \end{frame}
 
-\begin{frame}{Integer values and how to use beta}
+\begin{frame}[allowframebreaks=1.00]{Integer values and how to use beta}
 \footnotesize
-\textbf{Integer arguments.} For \(m,n\in\mathbb N_0\), \(\Gamma(k+1)=k!\) \eqref{eq:gamma-fact} turns
-\eqref{eq:beta-gamma} into a factorial ratio; then \((m+n+1)!=(m+n+1)(m+n)!\) and
-\(\binom{m+n}{m}=\frac{(m+n)!}{m!\,n!}\) give
+\textbf{Integer arguments.} Let \(m,n=0,1,2,\dots\). Put \(p=m+1\), \(q=n+1\) in
+\eqref{eq:beta-gamma} and use \(\Gamma(k+1)=k!\):
+\[
+ B(m+1,n+1)=\frac{\Gamma(m+1)\,\Gamma(n+1)}{\Gamma(m+n+2)}=\frac{m!\,n!}{(m+n+1)!}.
+\]
+To see the binomial coefficient, write \((m+n+1)!=(m+n+1)\cdot(m+n)!\) and recall
+\(\binom{m+n}{m}=\frac{(m+n)!}{m!\,n!}\):
 \begin{equation}
- B(m+1,n+1)=\frac{m!\,n!}{(m+n+1)!}
+ B(m+1,n+1)=\frac{m!\,n!}{(m+n+1)\,(m+n)!}
  =\frac1{(m+n+1)\binom{m+n}{m}}.
  \label{eq:beta-integer}
 \end{equation}
-So beta is a continuous \emph{inverse binomial coefficient}. In probability words: for a
-coin with heads-probability \(t\) chosen uniformly in \([0,1]\), the chance
-\(\binom{m+n}{m}t^m(1-t)^n\) of \(m\) heads in \(m+n\) tosses averages to \(1/(m+n+1)\);
-all \(m+n+1\) head counts are equally likely.
+So beta is a continuous version of \(1/\)(binomial coefficient).
 
-\smallskip\textbf{How to use beta.} Recognize a \(t^{p-1}(1-t)^{q-1}\) integrand on \([0,1]\)
-\eqref{eq:beta-def} or a \(\sin^a\theta\cos^b\theta\) integrand on \([0,\pi/2]\) \eqref{eq:beta-trig},
-then apply \eqref{eq:beta-gamma}; the next examples do exactly this.
+\textbf{A probability reading.} Pick a coin whose heads-probability \(t\) is uniformly random in
+\([0,1]\), then toss it \(m+n\) times. Given \(t\), the chance of exactly \(m\) heads is
+\(\binom{m+n}{m}t^m(1-t)^n\). Averaging over \(t\) means integrating over \([0,1]\); by
+\eqref{eq:beta-integer},
+\[
+ \int_0^1\binom{m+n}{m}t^m(1-t)^n\,dt=\binom{m+n}{m}B(m+1,n+1)=\frac1{m+n+1}.
+\]
+The answer does not depend on \(m\): all \(m+n+1\) possible head counts \(0,1,\dots,m+n\) are equally
+likely.
+\par\framebreak\par
+\textbf{How to use beta, in practice.}
+\begin{enumerate}
+  \item Bring the integral to one of the two standard shapes:
+        \(t^{p-1}(1-t)^{q-1}\) on \([0,1]\) \eqref{eq:beta-def}, or
+        \(\sin^{2p-1}\theta\cos^{2q-1}\theta\) on \([0,\pi/2]\) \eqref{eq:beta-trig}.
+  \item Read off \(p\) and \(q\) by matching exponents.
+  \item Apply \(B(p,q)=\Gamma(p)\Gamma(q)/\Gamma(p+q)\).
+\end{enumerate}
+The next examples follow exactly these three steps.
 \end{frame}
 
 
-\begin{frame}[allowframebreaks=0.98]{Worked examples: beta integrals}
+\begin{frame}[allowframebreaks=1.00]{Worked examples: beta integrals}
 \footnotesize
 
 \textbf{Example 1.} Evaluate
 \[
   I=\int_0^1\frac{dx}{\sqrt{1-x^4}}.
 \]
-Set \(u=x^4\). Then
+\textbf{Step 1: substitute to get the shape \(u^{p-1}(1-u)^{q-1}\).} The troublesome piece is
+\(1-x^4\), so set \(u=x^4\). Then
 \[
   x=u^{1/4},
   \qquad
   dx=\frac14u^{-3/4}\,du,
+  \qquad
+  \frac1{\sqrt{1-x^4}}=(1-u)^{-1/2},
 \]
-and the limits remain \(0\) and \(1\); also \(\sqrt{1-x^4}=(1-u)^{1/2}\). Matching
-\(u^{p-1}(1-u)^{q-1}\) in \eqref{eq:beta-def} gives \(p-1=-\tfrac34\) and \(q-1=-\tfrac12\), so
-\(p=\tfrac14\), \(q=\tfrac12\), \(p+q=\tfrac34\). Hence, by \eqref{eq:beta-gamma} and \eqref{eq:gamma-half},
-\begin{align}
-  I
-   &=\frac14\int_0^1
-     u^{-3/4}(1-u)^{-1/2}\,du
-    =\frac14
-     B\left(\frac14,\frac12\right)\nonumber\\
-   &=\frac14
-     \frac{\Gamma(1/4)\Gamma(1/2)}
-          {\Gamma(3/4)}
-    =\frac{\sqrt\pi\,\Gamma(1/4)}
-          {4\Gamma(3/4)}\approx1.3110.
+and the limits \(x=0,1\) become \(u=0,1\). So
+\[
+  I=\int_0^1(1-u)^{-1/2}\,\frac14u^{-3/4}\,du=\frac14\int_0^1u^{-3/4}(1-u)^{-1/2}\,du .
+\]
+\textbf{Step 2: read off \(p\) and \(q\).} Compare with \(u^{p-1}(1-u)^{q-1}\):
+\[
+  p-1=-\tfrac34\ \Rightarrow\ p=\tfrac14,\qquad
+  q-1=-\tfrac12\ \Rightarrow\ q=\tfrac12,\qquad
+  p+q=\tfrac34 .
+\]
+\textbf{Step 3: apply the identity}, with \(\Gamma(\frac12)=\sqrt\pi\):
+\begin{equation}
+  I=\frac14\,B\Bigl(\frac14,\frac12\Bigr)
+   =\frac14\,\frac{\Gamma(1/4)\,\Gamma(1/2)}{\Gamma(3/4)}
+   =\frac{\sqrt\pi\,\Gamma(1/4)}{4\,\Gamma(3/4)}\approx1.3110 .
   \label{eq:beta-ex1}
-\end{align}
-
+\end{equation}
+(Numerically \(\Gamma(\frac14)\approx3.6256\) and \(\Gamma(\frac34)\approx1.2254\).)
 \par\framebreak\par
 \textbf{Example 2.} Evaluate
 \[
   I_n=\int_0^\pi\sin^n x\,dx,
-  \qquad n>-1
+  \qquad n>-1 .
 \]
-(the condition makes the integral converge at \(0\) and \(\pi\)). Since \(\sin(\pi-x)=\sin x\), the
-substitution \(x\mapsto\pi-x\) turns \(\int_{\pi/2}^{\pi}\sin^nx\,dx\) into \(\int_0^{\pi/2}\sin^nx\,dx\), so
-the two halves of \(\int_0^\pi\) are equal and
+(The condition \(n>-1\) makes the integral converge near \(x=0\) and \(x=\pi\), where \(\sin x\to0\).)
+
+\textbf{Step 1: reduce to \([0,\pi/2]\).} Split \(\int_0^\pi=\int_0^{\pi/2}+\int_{\pi/2}^{\pi}\). In the
+second piece substitute \(x=\pi-y\): then \(dx=-dy\), the limits \(x=\pi/2,\pi\) become
+\(y=\pi/2,0\), and \(\sin(\pi-y)=\sin y\). So
 \[
-  I_n=2\int_0^{\pi/2}\sin^n x\,dx.
+  \int_{\pi/2}^{\pi}\sin^nx\,dx=\int_{\pi/2}^{0}\sin^ny\,(-dy)=\int_0^{\pi/2}\sin^ny\,dy .
 \]
-This is the trigonometric form \eqref{eq:beta-trig},
-\(B(p,q)=2\int_0^{\pi/2}\sin^{2p-1}x\cos^{2q-1}x\,dx\), with no cosine factor:
+The two halves are equal, hence
+\[
+  I_n=2\int_0^{\pi/2}\sin^n x\,dx .
+\]
+\par\framebreak\par
+\textbf{Step 2: read off \(p\) and \(q\).} Compare with the trigonometric form
+\eqref{eq:beta-trig}, \(B(p,q)=2\int_0^{\pi/2}\sin^{2p-1}x\cos^{2q-1}x\,dx\). There is no cosine, so
+its exponent is \(0\):
 \[
  2p-1=n,\quad 2q-1=0
  \quad\Longrightarrow\quad p=\frac{n+1}{2},\quad q=\frac12,\quad p+q=\frac{n+2}{2}.
 \]
-By \eqref{eq:beta-gamma} and \(\Gamma(1/2)=\sqrt\pi\) \eqref{eq:gamma-half},
+\textbf{Step 3: apply the identity}, with \(\Gamma(\frac12)=\sqrt\pi\):
 \begin{equation}
  I_n=B\left(\frac{n+1}{2},\frac12\right)
- =\frac{\Gamma((n+1)/2)\Gamma(1/2)}{\Gamma((n+2)/2)}
- =\frac{\sqrt\pi\,\Gamma((n+1)/2)}{\Gamma((n+2)/2)}.
+ =\frac{\Gamma\bigl(\frac{n+1}2\bigr)\,\Gamma\bigl(\frac12\bigr)}{\Gamma\bigl(\frac{n+2}2\bigr)}
+ =\frac{\sqrt\pi\;\Gamma\bigl(\frac{n+1}2\bigr)}{\Gamma\bigl(\frac{n+2}2\bigr)}.
  \label{eq:beta-ex2}
 \end{equation}
-Check at \(n=1\): \(\sqrt\pi\,\Gamma(1)/\Gamma(3/2)=\sqrt\pi/(\sqrt\pi/2)=2=\int_0^\pi\sin x\,dx\).
+\textbf{Check} at \(n=1\): \(\sqrt\pi\,\Gamma(1)/\Gamma(\frac32)=\sqrt\pi/(\sqrt\pi/2)=2\), and indeed
+\(\int_0^\pi\sin x\,dx=[-\cos x]_0^\pi=2\).
 \end{frame}
 
 
@@ -987,47 +1301,56 @@ Check at \(n=1\): \(\sqrt\pi\,\Gamma(1)/\Gamma(3/2)=\sqrt\pi/(\sqrt\pi/2)=2=\int
 \begin{frame}[allowframebreaks=1.00]{From the \(p\)-series to \(\zeta(s)\)}
 \footnotesize
 
-\textbf{Why.} Sums \(\sum n^{-s}\) appear in physics (black-body radiation below, the string
-spectrum in Chapter~7); we want them in the same integral language as \(\Gamma\).
-The goal is to rewrite the series \(\sum n^{-s}\) as a single integral,
-\(\zeta(s)=\frac1{\Gamma(s)}\int_0^\infty\frac{t^{s-1}}{e^t-1}\,dt\) (proved as \eqref{eq:zeta-int} in Step~3).
+\textbf{Why.} Sums \(\sum n^{-s}\) appear in physics: black-body radiation (end of this frame) and
+the string spectrum of Chapter~7. We want to write such a sum in the same integral language as
+\(\Gamma\).
 
-\smallskip\textbf{Step 1: define \(\zeta\) and check convergence.}  For \(s\in\mathbb C\) with
-\(\sigma=\operatorname{Re}s>1\), define
+\textbf{Goal.} Show that the series \(\sum_n n^{-s}\) equals a single integral:
+\[
+ \zeta(s)=\frac1{\Gamma(s)}\int_0^\infty\frac{t^{s-1}}{e^t-1}\,dt
+ \qquad(\text{this is \eqref{eq:zeta-int} below}).
+\]
+
+\textbf{Step 1: define \(\zeta\).} For complex \(s\) with \(\sigma=\operatorname{Re}s>1\), define
 \begin{equation}
   \zeta(s)=\sum_{n=1}^{\infty}\frac1{n^s},
-  \qquad n^{-s}=e^{-s\log n}.
+  \qquad\text{where } n^{-s}=e^{-s\log n}.
   \label{eq:zeta-series}
 \end{equation}
-Since \(|n^{-s}|=|e^{-s\log n}|=e^{-\sigma\log n}=n^{-\sigma}\), the series converges absolutely for \(\sigma>1\) by the integral
-test applied to the real \(p\)-series \(\sum n^{-\sigma}\). At \(s=1\) it is the harmonic
-series, divergent because \(H_n>\log(n+1)\) (shown just before \eqref{eq:euler-gamma}).
-
-\smallskip\textbf{Step 2: the idea.} Each term is itself a gamma integral: putting \(u=nt\), so \(t=u/n\) and \(dt=du/n\), in \eqref{eq:gamma-def},
+\textbf{Why \(\operatorname{Re}s>1\)?} Write \(s=\sigma+i\tau\). Then
+\(|n^{-s}|=|e^{-\sigma\log n}|\,|e^{-i\tau\log n}|=e^{-\sigma\log n}\cdot1=n^{-\sigma}\). The real series
+\(\sum n^{-\sigma}\) converges exactly when \(\sigma>1\) (integral test:
+\(\int_1^\infty x^{-\sigma}dx\) is finite exactly when \(\sigma>1\)). At \(s=1\) we get the harmonic
+series, which diverges since \(H_n>\log(n+1)\).
+\par\framebreak\par
+\textbf{Step 2: each term is a gamma integral.} Consider \(\int_0^\infty t^{s-1}e^{-nt}\,dt\) and
+substitute \(u=nt\), to turn \(e^{-nt}\) into \(e^{-u}\). Then \(t=u/n\), \(dt=du/n\), and
+\(t^{s-1}=u^{s-1}n^{-(s-1)}\). The powers of \(n\) combine: \(n^{-(s-1)}\cdot n^{-1}=n^{-s}\). So
 \begin{equation}
   \int_0^\infty t^{s-1}e^{-nt}\,dt
    =\int_0^\infty
      \left(\frac{u}{n}\right)^{s-1}
-     e^{-u}\frac{du}{n}
-   =n^{-s}\Gamma(s).
+     e^{-u}\,\frac{du}{n}
+   =n^{-s}\int_0^\infty u^{s-1}e^{-u}\,du
+   =n^{-s}\,\Gamma(s).
   \label{eq:zeta-term}
 \end{equation}
-So summing over \(n\) should turn \(\zeta(s)\) into one integral, weighted by \(\sum_n e^{-nt}\).
-That sum is geometric: for \(t>0\), \(0<e^{-t}<1\), so
+\textbf{Step 3: add up the terms.} Divide \eqref{eq:zeta-term} by \(\Gamma(s)\) and sum over \(n\).
+Moving the sum inside the integral (allowed here; we accept this step),
+\[
+  \zeta(s)=\sum_{n=1}^{\infty}n^{-s}
+  =\frac1{\Gamma(s)}\sum_{n=1}^{\infty}\int_0^\infty t^{s-1}e^{-nt}\,dt
+  =\frac1{\Gamma(s)}\int_0^\infty t^{s-1}\Bigl(\sum_{n=1}^{\infty}e^{-nt}\Bigr)dt .
+\]
+\par\framebreak\par
+\textbf{Step 4: sum the geometric series.} For \(t>0\), put \(q=e^{-t}\), so \(0<q<1\). Then
+\(\sum_{n\ge1}q^n=q+q^2+\cdots=q/(1-q)\). Multiplying top and bottom by \(e^t\),
 \[
   \sum_{n=1}^{\infty}e^{-nt}
    =\frac{e^{-t}}{1-e^{-t}}
    =\frac1{e^t-1}.
 \]
-
-\textbf{Step 3: the result.} Summing \eqref{eq:zeta-term} over \(n\) (integrate term by term) and using \eqref{eq:zeta-series},
-\[
-  \int_0^\infty\frac{t^{s-1}}{e^t-1}\,dt
-   =\sum_{n=1}^{\infty}\int_0^\infty t^{s-1}e^{-nt}\,dt
-   =\Gamma(s)\sum_{n=1}^{\infty}n^{-s}
-   =\Gamma(s)\zeta(s).
-\]
-Dividing by \(\Gamma(s)\neq0\),
+\textbf{Result.} Insert this into Step~3:
 \begin{equation}
   \zeta(s)
    =\frac1{\Gamma(s)}
@@ -1035,52 +1358,73 @@ Dividing by \(\Gamma(s)\neq0\),
   \qquad \operatorname{Re}s>1.
   \label{eq:zeta-int}
 \end{equation}
-Near \(t=0\), \(e^t-1\sim t\), so the integrand behaves like \(t^{s-2}\): the same condition
-\(\operatorname{Re}s>1\) reappears.
-
-\smallskip\textbf{Black-body check.} With \(t=h\nu/k_BT\), \(1/(e^t-1)\) is Planck's occupation
-factor, and the Stefan--Boltzmann \(T^4\) law contains
-\(\int_0^\infty t^3/(e^t-1)\,dt=\Gamma(4)\zeta(4)=6\cdot\pi^4/90=\pi^4/15\) (quoted \(\zeta(4)=\pi^4/90\)).
+\textbf{Consistency check.} Near \(t=0\), \(e^t-1\approx t\), so the integrand behaves like
+\(t^{s-1}/t=t^{s-2}\). That is integrable at \(0\) exactly when \(\operatorname{Re}s-2>-1\), that is,
+\(\operatorname{Re}s>1\): the same condition as for the series.
+\par\framebreak\par
+\textbf{Application: black-body radiation.} In Planck's law, with \(t=h\nu/(k_BT)\), the factor
+\(1/(e^t-1)\) is the average number of photons in a mode. The total radiated energy (the
+Stefan--Boltzmann \(T^4\) law) contains the integral \(\int_0^\infty t^3/(e^t-1)\,dt\). By
+\eqref{eq:zeta-int} with \(s=4\), together with \(\Gamma(4)=3!=6\) and the value
+\(\zeta(4)=\pi^4/90\) (quoted),
+\[
+  \int_0^\infty\frac{t^3}{e^t-1}\,dt=\Gamma(4)\,\zeta(4)=6\cdot\frac{\pi^4}{90}=\frac{\pi^4}{15}.
+\]
 \end{frame}
 
 
 \begin{frame}[allowframebreaks=1.00]{The Euler product over primes}
 \footnotesize
 
-\textbf{Why.} It ties \(\zeta\) to the primes; one consequence is that there are infinitely many.
-The goal is to show that \(\sum_n n^{-s}\) equals a product over all primes \(p\),
-\(\zeta(s)=\prod_p(1-p^{-s})^{-1}\) (stated as \eqref{eq:euler-product} below).
-For $\sigma=\operatorname{Re}s>1$, remove from \eqref{eq:zeta-series} one prime factor at a time.  Start with
+\textbf{Why.} It connects \(\zeta\) to the prime numbers \(2,3,5,7,11,\dots\); one consequence is
+that there are infinitely many primes.
+
+\textbf{Goal.} For \(\operatorname{Re}s>1\), show that the sum over all \(n\) equals a product over
+all primes \(p\):
 \[
- \zeta(s)=1+2^{-s}+3^{-s}+4^{-s}+5^{-s}+\cdots.
+ \zeta(s)=\prod_{p\ \text{prime}}\frac1{1-p^{-s}}
+ \qquad(\text{this is \eqref{eq:euler-product} below}).
 \]
-Since $2^{-s}n^{-s}=(2n)^{-s}$, multiplying by $2^{-s}$ gives
-$2^{-s}\zeta(s)=2^{-s}+4^{-s}+6^{-s}+\cdots$, exactly the even-index terms.
-Subtracting this from $\zeta(s)$ removes precisely the terms whose
-indices are divisible by $2$:
+\textbf{Idea.} Start from \(\zeta(s)=1+2^{-s}+3^{-s}+4^{-s}+5^{-s}+\cdots\) and remove, one prime at a
+time, all terms whose index is a multiple of that prime. The key fact is \(a^{-s}b^{-s}=(ab)^{-s}\).
+
+\textbf{Step 1: remove the multiples of \(2\).} Multiply \(\zeta(s)\) by \(2^{-s}\). Each term
+\(n^{-s}\) becomes \((2n)^{-s}\):
 \[
- (1-2^{-s})\zeta(s)=1+3^{-s}+5^{-s}+7^{-s}+\cdots.
+ 2^{-s}\zeta(s)=2^{-s}+4^{-s}+6^{-s}+8^{-s}+\cdots,
 \]
-Now multiply this remaining series by $3^{-s}$:
+which is exactly the list of even-index terms. Subtract it from \(\zeta(s)\):
 \[
- 3^{-s}(1-2^{-s})\zeta(s)=3^{-s}+9^{-s}+15^{-s}+21^{-s}+\cdots,
+ (1-2^{-s})\,\zeta(s)=1+3^{-s}+5^{-s}+7^{-s}+9^{-s}+\cdots\qquad(\text{odd indices only}).
 \]
-which lists exactly the odd multiples of $3$, all of which appear in the series above.
-Subtracting again therefore removes
-the indices divisible by $3$ without restoring any even index:
+\par\framebreak\par
+\textbf{Step 2: remove the multiples of \(3\).} Multiply the last line by \(3^{-s}\). Each odd index
+\(m\) becomes \(3m\):
 \[
- (1-3^{-s})(1-2^{-s})\zeta(s)
- =1+5^{-s}+7^{-s}+11^{-s}+13^{-s}+\cdots.
+ 3^{-s}(1-2^{-s})\,\zeta(s)=3^{-s}+9^{-s}+15^{-s}+21^{-s}+\cdots,
 \]
-Repeat with \(5,7,11,\dots\): each prime deletes its multiples that are still present. After all primes $p\le P$,
+the odd multiples of \(3\). They all appear in the series of Step~1, so subtracting removes them
+and nothing else:
 \[
- \prod_{p\le P}(1-p^{-s})\zeta(s)
- =1+\sum_{\substack{n>1\\
-          \text{every prime }p\mid n\text{ satisfies }p>P}}n^{-s}.
+ (1-3^{-s})(1-2^{-s})\,\zeta(s)
+ =1+5^{-s}+7^{-s}+11^{-s}+13^{-s}+\cdots .
 \]
-Every surviving \(n>1\) has only prime factors \(>P\), so \(n>P\); the leftover sum is at
-most \(\sum_{n>P}n^{-\sigma}\), the tail of a convergent series, which \(\to0\) as \(P\to\infty\).
-Only the term $1$ survives, so \(\bigl(\prod_{p}(1-p^{-s})\bigr)\zeta(s)=1\), that is,
+\textbf{Step 3: continue.} Do the same with \(5,7,11,\dots\). Each prime removes those of its
+multiples that are still present. After all primes \(p\le P\) have been used, the surviving terms
+are \(1\) and the \(n^{-s}\) whose index \(n\) has no prime factor \(\le P\):
+\[
+ \Bigl[\prod_{p\le P}(1-p^{-s})\Bigr]\zeta(s)
+ =1+\sum_{\substack{n>1:\ \text{all prime}\\ \text{factors of } n \text{ are } >P}}n^{-s}.
+\]
+\par\framebreak\par
+\textbf{Step 4: let \(P\to\infty\).} Every surviving index \(n>1\) has a prime factor larger than
+\(P\), so \(n>P\). Hence the leftover sum is at most \(\sum_{n>P}|n^{-s}|=\sum_{n>P}n^{-\sigma}\): the
+tail of a convergent series, which tends to \(0\) as \(P\to\infty\). In the limit only the \(1\)
+survives:
+\[
+ \Bigl[\prod_{p}(1-p^{-s})\Bigr]\zeta(s)=1 .
+\]
+Divide by the product:
 \begin{equation}
   \zeta(s)
    =\prod_{p\ \mathrm{prime}}
@@ -1088,20 +1432,26 @@ Only the term $1$ survives, so \(\bigl(\prod_{p}(1-p^{-s})\bigr)\zeta(s)=1\), th
   \qquad \operatorname{Re}s>1.
   \label{eq:euler-product}
 \end{equation}
+\par\framebreak\par
+\textbf{Consequence: there are infinitely many primes} (Euler's proof). Suppose there were only
+finitely many. Take real \(s\to1^+\).
+\begin{itemize}
+  \item \emph{Right side of \eqref{eq:euler-product}:} a finite product of numbers
+        \(1/(1-p^{-s})\to1/(1-p^{-1})\). So it stays finite.
+  \item \emph{Left side:} for any \(N\), \(\zeta(s)\ge1+2^{-s}+\cdots+N^{-s}\) (all terms are
+        positive), and as \(s\to1^+\) this partial sum tends to \(H_N\). Since \(H_N>\log(N+1)\) can be
+        made as large as we like, \(\zeta(s)\) is unbounded as \(s\to1^+\).
+\end{itemize}
+A finite quantity cannot equal an unbounded one. So there are infinitely many primes.
 
-\smallskip\textbf{So what: infinitely many primes} (Euler's proof). With finitely many primes, the
-right side of \eqref{eq:euler-product} would stay finite as \(s\to1^+\). But for real
-\(s>1\) and any \(N\), \(\zeta(s)\ge1+2^{-s}+\cdots+N^{-s}\to H_N\) as \(s\to1^+\), and \(H_N\) is
-unbounded because \(H_N>\log(N+1)\). So the left side is unbounded, and there must be infinitely many primes.
-
-\smallskip\textbf{A reference value.} The classical Basel identity, quoted without proof and used in
-Chapter~7, is
+\textbf{A reference value.} The Basel identity (quoted here; Chapter~1 derives it from a sum of
+residues) is
 \[
-  \zeta(2)=\sum_{n=1}^{\infty}\frac1{n^2}=\frac{\pi^2}{6}\approx1.6449;
+  \zeta(2)=\sum_{n=1}^{\infty}\frac1{n^2}=\frac{\pi^2}{6}\approx1.6449 .
 \]
-as a check, the first \(100\) terms already sum to \(1.6350\). We stop at
-\(\operatorname{Re}s>1\): for this course the point is that \(\Gamma\) supplies the weight in
-\eqref{eq:zeta-int}, so \(\zeta\) lives in the same integral language as \(\Gamma\) and \(B\).
+Check: the first \(100\) terms already sum to \(1.6350\). We stop at \(\operatorname{Re}s>1\). The point
+for this course is \eqref{eq:zeta-int}: \(\Gamma\) appears as the weight, so \(\zeta\) lives in the
+same integral language as \(\Gamma\) and \(B\).
 \end{frame}
 
 
