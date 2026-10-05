@@ -130,21 +130,33 @@ At a different center $x_0$, use powers of the distance $x-x_0$:
 \end{equation}
 
 
-Adding more terms need not improve the approximation. The Taylor series equals
-$f(x)$ when the remainder $R_N(x)=f(x)-T_N(x;x_0)$ tends to zero as
-$N\to\infty$:
+\textbf{When does the infinite series equal \(f\)?} Let \(N\to\infty\). The error of the
+approximation is the remainder \(R_N(x)=f(x)-T_N(x;x_0)\). If \(R_N(x)\to0\), then \(f\) equals its
+Taylor series at \(x\):
 \begin{equation}
  f(x)=\sum_{k=0}^{\infty}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
  \label{eq:taylor0}
 \end{equation}
-Smoothness alone does not give this equality. Take $f(x)=e^{-1/x^2}$ ($x\ne0$), $f(0)=0$.
-Each derivative, e.g.\ $f'(x)=(2/x^3)e^{-1/x^2}$, is a polynomial in $1/x$ times
-$e^{-1/x^2}$, and with $y=1/x^2$ each term $|x|^{-m}e^{-1/x^2}=y^{m/2}e^{-y}\to0$ as
-$x\to0$ (exponentials beat powers). At $0$ itself, $f^{(k)}(0)=\lim_{h\to0}f^{(k-1)}(h)/h$ is a
-limit of the same form, so every $f^{(k)}(0)=0$: the Taylor series is
-identically $0$, converges everywhere, and still misses $f$ for all $x\ne0$. Such an $f$ is
-called \emph{not analytic} at $0$; Section~1.5 shows complex-differentiable functions
-never behave this way.
+\par\framebreak\par
+\textbf{Warning: smooth is not enough.} Here is a function with derivatives of every order whose
+Taylor series is wrong. Let
+\[
+ f(x)=e^{-1/x^2}\ (x\ne0),\qquad f(0)=0 .
+\]
+\begin{itemize}
+  \item \emph{Derivatives away from \(0\).} By the chain rule, \(f'(x)=\frac{2}{x^3}e^{-1/x^2}\).
+        Differentiating again and again always gives (a polynomial in \(1/x\))\(\times e^{-1/x^2}\).
+  \item \emph{Each such term tends to \(0\) as \(x\to0\).} Put \(y=1/x^2\to\infty\). A term
+        \(|x|^{-m}e^{-1/x^2}\) becomes \(y^{m/2}e^{-y}\), and \(e^{-y}\) beats every power of \(y\).
+  \item \emph{Derivatives at \(0\).} By definition \(f^{(k)}(0)=\lim_{h\to0}f^{(k-1)}(h)/h\). This is
+        again (a polynomial in \(1/h\))\(\times e^{-1/h^2}\), so it is \(0\). Hence
+        \(f^{(k)}(0)=0\) for every \(k\).
+\end{itemize}
+So the Taylor series of \(f\) at \(0\) is \(0+0\cdot x+0\cdot x^2+\cdots=0\). It converges everywhere,
+but it equals \(f(x)\) at no \(x\neq0\), since \(f(x)>0\) there. Such an \(f\) is called \emph{not
+analytic} at \(0\). Section~1.5 shows that complex-differentiable functions never behave like
+this.
+\par\framebreak\par
 
 
 \textbf{Exponential.} Every derivative of $e^x$ equals $e^x$, so every derivative at
@@ -222,21 +234,31 @@ Comparison with \eqref{eq:cos-series}--\eqref{eq:sin-series} gives Euler's formu
   \label{eq:euler}
 \end{equation}
 
-To split $e^{u+iv}$ (needed to solve $e^w=z$ on the next frame) we need the addition law
-$e^{w_1+w_2}=e^{w_1}e^{w_2}$ for complex arguments. By the binomial theorem,
-\[
- \frac{(w_1+w_2)^n}{n!}=\sum_{k=0}^{n}\frac{w_1^k}{k!}\,\frac{w_2^{\,n-k}}{(n-k)!},
-\]
-so summing over $n$ collects every product $w_1^k w_2^j/(k!\,j!)$ exactly
-once: that is the product of the series for $e^{w_1}$ and $e^{w_2}$.
-Taking $w_1=u$, $w_2=iv$ and using \eqref{eq:euler} for $e^{iv}$,
+\textbf{The addition law \(e^{w_1+w_2}=e^{w_1}e^{w_2}\) for complex numbers.} For real numbers we
+know it; for complex numbers we must check it from the series, because \(e^w\) is now
+\emph{defined} by the series.
+\begin{itemize}
+  \item \emph{Left side.} \(e^{w_1+w_2}=\sum_n (w_1+w_2)^n/n!\). By the binomial theorem,
+        \((w_1+w_2)^n=\sum_{k=0}^n\frac{n!}{k!\,(n-k)!}w_1^kw_2^{n-k}\), so
+        \[
+         \frac{(w_1+w_2)^n}{n!}=\sum_{k=0}^{n}\frac{w_1^k}{k!}\,\frac{w_2^{\,n-k}}{(n-k)!}.
+        \]
+        Summing over \(n\) gives every term \(\frac{w_1^k}{k!}\frac{w_2^j}{j!}\) with \(k,j\ge0\) exactly
+        once (the one with \(n=k+j\)).
+  \item \emph{Right side.} Multiplying out
+        \(\bigl(\sum_k w_1^k/k!\bigr)\bigl(\sum_j w_2^j/j!\bigr)\) gives the same terms
+        \(\frac{w_1^k}{k!}\frac{w_2^j}{j!}\), each once.
+\end{itemize}
+So the two sides are equal. (Rearranging the terms is allowed because the series converge
+absolutely.) We use this to split \(e^{u+iv}\), which the next frame needs. Take \(w_1=u\),
+\(w_2=iv\), and use \eqref{eq:euler} for \(e^{iv}\):
 \begin{equation}
  e^{u+iv}=e^u(\cos v+i\sin v),\qquad u,v\in\mathbb R.
  \label{eq:exp-uv}
 \end{equation}
-The factor $e^u$ determines the modulus, and $v$ determines the angle.
-
-For $z\ne0$, set
+So \(|e^{u+iv}|=e^u\) (since \(|\cos v+i\sin v|=\sqrt{\cos^2v+\sin^2v}=1\)), and \(v\) is the angle.
+\par\framebreak\par
+\textbf{Polar form.} For \(z\ne0\), set
 \[
   r=|z|=\sqrt{x^2+y^2}>0.
 \]
@@ -251,28 +273,32 @@ $\theta+2\pi k$, $k\in\mathbb Z$.  The principal argument is commonly chosen as
 $\operatorname{Arg}z\in(-\pi,\pi]$.
 The number $z=0$ has modulus $0$ but no defined argument.
 
-If $z_1=r_1e^{i\theta_1}$ and $z_2=r_2e^{i\theta_2}$, then the phases add by the addition
-law above, so
+\textbf{Products in polar form.} If \(z_1=r_1e^{i\theta_1}\) and \(z_2=r_2e^{i\theta_2}\), the
+addition law gives \(e^{i\theta_1}e^{i\theta_2}=e^{i(\theta_1+\theta_2)}\), so
 \[
-  z_1z_2=r_1r_2e^{i\theta_1}e^{i\theta_2}=r_1r_2e^{i(\theta_1+\theta_2)},
+  z_1z_2=r_1r_2\,e^{i\theta_1}e^{i\theta_2}=r_1r_2\,e^{i(\theta_1+\theta_2)} .
 \]
-so moduli multiply and arguments add modulo $2\pi$.
-
-
-The complex conjugate is
+In words: to multiply complex numbers, multiply their moduli and add their angles.
+\par\framebreak\par
+\textbf{Complex conjugate.} The complex conjugate is
 \[
   \overline z=x-iy=re^{-i\theta},
   \qquad
   z\overline z=(x+iy)(x-iy)=x^2+y^2=r^2=|z|^2,
 \]
-and adding or subtracting $z$ and $\overline z$ isolates the Cartesian components:
+Adding \(z+\overline z=2x\) and subtracting \(z-\overline z=2iy\) isolates the real and imaginary
+parts:
 \begin{equation}
   \operatorname{Re}z=\frac{z+\overline z}{2},\qquad
   \operatorname{Im}z=\frac{z-\overline z}{2i}.
   \label{eq:re-im-conj}
 \end{equation}
-Replacing $\theta$ by $-\theta$ in Euler's formula \eqref{eq:euler}, and using $\cos(-\theta)=\cos\theta$, $\sin(-\theta)=-\sin\theta$, gives
-$e^{-i\theta}=\cos\theta-i\sin\theta$.  Hence
+\textbf{Cosine and sine from exponentials.} Replace \(\theta\) by \(-\theta\) in Euler's formula
+\eqref{eq:euler}. Since \(\cos(-\theta)=\cos\theta\) and \(\sin(-\theta)=-\sin\theta\),
+\[
+ e^{-i\theta}=\cos\theta-i\sin\theta .
+\]
+Add this to \(e^{i\theta}=\cos\theta+i\sin\theta\), and subtract it:
 \begin{align*}
   e^{i\theta}+e^{-i\theta}&=2\cos\theta,\\
   e^{i\theta}-e^{-i\theta}&=2i\sin\theta,
@@ -290,60 +316,62 @@ and therefore
 \begin{frame}[allowframebreaks=1.00]{Multivalued functions and branch cuts}
 \footnotesize
 
-Powers $z^a$ and $\log z$ appear in many integrals later (e.g.\ the keyhole contour of
-Section~1.8, whose answer comes precisely from the jump across a cut), so we must learn
-how to make them single-valued.
-An inverse relation need not define a single-valued function: $y=x^2$ gives
-$x=\pm\sqrt y$ for $y>0$.  A \emph{branch} selects one value continuously on a chosen
-domain, as the real square root selects $+\sqrt y$.
+\textbf{Why we need this.} Powers \(z^a\) and the logarithm \(\log z\) appear in many integrals later.
+(In the keyhole contour of Section~1.8 the whole answer comes from the jump of \(z^a\) across a
+cut.) These functions can take several values at one point, and we must learn how to choose one.
 
-\textbf{The complex logarithm.}  Several $w$ have the same $e^w$. Let $z\ne0$ and write
-$z=re^{i\theta}$ with $r>0$.  To solve $e^w=z$, write $w=u+iv$ with $u,v\in\mathbb R$.  The
-splitting \eqref{eq:exp-uv} gives
+\textbf{A familiar example.} The equation \(x^2=y\) (with \(y>0\)) has two solutions,
+\(x=\pm\sqrt y\). The real square root picks one of them, \(+\sqrt y\), in a consistent way. A
+\emph{branch} of a many-valued function is such a consistent choice on a chosen region.
+
+\textbf{The complex logarithm.} We want to solve \(e^w=z\) for \(w\), given \(z\ne0\). Write
+\(z=re^{i\theta}\) with \(r>0\), and \(w=u+iv\) with \(u,v\) real. By \eqref{eq:exp-uv},
 \[
  e^w=e^{u+iv}=e^u(\cos v+i\sin v).
 \]
-Equality with $r(\cos\theta+i\sin\theta)$ requires
-\[
- e^u=r\quad\Longrightarrow\quad u=\log r,
-\]
-and
-\[
- \cos v=\cos\theta,\quad \sin v=\sin\theta
- \quad\Longrightarrow\quad v=\theta+2\pi k,
- \qquad k\in\mathbb Z.
-\]
-Thus the complete multivalued logarithm is
+We need this to equal \(r(\cos\theta+i\sin\theta)\). Compare moduli and angles separately:
+\begin{itemize}
+  \item moduli: \(e^u=r\), so \(u=\log r\) (the ordinary real logarithm, since \(r>0\));
+  \item angles: \(\cos v=\cos\theta\) and \(\sin v=\sin\theta\), so \(v=\theta+2\pi k\) for some
+        integer \(k\). Every \(k\) works, because \(\cos\) and \(\sin\) repeat with period \(2\pi\).
+\end{itemize}
+So \(e^w=z\) has infinitely many solutions, one for each integer \(k\):
 \begin{equation}
   \log z=\log|z|+i(\theta+2\pi k),\qquad k\in\mathbb Z.
   \label{eq:complex-log-values}
 \end{equation}
-A principal branch is obtained by choosing one interval of length $2\pi$, commonly
+\textbf{Choosing one value: the principal branch.} Restrict the angle to one interval of length
+\(2\pi\), usually \(-\pi<\operatorname{Arg}z<\pi\), and define
 \[
-  -\pi<\operatorname{Arg}z<\pi,
-  \qquad
-  \operatorname{Log}z=\log|z|+i\operatorname{Arg}z.
+  \operatorname{Log}z=\log|z|+i\operatorname{Arg}z .
 \]
-This analytic branch lives on $\mathbb C\setminus(-\infty,0]$.
+This is a single-valued, analytic function on the plane with the half-line \((-\infty,0]\) removed.
+\par\framebreak\par
+\textbf{Why something must be removed: the branch point.} Walk once counterclockwise around
+\(0\) on the circle \(z=re^{i\theta}\), letting \(\theta\) increase continuously from \(0\) to \(2\pi\).
+Follow \(\log z=\log r+i\theta\) continuously along the way: it starts at \(\log r\) and ends at
+\(\log r+2\pi i\). We are back at the same point \(z\), but the logarithm did not come back to the
+same value. A point with this property is a \emph{branch point}; here it is \(z=0\).
 
-A continuous argument increases by $2\pi$ after one counterclockwise turn around
-$0$. Thus the logarithm does not return to its starting value: $0$ is a
-\emph{branch point}. Removing a \emph{branch cut} prevents such a loop from staying
-in our domain. For the principal logarithm, the cut is the nonpositive real axis.
-Its two boundary values are
+\textbf{The branch cut.} To get a single-valued function, we forbid such loops by removing a curve
+from the branch point to infinity, a \emph{branch cut}. For \(\operatorname{Log}\) the cut is the
+negative real axis. Just above and just below the cut, at \(-r\) (\(r>0\)),
 \[
   \operatorname{Log}(-r+i0)=\log r+i\pi,\qquad
-  \operatorname{Log}(-r-i0)=\log r-i\pi,
+  \operatorname{Log}(-r-i0)=\log r-i\pi .
 \]
-so crossing the cut changes the logarithm by $2\pi i$.
+So \(\operatorname{Log}\) jumps by \(2\pi i\) across the cut.
 
-The same mechanism applies to roots.  For example, define $z^{1/2}=e^{\frac12\log z}$ and insert the values \eqref{eq:complex-log-values}:
+\textbf{Roots work the same way.} Define \(z^{1/2}=e^{\frac12\log z}\) and insert all the values
+\eqref{eq:complex-log-values}:
 \[
  z^{1/2}=e^{\frac12\log r}\,e^{i(\theta+2\pi k)/2}
        =\sqrt r\,e^{i\theta/2}e^{i\pi k}
        =(-1)^k\sqrt r\,e^{i\theta/2},
 \]
-since $e^{i\pi k}=\cos\pi k+i\sin\pi k=(-1)^k$ by \eqref{eq:euler}; so there are two values.  A branch cut permits one of them to be selected continuously.
+since \(e^{i\pi k}=\cos\pi k+i\sin\pi k=(-1)^k\) by \eqref{eq:euler}. So \(z^{1/2}\) has exactly two
+values, \(\pm\sqrt r\,e^{i\theta/2}\) (even and odd \(k\)), just like \(\pm\sqrt y\). A branch cut lets us
+pick one of them consistently. In general \(z^a=e^{a\log z}\), and the same cut is used.
 \end{frame}
 
 
@@ -355,63 +383,90 @@ since $e^{i\pi k}=\cos\pi k+i\sin\pi k=(-1)^k$ by \eqref{eq:euler}; so there are
 \begin{frame}[allowframebreaks=1.00]{The complex derivative and Cauchy--Riemann}
 \footnotesize
 
-The complex derivative at $z_0$ is
+\textbf{Definition.} The complex derivative of \(f\) at \(z_0\) is
 \begin{equation}
  f'(z_0)=\lim_{h\to0}\frac{f(z_0+h)-f(z_0)}{h}.
  \label{eq:cderiv}
 \end{equation}
-The increment $h$ may approach zero from any direction in the complex plane, and
-the same limit must result in every case.
-\emph{Picture:} $f(z_0+h)\approx f(z_0)+f'(z_0)h$, so near $z_0$ the map $f$ multiplies
-every small displacement $h$ by the one complex number $f'(z_0)$: a rotation by
-$\arg f'(z_0)$ and a stretch by $|f'(z_0)|$, the same in every direction.
-A function is \emph{holomorphic} (analytic) on an open set if this derivative exists
-at every point there; it is \emph{entire} if that set is all of $\mathbb C$.
+It looks like the real definition, but there is one big difference. Here \(h\) is a complex
+number, so it can approach \(0\) from \emph{any direction} in the plane (along the real axis,
+along the imaginary axis, along a spiral, \dots). The derivative exists only if every direction
+gives the same limit. This is a strong requirement, and it is what makes complex analysis so
+powerful.
 
-Write $z=x+iy$ and $f(z)=u(x,y)+iv(x,y)$; subscripts denote partial derivatives
-($u_x=\partial u/\partial x$, etc.).  Along a real increment $h=\Delta x$, the
-difference quotient is
-\begin{align*}
+\textbf{Picture.} For small \(h\), \(f(z_0+h)\approx f(z_0)+f'(z_0)\,h\). So near \(z_0\), \(f\) multiplies
+every small displacement \(h\) by the same complex number \(f'(z_0)\). Multiplying by a complex
+number means rotating by its angle \(\arg f'(z_0)\) and stretching by its size \(|f'(z_0)|\) (polar
+form). So a differentiable \(f\) looks, up close, like a rotation plus a uniform stretch.
+
+\textbf{Names.} \(f\) is \emph{holomorphic} (or \emph{analytic}) on an open set if \(f'\) exists at
+every point of the set. It is \emph{entire} if it is holomorphic on the whole plane \(\mathbb C\).
+\par\framebreak\par
+\textbf{Goal: a practical test.} Write \(z=x+iy\) and split \(f\) into real and imaginary parts,
+\(f(z)=u(x,y)+iv(x,y)\). Subscripts denote partial derivatives (\(u_x=\partial u/\partial x\),
+etc.). We compute the limit \eqref{eq:cderiv} in two directions and demand that they agree.
+
+\textbf{Direction 1: \(h\) real}, \(h=\Delta x\). Only \(x\) changes:
+\[
  \frac{f(z+h)-f(z)}{h}
- &=\frac{u(x+\Delta x,y)-u(x,y)}{\Delta x}
-  +i\,\frac{v(x+\Delta x,y)-v(x,y)}{\Delta x}\\
- &\xrightarrow[\Delta x\to0]{}u_x+iv_x,
-\end{align*}
-so $f'(z)=u_x+iv_x$.  Along an imaginary increment $h=i\Delta y$ the bookkeeping is the
-same, with the extra factor $1/i$ pulled out of the denominator:
+ =\frac{u(x+\Delta x,y)-u(x,y)}{\Delta x}
+  +i\,\frac{v(x+\Delta x,y)-v(x,y)}{\Delta x}.
+\]
+As \(\Delta x\to0\) the two quotients become partial derivatives in \(x\): the limit is
+\(u_x+iv_x\).
+
+\textbf{Direction 2: \(h\) imaginary}, \(h=i\Delta y\). Only \(y\) changes, and the denominator is
+\(i\Delta y\):
 \[
  \frac{f(z+i\Delta y)-f(z)}{i\,\Delta y}
  =\frac1i\left[\frac{u(x,y+\Delta y)-u(x,y)}{\Delta y}
    +i\,\frac{v(x,y+\Delta y)-v(x,y)}{\Delta y}\right].
 \]
-Passing to the limit and using $1/i=-i$,
+As \(\Delta y\to0\) the quotients become partial derivatives in \(y\): the limit is
+\(\frac1i\bigl(u_y+iv_y\bigr)\).
+Simplify with \(1/i=-i\): \(\;-i(u_y+iv_y)=-iu_y-i^2v_y=v_y-iu_y\).
+\par\framebreak\par
+\textbf{Demand agreement.} If \(f'(z)\) exists, both directions give it:
 \[
- f'(z)=\frac{u_y+i v_y}{i}=-i(u_y+i v_y)=v_y-i u_y.
+ u_x+iv_x=v_y-iu_y .
 \]
-Both directions must give the \emph{same} $f'(z)$; equating $u_x+iv_x=v_y-iu_y$ and
-matching real and imaginary parts gives the Cauchy--Riemann equations
+Two complex numbers are equal when their real parts and their imaginary parts are equal. This
+gives the \emph{Cauchy--Riemann equations}:
 \begin{equation}
   u_x=v_y,\qquad u_y=-v_x.
   \label{eq:CR}
 \end{equation}
-They are necessary for complex differentiability.
+So they are \emph{necessary}: every complex-differentiable function satisfies them, and then
+\(f'=u_x+iv_x\).
 
+\textbf{They are also sufficient}, if the four partial derivatives are continuous. Reason: for a
+small step \(h=\Delta x+i\Delta y\), the changes of \(u\) and \(v\) are (to first order)
+\[
+ \Delta u\approx u_x\Delta x+u_y\Delta y,\qquad \Delta v\approx v_x\Delta x+v_y\Delta y .
+\]
+Replace \(u_y\) by \(-v_x\) and \(v_y\) by \(u_x\):
+\[
+ \Delta f=\Delta u+i\Delta v\approx u_x\Delta x-v_x\Delta y+iv_x\Delta x+iu_x\Delta y
+ =(u_x+iv_x)(\Delta x+i\Delta y).
+\]
+(Multiply out the right side to check.) So \(\Delta f\approx(u_x+iv_x)\,h\) for every direction of
+\(h\): the derivative exists and equals \(u_x+iv_x\).
+\par\framebreak\par
+\textbf{How to use the test.} Find \(u\) and \(v\), compute the four partial derivatives, and check
+\eqref{eq:CR}.
 
-\textbf{Working test.} If $u$ and $v$ have continuous first partial derivatives
-near a point, the Cauchy--Riemann equations are also sufficient there. Reason: then
-$\Delta u\approx u_x\Delta x+u_y\Delta y$ and $\Delta v\approx v_x\Delta x+v_y\Delta y$, and
-substituting $u_y=-v_x$, $v_y=u_x$ gives
-$\Delta u+i\Delta v\approx(u_x+iv_x)(\Delta x+i\Delta y)$, i.e.\ $\Delta f\approx f'\,h$
-with $f'=u_x+iv_x$.
-So in practice: find $u,v$, compute four partial derivatives, and compare.
+\textbf{Example: \(f(z)=z^2\).} Expand: \(z^2=(x+iy)^2=x^2+2ixy+i^2y^2=(x^2-y^2)+i(2xy)\). So
+\[
+ u=x^2-y^2,\quad v=2xy:\qquad
+ u_x=2x,\quad v_y=2x,\qquad u_y=-2y,\quad v_x=2y .
+\]
+Both equations hold everywhere, so \(z^2\) is entire, and
+\(f'(z)=u_x+iv_x=2x+2iy=2z\), as expected.
 
-\textbf{Example: $z^2$.}  From $z^2=(x+iy)^2=(x^2-y^2)+i(2xy)$ we get $u_x=2x=v_y$ and
-$u_y=-2y=-v_x$, so $z^2$ is entire and $f'(z)=u_x+iv_x=2x+i(2y)=2z$.
-
-
-\textbf{Counterexample: $\overline z=x-iy$.}  Then $u_x=1\ne-1=v_y$, so CR fails
-everywhere.  Equivalently $\overline h/h$ is $1$ for real $h$ and $-1$ for imaginary $h$:
-conjugation is a reflection, which no multiplication by a fixed $f'$ can produce.
+\textbf{Counterexample: \(f(z)=\overline z=x-iy\).} Here \(u=x\), \(v=-y\), so \(u_x=1\) but
+\(v_y=-1\). The first equation fails at every point: \(\overline z\) is nowhere differentiable. You can
+also see it directly: the quotient \((\overline{z+h}-\overline z)/h=\overline h/h\) equals \(1\) for real \(h\)
+and \(-1\) for imaginary \(h\), so the limit depends on the direction.
 \end{frame}
 
 % ======================================================================
@@ -421,58 +476,69 @@ conjugation is a reflection, which no multiplication by a fixed $f'$ can produce
 \begin{frame}[allowframebreaks=1.00]{Contour integrals and a key circle integral}
 \footnotesize
 
-A contour integral is an ordinary integral along a chosen path.
-Parameterize the path by $z=\gamma(t)$, $a\le t\le b$, with $\gamma$ piecewise
-smooth. Since $dz=\gamma'(t)\,dt$,
+\textbf{What a contour integral is.} It is an ordinary integral along a chosen path in the
+plane. Describe the path by a parameter: \(z=\gamma(t)\) for \(a\le t\le b\) (with \(\gamma\) smooth, or
+smooth in pieces). Along the path \(dz=\gamma'(t)\,dt\), so
 \begin{equation}
- \int_\gamma f(z)\,dz=\int_a^b f(\gamma(t))\gamma'(t)\,dt.
+ \int_\gamma f(z)\,dz=\int_a^b f(\gamma(t))\,\gamma'(t)\,dt.
  \label{eq:pathint}
 \end{equation}
+The right side is a normal integral in \(t\) (of a complex-valued function: integrate the real and
+imaginary parts separately).
 
-Reversing the path reverses the sign: $\int_{-\gamma}f\,dz=-\int_\gamma f\,dz$.
-A positively oriented boundary keeps the region on the left: the outer boundary is
-counterclockwise, while a boundary around a hole is clockwise.
+\textbf{Direction matters.} Running the same path backwards changes the sign:
+\(\int_{-\gamma}f\,dz=-\int_\gamma f\,dz\). The \emph{positive} direction around a region keeps the
+region on your left: counterclockwise around the outside, clockwise around a hole.
+\par\framebreak\par
+\textbf{The key example: integer powers on a circle.} This simple computation is behind almost
+everything later (Laurent coefficients, residues). Let \(n\) be an integer and integrate \(z^n\)
+counterclockwise around the circle \(|z|=R\).
+\begin{itemize}
+  \item \emph{Parametrize:} \(z=Re^{i\theta}\), \(0\le\theta\le2\pi\), so \(dz=iRe^{i\theta}\,d\theta\) and
+        \(z^n=R^ne^{in\theta}\).
+  \item \emph{Substitute} into \eqref{eq:pathint} and combine the exponentials:
+        \[
+         \oint_{|z|=R}z^n\,dz
+         =\int_0^{2\pi}R^ne^{in\theta}\cdot iRe^{i\theta}\,d\theta
+         =iR^{n+1}\int_0^{2\pi}e^{i(n+1)\theta}\,d\theta.
+        \]
+\end{itemize}
+\textbf{Case \(n=-1\).} Then \(e^{i(n+1)\theta}=e^0=1\) and \(R^{n+1}=1\):
+\(\displaystyle\oint_{|z|=R}\frac{dz}{z}=i\int_0^{2\pi}d\theta=2\pi i\).
 
-\textbf{Integer powers on a circle.}  The next computation looks trivial but drives
-everything after it: Laurent coefficients and the residue theorem both reduce to it.
-Let $n\in\mathbb Z$ and parameterize the positively
-oriented circle $|z|=R$ by $z=Re^{i\theta}$, $dz=iRe^{i\theta}\,d\theta$, $0\le\theta\le2\pi$.
-Then
-\[
- \oint_{|z|=R}z^n\,dz
- =\int_0^{2\pi}R^ne^{in\theta}\bigl(iRe^{i\theta}\bigr)\,d\theta
- =iR^{n+1}\int_0^{2\pi}e^{i(n+1)\theta}\,d\theta.
-\]
-If $n=-1$, the exponential is $1$, so
-$\oint_{|z|=R}dz/z=i\int_0^{2\pi}d\theta=2\pi i$.
-If $n\ne-1$, then
+\textbf{Case \(n\ne-1\).} Integrate the exponential:
 \[
  iR^{n+1}\int_0^{2\pi}e^{i(n+1)\theta}\,d\theta
  =iR^{n+1}\left[\frac{e^{i(n+1)\theta}}{i(n+1)}\right]_{0}^{2\pi}
  =\frac{R^{n+1}}{n+1}\bigl(e^{2\pi i(n+1)}-1\bigr)=0,
 \]
-because $n+1$ is an integer.  Translating the circle (substitute $z=z_0+w$, so
-$dz=dw$ and $|z-z_0|=R$ becomes $|w|=R$) and writing $\delta_{n,-1}$ for the Kronecker
-delta ($1$ if $n=-1$, else $0$), we get
+because \(n+1\) is an integer, so \(e^{2\pi i(n+1)}=\cos(2\pi(n+1))+i\sin(2\pi(n+1))=1\).
+\par\framebreak\par
+\textbf{Result, for a circle around any center \(z_0\).} Substitute \(z=z_0+w\) (so \(dz=dw\), and the
+circle \(|z-z_0|=R\) becomes \(|w|=R\)). Writing \(\delta_{n,-1}\) for \(1\) if \(n=-1\) and \(0\) otherwise,
 \begin{equation}
  \oint_{|z-z_0|=R}(z-z_0)^n\,dz=2\pi i\,\delta_{n,-1}.
  \label{eq:circ-power}
 \end{equation}
-\emph{Why only $n=-1$ survives:} for $n\ne-1$, $z^n$ has the single-valued antiderivative
-$z^{n+1}/(n+1)$, which returns to its starting value after a closed loop. The antiderivative
-of $1/z$ is $\log z$ (differentiate $e^{\log z}=z$: $e^{\log z}(\log z)'=1$), which gains
-exactly $2\pi i$ per counterclockwise turn (Section~1.2).
-This single fact drives the Laurent coefficients and the residue theorem below.
+Notice that the answer does not depend on the radius \(R\).
+
+\textbf{Why only \(n=-1\) survives.} For \(n\ne-1\), \(z^n\) has the antiderivative
+\(z^{n+1}/(n+1)\), which takes the same value at the start and the end of a closed loop; so the
+integral is \(0\). The antiderivative of \(1/z\) is \(\log z\) (check: differentiating \(e^{\log z}=z\)
+gives \(e^{\log z}\cdot(\log z)'=1\), so \((\log z)'=1/z\)). But \(\log z\) gains \(2\pi i\) once around the
+origin (Section~1.2), and that is exactly the value of the integral.
 \end{frame}
 
 
 \begin{frame}[allowframebreaks=1.00]{Cauchy's integral theorem and formula}
 \footnotesize
 
-The circle integral showed that $z^n$ with $n\ge0$ integrates to zero around a loop. Cauchy's
-theorem says the same for \emph{every} holomorphic function, as long as the loop encloses
-no point where $f$ fails to be holomorphic. A connected open region is \emph{simply connected}
-if it has no holes (every closed curve in it can shrink to a point inside it).
+\textbf{The question.} The circle computation showed that \(z^n\) with \(n\ge0\) integrates to zero
+around a closed loop. Is that true for every holomorphic function? Cauchy's theorem says yes,
+provided the loop does not surround any point where \(f\) fails to be holomorphic.
+
+A connected open region is \emph{simply connected} if it has no holes (every closed curve in it
+can be shrunk to a point without leaving the region).
 
 \begin{block}{Cauchy's integral theorem}
 Let $f$ be holomorphic on a simply connected region $D$, and let $\gamma$ be a
@@ -481,21 +547,33 @@ closed piecewise smooth contour in $D$.  Then
   \oint_\gamma f(z)\,dz=0.
 \]
 \end{block}
-\textbf{Why zero?} First let $\gamma=\partial E$ be the positively oriented simple
-closed boundary of a region $E$. With $f=u+iv$ and $dz=dx+i\,dy$, expand
-$f\,dz=(u+iv)(dx+i\,dy)=(u\,dx-v\,dy)+i(v\,dx+u\,dy)$, apply Green's theorem
-$\oint_{\partial E}(P\,dx+Q\,dy)=\iint_E(Q_x-P_y)\,dA$ to each real line integral
-(first with $P=u$, $Q=-v$, then with $P=v$, $Q=u$), and finally use the
-Cauchy--Riemann equations \eqref{eq:CR}:
-\begin{align*}
+\par\framebreak\par
+\textbf{Why is it zero?} Let \(\gamma\) be the boundary of a region \(E\), traversed counterclockwise.
+\begin{itemize}
+  \item \emph{Step 1: split into real line integrals.} With \(f=u+iv\) and \(dz=dx+i\,dy\),
+        \[
+          f\,dz=(u+iv)(dx+i\,dy)=(u\,dx-v\,dy)+i\,(v\,dx+u\,dy).
+        \]
+  \item \emph{Step 2: Green's theorem}, \(\oint_{\partial E}(P\,dx+Q\,dy)=\iint_E(Q_x-P_y)\,dA\), applied
+        to each part:
+        \begin{itemize}
+          \item real part, \(P=u\), \(Q=-v\): \(\;Q_x-P_y=-v_x-u_y\);
+          \item imaginary part, \(P=v\), \(Q=u\): \(\;Q_x-P_y=u_x-v_y\).
+        \end{itemize}
+  \item \emph{Step 3: Cauchy--Riemann.} By \eqref{eq:CR}, \(v_x=-u_y\) and \(v_y=u_x\). So
+        \(-v_x-u_y=u_y-u_y=0\) and \(u_x-v_y=u_x-u_x=0\).
+\end{itemize}
+Putting it together:
+\[
  \oint_\gamma f\,dz
- &=\oint_\gamma(u\,dx-v\,dy)+i\oint_\gamma(v\,dx+u\,dy)\\
- &=\iint_E(-v_x-u_y)\,dA+i\iint_E(u_x-v_y)\,dA\\
- &=\iint_E(u_y-u_y)\,dA+i\iint_E(v_y-v_y)\,dA=0.
-\end{align*}
-(Green's theorem uses continuous partials; Goursat showed holomorphy alone suffices.)
-
-
+ =\iint_E(-v_x-u_y)\,dA+i\iint_E(u_x-v_y)\,dA
+ =\iint_E0\,dA+i\iint_E0\,dA=0.
+\]
+(Green's theorem needs continuous partial derivatives; Goursat later showed that being
+holomorphic is enough.)
+\par\framebreak\par
+\textbf{What happens if the loop surrounds a bad point?} Then the integral need not be zero; the
+circle integral \(\oint dz/z=2\pi i\) is an example. The next result turns this into a tool.
 
 \begin{block}{Cauchy's integral formula}
 Let $\gamma$ be a positively oriented simple closed contour, let $f$ be holomorphic on an
@@ -505,14 +583,18 @@ open set containing $\gamma$ and its interior, and let $z_0$ lie inside $\gamma$
   \label{eq:CIF}
 \end{equation}
 \end{block}
-\framebreak
+\textbf{In words:} the values of \(f\) on a loop determine its value at every point inside.
+\par\framebreak\par
 \begin{columns}[T]
 \begin{column}{0.56\linewidth}
-\textbf{Why it holds.} Deform $\gamma$ to a small counterclockwise circle
-$C_\varepsilon$ about $z_0$. The combined contour $\gamma+s-C_\varepsilon-s$ (right)
-encloses only the shaded region, where $f(z)/(z-z_0)$ is holomorphic, so by Cauchy's
-theorem its integral is zero. The slit sides $s$ and $-s$ cancel, hence the integrals
-over $\gamma$ and $C_\varepsilon$ agree.
+\textbf{Proof, step 1: shrink the loop.} The integrand \(f(z)/(z-z_0)\) is holomorphic except at
+\(z_0\). Draw a small counterclockwise circle \(C_\varepsilon\) around \(z_0\) and join it to \(\gamma\) by a
+slit \(s\) (right). The path \(\gamma+s-C_\varepsilon-s\) surrounds only the shaded region, where the
+integrand is holomorphic, so its integral is \(0\) by Cauchy's theorem. The two sides of the slit
+cancel. Hence
+\[
+ \oint_\gamma\frac{f(z)}{z-z_0}\,dz=\oint_{C_\varepsilon}\frac{f(z)}{z-z_0}\,dz .
+\]
 \end{column}
 \begin{column}{0.4\linewidth}
 \centering
@@ -520,20 +602,24 @@ over $\gamma$ and $C_\varepsilon$ agree.
 \end{column}
 \end{columns}
 
-On the small circle $z=z_0+\varepsilon e^{i\theta}$, $0\le\theta\le2\pi$, we have
-$z-z_0=\varepsilon e^{i\theta}$ and $dz=i\varepsilon e^{i\theta}\,d\theta$, so
-$dz/(z-z_0)=i\,d\theta$ and, by \eqref{eq:pathint},
+\textbf{Step 2: compute on the small circle.} Parametrize \(z=z_0+\varepsilon e^{i\theta}\),
+\(0\le\theta\le2\pi\). Then \(z-z_0=\varepsilon e^{i\theta}\) and \(dz=i\varepsilon e^{i\theta}\,d\theta\), so
+\(\frac{dz}{z-z_0}=i\,d\theta\), and
 \[
  \oint_{C_\varepsilon}\frac{f(z)}{z-z_0}\,dz
  =i\int_0^{2\pi}f(z_0+\varepsilon e^{i\theta})\,d\theta.
 \]
-As $\varepsilon\to0$, continuity makes the integrand approach $f(z_0)$, so the
-last integral approaches $2\pi i f(z_0)$. This gives \eqref{eq:CIF}.
-\emph{Meaning:} the circle integral does not depend on $\varepsilon$, so for every such circle
-$f(z_0)=\frac1{2\pi}\int_0^{2\pi}f(z_0+\varepsilon e^{i\theta})\,d\theta$: the value at the
-centre is the average over the circle---the mean-value property of electrostatic
-potentials in charge-free regions.
-
+\textbf{Step 3: let \(\varepsilon\to0\).} By continuity, \(f(z_0+\varepsilon e^{i\theta})\to f(z_0)\), so the
+right side tends to \(i\cdot2\pi\cdot f(z_0)\). The left side does not depend on \(\varepsilon\) (Step~1).
+So \(\oint_\gamma f(z)\,dz/(z-z_0)=2\pi i\,f(z_0)\), which is \eqref{eq:CIF}.
+\par\framebreak\par
+\textbf{A physical reading: the mean-value property.} Since the circle integral is the same for
+every \(\varepsilon\), Step~2 and the formula give, for every such circle,
+\[
+ f(z_0)=\frac1{2\pi}\int_0^{2\pi}f(z_0+\varepsilon e^{i\theta})\,d\theta :
+\]
+the value at the center equals the average over the circle. The same is true of an
+electrostatic potential in a region without charges.
 \end{frame}
 
 
@@ -542,203 +628,245 @@ potentials in charge-free regions.
 \section{Taylor and Laurent series}
 % ======================================================================
 
-\begin{frame}[allowframebreaks=0.99]{Taylor series from contour integration}
+\begin{frame}[allowframebreaks=1.00]{Taylor series from contour integration}
 \footnotesize
 
-A Taylor series needs every derivative of $f$; Cauchy's formula supplies them.
-Differentiate \eqref{eq:CIF} in $z_0$ (contour fixed, away from $z_0$).  Since
-$\partial_{z_0}^n(z-z_0)^{-1}=n!/(z-z_0)^{n+1}$, for $n=0,1,2,\ldots$,
+\textbf{Goal.} Show that a holomorphic function equals its Taylor series in every disk where it
+is holomorphic. A Taylor series needs all the derivatives of \(f\); Cauchy's formula supplies them.
+
+\textbf{Step 1: derivatives from Cauchy's formula.} In \eqref{eq:CIF}, \(z_0\) appears only in
+\(1/(z-z_0)\). Differentiate with respect to \(z_0\) (the contour stays fixed):
+\[
+ \frac{\partial}{\partial z_0}\frac1{z-z_0}=\frac1{(z-z_0)^2},\qquad
+ \frac{\partial^2}{\partial z_0^2}\frac1{z-z_0}=\frac{2}{(z-z_0)^3},\qquad
+ \frac{\partial^3}{\partial z_0^3}\frac1{z-z_0}=\frac{3!}{(z-z_0)^4},
+\]
+and in general \(\partial^n_{z_0}(z-z_0)^{-1}=n!\,(z-z_0)^{-(n+1)}\) (each derivative brings down the next
+integer).
+So, for \(n=0,1,2,\ldots\),
 \begin{equation}
  f^{(n)}(z_0)=\frac{n!}{2\pi i}
   \oint_\gamma\frac{f(z)}{(z-z_0)^{n+1}}\,dz.
  \label{eq:CIF-deriv}
 \end{equation}
-In particular every holomorphic function is infinitely differentiable.
-
+The right side exists for every \(n\). So a function that is complex-differentiable once is
+automatically differentiable infinitely many times. (Nothing like this holds for real functions.)
+\par\framebreak\par
 \begin{block}{Taylor series theorem}
 If $f$ is holomorphic on the disk $|z-z_0|<R$, then for every $|z-z_0|<R$,
 \[
  f(z)=\sum_{n=0}^{\infty}\frac{f^{(n)}(z_0)}{n!}(z-z_0)^n.
 \]
 \end{block}
-Choose a radius $\rho$ with $|z-z_0|<\rho<R$ and integrate on $C_\rho:|\xi-z_0|=\rho$.  Cauchy's formula \eqref{eq:CIF}, with
-$\gamma=C_\rho$, integration variable renamed $\xi$, and interior point now called $z$, gives
+\textbf{Step 2: Cauchy's formula on a circle.} Fix \(z\) in the disk. Choose a radius \(\rho\) with
+\(|z-z_0|<\rho<R\), and let \(C_\rho\) be the circle \(|\xi-z_0|=\rho\). Cauchy's formula \eqref{eq:CIF},
+written with integration variable \(\xi\) and interior point \(z\), gives
 \[
  f(z)=\frac{1}{2\pi i}\oint_{C_\rho}\frac{f(\xi)}{\xi-z}\,d\xi.
 \]
-
-
-The idea is to expand only the kernel, using the geometric series
-$1/(1-w)=\sum_{n\ge0}w^n$ with $w=(z-z_0)/(\xi-z_0)$:
-\begin{align*}
- \frac1{\xi-z}&=\frac1{(\xi-z_0)-(z-z_0)}
- =\frac1{\xi-z_0}
-  \frac1{1-(z-z_0)/(\xi-z_0)}\\
- &=\frac1{\xi-z_0}\sum_{n=0}^{\infty}\Bigl(\frac{z-z_0}{\xi-z_0}\Bigr)^n
+\par\framebreak\par
+\textbf{Step 3: expand the kernel \(1/(\xi-z)\) in powers of \(z-z_0\).} Write
+\(\xi-z=(\xi-z_0)-(z-z_0)\) and factor out \(\xi-z_0\):
+\[
+ \frac1{\xi-z}=\frac1{\xi-z_0}\cdot\frac1{1-w},\qquad w=\frac{z-z_0}{\xi-z_0}.
+\]
+On the circle \(|w|=|z-z_0|/\rho<1\), so the geometric series \(\frac1{1-w}=1+w+w^2+\cdots\) converges:
+\[
+ \frac1{\xi-z}=\frac1{\xi-z_0}\sum_{n=0}^{\infty}\Bigl(\frac{z-z_0}{\xi-z_0}\Bigr)^n
  =\sum_{n=0}^{\infty}\frac{(z-z_0)^n}{(\xi-z_0)^{n+1}}.
-\end{align*}
-This works because $|(z-z_0)/(\xi-z_0)|=|z-z_0|/\rho<1$ all along the circle,
-so we may substitute it and integrate term by term:
+\]
+\par\framebreak\par
+\textbf{Step 4: integrate term by term.} Insert the series into Step~2. The factor \((z-z_0)^n\)
+does not depend on \(\xi\), so it comes out of each integral:
 \[
  f(z)=\sum_{n=0}^{\infty}(z-z_0)^n
  \underbrace{\frac1{2\pi i}\oint_{C_\rho}
-     \frac{f(\xi)}{(\xi-z_0)^{n+1}}\,d\xi}_{f^{(n)}(z_0)/n!\text{ by \eqref{eq:CIF-deriv}}}.
+     \frac{f(\xi)}{(\xi-z_0)^{n+1}}\,d\xi}_{=\,f^{(n)}(z_0)/n!\ \text{by \eqref{eq:CIF-deriv}}}.
 \]
-
+This is the Taylor series. Its coefficients are the ones found by matching derivatives at the start
+of the chapter \eqref{eq:taylor-coef}. The new information is \emph{where} the series equals \(f\):
+in every disk around \(z_0\) in which \(f\) is holomorphic.
 \par\framebreak\par
+\textbf{Consequence: the radius of convergence.} The Taylor series about \(z_0\) converges (and
+equals \(f\)) out to the nearest \emph{singularity} of \(f\), a point where \(f\) cannot be made
+holomorphic (Section~1.6 classifies them). It cannot converge in a bigger disk: a convergent
+power series is holomorphic inside its disk, so it would make \(f\) holomorphic at the
+singularity, which is impossible.
 
-The coefficients are exactly those found by matching derivatives at the start of
-the chapter, \eqref{eq:taylor-coef} and \eqref{eq:taylor0}. Here Cauchy's formula also tells us where the series equals $f$.
+\textbf{Consequence: no \(e^{-1/x^2}\) surprise.} For holomorphic functions, ``differentiable'' and
+``equal to its Taylor series'' are the same thing. The function \(e^{-1/z^2}\) is not a
+counterexample, because it is not even continuous at \(0\): on the imaginary axis \(z=iy\),
+\(e^{-1/z^2}=e^{1/y^2}\to\infty\).
 
-The key consequence: inside any disk where $f$ is holomorphic, its Taylor series
-represents $f$. So the series about $z_0$ converges at least out to the nearest
-\emph{singularity} of $f$ (a point where $f$ cannot be made holomorphic;
-Section~1.6 classifies them). It converges no farther: a convergent power series may be
-differentiated term by term inside its disk, so it is holomorphic there, and a disk
-reaching past the singularity would extend $f$ holomorphically across it. Thus being analytic at
-$z_0$ and having a Taylor series about $z_0$ are the same property, and the $e^{-1/x^2}$ failure
-of Section~1.1 cannot happen: $e^{-1/z^2}$ is not even continuous at $0$ (on $z=iy$ it equals
-$e^{1/y^2}$).
-
-\textbf{Why the complex plane matters even for real functions.}
-$1/(1+x^2)=1-x^2+x^4-\cdots$ is smooth on all of $\mathbb R$, yet its series about $0$
-diverges for $|x|>1$. Nothing on the real line explains this; the reason is the complex
-poles $z=\pm i$ of $1/(1+z^2)$, at distance $1$ from $0$.
-
-
+\textbf{Why complex numbers matter even for real functions.} The series
+\(1/(1+x^2)=1-x^2+x^4-\cdots\) diverges for \(|x|>1\), although \(1/(1+x^2)\) is smooth on the whole
+real line. Nothing real explains this. The reason is complex: \(1/(1+z^2)\) has poles at
+\(z=\pm i\), at distance \(1\) from \(0\), so the radius of convergence is \(1\).
 \end{frame}
 
-\begin{frame}[allowframebreaks=0.95]{Analytic continuation}
-
+\begin{frame}[allowframebreaks=1.00]{Analytic continuation}
 \footnotesize
 
-\textbf{Why we want it.} Chapter~2 defines $\Gamma(z)$ by an integral that converges only
-for $\operatorname{Re}z>0$, then extends $\Gamma$ to the left half-plane. Such an extension is
-an analytic continuation. The simplest case: a Taylor series is local and may stop
-converging although the function stays holomorphic farther away.
+\textbf{Why we want it.} Chapter~2 defines \(\Gamma(z)\) by an integral that converges only for
+\(\operatorname{Re}z>0\), and then extends \(\Gamma\) to the left half-plane. Extending a holomorphic
+function beyond the region where its first formula works is called \emph{analytic continuation}.
+Two questions: how can it be done, and is the result unique?
 
-\textbf{Example.} $f(z)=1/(1-z)=1+z+z^2+\cdots$ converges only for $|z|<1$, because
-the nearest singularity is $z=1$; yet $1/(1-z)$ is holomorphic at every other point.
-To go beyond this disk, re-expand about a new center where $f$ is already known, say
-$z=-\tfrac12$:
+\textbf{Example: how it can be done.} The geometric series
+\[
+ f(z)=\frac1{1-z}=1+z+z^2+\cdots
+\]
+converges only for \(|z|<1\), because of the singularity at \(z=1\). Yet \(1/(1-z)\) is holomorphic at
+every other point. The series simply cannot see beyond its disk.
+
+\textbf{Re-expand about a new center.} Pick a point inside the first disk, say \(z=-\tfrac12\), and
+expand in powers of \(z+\tfrac12\). Write \(1-z=\tfrac32-(z+\tfrac12)\) and factor out \(\tfrac32\):
 \[
     f(z)
     =\frac{1}{\frac32-(z+\frac12)}
-    =\frac23\,
+    =\frac23\cdot
       \frac{1}{1-\frac23(z+\frac12)}
     =\frac23\sum_{n=0}^{\infty}
-      \left[\frac23\left(z+\frac12\right)\right]^n,
+      \Bigl[\frac23\Bigl(z+\frac12\Bigr)\Bigr]^n,
 \]
-the geometric series $\sum w^n=1/(1-w)$ with $w=\frac23(z+\frac12)$. It converges exactly
-when $|w|<1$, that is, for $|z+\frac12|<\frac32$: a new disk that overlaps the first and
-reaches farther (to $z=-2$). Call the first disk $D_0$ and the new one $D_1$; repeating gives
-$D_0\to D_1\to D_2\to\cdots$ (figure on the next slide), which carries $f$ step by step
-through a larger connected region.
+using \(1/(1-w)=\sum w^n\) with \(w=\frac23(z+\frac12)\).
+\par\framebreak\par
+\textbf{Where does the new series converge?} Exactly when \(|w|<1\), that is,
+\(|z+\frac12|<\frac32\). This is a new disk \(D_1\) (center \(-\frac12\), radius \(\frac32\)). It overlaps the
+first disk \(D_0\) and reaches farther, out to \(z=-2\). On the overlap both series equal
+\(1/(1-z)\).
 
-\framebreak
+\textbf{Repeat.} Choosing new centers again and again gives a chain of disks
+\(D_0\to D_1\to D_2\to\cdots\) (figure on the identity-theorem slide). Each new series agrees with the
+previous one on their overlap. In this way \(f\) is carried, step by step, through a larger
+region.
 
-\textbf{Why the result is unique.} It is forced by the following theorem.
+\textbf{Why the result is unique.} One might worry that a different chain of disks gives a
+different function. The following theorem rules this out.
 
 \begin{block}{Identity theorem}
 Let $f,g$ be holomorphic on a connected open set $\Omega$. If they agree on a set with
-a limit point inside $\Omega$ --- a sequence $z_n\to a$, a segment, or a small
-disk --- then $f=g$ on all of $\Omega$.
+a limit point inside $\Omega$ (for example, a sequence $z_n\to a$, a segment, or a small
+disk), then $f=g$ on all of $\Omega$.
 \end{block}
-Equivalently (set $g=0$): \emph{zeros of a nonzero holomorphic function are isolated} ---
-on a connected domain, a function that vanishes on a whole segment, or on a sequence
-$z_n\to a$, already vanishes on all of $\Omega$.
+Equivalently (take \(g=0\)): if a holomorphic function on a connected region vanishes on a whole
+segment, or on a sequence \(z_n\to a\), it vanishes everywhere. In other words, the zeros of a
+holomorphic function that is not identically zero are isolated.
+\par\framebreak\par
+\textbf{Idea of the proof.} Near any point, a holomorphic function is its Taylor series, so it is
+completely fixed by its Taylor coefficients there. Zeros piling up at \(a\) force all those
+coefficients to be zero. Then we walk from disk to disk across the region.
 
-\emph{Proof} (the figure beside Step~2 shows both steps). Set $h=f-g$.
+\textbf{Proof.} Let \(h=f-g\). It is holomorphic and \(h(z_n)=0\) on a sequence \(z_n\to a\),
+\(z_n\ne a\). We show \(h=0\) everywhere.
 
-\textbf{Step 1: a limit point of zeros makes a zero disk.} Suppose $h(z_n)=0$ on a
-sequence $z_n\to a$, $z_n\ne a$. If the Taylor series of $h$ at $a$ had a first nonzero
-term $c_k(z-a)^k$, then $h(z)=(z-a)^k[c_k+c_{k+1}(z-a)+\cdots]$ would be nonzero at
-every $z\ne a$ near $a$, contradicting $h(z_n)=0$. So every coefficient vanishes and
-$h\equiv0$ on a disk $D_0$ about $a$.
-
-\framebreak
-
+\textbf{Step 1: \(h\) is zero on a whole disk around \(a\).} Expand \(h\) in its Taylor series at \(a\),
+\(h(z)=\sum_k c_k(z-a)^k\). Suppose, to get a contradiction, that not all \(c_k\) are zero, and let
+\(c_k\) be the first nonzero one. Then
+\[
+ h(z)=(z-a)^k\bigl[c_k+c_{k+1}(z-a)+c_{k+2}(z-a)^2+\cdots\bigr].
+\]
+The bracket tends to \(c_k\neq0\) as \(z\to a\), so it is nonzero for all \(z\) close to \(a\); and
+\((z-a)^k\neq0\) for \(z\ne a\). So \(h(z)\ne0\) for every \(z\ne a\) close to \(a\). But the points \(z_n\) come
+arbitrarily close to \(a\) and \(h(z_n)=0\): a contradiction. Hence every \(c_k=0\), and \(h=0\) on a disk
+\(D_0\) around \(a\).
+\par\framebreak\par
 \begin{columns}[T]
 \column{0.52\textwidth}
-\textbf{Step 2: overlaps propagate.} $\Omega$ is connected, so any $b\in\Omega$ is
-joined to $a$ by a path; cover it by finitely many overlapping disks
-$D_0,D_1,\dots,D_N\subset\Omega$. Each overlap is an open set on which $h=0$ already,
-so Step~1 applied inside the next disk gives $h\equiv0$ there; after $D_N$, $h(b)=0$.
-Since $b$ was arbitrary, $h\equiv0$ on $\Omega$.
+\textbf{Step 2: spread the zeros across \(\Omega\).} Take any point \(b\) in \(\Omega\). Since \(\Omega\) is
+connected, a path inside \(\Omega\) joins \(a\) to \(b\). Cover the path by finitely many overlapping disks
+\(D_0,D_1,\dots,D_N\) inside \(\Omega\) (right).
+\begin{itemize}
+  \item \(h=0\) on \(D_0\) (Step~1).
+  \item \(D_1\) overlaps \(D_0\), so \(h=0\) on an open piece of \(D_1\). That piece contains limit points,
+        so Step~1, applied in \(D_1\), gives \(h=0\) on all of \(D_1\).
+  \item Continue disk by disk. After \(D_N\), \(h(b)=0\).
+\end{itemize}
+Since \(b\) was arbitrary, \(h=0\) on \(\Omega\), that is, \(f=g\).
 \column{0.44\textwidth}
 \begin{center}
     \safeincludegraphics[width=\linewidth]
     {figs/identity-theorem-disks.pdf}
 \end{center}
 \end{columns}
-
-\framebreak
-
-\textbf{How to apply it.} Two patterns recur in later chapters.
-\textbf{(a) Uniqueness of continuation.} Two continuations of the same function agree
-on the original domain, which contains limit points; the theorem forces them to agree
-wherever both are defined: however $\Gamma$ is continued, the result is the same
-function.
-\textbf{(b) Proving identities.} Two functions that agree on a segment agree on their
-whole connected domain. Chapter~2 uses this for $\Gamma(z)\Gamma(1-z)=\pi/\sin(\pi z)$:
-an integral proves it for real $a\in(0,1)$, then the theorem extends it to every
-$z\notin\mathbb Z$ --- no further computation needed.
-
+\par\framebreak\par
+\textbf{How we will use it.} Two patterns recur in later chapters.
+\begin{itemize}
+  \item \textbf{Uniqueness of continuation.} Two continuations of the same function agree on the
+        original region, which contains limit points. So they agree wherever both are defined.
+        For example, however \(\Gamma\) is continued, the result is the same function.
+  \item \textbf{Proving identities.} To prove that two holomorphic functions are equal on a
+        region, it is enough to prove it on a segment. Chapter~2 proves
+        \(\Gamma(z)\Gamma(1-z)=\pi/\sin(\pi z)\) for real \(z\) in \((0,1)\) with an integral; the
+        identity theorem then extends it to every \(z\notin\mathbb Z\), with no further computation.
+\end{itemize}
 \end{frame}
 
-\begin{frame}[allowframebreaks=0.99]{Laurent series}
+\begin{frame}[allowframebreaks=1.00]{Laurent series}
 \footnotesize
 
-A Taylor series uses nonnegative powers. Near a singularity we also need
-$1/(z-z_0),1/(z-z_0)^2,\ldots$. Their combination is a \emph{Laurent series}.
-The goal is to show that a function holomorphic on a ring around $z_0$ always has such an
-expansion, and to find a formula for its coefficients.
+\textbf{Why.} A Taylor series uses only the powers \((z-z_0)^0,(z-z_0)^1,(z-z_0)^2,\dots\), and it
+needs \(f\) to be holomorphic at \(z_0\). Near a singularity we also need negative powers
+\(1/(z-z_0),\,1/(z-z_0)^2,\dots\). A series with both kinds of powers is a \emph{Laurent series}.
 
-Suppose $f$ is holomorphic in the annulus $r<|z-z_0|<R$. For $z$ in it, take
-counterclockwise circles $C_1,C_2$ about $z_0$ of radii $r<\rho_2<|z-z_0|<\rho_1<R$.
-Cauchy's formula \eqref{eq:CIF} for the ring between them (slit as in its proof) gives,
-with a minus sign because the ring's inner boundary runs clockwise,
+\textbf{Goal.} Show that a function holomorphic on a ring around \(z_0\) always has such an
+expansion, and find a formula for its coefficients.
+
+\textbf{Setup.} Let \(f\) be holomorphic in the ring (annulus) \(r<|z-z_0|<R\), and fix \(z\) in it.
+Draw two counterclockwise circles around \(z_0\): \(C_1\) of radius \(\rho_1\) outside \(z\), and \(C_2\) of
+radius \(\rho_2\) inside \(z\):
 \[
- f(z)=\frac1{2\pi i}\oint_{C_1}\frac{f(\xi)\,d\xi}{\xi-z}-\frac1{2\pi i}\oint_{C_2}\frac{f(\xi)\,d\xi}{\xi-z}.
+ r<\rho_2<|z-z_0|<\rho_1<R .
 \]
+\textbf{Step 1: Cauchy's formula for the ring between \(C_2\) and \(C_1\).} The boundary of this ring
+is \(C_1\) counterclockwise plus \(C_2\) \emph{clockwise} (the region must stay on the left). Joining
+the two circles by a slit, as in the proof of \eqref{eq:CIF}, gives
+\[
+ f(z)=\frac1{2\pi i}\oint_{C_1}\frac{f(\xi)\,d\xi}{\xi-z}-\frac1{2\pi i}\oint_{C_2}\frac{f(\xi)\,d\xi}{\xi-z},
+\]
+where the minus sign accounts for traversing \(C_2\) clockwise.
 \par\framebreak\par
-
-On $C_1$, expand the kernel exactly as on the Taylor slide: nonnegative powers of $z-z_0$.
-On $C_2$ now $|\xi-z_0|<|z-z_0|$, so expand the other way:
+\textbf{Step 2: on \(C_1\), expand as for Taylor.} There \(|z-z_0|<|\xi-z_0|\), so, exactly as on
+the Taylor slide,
+\[
+ \frac1{\xi-z}=\sum_{n=0}^{\infty}\frac{(z-z_0)^n}{(\xi-z_0)^{n+1}}
+ \qquad(\text{nonnegative powers of } z-z_0).
+\]
+\textbf{Step 3: on \(C_2\), expand the other way.} Now \(|\xi-z_0|<|z-z_0|\), so we must factor out
+\(z-z_0\) instead. Write \(\xi-z=-\bigl[(z-z_0)-(\xi-z_0)\bigr]\):
 \[
  \frac1{\xi-z}=\frac{-1}{(z-z_0)\bigl[1-\frac{\xi-z_0}{z-z_0}\bigr]}
- =-\sum_{n=0}^{\infty}\frac{(\xi-z_0)^n}{(z-z_0)^{n+1}},
+ =-\frac{1}{z-z_0}\sum_{n=0}^{\infty}\Bigl(\frac{\xi-z_0}{z-z_0}\Bigr)^n
+ =-\sum_{n=0}^{\infty}\frac{(\xi-z_0)^n}{(z-z_0)^{n+1}} .
 \]
-which produces the negative powers. Hence $f$ has a Laurent expansion, convergent
-throughout the annulus:
+These are the negative powers \((z-z_0)^{-1},(z-z_0)^{-2},\dots\). (The \(-\) here cancels the \(-\) in
+Step~1.)
+
+\textbf{Step 4: result.} Integrating term by term, \(f\) has a \emph{Laurent expansion},
+convergent in the whole ring:
 \begin{equation}
  f(z)=\sum_{n=-\infty}^{\infty}a_n(z-z_0)^n
  =\underbrace{\sum_{n=0}^{\infty}a_n(z-z_0)^n}_{\text{regular part}}
   +\underbrace{\sum_{n=1}^{\infty}a_{-n}(z-z_0)^{-n}}_{\text{principal part}}.
  \label{eq:laurent}
 \end{equation}
-
-To extract a coefficient, multiply by
-$(z-z_0)^{-k-1}$ and integrate on a centered circle
-$\gamma:|z-z_0|=\rho$, where $r<\rho<R$, oriented counterclockwise:
+\par\framebreak\par
+\textbf{Step 5: a formula for the coefficients.} To isolate one coefficient \(a_k\), divide
+\eqref{eq:laurent} by \((z-z_0)^{k+1}\) and integrate counterclockwise around a circle
+\(\gamma:|z-z_0|=\rho\) in the ring. Integrating term by term,
 \[
- \frac{1}{2\pi i}\oint_\gamma
- \frac{f(z)}{(z-z_0)^{k+1}}\,dz
- =\frac{1}{2\pi i}\sum_{n=-\infty}^{\infty}a_n
-   \oint_\gamma(z-z_0)^{n-k-1}\,dz
- =\frac{1}{2\pi i}\,a_k\,(2\pi i),
+ \oint_\gamma\frac{f(z)}{(z-z_0)^{k+1}}\,dz
+ =\sum_{n=-\infty}^{\infty}a_n\oint_\gamma(z-z_0)^{n-k-1}\,dz .
 \]
-because by \eqref{eq:circ-power} only the exponent $n-k-1=-1$, i.e.\ $n=k$, gives a
-nonzero integral. Therefore, for every integer $k$,
+By the circle integral \eqref{eq:circ-power}, \(\oint_\gamma(z-z_0)^{n-k-1}dz\) is \(2\pi i\) when the
+exponent is \(n-k-1=-1\), that is, \(n=k\), and \(0\) otherwise. So only the term \(n=k\) survives, and
+the right side is \(2\pi i\,a_k\). Dividing by \(2\pi i\), for every integer \(k\),
 \begin{equation}
  a_k=\frac{1}{2\pi i}\oint_\gamma
       \frac{f(z)}{(z-z_0)^{k+1}}\,dz.
  \label{eq:laurent-coef}
 \end{equation}
-If the principal part is empty, the series extends holomorphically to the full disk
-and is a Taylor series.
-
-
+If the principal part is empty (\(a_k=0\) for all \(k<0\)), the Laurent series is just a Taylor series.
 \end{frame}
 
 % ======================================================================
@@ -748,73 +876,93 @@ and is a Taylor series.
 \begin{frame}[allowframebreaks=1.00]{Classifying singularities}
 \footnotesize
 
-The residue formulas of Section~1.7 depend on how badly $f$ misbehaves at a point, so we
-sort singular points by their Laurent series.
-A point $z_0$ is a \emph{singular point} of $f$ when $f$ fails to be holomorphic there.
-It is an \emph{isolated singularity} if $f$ is holomorphic on a punctured disk
-$0<|z-z_0|<R$. That is the annulus of \eqref{eq:laurent} with $r=0$, so there
-$f(z)=\sum_{n=-\infty}^{\infty}a_n(z-z_0)^n$. Then:
-\begin{itemize}\footnotesize
- \item The singularity is \textbf{removable} if $a_n=0$ for every $n<0$.  Defining
-       $f(z_0)=a_0$ makes $f$ holomorphic at $z_0$.  Example:
-       $\sin z/z$ at $0$: dividing \eqref{eq:sin-series} (with $x$ replaced by $z$) by $z$ gives
-       $1-z^2/3!+z^4/5!-\cdots$, with no negative powers, so $a_0=1$.
- \item It is a \textbf{pole of order $m$}, where $m\ge1$ is an integer, if $a_{-m}\ne0$
-       and $a_n=0$ for every $n<-m$.         Equivalently,
-       \[
-       f(z)=\frac{h(z)}{(z-z_0)^m},\qquad h\text{ holomorphic},\quad h(z_0)\ne0.
-       \]
-       Multiplying by $(z-z_0)^m$ removes exactly the highest negative power.
- \item It is \textbf{essential} if infinitely many negative-power coefficients are
-       nonzero.  For example, substituting $x\to1/z$, $z\ne0$, in the sine series
-       \eqref{eq:sin-series}, which converges for every complex argument, gives
-       \[
-        \sin\left(\frac1z\right)
-        =\frac1z-\frac1{3!z^3}+\frac1{5!z^5}-\cdots,
-       \]
-       so $\sin(1/z)$ has an essential singularity at $0$.
+\textbf{Why.} The residue formulas of Section~1.7 depend on how badly \(f\) misbehaves at a point.
+We sort the bad points by their Laurent series.
+
+\textbf{Definitions.} A point \(z_0\) is a \emph{singular point} of \(f\) if \(f\) is not holomorphic
+there. It is an \emph{isolated singularity} if \(f\) is holomorphic on a punctured disk
+\(0<|z-z_0|<R\) (a disk with its center removed). A punctured disk is the ring of \eqref{eq:laurent}
+with \(r=0\), so near an isolated singularity
+\[
+ f(z)=\sum_{n=-\infty}^{\infty}a_n(z-z_0)^n .
+\]
+The negative powers decide the type.
+\par\framebreak\par
+\textbf{Type 1: removable} (no negative powers: \(a_n=0\) for all \(n<0\)). Then \(f\) agrees with a power
+series, and setting \(f(z_0)=a_0\) makes \(f\) holomorphic at \(z_0\): the singularity was only apparent.
+
+\emph{Example:} \(\sin z/z\) at \(0\). Divide the sine series \eqref{eq:sin-series} by \(z\):
+\(\frac{\sin z}{z}=1-\frac{z^2}{3!}+\frac{z^4}{5!}-\cdots\). No negative powers; set the value at \(0\) to \(1\).
+
+\textbf{Type 2: pole of order \(m\)} (finitely many negative powers, the lowest being \((z-z_0)^{-m}\),
+with \(a_{-m}\ne0\)). Equivalently,
+\[
+ f(z)=\frac{h(z)}{(z-z_0)^m},\qquad h\text{ holomorphic near }z_0,\quad h(z_0)\ne0 .
+\]
+(Multiplying the Laurent series by \((z-z_0)^m\) removes all negative powers and leaves
+\(h(z)=a_{-m}+a_{-m+1}(z-z_0)+\cdots\).) A pole of order \(1\) is called \emph{simple}.
+
+\textbf{Type 3: essential} (infinitely many negative powers). \emph{Example:} put \(1/z\) in place of
+\(x\) in the sine series (which converges for every complex argument):
+\[
+ \sin\Bigl(\frac1z\Bigr)=\frac1z-\frac1{3!\,z^3}+\frac1{5!\,z^5}-\cdots .
+\]
+\par\framebreak\par
+\textbf{Meromorphic functions.} A function that is holomorphic except for isolated poles is called
+\emph{meromorphic}.
+
+\textbf{Example: \(1/\sin z\) has simple poles exactly at \(z=n\pi\).} We must find all complex zeros of
+\(\sin z\).
+\begin{itemize}
+  \item The derivation of \eqref{eq:cos-sin-exp} works for complex \(z\) too, so
+        \(\sin z=(e^{iz}-e^{-iz})/(2i)\). This is zero exactly when \(e^{iz}=e^{-iz}\), that is, when
+        \(e^{2iz}=1\).
+  \item Write \(z=x+iy\). Then \(2iz=-2y+2ix\), and by \eqref{eq:exp-uv}
+        \(e^{2iz}=e^{-2y}(\cos2x+i\sin2x)\).
+  \item For this to equal \(1\): its modulus \(e^{-2y}\) must be \(1\), so \(y=0\); then \(\cos2x=1\) and
+        \(\sin2x=0\), so \(2x=2\pi n\), that is, \(x=n\pi\).
 \end{itemize}
-A function holomorphic except for isolated poles is \emph{meromorphic}.  For example,
-$1/\sin z$ is meromorphic, with simple poles exactly at $z=n\pi$, $n\in\mathbb Z$.
-\emph{Why only there:} the even/odd splitting that gave \eqref{eq:euler} works for complex
-$z$ too, so \eqref{eq:cos-sin-exp} holds for complex arguments and $\sin z=(e^{iz}-e^{-iz})/(2i)$, which vanishes iff $e^{2iz}=1$. For $z=x+iy$,
-\eqref{eq:exp-uv} gives $e^{2iz}=e^{-2y}(\cos2x+i\sin2x)$; modulus $1$ forces $y=0$, and
-then $\cos2x=1$ forces $x=n\pi$. The poles are simple because
-$\sin z\approx\cos(n\pi)(z-n\pi)$ with $\cos n\pi=\pm1\ne0$.
+So the zeros of \(\sin z\) are the real numbers \(n\pi\) only. Each is simple: near \(n\pi\),
+\(\sin z\approx\cos(n\pi)\,(z-n\pi)\) (first Taylor term), and \(\cos n\pi=\pm1\ne0\).
+\par\framebreak\par
+\textbf{Branch points are not isolated singularities.} Going once around \(0\) adds \(2\pi i\) to
+\(\log z\). So no single-valued branch of \(\log z\) is holomorphic on a whole punctured disk around
+\(0\), and there is no Laurent series there.
 
-A branch point is not an isolated singularity: continuing $\log z$ once around $0$ adds
-$2\pi i$, so no single-valued branch is holomorphic on a whole punctured disk about $0$.
-
-Behaviour for large $|z|$ (which decides whether a big arc vanishes, Section~1.8) is
-classified the same way through $F(w)=f(1/w)$ at $w=0$; e.g.\ a degree-$m$ polynomial has a
-pole of order $m$ at $\infty$.
+\textbf{Behaviour at infinity.} Whether a large arc integral vanishes (Section~1.8) depends on how
+\(f\) behaves for large \(|z|\). Classify it in the same way by looking at \(F(w)=f(1/w)\) near \(w=0\).
+For example, a polynomial of degree \(m\) has a pole of order \(m\) at infinity.
 \end{frame}
 
 % ======================================================================
 \section{Residues}
 % ======================================================================
 
-\begin{frame}[allowframebreaks=0.95]{The residue theorem}
+\begin{frame}[allowframebreaks=1.00]{The residue theorem}
 \footnotesize
 
-\textbf{Why we want it.} Many real integrals of physics can be closed into a contour
-integral (Section~1.8). The residue theorem evaluates such an integral from a single
-Laurent coefficient at each enclosed singularity.
+\textbf{Why we want it.} Many real integrals in physics can be turned into a contour integral
+around a closed loop (Section~1.8). The residue theorem evaluates such a loop integral by looking
+at one number at each singularity inside.
 
-For an isolated singularity $z_0$, the \emph{residue} is the Laurent coefficient
-$\operatorname{Res}(f,z_0)=a_{-1}$ of the punctured-disk expansion (Section~1.6).
-On a small counterclockwise circle $C$ about $z_0$ enclosing no other singularity,
-integrate that expansion term by term. By \eqref{eq:circ-power} every power except
-$(z-z_0)^{-1}$ integrates to zero, so
+\textbf{The residue.} Let \(z_0\) be an isolated singularity, with Laurent series
+\(f(z)=\sum_n a_n(z-z_0)^n\) near it. The coefficient \(a_{-1}\) of \(1/(z-z_0)\) is called the
+\emph{residue}:
+\[
+ \operatorname{Res}(f,z_0)=a_{-1}.
+\]
+\textbf{Why this one coefficient?} Integrate the Laurent series around a small counterclockwise
+circle \(C\) about \(z_0\), term by term. By the circle integral \eqref{eq:circ-power}, every power
+integrates to \(0\) except \((z-z_0)^{-1}\), which gives \(2\pi i\). So only \(a_{-1}\) survives:
 \begin{equation}
  \oint_C f(z)\,dz
  =\sum_{n=-\infty}^{\infty}a_n\oint_C(z-z_0)^n\,dz
- =2\pi i\,a_{-1}
+ =a_{-1}\cdot2\pi i
  =2\pi i\,\operatorname{Res}(f,z_0).
  \label{eq:res-single}
 \end{equation}
-
-
+The residue is what is ``left over'' after integrating around the point.
+\par\framebreak\par
 \begin{block}{Residue theorem}
 Let $f$ be holomorphic inside and on a positively oriented simple closed contour $\gamma$,
 except for finitely many isolated singularities $z_1,\ldots,z_N$ in the interior.  Then
@@ -824,17 +972,28 @@ except for finitely many isolated singularities $z_1,\ldots,z_N$ in the interior
  \label{eq:res-thm}
 \end{equation}
 \end{block}
-\textbf{Why.} By Cauchy's theorem, with slits as in the proof of \eqref{eq:CIF}, shrink
-$\gamma$ onto small counterclockwise circles, one around each $z_k$. Each circle contributes
-$2\pi i\operatorname{Res}(f,z_k)$ by \eqref{eq:res-single}.
+\textbf{Why.} Away from the singularities \(f\) is holomorphic, so (by Cauchy's theorem, with slits
+as in the proof of \eqref{eq:CIF}) we may shrink \(\gamma\) without changing the integral, until it
+becomes a set of small circles, one around each \(z_k\). Each small circle gives
+\(2\pi i\operatorname{Res}(f,z_k)\) by \eqref{eq:res-single}. Add them up.
 
-
-\textbf{Residue at a pole of order $m$.}  Write $f=h/(z-z_0)^m$ with $h(z)=(z-z_0)^mf(z)$
-holomorphic, $h(z_0)\ne0$ (Section~1.6). Taylor-expanding $h$ and dividing,
+\textbf{So the job reduces to computing residues.} We need practical formulas that avoid writing
+out the whole Laurent series.
+\par\framebreak\par
+\textbf{Formula 1: simple pole.} Near a simple pole,
+\(f(z)=\frac{a_{-1}}{z-z_0}+a_0+a_1(z-z_0)+\cdots\). Multiply by \(z-z_0\):
 \[
- f(z)=\sum_{j=0}^{\infty}\frac{h^{(j)}(z_0)}{j!}(z-z_0)^{j-m}.
+ (z-z_0)f(z)=a_{-1}+a_0(z-z_0)+a_1(z-z_0)^2+\cdots\ \xrightarrow{\ z\to z_0\ }\ a_{-1}.
 \]
-The exponent equals $-1$ exactly when $j=m-1$.  Therefore
+So \(\operatorname{Res}(f,z_0)=\lim_{z\to z_0}(z-z_0)f(z)\).
+
+\textbf{Formula 2: pole of order \(m\).} Now \(f=h/(z-z_0)^m\) with \(h(z)=(z-z_0)^mf(z)\) holomorphic.
+Multiplying the Laurent series by \((z-z_0)^m\),
+\[
+ h(z)=a_{-m}+a_{-m+1}(z-z_0)+\cdots+a_{-1}(z-z_0)^{m-1}+\cdots .
+\]
+So \(a_{-1}\) is the coefficient of \((z-z_0)^{m-1}\) in the Taylor series of \(h\), which is
+\(h^{(m-1)}(z_0)/(m-1)!\) by \eqref{eq:taylor-coef}:
 \begin{equation}
  \operatorname{Res}(f,z_0)
  =\frac{1}{(m-1)!}
@@ -842,38 +1001,49 @@ The exponent equals $-1$ exactly when $j=m-1$.  Therefore
   \left[(z-z_0)^m f(z)\right]\right|_{z=z_0}.
  \label{eq:res-order-m}
 \end{equation}
-For $m=1$ this reduces to $\operatorname{Res}(f,z_0)=\lim_{z\to z_0}(z-z_0)f(z)$; for $m=2$
-it is the first derivative of $(z-z_0)^2f(z)$ at $z_0$.
-
-\textbf{A quotient at a simple zero.} Let $p,q$ be holomorphic near $z_0$ with $q(z_0)=0$,
-$q'(z_0)\ne0$. Then $q(z)=q'(z_0)(z-z_0)+\cdots$, so cancel $z-z_0$ before taking the limit:
+For \(m=1\) this is Formula~1; for \(m=2\) it is the first derivative of \((z-z_0)^2f(z)\) at \(z_0\).
+\par\framebreak\par
+\textbf{Formula 3: a quotient \(p/q\) where \(q\) has a simple zero.} Let \(p,q\) be holomorphic near
+\(z_0\), with \(q(z_0)=0\) and \(q'(z_0)\ne0\). The Taylor series of \(q\) starts
+\(q(z)=q'(z_0)(z-z_0)+\frac12q''(z_0)(z-z_0)^2+\cdots\), so \(q(z)/(z-z_0)\to q'(z_0)\). By Formula~1,
 \begin{equation}
  \operatorname{Res}\left(\frac pq,z_0\right)
+ =\lim_{z\to z_0}\frac{(z-z_0)\,p(z)}{q(z)}
  =\lim_{z\to z_0}\frac{p(z)}{q(z)/(z-z_0)}
  =\frac{p(z_0)}{q'(z_0)}.
  \label{eq:res-ratio}
 \end{equation}
-When $p(z_0)=0$, the singularity is removable and the formula gives zero.
-
-\textbf{Examples.} By \eqref{eq:res-ratio} with $p=1$, $q=z^2+1$, $q'(z)=2z$:
-$\operatorname{Res}\bigl(1/(z^2+1),i\bigr)=1/q'(i)=1/(2i)$. At the double pole of
-$1/(z^2+1)^2=1/[(z-i)^2(z+i)^2]$, the order-$2$ formula \eqref{eq:res-order-m} with
-$(z-i)^2/(z^2+1)^2=1/(z+i)^2$ gives
+(If also \(p(z_0)=0\), the singularity is removable and the formula correctly gives \(0\).)
+\par\framebreak\par
+\textbf{Example 1: \(1/(z^2+1)\) at \(z=i\).} Use Formula~3 with \(p=1\), \(q=z^2+1\), \(q'(z)=2z\):
 \[
- \operatorname{Res}\left(\frac1{(z^2+1)^2},i\right)
+ \operatorname{Res}\Bigl(\frac1{z^2+1},i\Bigr)=\frac{1}{q'(i)}=\frac1{2i}.
+\]
+\textbf{Example 2: \(1/(z^2+1)^2\) at \(z=i\).} Factor \(z^2+1=(z-i)(z+i)\), so
+\(\frac1{(z^2+1)^2}=\frac1{(z-i)^2(z+i)^2}\): a pole of order \(2\) at \(i\). Use Formula~2 with \(m=2\).
+First, \((z-i)^2f(z)=\frac1{(z+i)^2}\). Then differentiate once and set \(z=i\):
+\[
+ \operatorname{Res}
  =\left.\frac{d}{dz}\frac1{(z+i)^2}\right|_{z=i}
   =\left.\frac{-2}{(z+i)^3}\right|_{z=i}
- =-\frac{2}{(2i)^3}
-  =-\frac{2}{-8i}
-  =\frac1{4i}.
+ =\frac{-2}{(2i)^3}
+  =\frac{-2}{-8i}
+  =\frac1{4i},
 \]
-
-\textbf{Quick checks on $|z|=1$.} Dividing the sine series \eqref{eq:sin-series} by $z^2$,
-$\sin z/z^2=1/z-z/3!+\cdots$, so $\operatorname{Res}(\sin z/z^2,0)=1$ and, by
-\eqref{eq:res-single}, $\oint_{|z|=1}(\sin z)/z^2\,dz=2\pi i$.  By contrast,
-$z^2/\sin z=z/(1-z^2/3!+\cdots)$ extends holomorphically through $0$ (value $0$), and the
-other zeros $n\pi$ of $\sin z$ (Section~1.6) lie outside the unit circle, so Cauchy's
-integral theorem gives $\oint_{|z|=1}z^2/\sin z\,dz=0$.
+using \((2i)^3=8i^3=-8i\).
+\par\framebreak\par
+\textbf{Two quick contour integrals on \(|z|=1\).}
+\begin{itemize}
+  \item \(\oint_{|z|=1}\frac{\sin z}{z^2}\,dz\). Divide the sine series by \(z^2\):
+        \(\frac{\sin z}{z^2}=\frac{z-z^3/3!+\cdots}{z^2}=\frac1z-\frac{z}{3!}+\cdots\). The coefficient of
+        \(1/z\) is \(1\), so the residue at \(0\) is \(1\), and by \eqref{eq:res-single} the integral is
+        \(2\pi i\).
+  \item \(\oint_{|z|=1}\frac{z^2}{\sin z}\,dz\). Near \(0\),
+        \(\frac{z^2}{\sin z}=\frac{z^2}{z(1-z^2/3!+\cdots)}=\frac{z}{1-z^2/3!+\cdots}\), which tends to
+        \(0\): no negative powers, so the singularity at \(0\) is removable. The other zeros \(n\pi\) of
+        \(\sin z\) lie outside the unit circle. So the integrand is holomorphic inside, and by Cauchy's
+        theorem the integral is \(0\).
+\end{itemize}
 \end{frame}
 
 
@@ -885,98 +1055,115 @@ integral theorem gives $\oint_{|z|=1}z^2/\sin z\,dz=0$.
 \begin{frame}[allowframebreaks=1.00]{Real integrals by a semicircular contour}
 \footnotesize
 
-\textbf{Why go complex.} A real antiderivative of $1/(1+x^4)$ is messy, and
-$\cos x/(1+x^2)$ has no elementary one at all. Closing the real line into a loop turns
-such an integral into a sum of a few residues.
+\textbf{Why go complex.} An antiderivative of \(1/(1+x^4)\) is messy, and \(\cos x/(1+x^2)\) has no
+elementary antiderivative at all. Yet \(\int_{-\infty}^\infty\) of both is easy with residues: close
+the real line into a loop, and the residue theorem does the work.
 
-Let $\Gamma_R$ consist of the real segment from $-R$ to $R$ and the upper semicircle
-$C_R:z=Re^{i\theta}$, $0\le\theta\le\pi$.  For an integrand with no pole on the real
-segment,
-\begin{equation}
- \oint_{\Gamma_R}f(z)\,dz
- =\int_{-R}^{R}f(x)\,dx+\int_{C_R}f(z)\,dz.
- \label{eq:semicircle-decomposition}
-\end{equation}
-The magnitude of an integral is at most the maximum integrand magnitude $M$
-times the path length $L$ (the $ML$ estimate). With $M_R=\max_{z\in C_R}|f(z)|$ and arc
-length $\pi R$,
+\textbf{The recipe.}
+\begin{enumerate}
+  \item \emph{Close the path.} Go along the real axis from \(-R\) to \(R\), then back along the upper
+        semicircle \(C_R\): \(z=Re^{i\theta}\), \(0\le\theta\le\pi\) (figure below). Call the closed path
+        \(\Gamma_R\). It splits into two pieces:
+        \begin{equation}
+         \oint_{\Gamma_R}f(z)\,dz
+         =\int_{-R}^{R}f(x)\,dx+\int_{C_R}f(z)\,dz.
+         \label{eq:semicircle-decomposition}
+        \end{equation}
+  \item \emph{Left side:} by the residue theorem, \(2\pi i\times\)(sum of the residues inside).
+  \item \emph{Show the arc integral tends to \(0\)} as \(R\to\infty\) (method below).
+  \item \emph{Let \(R\to\infty\).} The real-axis piece becomes the integral we want.
+\end{enumerate}
+\par\framebreak\par
+\textbf{How to show the arc vanishes: the \(ML\) estimate.} An integral is at most (largest size of
+the integrand) \(\times\) (length of the path). On \(C_R\), let \(M_R\) be the largest value of \(|f|\); the
+length is \(\pi R\). So
 \[
- \left|\int_{C_R}f(z)\,dz\right|\le\pi R M_R .
+ \left|\int_{C_R}f(z)\,dz\right|\le\pi R\, M_R .
 \]
-So the arc vanishes whenever $RM_R\to0$. Then the residue theorem \eqref{eq:res-thm}
-applied to \eqref{eq:semicircle-decomposition}, with $R\to\infty$, gives (for a convergent
-real integral)
+If \(R\,M_R\to0\), the arc integral vanishes. This happens, for example, when \(|f|\) falls off like
+\(1/R^2\).
+
+\textbf{Result of the recipe.} If the arc vanishes, letting \(R\to\infty\) in
+\eqref{eq:semicircle-decomposition} gives
 \begin{equation}
  \int_{-\infty}^{\infty}f(x)\,dx
  =2\pi i\sum_{\operatorname{Im}z_k>0}\operatorname{Res}(f,z_k),
  \label{eq:semicircle-result}
 \end{equation}
-summed over the poles $z_k$ of $f$ in the upper half-plane.
-For an integrand containing $e^{iaz}$ with $a>0$, close \emph{upward}: there
-$|e^{iaz}|=e^{-ay}\le1$, while below the axis the factor grows like $e^{a|y|}$.
+the sum running over the poles \(z_k\) of \(f\) in the upper half-plane.
+
+\textbf{Why upward for \(e^{iaz}\), \(a>0\)?} With \(z=x+iy\),
+\(|e^{iaz}|=|e^{iax}|\,|e^{-ay}|=e^{-ay}\). Above the axis (\(y>0\)) this is at most \(1\); below the axis it
+grows like \(e^{a|y|}\). So close upward, where \(e^{iaz}\) stays small.
 
 \begin{center}
-  \safeincludegraphics[width=0.6\linewidth]{figs/semicircle-contour.pdf}
+  \safeincludegraphics[width=0.5\linewidth]{figs/semicircle-contour.pdf}
 \end{center}
+\par\framebreak\par
+\textbf{Example 1: \(\int_{-\infty}^{\infty}\frac{\cos x}{1+x^2}\,dx\).} Since \(\cos x=\operatorname{Re}e^{ix}\),
+compute \(J=\int_{-\infty}^{\infty}\frac{e^{ix}}{1+x^2}\,dx\) and take its real part at the end.
 
-
-\textbf{Example: $\int_{-\infty}^{\infty}\cos x/(1+x^2)\,dx$.}  Consider
-$J=\int_{-\infty}^{\infty}e^{ix}/(1+x^2)\,dx$, whose real part is the wanted integral.
-For $z=x+iy$ in the upper half-plane, $|e^{iz}|=|e^{ix-y}|=e^{-y}\le1$.
-The denominator needs a \emph{lower} bound: the reverse triangle inequality
-$|a+b|\ge\bigl||a|-|b|\bigr|$ (from $|a|=|(a+b)-b|\le|a+b|+|b|$, and the same with $a,b$
-swapped) with $a=z^2$, $b=1$ gives $|1+z^2|\ge R^2-1$ on $|z|=R>1$, so
+\emph{Step 1: the arc vanishes.} On \(C_R\) (with \(R>1\)):
+\begin{itemize}
+  \item numerator: \(|e^{iz}|=e^{-y}\le1\), since \(y\ge0\);
+  \item denominator: \(|1+z^2|\ge|z|^2-1=R^2-1\). (Adding \(1\) to a number of size \(R^2\) cannot make
+        it smaller than \(R^2-1\); this is the reverse triangle inequality \(|a+b|\ge|a|-|b|\).)
+\end{itemize}
+So \(M_R\le1/(R^2-1)\), and
 \[
  \left|\int_{C_R}\frac{e^{iz}}{1+z^2}\,dz\right|
- \le\frac{\pi R}{R^2-1}\longrightarrow0.
+ \le\frac{\pi R}{R^2-1}\longrightarrow0 .
 \]
-
-Only the pole $z=i$ lies in the upper half-plane.  As for $1/(z^2+1)$ in the residue
-examples, \eqref{eq:res-ratio} with $q=1+z^2$, $q'(i)=2i$ applies, now with
-$p(i)=e^{i\cdot i}=e^{-1}$:
+\emph{Step 2: the poles.} \(1+z^2=0\) at \(z=\pm i\). Only \(z=i\) is in the upper half-plane.
+\par\framebreak\par
+\emph{Step 3: the residue at \(i\).} Use \eqref{eq:res-ratio} with \(p=e^{iz}\), \(q=1+z^2\), \(q'=2z\):
 \[
- \operatorname{Res}\left(\frac{e^{iz}}{1+z^2},i\right)=\frac{e^{-1}}{2i}.
+ \operatorname{Res}\left(\frac{e^{iz}}{1+z^2},i\right)=\frac{p(i)}{q'(i)}=\frac{e^{i\cdot i}}{2i}=\frac{e^{-1}}{2i}.
 \]
-Hence, by \eqref{eq:semicircle-result},
+\emph{Step 4: the answer.} By \eqref{eq:semicircle-result},
 \[
- J=2\pi i\frac{e^{-1}}{2i}=\frac{\pi}{e}.
+ J=2\pi i\cdot\frac{e^{-1}}{2i}=\frac{\pi}{e}.
 \]
-Taking real parts gives
+This is real, so its real part is itself:
 \begin{equation}
  \int_{-\infty}^{\infty}\frac{\cos x}{1+x^2}\,dx=\frac{\pi}{e}.
  \label{eq:cos-rational-integral}
 \end{equation}
-The imaginary part vanishes consistently because $\sin x/(1+x^2)$ is odd.
+\emph{Check:} the imaginary part, \(\int\sin x/(1+x^2)\,dx\), must be \(0\), and it is, because
+\(\sin x/(1+x^2)\) is odd.
+\par\framebreak\par
+\textbf{Example 2: \(\int_{-\infty}^{\infty}\frac{dx}{1+x^4}\).}
 
-\framebreak
+\emph{Step 1: the arc vanishes.} As before, \(|1+z^4|\ge R^4-1\) on \(C_R\), so
+\(\bigl|\int_{C_R}\bigr|\le\pi R/(R^4-1)\to0\).
 
-\textbf{Example: $\int_{-\infty}^{\infty}dx/(1+x^4)$.}
-Close in the upper half-plane.  The same inequality gives $|1+z^4|\ge R^4-1$, so by $ML$
-$|\int_{C_R}|\le \pi R/(R^4-1)\to0$.  The poles are the fourth roots of $-1$:
+\emph{Step 2: the poles.} Solve \(z^4=-1=e^{i\pi}\). Taking fourth roots, and remembering that
+\(e^{i\pi}=e^{i(\pi+2\pi k)}\) for every integer \(k\),
 \[
- z_k=e^{i(\pi+2k\pi)/4},\qquad k=0,1,2,3.
+ z_k=e^{i(\pi+2k\pi)/4}:\qquad
+ e^{i\pi/4},\quad e^{3i\pi/4},\quad e^{5i\pi/4},\quad e^{7i\pi/4}\qquad(k=0,1,2,3).
 \]
-Those in the upper half-plane are the simple poles
-\[
- z_0=e^{i\pi/4},\qquad z_1=e^{i3\pi/4}.
-\]
-Formula \eqref{eq:res-ratio} with $p=1$, $q=1+z^4$, $q'=4z^3$ gives each residue as
+In the upper half-plane (angle between \(0\) and \(\pi\)) are \(z_0=e^{i\pi/4}\) and \(z_1=e^{3i\pi/4}\).
+
+\emph{Step 3: the residues.} Use \eqref{eq:res-ratio} with \(p=1\), \(q=1+z^4\), \(q'=4z^3\). Multiply top and
+bottom by \(z_j\), then use \(z_j^4=-1\):
 \[
  \operatorname{Res}\Bigl(\frac1{1+z^4},z_j\Bigr)
-  =\frac1{4z_j^3}=\frac{z_j}{4z_j^4}=-\frac{z_j}{4},
+  =\frac1{4z_j^3}=\frac{z_j}{4z_j^4}=-\frac{z_j}{4}.
 \]
-where the last step uses $z_j^4=-1$.
-Adding the two upper-half-plane residues and using Euler's formula \eqref{eq:euler},
-$e^{i\pi/4}+e^{3i\pi/4}=\frac{1+i}{\sqrt2}+\frac{-1+i}{\sqrt2}=i\sqrt2$,
+\par\framebreak\par
+\emph{Step 4: add them.} By Euler's formula \eqref{eq:euler},
 \[
- \sum_{j=0}^1\operatorname{Res}\left(\frac1{1+z^4},z_j\right)
- =-\frac{z_0+z_1}{4}
- =-\frac{i\sqrt2}{4}=-\frac{i}{2\sqrt2}.
+ z_0=e^{i\pi/4}=\frac{1+i}{\sqrt2},\qquad z_1=e^{3i\pi/4}=\frac{-1+i}{\sqrt2},\qquad
+ z_0+z_1=\frac{2i}{\sqrt2}=i\sqrt2 .
 \]
-The semicircle formula \eqref{eq:semicircle-result} therefore gives
+So the sum of the residues is \(-\frac{z_0+z_1}{4}=-\frac{i\sqrt2}{4}\).
+
+\emph{Step 5: the answer.} By \eqref{eq:semicircle-result}, and \(i\cdot(-i)=1\),
 \begin{equation}
  \int_{-\infty}^{\infty}\frac{dx}{1+x^4}
-  =2\pi i\Bigl(-\frac{i}{2\sqrt2}\Bigr)
+  =2\pi i\Bigl(-\frac{i\sqrt2}{4}\Bigr)
+  =\frac{2\pi\sqrt2}{4}
   =\frac{\pi}{\sqrt2}.
  \label{eq:one-plus-x4}
 \end{equation}
@@ -985,278 +1172,317 @@ The semicircle formula \eqref{eq:semicircle-result} therefore gives
 \begin{frame}[allowframebreaks=1.00]{Keyhole contour: $\int_0^\infty x^a/(1+x)^2\,dx$}
 \footnotesize
 
-Let
+\textbf{Goal.} Evaluate
 \[
  I(a)=\int_0^\infty\frac{x^a}{(1+x)^2}\,dx,
  \qquad -1<a<1.
 \]
-The endpoint conditions follow directly: near $0$ the integrand behaves as $x^a$, which
-is integrable when $a>-1$; near infinity it behaves as $x^{a-2}$, which is integrable
-when $a<1$.
+\textbf{Why \(-1<a<1\)?} Near \(x=0\) the integrand behaves like \(x^a\), integrable when \(a>-1\). For large
+\(x\) it behaves like \(x^a/x^2=x^{a-2}\), integrable when \(a-2<-1\), that is, \(a<1\).
 
-\textbf{Idea.} Put the branch cut of $z^a$ on the integration axis, and run a contour out
-along one side of the cut and back along the other. For a single-valued integrand the two
-sides would cancel. Here $z^a$ jumps by the factor $e^{2\pi ia}$ across the cut, so the two
-sides leave $(1-e^{2\pi ia})I(a)$, which the residue theorem evaluates.
+\textbf{The difficulty.} The integral runs only over \((0,\infty)\), not the whole real line, so the
+semicircle recipe does not apply. Also, \(z^a\) has a branch point at \(0\).
 
-For $a\ne0$ choose the branch whose cut runs along the \emph{positive} real axis,
+\textbf{The idea: use the branch cut.} Put the branch cut of \(z^a\) along the positive real axis,
+exactly where we integrate. Then run a path out along the top side of the cut and back along the
+bottom side. For an ordinary function the two sides would cancel. But \(z^a\) is different on the
+two sides (by a factor \(e^{2\pi ia}\)), so they do not cancel. What is left over is a multiple of
+\(I(a)\), and the residue theorem computes it.
+\par\framebreak\par
+\textbf{Step 1: choose the branch.} Define
 \[
  z^a=e^{a\ell(z)},\qquad
- \ell(z)=\log|z|+i\arg z,\qquad 0<\arg z<2\pi ,
+ \ell(z)=\log|z|+i\arg z,\qquad 0<\arg z<2\pi .
 \]
-rather than the principal logarithm used earlier.
-Use a counterclockwise keyhole with outer radius $R$ and inner radius $\varepsilon$.
-The hole keeps the branch point $0$ outside, since a branch point has no residue.
+This is like the principal logarithm, but the angle runs from \(0\) to \(2\pi\), so the cut is the
+positive real axis.
+
+\textbf{Step 2: the keyhole path.} Counterclockwise: out along the top of the cut from \(\varepsilon\) to
+\(R\), around the big circle \(C_R\), back along the bottom of the cut from \(R\) to \(\varepsilon\), and around
+the small circle \(C_\varepsilon\) (clockwise). The small circle keeps the path away from the branch point
+\(0\), where there is no residue to use.
 
 \begin{center}
-  \safeincludegraphics[height=0.5\textheight]{figs/keyhole-contour.pdf}
+  \safeincludegraphics[height=0.42\textheight]{figs/keyhole-contour.pdf}
 \end{center}
-
-On the upper side, $z=x$ and the contribution is
+\par\framebreak\par
+\textbf{Step 3: the top side.} There \(\arg z\to0\), so \(z=x\) and \(z^a=x^a\). The contribution is
 \[
- I_{\varepsilon,R}(a)=\int_\varepsilon^R\frac{x^a}{(1+x)^2}\,dx.
+ I_{\varepsilon,R}(a)=\int_\varepsilon^R\frac{x^a}{(1+x)^2}\,dx .
 \]
-
-On the lower side, $z=xe^{2\pi i}$ (approached as $\arg z\to2\pi$ from below), so $\ell(z)=\log x+2\pi i$ and
-$z^a=e^{a\ell(z)}=e^{a\log x}e^{2\pi ia}=x^ae^{2\pi ia}$.  The orientation is from
-$R$ back to $\varepsilon$, so the contribution is
+\textbf{Step 4: the bottom side.} There \(\arg z\to2\pi\) (we went once around), so \(z=xe^{2\pi i}\) and
+\(\ell(z)=\log x+2\pi i\). Hence
 \[
- \int_R^\varepsilon\frac{x^ae^{2\pi ia}}{(1+x)^2}\,dx
- =-e^{2\pi ia}I_{\varepsilon,R}(a).
+ z^a=e^{a(\log x+2\pi i)}=x^a\,e^{2\pi ia}.
 \]
-Thus the two straight segments sum to
+The direction is from \(R\) back to \(\varepsilon\), which gives a minus sign:
 \[
- (1-e^{2\pi ia})I_{\varepsilon,R}(a).
+ \int_R^\varepsilon\frac{x^a\,e^{2\pi ia}}{(1+x)^2}\,dx
+ =-e^{2\pi ia}\,I_{\varepsilon,R}(a).
 \]
-
-
-Both arcs die by the $ML$ estimate. On $|z|=R>1$,
-$|z^a|=e^{a\log|z|}=R^a$, the reverse triangle inequality gives $|1+z|\ge R-1$, and the arc
-length is $2\pi R$. Hence
+\textbf{The two sides together} give \(\bigl(1-e^{2\pi ia}\bigr)\,I_{\varepsilon,R}(a)\). Because \(a\) is not an
+integer, \(e^{2\pi ia}\neq1\), so this is not zero.
+\par\framebreak\par
+\textbf{Step 5: the two circles vanish} (by the \(ML\) estimate).
+\begin{itemize}
+  \item \emph{Big circle} \(|z|=R>1\): \(|z^a|=R^a\); \(|1+z|\ge R-1\) (reverse triangle inequality); length
+        \(2\pi R\). So
+        \[
+         \left|\int_{C_R}\frac{z^a}{(1+z)^2}\,dz\right|
+         \le \frac{2\pi R\cdot R^{a}}{(R-1)^2}\approx 2\pi R^{a-1}\longrightarrow0
+         \qquad(\text{since }a<1).
+        \]
+  \item \emph{Small circle} \(|z|=\varepsilon<1\): \(|z^a|=\varepsilon^a\); \(|1+z|\ge1-\varepsilon\); length
+        \(2\pi\varepsilon\). So
+        \[
+         \left|\int_{C_\varepsilon}\frac{z^a}{(1+z)^2}\,dz\right|
+         \le \frac{2\pi\varepsilon\cdot\varepsilon^{a}}{(1-\varepsilon)^2}\longrightarrow0
+         \qquad(\text{since }a>-1).
+        \]
+\end{itemize}
+\par\framebreak\par
+\textbf{Step 6: the residue.} The only singularity inside is \(z=-1\), a double pole. Use
+\eqref{eq:res-order-m} with \(m=2\): first \((z+1)^2\cdot\frac{z^a}{(1+z)^2}=z^a\); then differentiate,
+\((z^a)'=a\,z^{a-1}\) (with \(z^{a-1}=e^{(a-1)\ell(z)}\)); then set \(z=-1\). On our branch \(\arg(-1)=\pi\),
+so \(\ell(-1)=i\pi\) and
 \[
- \left|\int_{C_R}\frac{z^a}{(1+z)^2}\,dz\right|
- \le \frac{2\pi R^{a+1}}{(R-1)^2}\longrightarrow0
- \qquad(\text{it behaves like }2\pi R^{a-1},\ a<1).
+ (-1)^{a-1}=e^{(a-1)i\pi}=e^{i\pi a}\,e^{-i\pi}=-e^{i\pi a}.
 \]
-On $|z|=\varepsilon<1$,
-$|z^a|=\varepsilon^a$, $|1+z|\ge1-\varepsilon$, and the arc length is
-$2\pi\varepsilon$, so
-\[
- \left|\int_{C_\varepsilon}\frac{z^a}{(1+z)^2}\,dz\right|
- \le \frac{2\pi\varepsilon^{a+1}}{(1-\varepsilon)^2}\longrightarrow0
- \qquad(a>-1).
-\]
-
-The only enclosed singularity is the double pole at $z=-1$.  Since
-$(z+1)^2\cdot z^a/(1+z)^2=z^a$, formula \eqref{eq:res-order-m} with $m=2$ gives the
-derivative of $z^a$ at $-1$. On this branch $(z^a)'=az^{a-1}$, with
-$z^{a-1}=e^{(a-1)\ell(z)}$ (chain rule; $\ell'(z)=1/z$ as in Section~1.4). Since $\ell(-1)=i\pi$ and
-$e^{-i\pi}=-1$,
-\[
- \operatorname{Res}\left(\frac{z^a}{(1+z)^2},-1\right)
- =a e^{i\pi(a-1)}=a e^{i\pi a}e^{-i\pi}=-a e^{i\pi a}.
-\]
-Now apply the residue theorem \eqref{eq:res-thm} to the keyhole and let $R\to\infty$,
-$\varepsilon\to0$. The arcs vanish, and the segments give $(1-e^{2\pi ia})I(a)$:
-\[
- (1-e^{2\pi ia})I(a)=2\pi i\,(-a e^{i\pi a})=-2\pi i a e^{i\pi a}.
-\]
-
-
-Factor the denominator (pull out $e^{i\pi a}$, then use
-$e^{i\theta}-e^{-i\theta}=2i\sin\theta$ from \eqref{eq:cos-sin-exp}):
-\begin{align*}
- 1-e^{2\pi ia}
- &=e^{i\pi a}(e^{-i\pi a}-e^{i\pi a})\\
- &=-2i e^{i\pi a}\sin(\pi a).
-\end{align*}
 Therefore
-\begin{align*}
- I(a)
- &=\frac{-2\pi i a e^{i\pi a}}
-        {-2i e^{i\pi a}\sin(\pi a)}\\
- &=\frac{\pi a}{\sin(\pi a)}.
-\end{align*}
-Thus
+\[
+ \operatorname{Res}\left(\frac{z^a}{(1+z)^2},-1\right)=a\cdot\bigl(-e^{i\pi a}\bigr)=-a\,e^{i\pi a}.
+\]
+\textbf{Step 7: the residue theorem.} Let \(R\to\infty\) and \(\varepsilon\to0\). The circles drop out, and
+\(I_{\varepsilon,R}\to I(a)\):
+\[
+ \bigl(1-e^{2\pi ia}\bigr)\,I(a)=2\pi i\cdot\bigl(-a\,e^{i\pi a}\bigr).
+\]
+\par\framebreak\par
+\textbf{Step 8: simplify.} Factor \(e^{i\pi a}\) out of \(1-e^{2\pi ia}\), then use
+\(e^{i\theta}-e^{-i\theta}=2i\sin\theta\) from \eqref{eq:cos-sin-exp}:
+\[
+ 1-e^{2\pi ia}=e^{i\pi a}\bigl(e^{-i\pi a}-e^{i\pi a}\bigr)=e^{i\pi a}\cdot\bigl(-2i\sin(\pi a)\bigr).
+\]
+Divide Step~7 by this. The factors \(-2i\,e^{i\pi a}\) cancel:
+\[
+ I(a)=\frac{-2\pi i\,a\,e^{i\pi a}}{-2i\,e^{i\pi a}\sin(\pi a)}=\frac{\pi a}{\sin(\pi a)}.
+\]
 \begin{equation}
  \int_0^\infty\frac{x^a}{(1+x)^2}\,dx
  =\frac{\pi a}{\sin(\pi a)},\qquad -1<a<1.
  \label{eq:keyhole-xa}
 \end{equation}
-At $a=0$, the right-hand side has limit $1=\int_0^\infty dx/(1+x)^2$.
-
-\medskip
-\textbf{Companion integral for Chapter~2.} The reflection formula
-$\Gamma(a)\Gamma(1-a)=\pi/\sin(\pi a)$ of Chapter~2 rests on
+\textbf{Check} at \(a=0\): the right side tends to \(1\) (since \(\sin(\pi a)\approx\pi a\)), and indeed
+\(\int_0^\infty dx/(1+x)^2=\bigl[-1/(1+x)\bigr]_0^\infty=1\).
+\par\framebreak\par
+\textbf{Companion integral, used in Chapter~2.} The reflection formula
+\(\Gamma(a)\Gamma(1-a)=\pi/\sin(\pi a)\) rests on
 \begin{equation}
  \int_0^\infty\frac{x^{-a}}{1+x}\,dx
  =\frac{\pi}{\sin(\pi a)},\qquad 0<a<1.
  \label{eq:keyhole2}
 \end{equation}
-Use the same keyhole with $z^{-a}/(1+z)$. Now the lower side carries the factor
-$e^{-2\pi ia}$, and the simple pole at $-1$ has residue equal to the numerator there:
-$(-1)^{-a}=e^{-a\ell(-1)}=e^{-i\pi a}$. By $ML$ the arcs are at most
-$2\pi R^{1-a}/(R-1)$ and $2\pi\varepsilon^{1-a}/(1-\varepsilon)$, which vanish because
-$0<a<1$. Therefore
-\[
- (1-e^{-2\pi ia})\int_0^\infty\frac{x^{-a}}{1+x}\,dx
- =2\pi i e^{-i\pi a}.
-\]
-Since $1-e^{-2\pi ia}=e^{-i\pi a}(e^{i\pi a}-e^{-i\pi a})=2i e^{-i\pi a}\sin(\pi a)$,
-dividing gives \eqref{eq:keyhole2}.
+Same method with \(z^{-a}/(1+z)\):
+\begin{itemize}
+  \item \emph{Two sides of the cut:} the bottom side now carries \(e^{-2\pi ia}\), so they give
+        \((1-e^{-2\pi ia})\int_0^\infty\frac{x^{-a}}{1+x}dx\).
+  \item \emph{Circles:} bounded by \(2\pi R^{1-a}/(R-1)\) and \(2\pi\varepsilon^{1-a}/(1-\varepsilon)\); both tend to
+        \(0\) because \(0<a<1\).
+  \item \emph{Residue} at the simple pole \(-1\) (Formula~1): the numerator there,
+        \((-1)^{-a}=e^{-a\ell(-1)}=e^{-i\pi a}\).
+\end{itemize}
+So \((1-e^{-2\pi ia})\int_0^\infty\frac{x^{-a}}{1+x}dx=2\pi i\,e^{-i\pi a}\). Factor
+\(1-e^{-2\pi ia}=e^{-i\pi a}(e^{i\pi a}-e^{-i\pi a})=2i\,e^{-i\pi a}\sin(\pi a)\) and divide: the result is
+\(2\pi i\,e^{-i\pi a}/\bigl(2i\,e^{-i\pi a}\sin(\pi a)\bigr)=\pi/\sin(\pi a)\).
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Jordan's lemma and $\int \sin x/x\,dx$}
 \footnotesize
 
-\textbf{Goal.} Evaluate $\int_{-\infty}^{\infty}\sin x/x\,dx$. Since
-$\sin x=\operatorname{Im}e^{ix}$, integrate $e^{iz}/z$ around the upper semicircle. Two
-obstacles appear, and each needs a tool:
-\begin{itemize}
- \item the pole $z=0$ lies \emph{on} the path, so we detour around it on a small
-       semicircle (Tool~1);
- \item on the big arc the plain $ML$ bound gives only $\pi R\cdot(1/R)=\pi$, which does not
-       vanish, so we need a sharper estimate (Tool~2, Jordan's lemma).
-\end{itemize}
+\textbf{Goal.} Evaluate \(\int_{-\infty}^{\infty}\frac{\sin x}{x}\,dx\).
 
-\textbf{Tool 1: a small clockwise semicircle around a real-axis pole.}
-Near a simple pole $z_0$ the Laurent expansion \eqref{eq:laurent} has one principal term:
-$f(z)=c/(z-z_0)+g(z)$ with $c=a_{-1}=\operatorname{Res}(f,z_0)$ and $g$ (the regular part)
-holomorphic, hence bounded, near $z_0$. Parameterize the upper indentation by
-$z=z_0+\varepsilon e^{i\theta}$, traversed from $\theta=\pi$ to $0$. Then
-$z-z_0=\varepsilon e^{i\theta}$ and $dz=i\varepsilon e^{i\theta}\,d\theta$, so
-\[
- \frac{c}{z-z_0}\,dz
- =\frac{c}{\varepsilon e^{i\theta}}\,i\varepsilon e^{i\theta}\,d\theta
- =ic\,d\theta,
- \qquad ic\int_\pi^0d\theta=ic(0-\pi)=-i\pi c.
-\]
-The bounded part contributes at most its bound times $\pi\varepsilon\to0$, so, with the
-minus sign coming from the clockwise orientation,
+\textbf{Plan.} Since \(\sin x=\operatorname{Im}e^{ix}\), integrate \(e^{iz}/z\) around an upper semicircle,
+as in the semicircle recipe. Two new obstacles appear:
+\begin{itemize}
+ \item the pole \(z=0\) lies \emph{on} the real axis, right on our path. We go around it on a
+       small semicircle (Tool~1);
+ \item on the big arc, \(|1/z|=1/R\), so the \(ML\) bound is \(\pi R\cdot\frac1R=\pi\), which does not
+       tend to \(0\). We need a sharper estimate (Tool~2, Jordan's lemma).
+\end{itemize}
+\par\framebreak\par
+\textbf{Tool 1: a small detour around a pole on the path.} Let \(z_0\) be a simple pole on the real
+axis. Near it, \(f(z)=\frac{c}{z-z_0}+g(z)\), where \(c=\operatorname{Res}(f,z_0)\) and \(g\) is holomorphic,
+hence bounded, near \(z_0\). Go around \(z_0\) on the upper half-circle \(C_\varepsilon\) of radius \(\varepsilon\),
+from left to right (that is, clockwise): \(z=z_0+\varepsilon e^{i\theta}\) with \(\theta\) going from \(\pi\) down
+to \(0\).
+\begin{itemize}
+  \item The pole term: \(z-z_0=\varepsilon e^{i\theta}\) and \(dz=i\varepsilon e^{i\theta}d\theta\), so
+        \(\frac{c\,dz}{z-z_0}=ic\,d\theta\), and
+        \[
+         \int_{C_\varepsilon}\frac{c}{z-z_0}\,dz=ic\int_\pi^0d\theta=ic\,(0-\pi)=-i\pi c .
+        \]
+  \item The bounded part \(g\): at most (its bound)\(\times\)(length \(\pi\varepsilon\)), which tends to \(0\).
+\end{itemize}
+So, as \(\varepsilon\to0\), the detour contributes \(-i\pi\) times the residue (half of the full
+\(-2\pi i\), since it is half a circle, traversed clockwise):
 \begin{equation}
  \int_{C_\varepsilon}f(z)\,dz\longrightarrow
  -i\pi\operatorname{Res}(f,z_0).\label{eq:indent}
 \end{equation}
-
-\framebreak
-
-\textbf{Tool 2: Jordan's lemma.} For $a>0$ and $z=Re^{i\theta}$, $0\le\theta\le\pi$,
-$|e^{iaz}|=|e^{iaR\cos\theta}e^{-aR\sin\theta}|=e^{-aR\sin\theta}$ is tiny except near
-$\theta=0,\pi$, where it does not decay. But there the arc is short: $aR\sin\theta\lesssim1$
-only for $\theta\lesssim1/(aR)$, a length of about $1/a$ at each end however large $R$ is,
-so the arc integral is only of order $M_R/a$.
-
-\textbf{Jordan's lemma.} \emph{Let $a>0$, let $C_R$ be the upper semicircle, and let
-$M_R=\max_{z\in C_R}|f(z)|$. If $M_R\to0$ as $R\to\infty$, then}
+\par\framebreak\par
+\textbf{Tool 2: why the big arc still vanishes.} On the arc \(z=Re^{i\theta}\), \(0\le\theta\le\pi\),
 \[
- \int_{C_R}f(z)e^{iaz}\,dz\longrightarrow0.
+ |e^{iaz}|=|e^{iaR\cos\theta}|\cdot|e^{-aR\sin\theta}|=e^{-aR\sin\theta}\qquad(a>0).
 \]
-\textbf{Proof.} With $|dz|=R\,d\theta$ and the bound above: since
-$\sin(\pi-\theta)=\sin\theta$, the two halves of $[0,\pi]$ contribute equally, and on
-$[0,\frac\pi2]$ concavity gives $\sin\theta\ge2\theta/\pi$ (the graph lies above its chord
-from $(0,0)$ to $(\frac\pi2,1)$). Hence
+This is extremely small except near the two ends \(\theta\approx0\) and \(\theta\approx\pi\), where \(\sin\theta\)
+is small. How big are those end pieces? \(e^{-aR\sin\theta}\) is not small only while
+\(aR\sin\theta\lesssim1\), that is, \(\theta\lesssim1/(aR)\). On a circle of radius \(R\), that is an arc of
+length about \(R\cdot\frac1{aR}=\frac1a\), whatever \(R\) is. So the integral is roughly
+\(M_R\times\frac1a\), not \(M_R\times\pi R\), and it vanishes when \(M_R\to0\).
+
+\textbf{Jordan's lemma.} \emph{Let \(a>0\), let \(C_R\) be the upper semicircle of radius \(R\), and let
+\(M_R=\max_{z\in C_R}|f(z)|\). If \(M_R\to0\) as \(R\to\infty\), then}
+\[
+ \int_{C_R}f(z)\,e^{iaz}\,dz\longrightarrow0.
+\]
+\par\framebreak\par
+\textbf{Proof} (making the picture precise).
+\begin{enumerate}
+  \item Bound by size times length, with \(|dz|=R\,d\theta\):
+        \(\bigl|\int_{C_R}fe^{iaz}dz\bigr|\le M_RR\int_0^\pi e^{-aR\sin\theta}d\theta\).
+  \item By symmetry, \(\sin(\pi-\theta)=\sin\theta\), so the halves \([0,\frac\pi2]\) and \([\frac\pi2,\pi]\) give the
+        same: \(\int_0^\pi=2\int_0^{\pi/2}\).
+  \item On \([0,\frac\pi2]\) the graph of \(\sin\theta\) lies above its chord from \((0,0)\) to
+        \((\frac\pi2,1)\), so \(\sin\theta\ge2\theta/\pi\), and \(e^{-aR\sin\theta}\le e^{-2aR\theta/\pi}\).
+  \item Integrate the exponential exactly.
+\end{enumerate}
 \begin{align*}
  \left|\int_{C_R}f(z)e^{iaz}\,dz\right|
- &\le M_R R\int_0^\pi e^{-aR\sin\theta}\,d\theta
- =2M_R R\int_0^{\pi/2}e^{-aR\sin\theta}\,d\theta\\
  &\le2M_R R\int_0^{\pi/2}e^{-2aR\theta/\pi}\,d\theta
  =2M_R R\left[-\frac{\pi}{2aR}e^{-2aR\theta/\pi}\right]_0^{\pi/2}\\
  &=2M_R R\cdot\frac{\pi}{2aR}\bigl(1-e^{-aR}\bigr)
  \le\frac{\pi M_R}{a}\longrightarrow0.
 \end{align*}
-
-\textbf{Example: the Dirichlet integral.} Close $e^{iz}/z$ with $C_R$ and a clockwise small
-semicircle $C_\varepsilon$ above $0$; this contour encloses no pole, so by Cauchy's theorem
+This matches the picture: \(M_R\) times a length of order \(1/a\).
+\par\framebreak\par
+\textbf{The Dirichlet integral.} Take the closed path: real axis from \(-R\) to \(-\varepsilon\), small
+semicircle \(C_\varepsilon\) over \(0\), real axis from \(\varepsilon\) to \(R\), big semicircle \(C_R\). It encloses no
+pole (the pole \(0\) has been avoided), so by Cauchy's theorem
 \[
  \int_{-R}^{-\varepsilon}\frac{e^{ix}}x\,dx
  +\int_{C_\varepsilon}\frac{e^{iz}}z\,dz
  +\int_{\varepsilon}^{R}\frac{e^{ix}}x\,dx
  +\int_{C_R}\frac{e^{iz}}z\,dz=0 .
 \]
+Now let \(R\to\infty\) and \(\varepsilon\to0\), one piece at a time:
 \begin{itemize}
- \item \emph{Large arc:} $f(z)=1/z$ has $M_R=1/R\to0$, so by Jordan's lemma it tends to $0$.
- \item \emph{Small arc:} $\operatorname{Res}(e^{iz}/z,0)=\lim_{z\to0}z\cdot e^{iz}/z=1$, so by
-       \eqref{eq:indent} it tends to $-i\pi$.
- \item \emph{Real pieces:} they must be combined symmetrically, because $\cos x/x$ behaves
-       as $1/x$ near zero. This symmetric limit, $\int_{-R}^{-\varepsilon}g\,dx+
-       \int_\varepsilon^R g\,dx$ with $\varepsilon\to0^+$, $R\to\infty$, is the
-       \emph{Cauchy principal value} $\operatorname{PV}\int_{-\infty}^{\infty}g\,dx$.
+ \item \emph{Big arc:} \(f=1/z\) has \(M_R=1/R\to0\), so by Jordan's lemma (\(a=1\)) it tends to \(0\).
+ \item \emph{Small arc:} \(\operatorname{Res}(e^{iz}/z,0)=\lim_{z\to0}z\cdot\frac{e^{iz}}z=1\), so by
+       \eqref{eq:indent} it tends to \(-i\pi\).
+ \item \emph{Real pieces:} their sum, taken symmetrically around \(0\), is called the \emph{Cauchy
+       principal value}, written \(\operatorname{PV}\int_{-\infty}^\infty\). (The symmetric limit is
+       needed because the real part \(\cos x/x\) blows up like \(1/x\) at \(0\); the two sides cancel.)
 \end{itemize}
-Letting $R\to\infty$, $\varepsilon\to0$ gives
-$0=\operatorname{PV}\int_{-\infty}^{\infty}e^{ix}/x\,dx-i\pi$, so
+\par\framebreak\par
+\textbf{Result.} The limit gives \(\operatorname{PV}\int_{-\infty}^{\infty}\frac{e^{ix}}x\,dx-i\pi=0\), so
 \begin{equation}
  \operatorname{PV}\int_{-\infty}^{\infty}\frac{e^{ix}}x\,dx=i\pi.
  \label{eq:pv-exponential-over-x}
 \end{equation}
-Taking imaginary parts (no principal value needed, as $\sin x/x\to1$ at $0$),
+Write \(e^{ix}=\cos x+i\sin x\) and take imaginary parts. The sine part needs no principal value,
+because \(\sin x/x\to1\) at \(x=0\):
 \begin{equation}
  \int_{-\infty}^{\infty}\frac{\sin x}{x}\,dx=\pi.
  \label{eq:dirichlet-integral}
 \end{equation}
+(The real part says \(\operatorname{PV}\int\cos x/x\,dx=0\), as it must, since \(\cos x/x\) is odd.)
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Sampling kernels: writing a sum as an integral}
 \footnotesize
-\textbf{Why.} Residue calculus also runs backwards: a \emph{sum} $\sum f(n)$ can be written
-as a contour integral, which is then evaluated from the few residues of $f$ itself. This
-gives closed forms for sums such as $\sum 1/(n^2+a^2)$.
+\textbf{Why.} Residue calculus also works in reverse. A \emph{sum} \(\sum_n f(n)\) can be written as a
+contour integral, and the integral can then be evaluated from the few residues of \(f\) itself.
+This gives closed forms for sums such as \(\sum 1/(n^2+a^2)\).
 
-\textbf{Integer samples.} The kernel
-\[
- \pi\cot\pi z=\frac{\pi\cos\pi z}{\sin\pi z}
-\]
-has a simple pole at every integer $n$ (the zeros of $\sin\pi z$), each with residue $1$:
-by \eqref{eq:res-ratio} with $p=\pi\cos\pi z$, $q=\sin\pi z$, $q'(n)=\pi\cos n\pi\ne0$,
-the residue is $\pi\cos n\pi/(\pi\cos n\pi)=1$. Think of it as an
-\emph{integer-sampling kernel}: multiplying by $f$ weights the pole at $n$ by $f(n)$, so
-$\operatorname{Res}(f\,\pi\cot\pi z,n)=f(n)$. Hence, if $C$ encloses the integers
-$n_1,\ldots,n_2$ and $f$ has no poles inside or on $C$, the residue theorem
-\eqref{eq:res-thm} gives
+\textbf{The idea.} Find a function \(K(z)\) that has a simple pole with residue \(1\) at every
+integer. Then \(f(z)K(z)\) has residue \(f(n)\) at each integer \(n\), and the residue theorem adds up
+exactly the values \(f(n)\).
+
+\textbf{The kernel \(K(z)=\pi\cot\pi z=\dfrac{\pi\cos\pi z}{\sin\pi z}\).}
+\begin{itemize}
+  \item It has a simple pole at each integer \(n\), because \(\sin\pi z=0\) exactly there.
+  \item Its residue there is \(1\): use \eqref{eq:res-ratio} with \(p=\pi\cos\pi z\), \(q=\sin\pi z\),
+        \(q'=\pi\cos\pi z\). Then \(p(n)/q'(n)=\pi\cos n\pi/(\pi\cos n\pi)=1\).
+  \item So \(\operatorname{Res}(f\cdot\pi\cot\pi z,\,n)=f(n)\cdot1=f(n)\) when \(f\) is holomorphic at \(n\).
+        (\(K\) ``samples'' \(f\) at the integers.)
+\end{itemize}
+\textbf{Result.} If a contour \(C\) encloses the integers \(n_1,\dots,n_2\), and \(f\) has no poles inside,
+the residue theorem \eqref{eq:res-thm} gives
 \[
  \sum_{m=n_1}^{n_2}f(m)
  =\frac{1}{2\pi i}\oint_C f(z)\,\pi\cot\pi z\,dz .
 \]
-If $f$ does have poles inside $C$, their residues of $f\,\pi\cot\pi z$ are added on the left.
+If \(f\) does have poles inside \(C\), the residues of \(f\,\pi\cot\pi z\) at those poles are added too.
+\par\framebreak\par
+\textbf{Example: \(\displaystyle\sum_{n=-\infty}^{\infty}\frac1{n^2+a^2}\), \(a>0\).} Take \(f(z)=1/(z^2+a^2)\). Let
+\(C_N\) be the square with corners \((N+\tfrac12)(\pm1\pm i)\). It passes midway between integers, and it
+encloses \(n=-N,\dots,N\) and the poles \(\pm ia\) of \(f\) (for large \(N\)).
 
-\framebreak
-
-\textbf{Example: $\sum_{n=-\infty}^{\infty}1/(n^2+a^2)$, $a>0$.} Take
-$f(z)=1/(z^2+a^2)$ and let $C_N$ be the square with corners $(N+\tfrac12)(\pm1\pm i)$,
-which passes midway between integers.
+\textbf{Step 1: the integral over \(C_N\) tends to \(0\).}
 \begin{itemize}
- \item \emph{The integral vanishes as $N\to\infty$.} $\cot\pi z$ stays bounded on $C_N$, say
-       $|\cot\pi z|\le2$: the square passes midway between its poles, and far from the real
-       axis $\cot\pi z\to\mp i$ (as $y\to\pm\infty$). Since $|z|\ge N+\tfrac12$ there, the reverse
-       triangle inequality gives $|z^2+a^2|\ge(N+\tfrac12)^2-a^2$. The length is
-       $8(N+\tfrac12)$, so by $ML$
-       \[
-        \left|\oint_{C_N}\frac{\pi\cot\pi z}{z^2+a^2}\,dz\right|
-        \le\frac{8(N+\tfrac12)\cdot2\pi}{(N+\tfrac12)^2-a^2}\longrightarrow0 .
-       \]
- \item \emph{Residues of $f$.} At $z_0=\pm ia$, \eqref{eq:res-ratio} with $q=z^2+a^2$,
-       $q'=2z$, gives $\pi\cot(\pi z_0)/(2z_0)$. By \eqref{eq:cos-sin-exp} at complex
-       argument (Section~1.6), with $\cosh y=(e^y+e^{-y})/2$, $\sinh y=(e^y-e^{-y})/2$,
-       $\coth=\cosh/\sinh$:
-       \[ \cos(iy)=\frac{e^{-y}+e^{y}}2=\cosh y,\qquad \sin(iy)=\frac{e^{-y}-e^{y}}{2i}=i\sinh y, \]
-       $\cot(iy)=\cosh y/(i\sinh y)=-i\coth y$, and $\cot$ is odd, so both residues equal
-       $\dfrac{\mp i\pi\coth\pi a}{\pm2ia}=-\dfrac{\pi\coth\pi a}{2a}$.
+  \item \(\cot\pi z\) stays bounded on \(C_N\), say \(|\cot\pi z|\le2\). (Intuition: the square stays away
+        from the poles of \(\cot\) by passing midway between integers; and far from the real axis
+        \(\cot\pi z\) tends to the constants \(\mp i\). We accept the bound.)
+  \item On \(C_N\), \(|z|\ge N+\tfrac12\), so \(|z^2+a^2|\ge(N+\tfrac12)^2-a^2\).
+  \item The length of the square is \(4\times2(N+\tfrac12)=8(N+\tfrac12)\).
 \end{itemize}
-The residue theorem on $C_N$, with $N\to\infty$, gives
-$0=\sum_n f(n)-\pi\coth(\pi a)/a$, that is,
+By the \(ML\) estimate,
+\[
+ \left|\oint_{C_N}\frac{\pi\cot\pi z}{z^2+a^2}\,dz\right|
+ \le8\Bigl(N+\tfrac12\Bigr)\cdot\frac{2\pi}{(N+\tfrac12)^2-a^2}\longrightarrow0 ,
+\]
+since the bound behaves like \(16\pi/N\).
+\par\framebreak\par
+\textbf{Step 2: the residues at the poles of \(f\), \(z_0=\pm ia\).} Use \eqref{eq:res-ratio} with
+\(p=\pi\cot\pi z\), \(q=z^2+a^2\), \(q'=2z\): the residue is \(\pi\cot(\pi z_0)/(2z_0)\). We need \(\cot\) at an
+imaginary argument. From \eqref{eq:cos-sin-exp} with \(\theta=iy\) (valid for complex arguments):
+\[
+ \cos(iy)=\frac{e^{-y}+e^{y}}2=\cosh y,\qquad
+ \sin(iy)=\frac{e^{-y}-e^{y}}{2i}=\frac{-2\sinh y}{2i}=i\sinh y,
+\]
+so \(\cot(iy)=\frac{\cosh y}{i\sinh y}=-i\coth y\), where \(\coth=\cosh/\sinh\).
+\begin{itemize}
+  \item At \(z_0=ia\): \(\dfrac{\pi\cdot(-i\coth\pi a)}{2ia}=-\dfrac{\pi\coth\pi a}{2a}\).
+  \item At \(z_0=-ia\): \(\cot\) is odd, so \(\cot(-i\pi a)=+i\coth\pi a\), and
+        \(\dfrac{\pi\cdot(i\coth\pi a)}{-2ia}=-\dfrac{\pi\coth\pi a}{2a}\).
+\end{itemize}
+Together: \(-\pi\coth(\pi a)/a\).
+\par\framebreak\par
+\textbf{Step 3: combine.} The residue theorem on \(C_N\) says
+\(\frac1{2\pi i}\oint_{C_N}=\sum_{n=-N}^Nf(n)+\bigl(-\pi\coth(\pi a)/a\bigr)\). As \(N\to\infty\) the left side
+tends to \(0\) (Step~1), so
 \[
  \sum_{n=-\infty}^{\infty}\frac1{n^2+a^2}=\frac{\pi}{a}\coth(\pi a).
 \]
-\textbf{Check.} As $a\to0$ the left side is $1/a^2+2\sum_{n\ge1}1/n^2+\cdots$. Since
-$\coth x=(1+x^2/2+\cdots)/(x+x^3/6+\cdots)=1/x+x/3+\cdots$ (pull out $1/x$, then $1/(1+x^2/6)\approx1-x^2/6$), the right side
-is $1/a^2+\pi^2/3+\cdots$. Hence $\sum_{n\ge1}1/n^2=\pi^2/6$, the Basel value used in
-Chapters~2 and~7.
-
-\textbf{Other sample sets.} The same residue count with \eqref{eq:res-ratio} gives:
+\textbf{Check: let \(a\to0\).} Both sides blow up like \(1/a^2\); compare the next terms.
 \begin{itemize}
- \item $\pi\csc\pi z=\pi/\sin\pi z$ has residue $\pi/(\pi\cos n\pi)=(-1)^n$ at $z=n$, so
-       it samples $\sum(-1)^m f(m)$;
- \item $\pi/\cos\pi z$ has residue $\pi/\bigl(-\pi\sin(\pi n+\tfrac\pi2)\bigr)=(-1)^{n+1}$
-       at $z=n+\tfrac12$, so it samples $\sum(-1)^{n+1}f(n+\tfrac12)$.
+  \item Left: the \(n=0\) term is \(1/a^2\); the others give
+        \(2\sum_{n\ge1}\frac1{n^2+a^2}\to2\sum_{n\ge1}\frac1{n^2}\).
+  \item Right: expand \(\coth x=\frac{\cosh x}{\sinh x}=\frac{1+x^2/2+\cdots}{x+x^3/6+\cdots}
+        =\frac1x\cdot\frac{1+x^2/2+\cdots}{1+x^2/6+\cdots}\). Using \(\frac1{1+x^2/6}\approx1-\frac{x^2}6\),
+        this is \(\frac1x\bigl(1+\frac{x^2}2-\frac{x^2}6\bigr)=\frac1x+\frac x3\). With \(x=\pi a\):
+        \(\frac\pi a\coth\pi a=\frac{1}{a^2}+\frac{\pi^2}{3}+\cdots\).
+\end{itemize}
+Matching: \(2\sum_{n\ge1}1/n^2=\pi^2/3\), so \(\sum_{n\ge1}1/n^2=\pi^2/6\), the Basel value used in
+Chapters~2 and~7.
+\par\framebreak\par
+\textbf{Other sample sets.} The same residue computation with \eqref{eq:res-ratio} gives other kernels:
+\begin{itemize}
+ \item \(\pi\csc\pi z=\pi/\sin\pi z\): residue \(\pi/(\pi\cos n\pi)=(-1)^n\) at \(z=n\). It samples the
+       alternating sum \(\sum(-1)^m f(m)\).
+ \item \(\pi/\cos\pi z\): poles at the half-integers \(z=n+\tfrac12\), with residue
+       \(\pi/\bigl(-\pi\sin(\pi n+\tfrac\pi2)\bigr)=-1/\cos(\pi n)=(-1)^{n+1}\). It samples
+       \(\sum(-1)^{n+1}f(n+\tfrac12)\).
 \end{itemize}
 \end{frame}
 
@@ -1267,273 +1493,336 @@ Chapters~2 and~7.
 \begin{frame}[allowframebreaks=1.00]{The steepest-descent approximation}
 \footnotesize
 
-\textbf{Step 1: set up the large-parameter integral.}
-Many asymptotic formulas for special functions come from integrals of the form
+\textbf{Goal.} Many formulas for special functions at large arguments (Stirling, large-\(x\)
+Bessel, Airy) come from integrals of the form
 \begin{equation}
   I(s)=\int_\Gamma g(z)\,e^{s f(z)}\,dz,
   \qquad s\to+\infty,
   \label{eq:sd-int}
 \end{equation}
-where $f$ and $g$ are holomorphic near $\Gamma$, so $\Gamma$ may be deformed as long as it
-crosses no singularity.  Write $f=u+iv$ with real $u,v$.  As $s$ grows,
-$e^{su}$ favors points where $u$ is largest on the deformed contour, so for large $s$ only
-the neighbourhood of that highest point matters (we assume it is not an endpoint).
+with \(f,g\) holomorphic near the path \(\Gamma\). We want a simple approximate formula for \(I(s)\) when
+the parameter \(s\) is large.
 
-\textbf{Step 2: locate a nondegenerate saddle.}
-We seek $z_0$ with $f'(z_0)=0$, $f''(z_0)\ne0$.
+\textbf{The basic idea.} Write \(f=u+iv\) with \(u,v\) real. Then \(|e^{sf}|=e^{su}\). For large \(s\), the
+factor \(e^{su}\) is enormously larger where \(u\) is largest than anywhere else. (If \(u\) is bigger by
+\(1\) at one point, \(e^{su}\) is bigger there by a factor \(e^s\).) So only a small neighbourhood of the
+highest point of \(u\) on the path matters, and near that point we can replace \(f\) by its
+Taylor expansion. The result is a Gaussian integral.
+
+\textbf{The complication.} Since \(f\) is holomorphic, we may deform \(\Gamma\) (Cauchy's theorem), as long
+as we cross no singularity. Which path should we use? The next steps answer this.
+\par\framebreak\par
+\textbf{Step 1: the important points are saddle points.} We look for \(z_0\) with \(f'(z_0)=0\) and
+\(f''(z_0)\ne0\).
 \begin{columns}[T]
 \begin{column}{0.62\linewidth}
-Since $f'=u_x+iv_x=u_x-iu_y$ by \eqref{eq:CR}, $z_0$ is a critical point of $u$. It
-cannot be a hilltop: $u_{xx}=v_{yx}=-u_{yy}$, so if $u$ curves down along $x$ it curves up
-along $y$. Critical points of $u$ are therefore mountain passes.
-
-Picture $u$ as terrain (right). A contour between two valleys must cross the ridge; the
-best crossing is the pass $z_0$ (the route's highest point is lowest), and from there the
-steepest-descent path runs down into both valleys.
+\begin{itemize}
+  \item By Cauchy--Riemann, \(f'=u_x+iv_x=u_x-iu_y\). So \(f'(z_0)=0\) means \(u_x=u_y=0\): \(z_0\) is a flat
+        point of the landscape \(u\).
+  \item It is never a hilltop. From \eqref{eq:CR}, \(u_x=v_y\) gives \(u_{xx}=v_{yx}\), and \(u_y=-v_x\)
+        gives \(u_{yy}=-v_{xy}\). So \(u_{xx}+u_{yy}=0\): if \(u\) curves down in one direction, it
+        curves up in the other. The flat point is a mountain pass (a saddle).
+\end{itemize}
+\textbf{Picture} \(u\) as terrain (right). A path joining two valleys must cross the ridge between
+them. The best crossing is through the pass \(z_0\): there the highest point of the route is as low
+as possible. From the pass, the path of steepest descent runs down into both valleys.
 \end{column}
 \begin{column}{0.34\linewidth}
 \centering
 \safeincludegraphics[width=\linewidth,height=0.42\textheight,keepaspectratio]{figs/saddle-level-curves.pdf}
 \end{column}
 \end{columns}
-
-\framebreak
-\textbf{Step 3: choose the descent direction.}
-By Taylor's theorem, with no linear term because $f'(z_0)=0$,
+\par\framebreak\par
+\textbf{Step 2: the direction of steepest descent.} Near \(z_0\), Taylor's theorem gives (no linear
+term, because \(f'(z_0)=0\))
 \begin{equation}
   f(z)=f(z_0)+\frac12 f''(z_0)(z-z_0)^2+O\bigl((z-z_0)^3\bigr).
   \label{eq:saddle-taylor}
 \end{equation}
-With $f''(z_0)=|f''(z_0)|e^{i\theta}$ and $z-z_0=re^{i\phi}$, the quadratic term is
+Write \(f''(z_0)\) and \(z-z_0\) in polar form: \(f''(z_0)=|f''(z_0)|e^{i\theta}\), \(z-z_0=re^{i\phi}\). Then
 \[
   \frac12 f''(z_0)(z-z_0)^2
-  =\frac12|f''(z_0)|r^2\,e^{i(\theta+2\phi)}.
+  =\frac12|f''(z_0)|\,r^2\,e^{i(\theta+2\phi)}
+  =\frac12|f''(z_0)|\,r^2\bigl[\cos(\theta+2\phi)+i\sin(\theta+2\phi)\bigr].
 \]
-Its real part $\tfrac12|f''(z_0)|r^2\cos(\theta+2\phi)$ decreases fastest when
-$\cos(\theta+2\phi)=-1$, and there the imaginary part $\tfrac12|f''(z_0)|r^2\sin(\theta+2\phi)$
-is zero: along this \emph{steepest-descent} direction the integrand does not oscillate,
-so nothing cancels. Hence
+\begin{itemize}
+  \item The real part (which controls the size \(e^{su}\)) drops fastest when
+        \(\cos(\theta+2\phi)=-1\).
+  \item In that direction the imaginary part \(\sin(\theta+2\phi)\) is \(0\). So the phase of \(e^{sf}\) does
+        not rotate there: the integrand does not oscillate, and nothing cancels. This makes the
+        approximation clean.
+\end{itemize}
+So the steepest-descent direction satisfies
 \begin{equation}
   \theta+2\phi=\pi\pmod{2\pi},
   \qquad\text{that is}\qquad
   \phi=\frac{\pi-\theta}{2}\pmod{\pi}.
   \label{eq:descent-direction}
 \end{equation}
-The ambiguity by $\pi$ gives the two opposite rays leaving $z_0$; Step~4 uses both by
-letting $r$ run over all of $\mathbb R$. Along them
-$\frac12 f''(z_0)(z-z_0)^2=-\frac12|f''(z_0)|r^2$.
-(The orthogonal choice $\theta+2\phi=0$ is steepest \emph{ascent}.)
-
-\textbf{Step 4: reduce to a Gaussian integral.}
-Deform the contour to pass through $z_0$ along both descent rays (assume $g(z_0)\ne0$).
-Parameterize the full descent line by
+The ``\(\pmod\pi\)'' gives two opposite rays from \(z_0\): the path goes down into both valleys.
+(The perpendicular direction, \(\theta+2\phi=0\), is steepest \emph{ascent}.)
+\par\framebreak\par
+\textbf{Step 3: walk along the descent line.} Deform \(\Gamma\) so that it passes through \(z_0\) along the
+descent line. Parametrize the line by a real number \(r\):
 \[
-  \alpha=e^{i(\pi-\theta)/2}=i\,e^{-i\theta/2},
-  \qquad
-  z=z_0+\alpha r,
-  \qquad
-  r\in\mathbb R,
+  z=z_0+\alpha r,\qquad
+  \alpha=e^{i(\pi-\theta)/2}=e^{i\pi/2}e^{-i\theta/2}=i\,e^{-i\theta/2},
+  \qquad dz=\alpha\,dr .
 \]
-so $dz=\alpha\,dr$, and $\alpha^2=-e^{-i\theta}$ gives $f''(z_0)\alpha^2=-|f''(z_0)|$.
-
-
-\framebreak
-\emph{Why only a small window matters.} Along this line \eqref{eq:saddle-taylor} gives
-$e^{sf}\approx e^{sf(z_0)}\exp(-\frac12 s|f''(z_0)|r^2)$. This factor is negligible once $|r|$ is several times $1/\sqrt{s|f''(z_0)|}$, a window that shrinks as $s$
-grows. Inside it the cubic term is $s\cdot O(r^3)=O(s^{-1/2})$ and $g\approx g(z_0)$.
-So replace $f$ by \eqref{eq:saddle-taylor},
-$g$ by $g(z_0)$, and extend the limits to $\pm\infty$ ($A\sim B$ means $A/B\to1$):
-\begin{align*}
+Check that this is a descent line: \(\alpha^2=i^2e^{-i\theta}=-e^{-i\theta}\), so
+\(f''(z_0)\,\alpha^2=|f''(z_0)|e^{i\theta}\cdot(-e^{-i\theta})=-|f''(z_0)|\), a negative real number. Hence,
+along the line,
+\[
+  s\,f(z)\approx s\,f(z_0)-\frac12\,s\,|f''(z_0)|\,r^2 .
+\]
+\textbf{Step 4: only a small window matters.} The factor \(\exp\bigl(-\frac12s|f''(z_0)|r^2\bigr)\) is
+negligible once \(|r|\) is a few times \(1/\sqrt{s|f''(z_0)|}\). This window shrinks as \(s\) grows. Inside
+it, the cubic term \(s\cdot O(r^3)\) is of size \(s\cdot s^{-3/2}=s^{-1/2}\to0\), and \(g(z)\approx g(z_0)\). So
+we may replace \(f\) by its quadratic approximation, \(g\) by \(g(z_0)\), and integrate over all \(r\).
+\par\framebreak\par
+\textbf{Step 5: do the Gaussian integral.} With these replacements
+(\(A\sim B\) means \(A/B\to1\)),
+\[
   I(s)
-  &\sim \int_{-\infty}^{\infty} g(z_0)
-    \exp\Bigl(sf(z_0)+\frac12 s f''(z_0)\alpha^2r^2\Bigr)\alpha\,dr\\
-  &=g(z_0)e^{sf(z_0)}\alpha
-    \int_{-\infty}^{\infty}
-    \exp\Bigl(-\frac12 s|f''(z_0)|r^2\Bigr)\,dr
-    &&\bigl(f''(z_0)\alpha^2=-|f''(z_0)|\bigr).
-\end{align*}
-The Gaussian integral $\int_{-\infty}^{\infty}e^{-ar^2}\,dr=\sqrt{\pi/a}$ ($a=1$ is proved in Chapter~2; set $x=\sqrt a\,r$) with
-$a=\tfrac12 s|f''(z_0)|$, and $\alpha=i\,e^{-i\theta/2}$, give
+  \sim \int_{-\infty}^{\infty} g(z_0)\,
+    e^{sf(z_0)}\,e^{-\frac12 s|f''(z_0)|r^2}\,\alpha\,dr
+  =g(z_0)\,e^{sf(z_0)}\,\alpha
+    \int_{-\infty}^{\infty}e^{-\frac12 s|f''(z_0)|r^2}\,dr .
+\]
+Use \(\int_{-\infty}^{\infty}e^{-cr^2}\,dr=\sqrt{\pi/c}\) (Chapter~2's Gaussian integral, after
+\(r=x/\sqrt c\)) with \(c=\tfrac12 s|f''(z_0)|\):
+\(\sqrt{\pi/c}=\sqrt{2\pi/(s|f''(z_0)|)}\). With \(\alpha=i\,e^{-i\theta/2}\):
 \begin{equation}
   I(s)\sim
-  g(z_0)e^{sf(z_0)}\,i\,e^{-i\theta/2}
+  g(z_0)\,e^{sf(z_0)}\;i\,e^{-i\theta/2}\;
   \sqrt{\frac{2\pi}{s|f''(z_0)|}}.
   \label{eq:sd-result}
 \end{equation}
-Traversing the line in the opposite direction flips the sign; several equally high
-saddles add their contributions. An endpoint maximum (excluded in Step~1) gives a smaller
-term, $\int_0^\infty g(t)e^{-st}dt\sim g(0)/s$ by one integration by parts: $1/s$, not $1/\sqrt s$.
+\textbf{Reading the formula.} \(e^{sf(z_0)}\) is the height of the pass; \(\sqrt{2\pi/(s|f''|)}\) is the
+width of the peak; \(i\,e^{-i\theta/2}\) is the direction of the path through the pass.
+\par\framebreak\par
+\textbf{Practical remarks.}
+\begin{itemize}
+  \item \emph{Orientation.} Going along the line in the opposite direction flips the sign of the
+        answer. Choose the direction in which the original path crosses the pass.
+  \item \emph{Several saddles} of the same height: add their contributions.
+  \item \emph{Endpoint maximum.} If the highest point is an endpoint of the path instead of a
+        saddle, the answer is smaller: for example, integrating by parts once,
+        \(\int_0^\infty g(t)e^{-st}dt\approx g(0)/s\), which falls off like \(1/s\) rather than
+        \(1/\sqrt s\).
+\end{itemize}
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Real special cases: Laplace method and stationary phase}
 \footnotesize
 
-The same local-Gaussian idea appears in two real-variable forms used later in the course.
+The same local-Gaussian idea has two real-variable versions that we use later.
 
-\textbf{Laplace's method (real, decaying exponential).}
-If the real function $\varphi$ has a single interior maximum at $x_0$
-($\varphi'(x_0)=0$, $\varphi''(x_0)<0$) and $g(x_0)\ne0$,
+\textbf{1. Laplace's method (a decaying exponential).} Let \(\varphi\) be real with a single
+maximum at an interior point \(x_0\) (\(\varphi'(x_0)=0\), \(\varphi''(x_0)<0\)), and \(g(x_0)\ne0\). Then
 \begin{equation}
   \int_a^b g(x)\,e^{s\varphi(x)}\,dx
   \sim
-  g(x_0)e^{s\varphi(x_0)}
+  g(x_0)\,e^{s\varphi(x_0)}
   \sqrt{\frac{2\pi}{s\bigl|\varphi''(x_0)\bigr|}},
   \qquad s\to+\infty.
   \label{eq:laplace-real}
 \end{equation}
-This is \eqref{eq:sd-result} on the real line with $f=\varphi$ and $\theta=\arg\varphi''(x_0)=\pi$,
-so $\alpha=i\,e^{-i\pi/2}=1$: the real axis is already the descent line. Chapter~2 uses it
-for Stirling's approximation of $n!$ from the gamma integral.
+\textbf{Why.} Near the maximum, \(\varphi(x)\approx\varphi(x_0)-\frac12|\varphi''(x_0)|(x-x_0)^2\), so the
+integrand is a Gaussian bell of width \(1/\sqrt{s|\varphi''(x_0)|}\). Replace \(g\) by \(g(x_0)\) and
+integrate the Gaussian over the whole line:
+\(\int e^{-\frac12s|\varphi''|(x-x_0)^2}dx=\sqrt{2\pi/(s|\varphi''|)}\).
 
-\textbf{Stationary phase (real, oscillatory).}
-Now the exponential does not decay but spins: away from a point where $\varphi'=0$ the
-phase $s\varphi$ changes fast, so $e^{is\varphi}$ runs around the unit circle and
-neighbouring pieces cancel. Only near a \emph{stationary point} $x_0$, where the phase is
-momentarily flat, do the pieces add up---the same reason light follows the path of
-stationary optical length. For a single stationary point $x_0$ inside $(a,b)$ with
-$\varphi''(x_0)\ne0$, $g(x_0)\ne0$ (several such points add), and $\operatorname{sgn}q=\pm1$
-the sign of $q$,
+\emph{Link to the general formula.} \eqref{eq:laplace-real} is \eqref{eq:sd-result} on the real line:
+\(\varphi''(x_0)<0\) means \(\theta=\arg\varphi''(x_0)=\pi\), so \(\alpha=i\,e^{-i\pi/2}=i\cdot(-i)=1\). The real axis
+is already the descent line. Chapter~2 uses \eqref{eq:laplace-real} for Stirling's formula.
+\par\framebreak\par
+\textbf{2. Stationary phase (an oscillating exponential).} Now the integrand is
+\(g(x)\,e^{is\varphi(x)}\): it has size \(|g|\) and only spins around the unit circle.
+
+\textbf{Intuition.} Where \(\varphi'\neq0\), the phase \(s\varphi\) changes quickly as \(x\) moves, so
+\(e^{is\varphi}\) goes around the circle many times; neighbouring pieces point in opposite directions
+and cancel. Only near a \emph{stationary point} \(x_0\), where \(\varphi'(x_0)=0\) and the phase is
+momentarily flat, do the pieces line up and add. (This is the same reason light follows the
+path of stationary optical length.)
+
+\textbf{Result.} For a single stationary point \(x_0\) inside \((a,b)\), with \(\varphi''(x_0)\ne0\) and
+\(g(x_0)\ne0\) (several stationary points add their contributions), and writing
+\(\operatorname{sgn}\varphi''(x_0)=\pm1\) for the sign of \(\varphi''(x_0)\),
 \begin{equation}
   \int_a^b g(x)\,e^{is\varphi(x)}\,dx
   \sim
-  g(x_0)e^{is\varphi(x_0)}
+  g(x_0)\,e^{is\varphi(x_0)}\,
   e^{i(\pi/4)\,\operatorname{sgn}\varphi''(x_0)}
   \sqrt{\frac{2\pi}{s\bigl|\varphi''(x_0)\bigr|}},
   \qquad s\to+\infty.
   \label{eq:stationary-phase}
 \end{equation}
+It looks like Laplace's formula, with one extra phase factor \(e^{\pm i\pi/4}\). The next frame
+shows where that comes from.
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Where the stationary-phase factor $e^{\pm i\pi/4}$ comes from}
 \footnotesize
 
-We derive \eqref{eq:stationary-phase}; its only new ingredient is the phase $e^{\pm i\pi/4}$.
-Expand the phase near the stationary point $x_0$:
+\textbf{Step 1: expand the phase near \(x_0\).} Since \(\varphi'(x_0)=0\),
 \[
-  \varphi(x)\approx\varphi(x_0)+\tfrac12\varphi''(x_0)\,(x-x_0)^2.
+  \varphi(x)\approx\varphi(x_0)+\tfrac12\varphi''(x_0)\,(x-x_0)^2 .
 \]
-Set $u=\sqrt s\,(x-x_0)$, so $dx=du/\sqrt s$ and
-$s\cdot\tfrac12\varphi''(x_0)(x-x_0)^2=\tfrac12\varphi''(x_0)\,u^2$.  Only the window
-$|x-x_0|\lesssim1/\sqrt{s|\varphi''(x_0)|}$ contributes; outside it the phase
-spins and the pieces cancel. So replace $g$ by $g(x_0)$ and let the $u$-limits run to $\pm\infty$:
+\textbf{Step 2: zoom in.} Only a window of width about \(1/\sqrt{s|\varphi''(x_0)|}\) contributes;
+outside it the phase spins and cancels. So replace \(g\) by \(g(x_0)\), and rescale by
+\(u=\sqrt s\,(x-x_0)\), \(dx=du/\sqrt s\). Then
+\(s\cdot\tfrac12\varphi''(x_0)(x-x_0)^2=s\cdot\tfrac12\varphi''(x_0)\,u^2/s=\tfrac12\varphi''(x_0)\,u^2\). Letting the
+\(u\)-limits run to \(\pm\infty\),
 \[
   \int_a^b g(x)\,e^{is\varphi(x)}\,dx
   \sim
   e^{is\varphi(x_0)}\,\frac{g(x_0)}{\sqrt s}
   \int_{-\infty}^{\infty}
-    e^{i\,(\varphi''(x_0)/2)\,u^2}\,du.
+    e^{i\,\frac12\varphi''(x_0)\,u^2}\,du .
 \]
-The last integral is a Gaussian with an imaginary coefficient. Setting $c=\mp ia$ in
-$\int_{-\infty}^{\infty}e^{-cu^2}\,du=\sqrt{\pi/c}$ and taking the principal root,
-$\sqrt{1/(\mp i)}=\sqrt{\pm i}=e^{\pm i\pi/4}$, gives the Fresnel formula
+\textbf{Step 3: the Fresnel integral.} We need \(\int_{-\infty}^{\infty}e^{\pm iau^2}du\) with
+\(a=\frac12|\varphi''(x_0)|>0\) and the sign of \(\varphi''(x_0)\). Take the \(+\) sign. The trick is to rotate
+the path of integration by \(45^\circ\), so that the oscillation turns into decay (as in Example~2 of the
+gamma integrals in Chapter~2). Put \(u=e^{i\pi/4}v\) with \(v\) real:
+\[
+ u^2=e^{i\pi/2}v^2=i\,v^2,\qquad
+ iau^2=ia\cdot iv^2=-a\,v^2,\qquad
+ du=e^{i\pi/4}\,dv .
+\]
+\par\framebreak\par
+\textbf{Step 3, continued.} So the oscillating integral becomes an ordinary Gaussian (using
+\(\int e^{-av^2}dv=\sqrt{\pi/a}\)):
+\[
+ \int_{-\infty}^{\infty}e^{iau^2}\,du
+ =e^{i\pi/4}\int_{-\infty}^{\infty}e^{-av^2}\,dv
+ =e^{i\pi/4}\sqrt{\frac\pi a}.
+\]
+(Rotating the path is allowed by Cauchy's theorem: the arcs that close the sector contribute
+nothing, as in Chapter~2.) For the \(-\) sign, rotate the other way, \(u=e^{-i\pi/4}v\), and get
+\(e^{-i\pi/4}\sqrt{\pi/a}\). In one line:
 \[
  \int_{-\infty}^{\infty}e^{\pm iau^2}\,du
- =\sqrt{\frac\pi a}\,e^{\pm i\pi/4},\qquad a>0
+ =\sqrt{\frac\pi a}\;e^{\pm i\pi/4},\qquad a>0 .
 \]
-(we take on trust that the Gaussian formula holds for imaginary $c$).
-Apply it with $a=\tfrac12|\varphi''(x_0)|$ and the sign $\pm$ equal to
-$\operatorname{sgn}\varphi''(x_0)$: then
-$\frac{g(x_0)}{\sqrt s}\sqrt{\pi/a}=g(x_0)\sqrt{2\pi/(s|\varphi''(x_0)|)}$, and the phase
-factor is $e^{i(\pi/4)\operatorname{sgn}\varphi''(x_0)}$. This is \eqref{eq:stationary-phase}.
-Chapter~3 applies this rule to the Airy integral at large negative argument.
+\textbf{Step 4: assemble.} With \(a=\tfrac12|\varphi''(x_0)|\), \(\sqrt{\pi/a}=\sqrt{2\pi/|\varphi''(x_0)|}\), so
+\[
+ \frac{g(x_0)}{\sqrt s}\cdot\sqrt{\frac{2\pi}{|\varphi''(x_0)|}}\cdot e^{\pm i\pi/4}
+ =g(x_0)\sqrt{\frac{2\pi}{s|\varphi''(x_0)|}}\;e^{i(\pi/4)\operatorname{sgn}\varphi''(x_0)} .
+\]
+Multiplying by \(e^{is\varphi(x_0)}\) gives \eqref{eq:stationary-phase}. The phase \(e^{\pm i\pi/4}\) is simply the
+\(45^\circ\) tilt of the path that turns the oscillation into decay. Chapter~3 applies this rule to
+the Airy integral at large negative argument.
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Worked example: large binomial coefficient}
 \footnotesize
 
-\textbf{Goal.} Find how the binomial coefficient $\binom nm=n!/\bigl(m!\,(n-m)!\bigr)$ behaves
-when $n$ is large, with the ratio $t=m/n$ held fixed. To use steepest descent we first need
-$\binom nm$ as a contour integral of the form \eqref{eq:sd-int} with $s=n$.
+\textbf{Goal.} Find how the binomial coefficient \(\binom nm=\frac{n!}{m!\,(n-m)!}\) behaves when \(n\) is
+large and the ratio \(t=m/n\) is fixed (with \(0<t<1\)). To use steepest descent we must first write
+\(\binom nm\) as an integral of the form \eqref{eq:sd-int}, with \(s=n\).
 
-Let $m,n$ be integers with $0<m<n$. As $n\to\infty$, keep $t=m/n$ away from $0$ and $1$. From
-$(1+z)^n=\sum_{k=0}^n\binom nk z^k$, Cauchy's coefficient formula \eqref{eq:laurent-coef}
-(expansion center $0$, $k=m$, on any counterclockwise circle about $0$) picks out the
-coefficient $\binom nm$ of $z^m$:
-\begin{align*}
-  \binom nm
-  &=\frac1{2\pi i}\oint\frac{(1+z)^n}{z^{m+1}}\,dz\\
-  &=\oint\frac{1}{2\pi i z}\,e^{n\log(1+z)-nt\log z}\,dz
-  =\oint g(z)e^{nf(z)}\,dz,
-\end{align*}
-where we wrote $(1+z)^n=e^{n\log(1+z)}$ and $z^{-m}=e^{-m\log z}=e^{-nt\log z}$ (since
-$m=nt$), so that
+\textbf{Step 1: a contour integral for \(\binom nm\).} By the binomial theorem,
+\((1+z)^n=\sum_{k=0}^n\binom nk z^k\). So \(\binom nm\) is the coefficient of \(z^m\), and the coefficient formula
+\eqref{eq:laurent-coef} (center \(0\), any counterclockwise circle around \(0\)) gives
 \[
+  \binom nm=\frac1{2\pi i}\oint\frac{(1+z)^n}{z^{m+1}}\,dz .
+\]
+\textbf{Step 2: bring it to the form \(g\,e^{nf}\).} Split \(\frac{(1+z)^n}{z^{m+1}}=\frac1z\cdot(1+z)^n\cdot z^{-m}\) and
+write the powers as exponentials, using \(m=nt\):
+\[
+ (1+z)^n=e^{n\log(1+z)},\qquad z^{-m}=e^{-m\log z}=e^{-nt\log z}.
+\]
+So
+\[
+  \binom nm=\oint g(z)\,e^{nf(z)}\,dz,
+  \qquad
   g(z)=\frac{1}{2\pi i z},
   \qquad
-  f(z)=\log(1+z)-t\log z
+  f(z)=\log(1+z)-t\log z .
 \]
-(with branches chosen locally near the positive saddle below).
-
-\textbf{Saddle.}  Differentiate:
+(The logarithms are taken on branches that are smooth near the positive real axis, where the
+saddle will be.)
+\par\framebreak\par
+\textbf{Step 3: find the saddle.} Differentiate:
 \[
   f'(z)=\frac1{1+z}-\frac t z,
   \qquad
   f''(z)=-\frac1{(1+z)^2}+\frac t{z^2}.
 \]
-Set $f'(z_0)=0$:
+Set \(f'(z_0)=0\) and multiply by \(z_0(1+z_0)\): \(z_0-t(1+z_0)=0\), so \(z_0(1-t)=t\):
 \[
-  z_0-t(1+z_0)=0
-  \quad\Longrightarrow\quad
-  z_0=\frac{t}{1-t}=\frac{m}{n-m}>0.
+  z_0=\frac{t}{1-t}=\frac{m}{n-m}>0,\qquad 1+z_0=\frac{1}{1-t}.
 \]
-Then $1+z_0=1/(1-t)$, and
+\textbf{Step 4: the height and curvature at the saddle.} Using \(\log(1+z_0)=-\log(1-t)\) and
+\(\log z_0=\log t-\log(1-t)\):
 \begin{align*}
   f(z_0)
-  &=\log\frac1{1-t}-t\log\frac{t}{1-t}
-   =-\log(1-t)-t\log t+t\log(1-t)\\
-  &=-t\log t-(1-t)\log(1-t),\\
+  &=-\log(1-t)-t\bigl[\log t-\log(1-t)\bigr]
+   =-t\log t-(1-t)\log(1-t),\\
   f''(z_0)
-  &=-\frac1{(1+z_0)^2}+\frac{t}{z_0^2}
-   =-(1-t)^2+\frac{(1-t)^2}{t}\\
-  &=(1-t)^2\Bigl(\frac1t-1\Bigr)
+  &=-(1-t)^2+\frac{t\,(1-t)^2}{t^2}
+   =(1-t)^2\Bigl(\frac1t-1\Bigr)
    =\frac{(1-t)^3}{t}>0.
 \end{align*}
-Thus $\theta=\arg f''(z_0)=0$, so the descent direction from \eqref{eq:descent-direction} is
-$\phi=\pi/2$: the local descent line is vertical.  Take the contour to be the circle $|z|=z_0$, and write $z=z_0e^{i\psi}$ on it.  Since
-$|g(z)e^{nf(z)}|=|1+z|^n/(2\pi|z|^{m+1})$ and $|z|=z_0$ is fixed, the integrand is largest where
+\par\framebreak\par
+\textbf{Step 5: choose the path through the saddle.} \(f''(z_0)\) is positive real, so \(\theta=0\), and by
+\eqref{eq:descent-direction} the descent direction is \(\phi=\pi/2\): vertical. The circle \(|z|=z_0\)
+crosses the real axis vertically at \(z_0\), so it is a natural path. Two checks:
+\begin{itemize}
+  \item \emph{\(z_0\) is the highest point on this circle.} On \(z=z_0e^{i\psi}\), the size of the integrand
+        is \(|1+z|^n/(2\pi z_0^{m+1})\), and \(|z|=z_0\) is fixed, so only \(|1+z|\) varies:
+        \[
+         |1+z_0e^{i\psi}|^2=(1+z_0\cos\psi)^2+(z_0\sin\psi)^2=1+2z_0\cos\psi+z_0^2 ,
+        \]
+        which is largest at \(\psi=0\), that is, at \(z=z_0\).
+  \item \emph{Direction.} Going counterclockwise, the circle passes \(z_0\) moving upward, in the
+        direction \(+i\). This agrees with \(\alpha=i\,e^{-i\theta/2}=i\), so the sign in \eqref{eq:sd-result} is
+        right.
+\end{itemize}
+\par\framebreak\par
+\textbf{Step 6: apply the formula \eqref{eq:sd-result} with \(s=n\).} With \(\theta=0\), \(e^{-i\theta/2}=1\), and
+\(g(z_0)=1/(2\pi iz_0)\); the factor \(i\) cancels the \(i\) in \(g(z_0)\):
 \[
- |1+z_0e^{i\psi}|^2=(1+z_0\cos\psi)^2+z_0^2\sin^2\psi=1+2z_0\cos\psi+z_0^2
-\]
-is largest, namely at $\psi=0$. The saddle $z=z_0$ therefore dominates.
-The counterclockwise tangent there points upward ($+i$), matching the descent
-direction and fixing the sign of the result.
-
-\textbf{Apply \eqref{eq:sd-result} with $s=n$.} Since $\theta=0$ and $f''(z_0)>0$,
-$e^{-i\theta/2}=1$ and $|f''(z_0)|=f''(z_0)$; the factor $i$ then cancels the $i$ in
-$g(z_0)=1/(2\pi i z_0)$:
-\begin{align*}
   \binom nm
-  &\sim
-  \frac{1}{2\pi i z_0}\,e^{nf(z_0)}\,i
+  \sim
+  \frac{1}{2\pi i z_0}\,e^{nf(z_0)}\cdot i\cdot
   \sqrt{\frac{2\pi}{n f''(z_0)}}
   =
-  \frac{1}{2\pi z_0}\,e^{nf(z_0)}
-  \sqrt{\frac{2\pi}{n f''(z_0)}}.
-\end{align*}
-Substitute $1/z_0=(1-t)/t$ and $1/f''(z_0)=t/(1-t)^3$:
+  \frac{1}{2\pi z_0}\,\sqrt{\frac{2\pi}{n f''(z_0)}}\;e^{nf(z_0)} .
+\]
+\textbf{Step 7: simplify the prefactor.} Insert \(1/z_0=(1-t)/t\) and \(1/f''(z_0)=t/(1-t)^3\), and bring
+everything under one square root:
 \[
-  \frac{1}{2\pi z_0}
-  \sqrt{\frac{2\pi}{n f''(z_0)}}
-  =\frac{1-t}{2\pi t}
+  \frac{1-t}{2\pi t}
     \sqrt{\frac{2\pi t}{n(1-t)^3}}
   =\sqrt{\frac{(1-t)^2}{(2\pi t)^2}\cdot\frac{2\pi t}{n(1-t)^3}}
-  =\frac{1}{\sqrt{2\pi n t(1-t)}}.
+  =\sqrt{\frac{1}{2\pi\,n\,t\,(1-t)}} .
 \]
-Also $e^{nf(z_0)}=\exp\bigl[-n\bigl(t\log t+(1-t)\log(1-t)\bigr)\bigr]$, so
+\textbf{Result.} With \(e^{nf(z_0)}=\exp\bigl[-n\bigl(t\log t+(1-t)\log(1-t)\bigr)\bigr]\),
 \begin{equation}
   \binom nm
   \sim
   \frac{\exp\bigl[-n\bigl(t\log t+(1-t)\log(1-t)\bigr)\bigr]}
-       {\sqrt{2\pi n t(1-t)}}.
+       {\sqrt{2\pi n t(1-t)}},\qquad t=\frac mn .
   \label{eq:binom-sd}
 \end{equation}
-\textbf{Check.} $n=20$, $m=10$: \eqref{eq:binom-sd} gives $2^{20}/\sqrt{10\pi}\approx187079$,
-exact $184756$ (1.3\% high). Stirling's formula (Chapter~2) gives the same result.
+\par\framebreak\par
+\textbf{Check: \(n=20\), \(m=10\)} (\(t=\tfrac12\)). The exponent is
+\(-20\bigl(\tfrac12\log\tfrac12+\tfrac12\log\tfrac12\bigr)=20\log2\), so the numerator is \(2^{20}=1\,048\,576\);
+the denominator is \(\sqrt{2\pi\cdot20\cdot\frac14}=\sqrt{10\pi}\approx5.605\). The formula gives
+\(\approx187\,079\); the exact value is \(184\,756\), only \(1.3\%\) less. (Stirling's formula of Chapter~2,
+applied to each factorial, gives the same result.)
 
-\textbf{Meaning.} $H(t)=-t\log t-(1-t)\log(1-t)$ is the entropy of a coin with
-heads-probability $t$. Multiplying \eqref{eq:binom-sd} by $t^m(1-t)^{n-m}=e^{-nH(t)}$ gives
-the probability of exactly $m$ heads, $\approx1/\sqrt{2\pi nt(1-t)}$, the peak of a Gaussian
-with the binomial variance $nt(1-t)$.
+\textbf{Meaning: entropy.} \(H(t)=-t\log t-(1-t)\log(1-t)\) is the \emph{entropy} of a coin with
+heads-probability \(t\), and \eqref{eq:binom-sd} says \(\binom nm\approx e^{nH(t)}/\sqrt{2\pi nt(1-t)}\). The chance
+of one particular sequence with \(m\) heads is
+\(t^m(1-t)^{n-m}=e^{m\log t+(n-m)\log(1-t)}=e^{-nH(t)}\). Multiplying, the probability of exactly \(m\)
+heads is
+\[
+ \binom nm t^m(1-t)^{n-m}\approx\frac{1}{\sqrt{2\pi nt(1-t)}} ,
+\]
+the height of the peak of a Gaussian with the binomial variance \(nt(1-t)\).
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Summary}
