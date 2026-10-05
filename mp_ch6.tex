@@ -296,10 +296,23 @@ degree $n$. We quote the standard endpoint result: for any other $\lambda$ no no
 solution is finite at both poles, and for $\lambda=n(n+1)$ the other chain diverges at a pole,
 so the finite solutions are the multiples of this polynomial.
 
-\emph{Example of a discarded chain.} For \(\lambda=2\) (\(n=1\)) the odd chain stops at once and gives
-\(v=x\). The even chain never stops; its coefficients are \(a_{2k}=-1/(2k-1)\), and its sum is
-\(v=1-\frac x2\log\frac{1+x}{1-x}\), which tends to \(-\infty\) as \(x\to1^-\): it blows up at the north pole.
-So we set the starting coefficient of the opposite-parity chain to zero.
+\par\framebreak\par
+\textbf{Example of a discarded chain: \(\lambda=2\) (\(n=1\)).} The odd chain stops at once and gives \(v=x\).
+For the even chain, \eqref{eq:legendre-coeff-recurrence-lambda} with \(\lambda=2\) gives the ratio
+\[
+ \frac{a_{j+2}}{a_j}=\frac{j(j+1)-2}{(j+2)(j+1)}=\frac{(j-1)(j+2)}{(j+2)(j+1)}=\frac{j-1}{j+1}.
+\]
+Start from \(a_0=1\): \(a_2=-1\), \(a_4=\frac13a_2=-\frac13\), \(a_6=\frac35a_4=-\frac15\), and in general
+\(a_{2k}=-\frac1{2k-1}\) (each step multiplies \(-\frac1{2k-1}\) by \(\frac{2k-1}{2k+1}\)). So the chain never stops, and
+\[
+ v=1-x^2-\frac{x^4}{3}-\frac{x^6}{5}-\cdots=1-x\Bigl(x+\frac{x^3}{3}+\frac{x^5}{5}+\cdots\Bigr).
+\]
+Subtracting the series \(\log(1-x)=-x-\frac{x^2}2-\frac{x^3}3-\cdots\) from \(\log(1+x)=x-\frac{x^2}2+\frac{x^3}3-\cdots\)
+leaves twice the bracket: \(\log\frac{1+x}{1-x}=2\bigl(x+\frac{x^3}3+\frac{x^5}5+\cdots\bigr)\). Hence
+\[
+ v(x)=1-\frac x2\log\frac{1+x}{1-x}\ \longrightarrow\ -\infty\qquad(x\to1^-):
+\]
+it blows up at the north pole. So we set the starting coefficient of the opposite-parity chain to zero.
 
 With $\lambda=n(n+1)$, equations \eqref{eq:legendre-eq-lambda}--\eqref{eq:legendre-eq-expanded-lambda}
 become the ordinary Legendre equation

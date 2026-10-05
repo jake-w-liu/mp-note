@@ -66,7 +66,7 @@ With \(x=kr\) and \(y(x)=R(r)\) (as in Chapter~3) this is Bessel's equation of i
 \begin{itemize}
   \item a generating function for the whole family \(J_m\), and from it the power series;
   \item recurrences linking neighbouring orders and derivatives;
-  \item integral representations: a real integral and the Schl\"afli contour;
+  \item a real integral representation;
   \item the behaviour for small and for large \(x\);
   \item the second solution \(Y_m\), the Hankel functions \(H^{(1)},H^{(2)}\) (traveling waves), and the
         Fourier--Bessel series on the disk;
@@ -398,37 +398,7 @@ all real $x$, as in the plot. And \eqref{eq:J0-int} shows $J_0$ as the average o
 directions: a superposition of plane waves.
 \end{frame}
 
-\begin{frame}[allowframebreaks=1.00]{Contour form (Schl\"afli / Cauchy)}
-\footnotesize
-\textbf{Why a contour?} The real integral above is tied to the unit circle. As a contour
-integral, the path can be any loop around \(0\), which links Bessel functions to the tools of
-Chapter~1. Recall Laurent coefficient extraction from Chapter~1:
-\begin{equation}
- [t^m]f(t)=\frac1{2\pi i}\oint_C f(t)t^{-m-1}\,dt,
- \label{eq:laurent-extract}
-\end{equation}
-where $C$ is a counterclockwise loop around $0$ inside the annulus of convergence (only
-the $t^{-1}$ term of $f(t)t^{-m-1}$ survives). Applied to \eqref{eq:genf}, whose annulus is
-all $t\ne0$,
-\begin{equation}
- J_n(x)=\frac1{2\pi i}\oint_C
-       e^{\frac x2(t-t^{-1})}t^{-n-1}\,dt,\qquad n\in\mathbb Z,
- \label{eq:schlafli}
-\end{equation}
-for any simple counterclockwise loop $C$ around $0$. On the unit circle $t=e^{i\theta}$,
-$dt=it\,d\theta$ gives $t^{-n-1}dt=ie^{-in\theta}d\theta$; the $i$ cancels the one in
-$1/(2\pi i)$ and we are back to \eqref{eq:jacobi-anger-coefficient}.
-\end{frame}
 
-\begin{frame}{Contours in the Schl\"afli representation}
-\footnotesize
-\begin{center}
- \includegraphics[height=0.65\textheight]{figs/ch5_schlafli_contours.pdf}
-\end{center}
-For integer $n$, $t^{-n-1}$ is single-valued. The contour travels counterclockwise
-once around zero; its shape can change without changing the coefficient integral,
-because the integrand is analytic for all $t\ne0$ (Cauchy's theorem, Chapter~1) as long as the deformation never crosses $t=0$.
-\end{frame}
 
 
 
@@ -474,8 +444,8 @@ by a change of unknown; what remains is almost the oscillator \(u''+u=0\).
  y''=x^{-1/2}u''-x^{-3/2}u'+\tfrac34x^{-5/2}u .
 \]
 \par\framebreak\par
-\textbf{Step 2: insert into the normal form}
-\(y''+\frac1xy'+\bigl(1-\frac{m^2}{x^2}\bigr)y=0\) \eqref{eq:bessel-normal-form}. The middle term is
+\textbf{Step 2: insert into Bessel's equation divided by \(x^2\),}
+\(y''+\frac1xy'+\bigl(1-\frac{m^2}{x^2}\bigr)y=0\). The middle term is
 \(\frac1xy'=x^{-3/2}u'-\frac12x^{-5/2}u\). Adding the three pieces:
 \begin{itemize}
   \item \(u'\) terms: \(-x^{-3/2}u'+x^{-3/2}u'=0\) (the damping is gone);
@@ -1052,7 +1022,7 @@ The recurrences are
   J_m'(x)&=J_{m-1}(x)-\frac{m}{x}J_m(x),\qquad x\ne0,\\
   J_m'(x)&=\frac{m}{x}J_m(x)-J_{m+1}(x),\qquad x\ne0.
 \end{align*}
-The preferred integral representations are
+The integral representations are
 \begin{align*}
   J_m(x)&=\frac{1}{\pi}\int_0^\pi
   \cos(m\theta-x\sin\theta)\,d\theta,
@@ -1061,12 +1031,6 @@ The preferred integral representations are
   e^{i(x\sin\theta-n\theta)}\,d\theta,
   &&n\in\mathbb Z,
 \end{align*}
-and the contour form
-\[
-  J_n(x)=\frac{1}{2\pi i}\oint_C
-  e^{\frac{x}{2}(t-t^{-1})}t^{-n-1}\,dt,
-  \qquad n\in\mathbb Z.
-\]
 For fixed $m$,
 \begin{align*}
   J_m(x)

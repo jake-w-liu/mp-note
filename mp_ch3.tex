@@ -423,8 +423,10 @@ so \((\nu+1)\cdots(\nu+j)=\Gamma(\nu+j+1)/\Gamma(\nu+1)\). Choosing \(a_0=1/[2^\
 \]
 \par\framebreak\par
 \emph{The root \(r=-\nu\).} In \eqref{eq:bessel-negative-root-rec} the even-index factors are
-\(2j(2j-2\nu)\), which are never zero because \(\nu\) is not an integer. So nothing goes wrong, and the
-same calculation with \(\nu\) replaced by \(-\nu\) gives a second solution \(J_{-\nu}\).
+\(2j(2j-2\nu)\), which are never zero because \(\nu\) is not an integer. (An odd-index factor vanishes
+when \(\nu\) is a half-integer, at \(n=2\nu\); but the odd chain is zero, so that equation reads
+\(0\cdot a_n=0\) and does no harm; the example below shows this.) So the same calculation with \(\nu\)
+replaced by \(-\nu\) gives a second solution \(J_{-\nu}\).
 
 \textbf{They are independent.} Look at the first terms (\(j=0\)) as \(x\to0^+\):
 \[
@@ -518,8 +520,9 @@ musical. The drum's overtones are not whole-number multiples of the lowest frequ
        analytic. Use a power \(z^r\) times a Taylor series (Frobenius).
        \emph{Example:} Bessel at \(x_0=0\): \(P=1/x\), \(Q=1-m^2/x^2\), so \(xP=1\) and \(x^2Q=x^2-m^2\) are fine.
  \item \textbf{Irregular singular point:} worse blow-up; Frobenius is not guaranteed to work.
-       \emph{Example:} \(x^4y''+2x^3y'+y=0\) at \(0\): \(Q=1/x^4\), and \(x^2Q=1/x^2\) still blows up
-       (treated later in this chapter).
+       \emph{Example:} \(x^4y''+2x^3y'+y=0\) at \(0\): \(Q=1/x^4\), and \(x^2Q=1/x^2\) still blows up.
+       Its solutions are \(\cos(1/x)\) and \(\sin(1/x)\) (check by substituting), which oscillate
+       infinitely often near \(0\); no power \(x^r\) times a Taylor series can do that.
 \end{itemize}
 \textbf{Why this test?} Near a regular singular point, the equation looks like an Euler equation
 (as we saw for Bessel), and Euler equations are solved by powers \(z^r\). We use the test as a recipe
@@ -636,7 +639,7 @@ $0$:
   \label{eq:airy-ic}
 \end{equation}
 We quote these constants: they come from integral representations of $Ai$ and $Bi$,
-not from the series (those of $Ai$ are derived at the end of this chapter).  Since $a_0=y(0)$ and $a_1=y'(0)$ in \eqref{eq:airy-series},
+not from the series (the integral for $Ai$ appears at the end of this chapter).  Since $a_0=y(0)$ and $a_1=y'(0)$ in \eqref{eq:airy-series},
 \begin{equation}
 \begin{aligned}
   Ai(x)&=Ai(0)\,f_0(x)+Ai'(0)\,f_1(x),\\
@@ -696,8 +699,8 @@ This vanishes when \(r\) solves the \emph{indicial equation}
 \par\framebreak\par
 \textbf{Which roots give a series? The key observation.} Insert the full series
 \(y=\sum_ka_kz^{k+r}\). The same computation as in Step~2, with \(r+k\) in place of \(r\), shows that the
-term \(a_kz^{k+r}\) produces \(F(r+k)\,a_k\,z^{k+r}\). The remaining parts of \(zP\) and \(z^2Q\) (the terms
-\(p_1z,\,q_1z,\dots\)) raise powers, so at the power \(z^{k+r}\) they bring in only earlier coefficients
+term \(a_kz^{k+r}\) produces \(F(r+k)\,a_k\,z^{k+r}\). The remaining parts of \(zP=p_0+p_1z+\cdots\) and
+\(z^2Q=q_0+q_1z+\cdots\) (the terms \(p_1z,\,q_1z,\dots\)) raise powers, so at the power \(z^{k+r}\) they bring in only earlier coefficients
 \(a_0,\dots,a_{k-1}\). So the coefficient of \(z^{k+r}\) reads
 \[
  F(r+k)\,a_k+(\text{terms with }a_0,\dots,a_{k-1})=0 .

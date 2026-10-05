@@ -213,9 +213,16 @@ Comparison with \eqref{eq:cos-series}--\eqref{eq:sin-series} gives Euler's formu
   \label{eq:euler}
 \end{equation}
 
-\textbf{The addition law.} The series also obey \(e^{w_1+w_2}=e^{w_1}e^{w_2}\) for complex
-\(w_1,w_2\) (multiply the two series and collect terms with the binomial theorem). With \(w_1=u\),
-\(w_2=iv\) and \eqref{eq:euler} for \(e^{iv}\), this splits a complex exponential into size and angle:
+\textbf{The addition law \(e^{w_1+w_2}=e^{w_1}e^{w_2}\)} also holds for complex \(w_1,w_2\). Multiply the
+two series, \(\bigl(\sum_k\frac{w_1^k}{k!}\bigr)\bigl(\sum_j\frac{w_2^j}{j!}\bigr)\), and collect the terms with
+\(k+j=n\). By the binomial theorem they add up to
+\[
+ \sum_{k=0}^{n}\frac{w_1^k}{k!}\,\frac{w_2^{\,n-k}}{(n-k)!}
+ =\frac1{n!}\sum_{k=0}^{n}\frac{n!}{k!\,(n-k)!}\,w_1^kw_2^{\,n-k}
+ =\frac{(w_1+w_2)^n}{n!},
+\]
+which is the \(n\)-th term of the series for \(e^{w_1+w_2}\). With \(w_1=u\), \(w_2=iv\) and \eqref{eq:euler}
+for \(e^{iv}\), the law splits a complex exponential into size and angle:
 \begin{equation}
  e^{u+iv}=e^u(\cos v+i\sin v),\qquad u,v\in\mathbb R.
  \label{eq:exp-uv}
@@ -281,8 +288,8 @@ and therefore
 \footnotesize
 
 \textbf{Why we need this.} Powers \(z^a\) and the logarithm \(\log z\) appear in many integrals later.
-(In the keyhole contour of Section~1.8 the whole answer comes from the jump of \(z^a\) across a
-cut.) These functions can take several values at one point, and we must learn how to choose one.
+(In the keyhole contour of Section~1.8 the whole answer comes from the jump of \(z^{-a}\) across
+a cut.) These functions can take several values at one point, and we must learn how to choose one.
 
 \textbf{A familiar example.} The equation \(x^2=y\) (with \(y>0\)) has two solutions,
 \(x=\pm\sqrt y\). The real square root picks one of them, \(+\sqrt y\), in a consistent way. A
@@ -842,6 +849,7 @@ with \(a_{-m}\ne0\)). Equivalently,
 \end{itemize}
 So the zeros of \(\sin z\) are the real numbers \(n\pi\) only. Each is simple: near \(n\pi\),
 \(\sin z\approx\cos(n\pi)\,(z-n\pi)\) (first Taylor term), and \(\cos n\pi=\pm1\ne0\).
+
 \textbf{Branch points are not isolated singularities.} Going once around \(0\) adds \(2\pi i\) to
 \(\log z\). So no single-valued branch of \(\log z\) is holomorphic on a whole punctured disk around
 \(0\), and there is no Laurent series there.
