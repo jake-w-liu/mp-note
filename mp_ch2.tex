@@ -228,9 +228,9 @@ logarithm, which is why the overhang grows so slowly.
 \begin{center}
   \includegraphics[width=0.68\linewidth]{figs/ch2_euler_gamma_staircase.pdf}
 \end{center}
-The harmonic number \(H_n\) is the area of a unit-width staircase. The logarithm
-\(\log n=\int_1^n dx/x\) is the area under the smooth curve. The limiting excess area is
-\(\gamma=\lim_{n\to\infty}\bigl(H_n-\log n\bigr)\).
+The boxes of Step~1 (height \(1/k\) over \([k,k+1]\)) have total area \(H_n\); the curve \(1/x\) lies
+below them, with area \(\log(n+1)\) from \(1\) to \(n+1\). The shaded slivers between them add up to
+\(H_n-\log(n+1)\), which tends to \(\gamma\) because \(\log(n+1)-\log n=\log(1+\frac1n)\to0\).
 \end{frame}
 
 
