@@ -255,7 +255,7 @@ In words: to multiply complex numbers, multiply their moduli and add their angle
 \[
   \overline z=x-iy=re^{-i\theta},
   \qquad
-  z\overline z=(x+iy)(x-iy)=x^2+y^2=r^2=|z|^2,
+  z\overline z=(x+iy)(x-iy)=x^2+y^2=r^2=|z|^2.
 \]
 Adding \(z+\overline z=2x\) and subtracting \(z-\overline z=2iy\) isolates the real and imaginary
 parts:
@@ -376,7 +376,7 @@ form). So a differentiable \(f\) looks, up close, like a rotation plus a uniform
 \textbf{Names.} \(f\) is \emph{holomorphic} (or \emph{analytic}) on an open set if \(f'\) exists at
 every point of the set. It is \emph{entire} if it is holomorphic on the whole plane \(\mathbb C\).
 \par\framebreak\par
-\textbf{Goal: a practical test.} Write \(z=x+iy\) and split \(f\) into real and imaginary parts,
+\textbf{Deriving the test.} Write \(z=x+iy\) and split \(f\) into real and imaginary parts,
 \(f(z)=u(x,y)+iv(x,y)\). Subscripts denote partial derivatives (\(u_x=\partial u/\partial x\),
 etc.). We compute the limit \eqref{eq:cderiv} in two directions and demand that they agree.
 
@@ -771,11 +771,16 @@ the Taylor slide,
  =-\frac{1}{z-z_0}\sum_{n=0}^{\infty}\Bigl(\frac{\xi-z_0}{z-z_0}\Bigr)^n
  =-\sum_{n=0}^{\infty}\frac{(\xi-z_0)^n}{(z-z_0)^{n+1}} .
 \]
-These are the negative powers \((z-z_0)^{-1},(z-z_0)^{-2},\dots\). (The \(-\) here cancels the \(-\) in
-Step~1.)
+These are the negative powers \((z-z_0)^{-1},(z-z_0)^{-2},\dots\).
 
-\textbf{Step 4: result.} Integrating term by term, \(f\) has a \emph{Laurent expansion},
-convergent in the whole ring:
+\textbf{Step 4: result.} Insert both expansions into Step~1 and integrate term by term. The minus sign
+of Step~3 and the minus sign of Step~1 cancel, so both sums come with a plus sign:
+\begin{align*}
+ f(z)={}&\sum_{n=0}^{\infty}(z-z_0)^n\,\underbrace{\frac1{2\pi i}\oint_{C_1}\frac{f(\xi)\,d\xi}{(\xi-z_0)^{n+1}}}_{a_n}\\
+ &+\sum_{n=0}^{\infty}(z-z_0)^{-(n+1)}\,\underbrace{\frac1{2\pi i}\oint_{C_2}f(\xi)(\xi-z_0)^{n}\,d\xi}_{a_{-(n+1)}} .
+\end{align*}
+The brackets are constants (they do not depend on \(z\)); call them \(a_n\) and \(a_{-(n+1)}\) as marked. So
+\(f\) has a \emph{Laurent expansion}, convergent in the whole ring:
 \begin{equation}
  f(z)=\sum_{n=-\infty}^{\infty}a_n(z-z_0)^n
  =\underbrace{\sum_{n=0}^{\infty}a_n(z-z_0)^n}_{\text{regular part}}
