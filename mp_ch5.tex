@@ -21,13 +21,7 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{frametitle continuation}[from second]
 
-\AtBeginSection[]
-{
- \begin{frame}<beamer>
- \frametitle{Table of contents}
- \tableofcontents[currentsection]
- \end{frame}
-}
+% Per-section TOC frames removed to keep the deck within 60 slides.
 
 \usepackage{Kyushu}
 
@@ -72,9 +66,8 @@ With \(x=kr\) and \(y(x)=R(r)\) (as in Chapter~3) this is Bessel's equation of i
 \begin{itemize}
   \item a generating function for the whole family \(J_m\), and from it the power series;
   \item recurrences linking neighbouring orders and derivatives;
-  \item integral representations: a real integral, the Schl\"afli contour for integer order, and an
-        open contour for noninteger order;
-  \item the behaviour for small and for large \(x\) (large \(x\) by steepest descent, Chapter~1);
+  \item integral representations: a real integral and the Schl\"afli contour;
+  \item the behaviour for small and for large \(x\);
   \item the second solution \(Y_m\), the Hankel functions \(H^{(1)},H^{(2)}\) (traveling waves), and the
         Fourier--Bessel series on the disk;
   \item half-integer orders, where everything reduces to elementary functions: the spherical Bessel
@@ -408,8 +401,8 @@ directions: a superposition of plane waves.
 \begin{frame}[allowframebreaks=1.00]{Contour form (Schl\"afli / Cauchy)}
 \footnotesize
 \textbf{Why a contour?} The real integral above is tied to the unit circle. As a contour
-integral, the path can be deformed, which is what we need for large $x$ (steepest descent)
-and for noninteger order. Recall Laurent coefficient extraction from Chapter~1:
+integral, the path can be any loop around \(0\), which links Bessel functions to the tools of
+Chapter~1. Recall Laurent coefficient extraction from Chapter~1:
 \begin{equation}
  [t^m]f(t)=\frac1{2\pi i}\oint_C f(t)t^{-m-1}\,dt,
  \label{eq:laurent-extract}
@@ -437,94 +430,7 @@ once around zero; its shape can change without changing the coefficient integral
 because the integrand is analytic for all $t\ne0$ (Cauchy's theorem, Chapter~1) as long as the deformation never crosses $t=0$.
 \end{frame}
 
-\begin{frame}[allowframebreaks=1.00]{Noninteger order needs an open contour}
-\footnotesize
 
-\textbf{Goal.} Extend the contour formula \eqref{eq:schlafli} from integer order \(n\) to a general order
-\(\nu\), and check that it reproduces the general-order series \eqref{eq:series-gamma}.
-
-\textbf{Step 1: why the closed loop fails.} For general \(\nu\), \(t^{-\nu-1}=e^{-(\nu+1)\log t}\). Go once around
-\(0\): \(\log t\) increases by \(2\pi i\), so \(t^{-\nu-1}\) gets multiplied by \(e^{-(\nu+1)2\pi i}=e^{-2\pi i\nu}\), which is not
-\(1\) unless \(\nu\) is an integer. So the integrand does not come back to its starting value, and a closed
-loop around \(0\) makes no sense.
-
-\textbf{Step 2: cut and open the loop.} Make \(t^{-\nu-1}\) single-valued by cutting the plane along the
-negative real axis (\(-\pi<\arg t<\pi\)). A loop may no longer cross the cut, so it opens up into the Hankel
-contour \(\mathcal H\) of Chapter~2: in from \(-\infty\) below the cut, counterclockwise around \(0\), and back out to
-\(-\infty\) above the cut. Define
-\begin{equation}
- \mathcal J_\nu(x)=\frac1{2\pi i}
- \int_{\mathcal H}e^{\frac x2(t-t^{-1})}t^{-\nu-1}\,dt,
- \qquad x>0.
- \label{eq:sommerfeld-t}
-\end{equation}
-It converges: far out on the legs, \(t\to-\infty\), so \(e^{xt/2}\to0\) very fast, while \(e^{-x/(2t)}\to1\).
-\par\framebreak\par
-\textbf{Step 3: which function is this? Expand.} Expand only the factor \(e^{-x/(2t)}\) in its power series,
-\(e^{-x/(2t)}=\sum_{q\ge0}\frac{(-1)^q}{q!}\bigl(\frac x2\bigr)^qt^{-q}\), and integrate term by term. The \(q\)-th term
-needs
-\[
- \frac1{2\pi i}\int_{\mathcal H}e^{xt/2}\,t^{-\nu-q-1}\,dt .
-\]
-\textbf{Step 4: reduce each term to Hankel's formula.} Substitute \(u=xt/2\), so \(t=2u/x\), \(dt=\frac2x\,du\), and
-\(\mathcal H\) scales by the positive number \(x/2\) (still a Hankel contour). The powers of \(x/2\):
-\[
- t^{-\nu-q-1}\,dt=\Bigl(\frac{2u}{x}\Bigr)^{-\nu-q-1}\frac2x\,du
- =\Bigl(\frac x2\Bigr)^{\nu+q+1}\Bigl(\frac x2\Bigr)^{-1}u^{-\nu-q-1}\,du ,
-\]
-so \(t^{-\nu-q-1}\,dt=(x/2)^{\nu+q}\,u^{-\nu-q-1}\,du\).
-Hankel's formula from Chapter~2, \(\frac1{2\pi i}\int_{\mathcal H}e^uu^{-a}\,du=\frac1{\Gamma(a)}\), with \(a=\nu+q+1\), gives
-\[
- \frac1{2\pi i}\int_{\mathcal H}e^{xt/2}t^{-\nu-q-1}\,dt
- =\Bigl(\frac x2\Bigr)^{\nu+q}\frac1{2\pi i}\int_{\mathcal H}e^{u}u^{-\nu-q-1}\,du
- =\frac{(x/2)^{\nu+q}}{\Gamma(\nu+q+1)}.
-\]
-\par\framebreak\par
-\textbf{Step 5: sum.} Multiply by the \(q\)-th coefficient \((-1)^q(x/2)^q/q!\) and add. The powers of
-\(x/2\) combine to \((x/2)^{\nu+2q}\):
-\[
- \mathcal J_\nu(x)
- =\sum_{q=0}^{\infty}\frac{(-1)^q(x/2)^q}{q!}\cdot\frac{(x/2)^{\nu+q}}{\Gamma(\nu+q+1)},
-\]
-that is,
-\begin{equation}
- \mathcal J_\nu(x)
- =\sum_{q=0}^{\infty}\frac{(-1)^q(x/2)^{\nu+2q}}{q!\,\Gamma(\nu+q+1)}
- =J_\nu(x),
- \label{eq:sommerfeld-series}
-\end{equation}
-which is exactly the general-order series \eqref{eq:series-gamma}.
-
-\textbf{Message.} For integer order, the loop integral extracted a Laurent coefficient. For noninteger
-order, the loop must be opened along the cut, and Hankel's \(1/\Gamma\) formula does the same job.
-\end{frame}
-
-\begin{frame}{Sommerfeld's form on the $z$-plane (optional)}
-\footnotesize
-\textbf{Why this form?} Writing $t=ie^{-iz}=e^{i(\pi/2-z)}$ turns the exponent into $ix\cos z$.
-With $x=kr$, $e^{ikr\cos z}$ is a plane wave travelling at angle $z$ to the observation
-direction, so the result writes $J_\nu$ as a superposition of plane waves over (complex)
-angles $z$. This is the form used in cylinder and wedge scattering; nothing later in this
-course depends on it.
-
-\textbf{The substitution.} In \eqref{eq:sommerfeld-t} put \(t=e^{i(\pi/2-z)}=i\,e^{-iz}\). Then
-\(t^{-1}=-i\,e^{iz}\), \(\log t=i(\pi/2-z)\), and \(dt=-i\,t\,dz\). So \(t-t^{-1}=i(e^{-iz}+e^{iz})=2i\cos z\), and
-\[
- \frac x2(t-t^{-1})=\frac{ix}2\bigl(e^{-iz}+e^{iz}\bigr)=ix\cos z,
- \qquad t^{-\nu-1}dt=t^{-\nu}\frac{dt}{t}=-i\,e^{i\nu(z-\pi/2)}\,dz.
-\]
-The Hankel contour $\mathcal H$ maps to \emph{Sommerfeld's contour} $C$, from
-$z=-\pi/2+i\infty$ down to the real axis and back up to $z=3\pi/2+i\infty$. On both
-vertical legs, $z=-\pi/2+iy$ or $3\pi/2+iy$, $\cos z=i\sinh y$, so
-$e^{ix\cos z}=e^{-x\sinh y}$ and the open ends converge for $x>0$. The map reverses the
-direction of travel (as $\arg t$ runs from $-\pi$ to $\pi$ along $\mathcal H$,
-$\mathrm{Re}\,z=\pi/2-\arg t$ runs from $3\pi/2$ to $-\pi/2$), which cancels the minus sign in $\frac1{2\pi i}(-i)=-\frac1{2\pi}$, leaving
-\begin{equation}
- J_\nu(x)=\frac1{2\pi}
- \int_C e^{\,i[x\cos z+\nu(z-\pi/2)]}\,dz,\qquad x>0.
- \label{eq:sommerfeld-z}
-\end{equation}
-\end{frame}
 
 % ======================================================================
 \section{Asymptotics}
@@ -552,129 +458,58 @@ with the order held fixed. The gamma notation agrees with the general-order seri
 axisymmetric ($m=0$) modes move the centre.
 \end{frame}
 
-\begin{frame}[allowframebreaks=1.00]{Large $x$: steepest descent on the Schl{\"a}fli contour}
+\begin{frame}[allowframebreaks=1.00]{Large $x$: Bessel functions become slowly decaying waves}
 \footnotesize
-\textbf{Where does the large-$x$ value come from?} On the unit circle $t=e^{i\theta}$ the
-exponent of \eqref{eq:schlafli} is $\frac x2(t-t^{-1})=ix\sin\theta$, so the integrand has
-modulus~$1$ and oscillates faster and faster as $x$ grows. The oscillations cancel,
-except near $\theta=\pm\pi/2$ ($t=\pm i$), where $\sin\theta$ is stationary. Steepest
-descent (Chapter~1, \S1.9) makes this precise: deform the loop so that the cancellation
-becomes exponential decay away from $t=\pm i$.
-
-\textbf{Goal.} Show that, for fixed integer $n$ and $x\to+\infty$,
-$J_n(x)\approx\sqrt{2/(\pi x)}\,\cos\bigl(x-\tfrac{n\pi}2-\tfrac\pi4\bigr)$, the formula
-\eqref{eq:largex} derived in this frame and the next.
-
-For fixed integer $n$, write \eqref{eq:schlafli} as
+\textbf{Goal.} Show that for fixed \(m\) and large \(x\), \(J_m\) behaves like a cosine wave whose amplitude
+decays like \(1/\sqrt x\):
 \[
- J_n(x)=\frac1{2\pi i}\oint_C h(t)e^{x f(t)}\,dt,
- \qquad
- f(t)=\frac12(t-t^{-1}),\quad h(t)=t^{-n-1},
+ J_m(x)\approx\sqrt{\frac{2}{\pi x}}\cos\Bigl(x-\frac{m\pi}{2}-\frac\pi4\Bigr).
 \]
-with $x\to+\infty$ as the large parameter.  The saddle points and the second derivative are
-\[
- f'(t)=\frac12(1+t^{-2})=0\ \Longrightarrow\ t_\pm=\pm i,
- \qquad
- f''(t)=-t^{-3}.
-\]
-Using $(\pm i)^{-1}=\mp i$, $(\pm i)^{-3}=\pm i$ (since $i^{-3}=i^{4}i^{-3}=i$) and
-$\pm i=e^{\pm i\pi/2}$, we get
-\begin{center}
-\begin{tabular}{c|c|c|c}
-$t_0$ & $f(t_0)$ & $f''(t_0)$ & $h(t_0)$ \\ \hline
-$i$ & $i$ & $-i$ & $e^{-i(n+1)\pi/2}$ \\
-$-i$ & $-i$ & $i$ & $e^{i(n+1)\pi/2}$
-\end{tabular}
-\end{center}
+\textbf{Idea.} For large \(x\) the term \(\frac1xy'\) in Bessel's equation is a small ``damping''. Remove it
+by a change of unknown; what remains is almost the oscillator \(u''+u=0\).
 
+\textbf{Step 1: substitute \(y=x^{-1/2}u\).} By the product rule,
+\[
+ y'=x^{-1/2}u'-\tfrac12x^{-3/2}u,\qquad
+ y''=x^{-1/2}u''-x^{-3/2}u'+\tfrac34x^{-5/2}u .
+\]
 \par\framebreak\par
-\textbf{Directions.} Since $f'(t_0)=0$, Taylor expansion gives $f(t)=f(t_0)+\tfrac12f''(t_0)(t-t_0)^2+O\bigl((t-t_0)^3\bigr)$.
-On the line $t=t_0+e^{i\alpha}u$ ($u$ real) the quadratic factor
-$\exp\bigl[\frac{x}{2}f''(t_0)e^{2i\alpha}u^2\bigr]$ decays fastest when $f''(t_0)e^{2i\alpha}$ is negative real:
-$f''(i)e^{2i(3\pi/4)}=(-i)(-i)=-1$ and $f''(-i)e^{2i(\pi/4)}=(i)(i)=-1$.
-This fixes each line only up to direction ($\alpha$ or $\alpha+\pi$), and the
-direction sets the sign of the result. The counterclockwise loop moves leftward at $t=i$
-and rightward at $t=-i$, so we travel along $\alpha=3\pi/4$ through $i$ and $\alpha=\pi/4$
-through $-i$ (arrows below).
-
-\textbf{The deformed loop} comes in from $-\infty-2i$, passes $-i$, touches $t=0$ from
-the right (where $e^{-x/(2t)}\to0$), passes $i$ and leaves toward $-\infty+2i$.
-On it $\mathrm{Re}\,f<0$ except at the saddles, where $\mathrm{Re}\,f(\pm i)=0$, so for
-large $x$ only small neighborhoods of $t=\pm i$ contribute.
-\begin{center}
- \includegraphics[height=0.34\textheight,width=0.86\linewidth,keepaspectratio]{figs/ch5_steepest_descent_paths.pdf}
-\end{center}
-\end{frame}
-
-\begin{frame}[allowframebreaks=1.00]{Large $x$: combining the two saddle contributions}
-\footnotesize
-\textbf{Contribution from $t=i$.}  Put $t=i+e^{3\pi i/4}u$ in the Taylor expansion of $f$ about $t_0$ from the steepest-descent frame.
-With $f(i)=i$ and $f''(i)=-i$ from the table,
-$\frac12f''(i)(e^{3\pi i/4}u)^2=\frac12(-i)e^{3\pi i/2}u^2=\frac12(-i)(-i)u^2=-\frac12u^2$.  Then
+\textbf{Step 2: insert into the normal form}
+\(y''+\frac1xy'+\bigl(1-\frac{m^2}{x^2}\bigr)y=0\) \eqref{eq:bessel-normal-form}. The middle term is
+\(\frac1xy'=x^{-3/2}u'-\frac12x^{-5/2}u\). Adding the three pieces:
+\begin{itemize}
+  \item \(u'\) terms: \(-x^{-3/2}u'+x^{-3/2}u'=0\) (the damping is gone);
+  \item \(x^{-5/2}u\) terms: \(\bigl(\frac34-\frac12\bigr)x^{-5/2}u=\frac14x^{-5/2}u\);
+  \item the rest: \(x^{-1/2}u''+\bigl(1-\frac{m^2}{x^2}\bigr)x^{-1/2}u\).
+\end{itemize}
+Multiply by \(x^{1/2}\) and collect the \(1/x^2\) terms:
 \[
- f(t)=i-\frac12u^2+O(u^3),\qquad
- h(t)=e^{-i(n+1)\pi/2}\bigl[1+O(u)\bigr],\qquad
- dt=e^{3\pi i/4}du.
+ u''+\Bigl(1-\frac{m^2-\frac14}{x^2}\Bigr)u=0 .
 \]
-Keeping the quadratic term and constant amplitude gives the contribution to the
-contour integral before the factor $1/(2\pi i)$:
-\begin{align*}
- I_i
- &\sim e^{ix}e^{-i(n+1)\pi/2}e^{3\pi i/4}
-       \int_{-\infty}^{\infty}e^{-xu^2/2}\,du\\
- &=\sqrt{\frac{2\pi}{x}}\,e^{i(x-n\pi/2+\pi/4)}
-  =\sqrt{\frac{2\pi}{x}}\,e^{i\pi/2}e^{i(x-n\pi/2-\pi/4)}\\
- &=i\sqrt{\frac{2\pi}{x}}
-   e^{i(x-n\pi/2-\pi/4)}.
-\end{align*}
-Here $\int_{-\infty}^{\infty}e^{-xu^2/2}\,du=\sqrt{2\pi/x}$.
-
-\textbf{Contribution from $t=-i$.}  With $t=-i+e^{\pi i/4}u$,
+\textbf{Step 3: large \(x\).} The term \((m^2-\frac14)/x^2\) tends to \(0\), so for large \(x\) the equation
+is \(u''+u\approx0\), with solutions \(u\approx A\cos(x-\varphi)\) for some amplitude \(A\) and phase \(\varphi\).
+Going back, \(y=x^{-1/2}u\):
 \[
- f(t)=-i-\frac12u^2+O(u^3),\qquad
- h(t)=e^{i(n+1)\pi/2}\bigl[1+O(u)\bigr],\qquad
- dt=e^{\pi i/4}du,
+ J_m(x)\approx\frac{A}{\sqrt x}\cos(x-\varphi).
 \]
-where $\frac12f''(-i)(e^{\pi i/4}u)^2=\frac12(i)(i)u^2=-\frac12u^2$ gives the
-quadratic term. With the same Gaussian integral,
-\begin{align*}
- I_{-i}
- &\sim e^{-ix}e^{i(n+1)\pi/2}e^{\pi i/4}
-       \int_{-\infty}^{\infty}e^{-xu^2/2}\,du\\
- &=i\sqrt{\frac{2\pi}{x}}
-   e^{-i(x-n\pi/2-\pi/4)},
-\end{align*}
-because the total phase is $-x+(n+1)\pi/2+\pi/4=-(x-n\pi/2-\pi/4)+\pi/2$ and
-$e^{i\pi/2}=i$.
-
-Set $\chi_n(x)=x-n\pi/2-\pi/4$.  Adding both saddle contributions and restoring
-the prefactor (both $I_{\pm i}$ carry the factor $i\sqrt{2\pi/x}$, and
-$i\sqrt{2\pi/x}/(2\pi i)=\sqrt{2\pi/x}/(2\pi)=1/\sqrt{2\pi x}$) gives
-\[
- J_n(x)
- =\frac{I_i+I_{-i}}{2\pi i}+O(x^{-3/2})
- =\frac{e^{i\chi_n(x)}+e^{-i\chi_n(x)}}{\sqrt{2\pi x}}
-  +O(x^{-3/2}).
-\]
-Since $e^{i\chi}+e^{-i\chi}=2\cos\chi$ and $2/\sqrt{2\pi x}=\sqrt{2/(\pi x)}$,
+\textbf{Step 4: the constants} (quoted). The equation alone cannot fix \(A\) and \(\varphi\), because they
+depend on which solution we follow from \(x=0\). Evaluating the integral representation
+\eqref{eq:int-rep} for large \(x\) gives \(A=\sqrt{2/\pi}\) and \(\varphi=\frac{m\pi}2+\frac\pi4\):
 \begin{equation}
- J_n(x)=\sqrt{\frac2{\pi x}}
-       \cos\left(x-\frac{n\pi}{2}-\frac\pi4\right)+O(x^{-3/2}),
- \qquad x\to+\infty,
+ J_m(x)=\sqrt{\frac2{\pi x}}
+       \cos\left(x-\frac{m\pi}{2}-\frac\pi4\right)+O(x^{-3/2}),
+ \qquad x\to+\infty .
  \label{eq:largex}
 \end{equation}
-for fixed integer $n$. The error is a factor $1/x$ below the leading term: the first
-neglected pieces, $O(u)$ in $h$ and $O(u^3)$ in $f$, are odd in $u$ and integrate to zero
-against the Gaussian.
+\par\framebreak\par
+\textbf{Physical reading.} With \(x=kr\), \(J_m(kr)\) is a standing cylindrical wave whose amplitude falls
+like \(1/\sqrt r\): the energy, proportional to amplitude\(^2\), is spread over a circle of length \(2\pi r\),
+and \((1/\sqrt r)^2\cdot2\pi r\) is constant.
 
-\textbf{Physical reading.} With $x=kr$, $J_n(kr)$ is a standing cylindrical wave whose
-amplitude falls like $1/\sqrt r$: the energy, proportional to amplitude$^2$, is spread
-over a circle of length $2\pi r$, and $(1/\sqrt r)^2\cdot2\pi r$ is constant.
-
-\textbf{Check.} The first zero of $\cos(x-\pi/4)$ is at $x-\pi/4=\pi/2$, i.e.\
-$x=3\pi/4\approx2.36$; the true first zero of $J_0$ is $2.405$. Even this early
-the formula is off by only about $2\%$.
+\textbf{Check.} The first zero of \(\cos(x-\pi/4)\) is at \(x-\pi/4=\pi/2\), i.e.\ \(x=3\pi/4\approx2.36\); the
+true first zero of \(J_0\) is \(2.405\). Even this early the formula is off by only about \(2\%\).
 \end{frame}
+
 
 % ======================================================================
 \section{Neumann functions}
@@ -1232,7 +1067,6 @@ and the contour form
   e^{\frac{x}{2}(t-t^{-1})}t^{-n-1}\,dt,
   \qquad n\in\mathbb Z.
 \]
-For noninteger $\nu$ the loop opens into the Hankel contour \eqref{eq:sommerfeld-t}.
 For fixed $m$,
 \begin{align*}
   J_m(x)

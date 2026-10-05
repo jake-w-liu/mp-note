@@ -474,67 +474,7 @@ $\D=\tfrac12CV^2$ with $V=1$ gives $C=2\pi/\log(b/a)$: the capacitance per unit 
 coaxial cable (units with permittivity $1$).
 \end{frame}
 
-\begin{frame}{Analytic coordinate changes: the gradient calculation}
-\small
-\textbf{Goal.} Show that Dirichlet energy does not change when the region is mapped by an
-analytic function, so that a hard region can be mapped onto a disk. This slide computes how the
-gradient changes; the next computes the area.
 
-Let $w=f(z)=X(x,y)+iY(x,y)$ map $\Omega$ one-to-one onto $\widetilde\Omega$,
-with $f$ analytic and $f'\ne0$. Such a map is \emph{conformal}.
-Write $f'=a+ib$. Since $f'=X_x+iY_x$ (Chapter 1), Cauchy--Riemann gives
-\[
- X_x=Y_y=a,\qquad Y_x=-X_y=b.
-\]
-For a field $U(X,Y)$, set $u(x,y)=U(X(x,y),Y(x,y))$.
-The ordinary chain rule yields
-\[
- \begin{aligned}
- u_x&=U_X X_x+U_Y Y_x=aU_X+bU_Y,\\
- u_y&=U_X X_y+U_Y Y_y=-bU_X+aU_Y.
- \end{aligned}
-\]
-Squaring and adding cancels the cross terms $\pm2abU_XU_Y$:
-\begin{equation}
- |\nabla u|^2=(a^2+b^2)(U_X^2+U_Y^2)
-             =|f'|^2|\nabla U|^2.\label{eq:conformal-gradient}
-\end{equation}
-Picture: near each point, $f$ rotates a tiny square and stretches it by $|f'|$. The same
-change of $U$ is spread over a side $|f'|$ times longer, so $|\nabla U|^2=|\nabla u|^2/|f'|^2$,
-while the area is $|f'|^2$ times larger. The next slide checks that the two cancel.
-\end{frame}
-
-\begin{frame}{Why planar Dirichlet energy is conformally invariant}
-\small
-The area scale is the determinant
-\[
- \frac{\partial(X,Y)}{\partial(x,y)}
- =\begin{vmatrix}X_x&X_y\\ Y_x&Y_y\end{vmatrix}
- =\begin{vmatrix}a&-b\\ b&a\end{vmatrix}=a^2+b^2=|f'|^2.
-\]
-Thus $\dd A_w=|f'|^2\dd A_z$. Writing $\D_\Omega$ for the energy \eqref{eq:dirichlet-energy}
-over $\Omega$, \eqref{eq:conformal-gradient} gives
-\begin{equation}
- \D_\Omega[U\circ f]
- =\frac12\iint_\Omega|f'|^2|\nabla U|^2\dd A_z
- =\frac12\iint_{\widetilde\Omega}|\nabla U|^2\dd A_w.
- \label{eq:conformal-energy}
-\end{equation}
-Every competitor on $\Omega$ is some $U\circ f$, so minimizers correspond: if $U$ minimizes
-the energy on $\widetilde\Omega$, then $U\circ f$ does on $\Omega$ for the matching boundary data.
-\textbf{Use:} map a region onto the unit disk, solve there by \eqref{eq:disk-harmonic}, pull back.
-
-\medskip
-\textbf{What does not carry over:} the squared size.
-Using $u(z)=U(w)$ and $\dd A_z=\dd A_w/|f'(z)|^2$ with $z=f^{-1}(w)$:
-\[
- \iint_\Omega u^2\dd A_z
- =\iint_{\widetilde\Omega}
-   \frac{U(w)^2}{|f'(f^{-1}(w))|^2}\dd A_w.
-\]
-So a normalized eigenvalue problem, the subject of the next section, cannot be moved by a
-conformal map without also changing its weight.
-\end{frame}
 
 % ======================================================================
 \section{Normalization and Sturm--Liouville modes}

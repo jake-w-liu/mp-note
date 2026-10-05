@@ -21,13 +21,7 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{frametitle continuation}[from second]
 
-\AtBeginSection[]
-{
- \begin{frame}<beamer>
- \frametitle{Table of contents}
- \tableofcontents[currentsection]
- \end{frame}
-}
+% Per-section TOC frames removed to keep the deck within 60 slides.
 
 \usepackage{Kyushu}
 
@@ -68,10 +62,9 @@ for sines in Chapter~4.
         Fourier--Legendre expansions; then associated Legendre functions and spherical
         harmonics $Y_n^m$.
   \item \textbf{Hermite $H_n$.} The Hermite equation and series solution, quantum harmonic
-        oscillator motivation, generating function, Rodrigues formula, and weighted
-        orthogonality.
+        oscillator motivation, generating function, and weighted orthogonality.
   \item \textbf{Laguerre $L_n$ and Chebyshev $T_n$.} Defining ODEs, first polynomials,
-        weights and orthogonality, recurrences, and useful formula sheets.
+        weights and orthogonality, and useful formula sheets.
 \end{itemize}
 A comparison table at the end collects interval, weight, and ODE for each family.
 \end{frame}
@@ -303,29 +296,10 @@ degree $n$. We quote the standard endpoint result: for any other $\lambda$ no no
 solution is finite at both poles, and for $\lambda=n(n+1)$ the other chain diverges at a pole,
 so the finite solutions are the multiples of this polynomial.
 
-\emph{Why the other chain must be discarded.} Take $\lambda=2=1\cdot2$ ($n=1$). The odd
-chain stops at once and gives $v=x$. The \emph{even} chain with $a_0=1$ gives
-\[
-  a_2=-\frac{2-0}{2\cdot1}=-1,\qquad
-  a_4=-\frac{2-6}{4\cdot3}(-1)=-\frac13,\qquad
-  a_6=-\frac{2-20}{6\cdot5}\left(-\frac13\right)=-\frac15,
-\]
-and in general \(a_{2k}=-1/(2k-1)\). (Check: by \eqref{eq:legendre-coeff-recurrence-lambda} with \(\lambda=2\), \(j=2k\), the
-ratio is \(a_{2k+2}/a_{2k}=[2k(2k+1)-2]/[(2k+2)(2k+1)]\). The numerator factors as
-\(4k^2+2k-2=2(2k-1)(k+1)\) and the denominator as \(2(k+1)(2k+1)\), so the ratio is
-\(\frac{2k-1}{2k+1}\), which is exactly the ratio of \(-\frac1{2k+1}\) to \(-\frac1{2k-1}\).) So
-\[
-  v(x)=1-x^2-\frac{x^4}{3}-\frac{x^6}{5}-\cdots=1-x\Bigl(x+\frac{x^3}{3}+\frac{x^5}{5}+\cdots\Bigr).
-\]
-The bracket is a known series: from \(\log(1\pm x)=\pm x-\frac{x^2}2\pm\frac{x^3}{3}-\cdots\), subtracting gives
-\(\log(1+x)-\log(1-x)=2\bigl(x+\frac{x^3}{3}+\frac{x^5}{5}+\cdots\bigr)\). Hence
-\[
-  v(x)=1-\frac{x}{2}\log\frac{1+x}{1-x}.
-\]
-It is finite inside \((-1,1)\), yet \(v(x)\to-\infty\) as \(x\to1^-\) (because \(\log\frac{1+x}{1-x}\to\infty\)): it blows
-up at the north pole, so it is useless on the sphere.
-As quoted, the same happens for every $n$, so we set the starting coefficient of the
-opposite-parity chain to zero.
+\emph{Example of a discarded chain.} For \(\lambda=2\) (\(n=1\)) the odd chain stops at once and gives
+\(v=x\). The even chain never stops; its coefficients are \(a_{2k}=-1/(2k-1)\), and its sum is
+\(v=1-\frac x2\log\frac{1+x}{1-x}\), which tends to \(-\infty\) as \(x\to1^-\): it blows up at the north pole.
+So we set the starting coefficient of the opposite-parity chain to zero.
 
 With $\lambda=n(n+1)$, equations \eqref{eq:legendre-eq-lambda}--\eqref{eq:legendre-eq-expanded-lambda}
 become the ordinary Legendre equation
@@ -587,17 +561,6 @@ and $\frac{d^n}{dx^n}x^n=n!$ cancels one factor of $n!$:
 The zeros of order $n$ in $(x^2-1)^n$ at $x=\pm1$ also make the boundary terms
 vanish when we integrate by parts up to $n$ times. These are the two facts the norm uses.
 
-\textbf{Contour form (Schl\"afli).} Cauchy's derivative formula from Chapter~1,
-$f^{(n)}(x)=\dfrac{n!}{2\pi i}\oint_C\dfrac{f(t)}{(t-x)^{n+1}}\,dt$, applied to
-$f(t)=(t^2-1)^n$ in \eqref{eq:rodrigues-legendre} (the $n!$ cancels and
-$2^n\cdot2\pi i=2^{n+1}\pi i$), also writes Rodrigues' formula as
-\begin{equation}
- P_n(x)=\frac1{2^{n+1}\pi i}\oint_C\frac{(t^2-1)^n}{(t-x)^{n+1}}\,dt,
- \label{eq:schlafli-legendre}
-\end{equation}
-where $C$ is a simple counterclockwise contour enclosing $x$. The norm below uses the
-derivative form; for Laguerre (later) the same Cauchy formula, read from contour to
-derivative, gives Rodrigues' formula.
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Orthogonality and norm of Legendre polynomials}
@@ -747,17 +710,13 @@ orthogonality
   & $\displaystyle\int_{-1}^{1}P_m(x)P_n(x)\,dx
        = \frac{2}{2n+1}\,\delta_{nm}$ \\
 Rodrigues
-  & $P_n(x)=\dfrac{1}{2^n n!}\dfrac{d^n}{dx^n}(x^2-1)^n$ \\
-Schl\"afli
-  & $P_n(x)=\dfrac{1}{2^{n+1}\pi i}
-       \displaystyle\oint\frac{(t^2-1)^n}{(t-x)^{n+1}}\,dt$
-       \quad \eqref{eq:schlafli-legendre}
+  & $P_n(x)=\dfrac{1}{2^n n!}\dfrac{d^n}{dx^n}(x^2-1)^n$
 \end{tabular}
 \end{center}
 \vspace{0.2em}
 {\scriptsize The finite sum follows by expanding Rodrigues' formula;
 $\lfloor n/2\rfloor$ means the greatest integer no larger than $n/2$.
-Generating series: $|t|<1$ for $x\in[-1,1]$. The contour encloses $t=x$.}
+Generating series: $|t|<1$ for $x\in[-1,1]$.}
 \end{frame}
 
 % ======================================================================
@@ -814,58 +773,25 @@ poles, as it must: there $\phi$ is undefined, so a mode carrying $e^{im\phi}$ ($
 single-valued only if it is zero there. The sign $(-1)^m$ is a convention
 (Condon--Shortley phase); some texts omit it.
 
-\par\framebreak\par
-\textbf{Why it solves \eqref{eq:assoc-legendre-expanded}: two steps.}
+That \eqref{eq:associated-legendre-definition} solves \eqref{eq:assoc-legendre-expanded} for every \(n\) and
+\(0\le m\le n\) follows by differentiating the Legendre equation \(m\) times (we accept this step and
+check one example below).
 
-\emph{Step 1: differentiate the Legendre equation \(m\) times.} Start from
-\((1-x^2)P_n''-2xP_n'+n(n+1)P_n=0\) and apply \(\frac{d^m}{dx^m}\) to each term, using the Leibniz rule
-\((fg)^{(m)}=\sum_i\binom mi f^{(i)}g^{(m-i)}\). Since \(1-x^2\) has only two nonzero derivatives (\(-2x\) and \(-2\)), and
-\(-2x\) only one (\(-2\)):
-\begin{align*}
- \tfrac{d^m}{dx^m}\bigl[(1-x^2)P_n''\bigr]&=(1-x^2)P_n^{(m+2)}+m(-2x)P_n^{(m+1)}+\tbinom m2(-2)P_n^{(m)},\\
- \tfrac{d^m}{dx^m}\bigl[-2xP_n'\bigr]&=-2xP_n^{(m+1)}+m(-2)P_n^{(m)} .
-\end{align*}
-Write \(u=P_n^{(m)}\) and add, with \(n(n+1)u\). The \(u\) terms combine as
-\(n(n+1)-m(m-1)-2m=n(n+1)-m(m+1)\):
-\[
- (1-x^2)u''-2(m+1)xu'+\bigl[n(n+1)-m(m+1)\bigr]u=0 .
-\]
-\par\framebreak\par
-\emph{Step 2: change the unknown.} Put \(u=(1-x^2)^{-m/2}v\), that is, \(v=(1-x^2)^{m/2}P_n^{(m)}\) (up to the sign
-\((-1)^m\), this is \(P_n^m\)). By the product rule,
-\[
- (1-x^2)^{m/2}u'=v'+\frac{mx\,v}{1-x^2},\qquad
- (1-x^2)^{m/2}u''=v''+\frac{2mx\,v'}{1-x^2}+\frac{m+m(m+1)x^2}{(1-x^2)^2}\,v .
-\]
-Multiply the equation of Step~1 by \((1-x^2)^{m/2}\) and insert these:
-\begin{align*}
- &(1-x^2)v''+2mxv'+\frac{m+m(m+1)x^2}{1-x^2}v\\
- &\quad-2(m+1)xv'-\frac{2m(m+1)x^2}{1-x^2}v+\bigl[n(n+1)-m(m+1)\bigr]v=0 .
-\end{align*}
-\par\framebreak\par
-\emph{Collect the terms.}
-\begin{itemize}
-  \item \(v'\): \(2mx-2(m+1)x=-2x\).
-  \item \(v\): put everything over \(1-x^2\), writing \(m(m+1)=\frac{m(m+1)(1-x^2)}{1-x^2}\):
-        \[
-         \frac{m+m(m+1)x^2-2m(m+1)x^2-m(m+1)(1-x^2)}{1-x^2}+n(n+1).
-        \]
-        In the numerator the \(x^2\) terms cancel (\(m(m+1)-2m(m+1)+m(m+1)=0\)), leaving
-        \(m-m(m+1)=-m^2\). So the \(v\) coefficient is \(n(n+1)-\frac{m^2}{1-x^2}\).
-\end{itemize}
-So \((1-x^2)v''-2xv'+\bigl[n(n+1)-\frac{m^2}{1-x^2}\bigr]v=0\), which is exactly \eqref{eq:assoc-legendre-expanded}.
-
-For example, $P_1=x$ and $P_2=(3x^2-1)/2$ give
+\textbf{Examples.} $P_1=x$ and $P_2=(3x^2-1)/2$ give
 \[
  P_1^1=-\sqrt{1-x^2},\qquad
  P_2^1=-3x\sqrt{1-x^2},\qquad
  P_2^2=(1-x^2)\frac{d^2}{dx^2}\frac{3x^2-1}{2}=3(1-x^2).
 \]
-(Check $v=P_1^1$: $v'=x/\sqrt{1-x^2}$, $v''=(1-x^2)^{-3/2}$, and the left side of
-\eqref{eq:assoc-legendre-expanded} reduces to $0$.)
+\textbf{Check \(v=P_1^1=-\sqrt{1-x^2}\)} in \eqref{eq:assoc-legendre-expanded} with \(n=m=1\):
+\(v'=x(1-x^2)^{-1/2}\) and \(v''=(1-x^2)^{-1/2}+x^2(1-x^2)^{-3/2}=(1-x^2)^{-3/2}\). Then
+\[
+ (1-x^2)v''-2xv'=\frac{1-2x^2}{\sqrt{1-x^2}},\qquad
+ \Bigl[2-\frac1{1-x^2}\Bigr]v=-\frac{2(1-x^2)-1}{\sqrt{1-x^2}}=-\frac{1-2x^2}{\sqrt{1-x^2}},
+\]
+and the two parts add to \(0\). \checkmark
 For $m=0$ the construction returns $P_n$; for $m>n$ the derivative is zero, matching $n\ge|m|$.
 
-\par\framebreak\par
 \textbf{Spherical harmonics: name the angular modes.}
 An unnormalized angular basis is
 \[
@@ -873,8 +799,7 @@ An unnormalized angular basis is
     =P_n^{|m|}(\cos\theta)\,e^{im\phi},
   \qquad -n\le m\le n.
 \]
-The normalized spherical harmonics $Y_n^m$ differ from it by a constant and a fixed phase;
-many texts write $\ell$ for the degree ($Y_{\ell m}$).
+The normalized spherical harmonics $Y_n^m$ differ from it by a constant and a fixed phase.
 Combining the radial factors \eqref{eq:spherical-radial-powers} (keep $r^n$, regular at the origin)
 with these angular factors, the regular interior expansion is
 \begin{equation}
@@ -885,9 +810,6 @@ with these angular factors, the regular interior expansion is
 \end{equation}
 and the decaying exterior expansion uses $r^{-n-1}$ instead of $r^n$. There the $n=0,1,2$
 terms are the monopole, dipole and quadrupole parts of the field.
-
-(On a cone $\theta<\theta_0$ only $x=1$ must be regular, and non-integer degrees $\nu$ appear:
-the Legendre functions $P_\nu$, quoted.)
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Spherical-harmonic nodal patterns}
@@ -1099,7 +1021,7 @@ decays like a Gaussian outside it.
 
 \end{frame}
 
-\begin{frame}[allowframebreaks=1.00]{Generating function, norm, and Rodrigues}
+\begin{frame}[allowframebreaks=1.00]{Generating function and norm}
 \footnotesize
 
 \textbf{Step 1: generating function from the series.}  As for Legendre, a generating
@@ -1133,63 +1055,7 @@ the sum multiplying $1/n!$ is exactly $H_n(x)$, so $[t^n]g=H_n(x)/n!$.  Therefor
   \label{eq:hermite-gen}
 \end{equation}
 
-\textbf{Step 2: Rodrigues from $g=e^{x^2}e^{-(x-t)^2}$.}
-Rewrite the exponent:
-\[
-  2xt-t^2=x^2-(x-t)^2,
-  \qquad
-  g(x,t)=e^{x^2}\,e^{-(x-t)^2}.
-\]
-We need the Taylor coefficients of $e^{-(x-t)^2}$ in $t$ at $t=0$. It depends on $x,t$ only
-through $x-t$, so the chain rule gives
-$\partial_t e^{-(x-t)^2}=2(x-t)e^{-(x-t)^2}=-\partial_x e^{-(x-t)^2}$; every derivative is again
-a function of $x-t$, so $\partial/\partial t=-\partial/\partial x$ can be applied $n$ times:
-\[
-  \left.\frac{\partial^n}{\partial t^n}e^{-(x-t)^2}\right|_{t=0}
-  =(-1)^n\frac{d^n}{dx^n}e^{-x^2}
-  \quad\Longrightarrow\quad
-  g(x,t)
-  =\sum_{n=0}^{\infty}
-    \Biggl[(-1)^ne^{x^2}\frac{d^n}{dx^n}e^{-x^2}\Biggr]
-    \frac{t^n}{n!}.
-\]
-Matching coefficients with \eqref{eq:hermite-gen} gives Rodrigues' formula
-\begin{equation}
-  H_n(x)=(-1)^n e^{x^2}\frac{d^n}{dx^n}e^{-x^2}.
-  \label{eq:hermite-rodrigues}
-\end{equation}
-
-\textbf{Step 3: recurrences from $\partial_t g$ and $\partial_x g$.}
-Differentiate the closed form:
-\[
-  \frac{\partial g}{\partial t}=(2x-2t)g,
-  \qquad
-  \frac{\partial g}{\partial x}=2tg.
-\]
-Using the series \eqref{eq:hermite-gen},
-\[
- \partial_tg=\sum_{n=1}^\infty H_n\frac{t^{n-1}}{(n-1)!}
-            =\sum_{n=0}^\infty H_{n+1}\frac{t^n}{n!}.
-\]
-Multiplication by $t$ shifts the index in the other term:
-\[
- 2tg=\sum_{n=1}^\infty 2H_{n-1}\frac{t^n}{(n-1)!}
-    =\sum_{n=1}^\infty 2nH_{n-1}\frac{t^n}{n!},
-\]
-where $1/(n-1)!=n/n!$. Thus the coefficient of $t^n/n!$ in $(2x-2t)g$ is
-$2xH_n-2nH_{n-1}$. Comparing with $\partial_tg$ gives, for $n\ge1$,
-\begin{equation}
-  H_{n+1}(x)=2xH_n(x)-2nH_{n-1}(x).
-  \label{eq:hermite-three-term}
-\end{equation}
-Likewise, $\partial_xg=2tg$ with the same power shift reads
-$\sum_{n\ge0} H_n'\,t^n/n!=\sum_{n\ge1} 2nH_{n-1}\,t^n/n!$; comparing coefficients gives
-\begin{equation}
- H_n'(x)=2nH_{n-1}(x),\qquad n\ge1.
- \label{eq:hermite-deriv-rec}
-\end{equation}
-\par\framebreak\par
-\textbf{Step 4: norm via the double generating function.}
+\textbf{Step 2: norm via the double generating function.}
 Idea: the product $g(x,s)g(x,t)$ contains every $H_mH_n$, as the coefficient of
 $s^mt^n/(m!\,n!)$, so one Gaussian integral of the product computes the whole table of
 integrals $\int H_mH_ne^{-x^2}dx$ at once. For real $s,t$ near $0$,
@@ -1247,17 +1113,12 @@ series solution
        (-1)^k(2x)^{n-2k}\,\frac{n!}{k!\,(n-2k)!}$ \\
 generating function
   & $e^{-t^2+2tx} = \displaystyle\sum_{n=0}^{\infty}H_n(x)\,\frac{t^n}{n!}$ \\
-recurrence
-  & $H_n' = 2n\,H_{n-1}$,\quad
-    $H_{n+1} = 2x\,H_n - 2n\,H_{n-1}$ \\
 orthogonality
   & $\displaystyle\int_{-\infty}^{\infty}H_mH_n\,e^{-x^2}dx
-       = n!\,2^n\sqrt{\pi}\,\delta_{mn}$ \\
-Rodrigues
-  & $H_n(x)=(-1)^ne^{x^2}\dfrac{d^n}{dx^n}e^{-x^2}$
+       = n!\,2^n\sqrt{\pi}\,\delta_{mn}$
 \end{tabular}
 \end{center}
-Here $n\ge0$; the displayed recurrences use $n\ge1$, with $H_0=1$, $H_1=2x$.
+Here $n\ge0$, with $H_0=1$, $H_1=2x$.
 \end{frame}
 
 % ======================================================================
@@ -1339,140 +1200,20 @@ and as $x\to\infty$ because $e^{-x}$ beats any polynomial. Hence, for $n\ne m$,
   \label{eq:laguerre-ortho}
 \end{equation}
 
-\textbf{Step 3: generating function and the norm.}
-To compute $\int_0^\infty L_n^2e^{-x}\,dx$ we use, as for Hermite, a generating function:
-\begin{equation}
-  g(x,t)
-  :=\frac{1}{1-t}\exp\left(-\frac{xt}{1-t}\right)
-  =\sum_{n=0}^{\infty}L_n(x)\,t^n,
-  \qquad |t|<1.
-  \label{eq:laguerre-gen}
-\end{equation}
-To check the second equality, expand the exponential and multiply each term
-$\frac{1}{k!}\bigl(\frac{-xt}{1-t}\bigr)^k$ by $\frac1{1-t}$:
-$g=\sum_{k\ge0}\frac{(-x)^k}{k!}\,\frac{t^{k}}{(1-t)^{k+1}}$.
-Differentiating the geometric series $(1-t)^{-1}=\sum_{i\ge0}t^i$ $k$ times and dividing by $k!$ gives
-$(1-t)^{-(k+1)}=\sum_{j\ge0}\binom{k+j}{k}t^j$.
-So $t^{n}$ comes from $j=n-k$, $0\le k\le n$, with factor $\binom{n}{k}$, and
-$[t^n]\,g=\sum_{k=0}^{n}\frac{(-x)^k}{k!}\binom{n}{k}=L_n(x)$ by \eqref{eq:laguerre-series}.
-
-Now integrate two generating functions against the weight.
-For real $s,t$ near zero, put
+\textbf{Step 3: the norm.} For \(n=m\) the integral is \(1\) (quoted; it follows from the generating
+function in the table below). \textbf{Check} \(n=1\), using \(\int_0^\infty x^ke^{-x}dx=\Gamma(k+1)=k!\)
+(Chapter~2):
 \[
- \alpha=1+\frac{s}{1-s}+\frac{t}{1-t}=\frac{1}{1-s}+\frac{t}{1-t}
- =\frac{(1-t)+t(1-s)}{(1-s)(1-t)}=\frac{1-st}{(1-s)(1-t)}>0.
+ \int_0^\infty(1-x)^2e^{-x}\,dx=\int_0^\infty(1-2x+x^2)e^{-x}\,dx=1-2\cdot1!+2!=1 .
 \]
-In the closed forms, the exponents of $e^{-x}$, $g(x,s)$, $g(x,t)$ add to $-\alpha x$, and
-$\int_0^\infty e^{-\alpha x}\,dx=1/\alpha$. Integrating the series term by term on the left,
-\begin{align*}
- \sum_{m,n\ge0}\Bigl(\int_0^{\infty}L_mL_ne^{-x}\,dx\Bigr)s^m t^n
- &=\int_0^\infty e^{-x}g(x,s)g(x,t)\,dx\\
- &=\frac1{(1-s)(1-t)\alpha}=\frac1{1-st}=\sum_{n=0}^{\infty}s^n t^n.
-\end{align*}
-Equating coefficients of $s^m t^n$ gives $0$ for $m\ne n$ (again \eqref{eq:laguerre-ortho}) and $1$ for $m=n$,
-so the standard $L_n$ are already orthonormal (no normalizing constant is needed):
+So the standard \(L_n\) are already orthonormal:
 \begin{equation}
-  \int_0^{\infty}L_m(x)L_n(x)e^{-x}\,dx=\delta_{mn}.
+  \int_{0}^{\infty}L_m(x)L_n(x)e^{-x}\,dx=\delta_{mn}.
   \label{eq:laguerre-norm}
 \end{equation}
 \end{frame}
 
-\begin{frame}[allowframebreaks=1.00]{Laguerre recurrences}
-\footnotesize
 
-\textbf{Goal.} Two recurrences for the Laguerre polynomials,
-$(n+1)L_{n+1}=(2n+1-x)L_n-nL_{n-1}$ and $xL_n'=n(L_n-L_{n-1})$, both from the generating function
-\eqref{eq:laguerre-gen}.
-
-\textbf{Step 4: three-term recurrence from $\partial_t g$.}
-A recurrence builds $L_{n+1}$ from $L_n$ and $L_{n-1}$ without the series.
-From \eqref{eq:laguerre-gen}, the product and chain rules with
-$\frac{d}{dt}\frac{1}{1-t}=\frac{d}{dt}\frac{t}{1-t}=\frac{1}{(1-t)^2}$ give
-\[
-  \frac{\partial g}{\partial t}
-  =\frac{e^{-xt/(1-t)}}{(1-t)^2}-\frac{x\,e^{-xt/(1-t)}}{(1-t)^3}
-  =g\cdot\frac{1-t-x}{(1-t)^2},
-\]
-or equivalently
-\begin{equation}
-  (1-t)^2\,\partial_t g=(1-t-x)\,g.
-  \label{eq:laguerre-gen-dt}
-\end{equation}
-Expand both sides in powers of $t$, using $g=\sum_{n\ge0}L_n t^n$ and
-$\partial_t g=\sum_{n\ge0}(n+1)L_{n+1}t^n$. On the left, multiplying by $t$ or $t^2$ shifts
-the index down by one or two, so the pieces $1$, $-2t$, $t^2$ of $(1-t)^2$ contribute
-$(n+1)L_{n+1}$, $-2nL_n$, $(n-1)L_{n-1}$ to $t^n$ (with $L_{-1}:=0$). On the right,
-$(1-x)g$ gives $(1-x)L_n$ and $-tg$ gives $-L_{n-1}$. Equating,
-\[
-  (n+1)L_{n+1}-2nL_n+(n-1)L_{n-1}=(1-x)L_n-L_{n-1};
-\]
-moving $-2nL_n$ and $(n-1)L_{n-1}$ to the right, and using $(n-1)+1=n$, yields
-\begin{equation}
-  (n+1)L_{n+1}(x)
-    =(2n+1-x)L_n(x)-nL_{n-1}(x).
-  \label{eq:laguerre-three-term}
-\end{equation}
-Check at $n=1$: $2L_2=(3-x)L_1-L_0$ reads
-$2-4x+x^2=(3-x)(1-x)-1$, which holds identically.
-
-\textbf{Step 5: derivative recurrence.}
-A second identity gives $L_n'$ without differentiating the series. Differentiating the
-exponent of \eqref{eq:laguerre-gen} in $x$ gives $xg_x=-\frac{xt}{1-t}\,g$, while
-\eqref{eq:laguerre-gen-dt} gives
-\[
- t(1-t)g_t=tg\,\frac{1-t-x}{1-t}=tg-\frac{xt}{1-t}\,g=tg+xg_x .
-\]
-Thus $xg_x=tg_t-t^2g_t-tg$. Reading off $t^n$, where $tg_t\to nL_n$, $t^2g_t\to(n-1)L_{n-1}$,
-$tg\to L_{n-1}$, gives, for $n\ge1$,
-\begin{equation}
- xL_n'(x)=nL_n-(n-1)L_{n-1}-L_{n-1}=n\bigl[L_n(x)-L_{n-1}(x)\bigr].
- \label{eq:laguerre-derivative-recurrence}
-\end{equation}
-Check at $n=1$: $xL_1'=-x=1\cdot(L_1-L_0)$.
-\end{frame}
-
-\begin{frame}[allowframebreaks=1.00]{Laguerre Rodrigues formula from a contour integral}
-\footnotesize
-
-\textbf{Goal.} Derive Rodrigues' formula $L_n(x)=\frac{e^x}{n!}\frac{d^n}{dx^n}(x^ne^{-x})$,
-which builds any single $L_n$ directly.
-
-\textbf{Step 6: Schl{\"a}fli integral and Rodrigues formula.}
-The $L_n$ are Taylor coefficients of $g$; Cauchy's formula writes them as contour
-integrals, and a change of variable turns the integral into an $n$-th derivative, as for
-Legendre in \eqref{eq:schlafli-legendre}. By Chapter~1, the coefficients of
-$F(z)=\sum_{n\ge0}a_nz^n$ ($|z|<1$) are $a_n=\frac{1}{2\pi i}\oint_{|z|=\rho}F(z)\,z^{-n-1}\,dz$, $\rho<1$.
-With $F(z)=g(x,z)$,
-\begin{equation}
- L_n(x)=\frac{1}{2\pi i}\oint_{|z|=\rho}
- \frac{e^{-xz/(1-z)}}{(1-z)z^{n+1}}\,dz.
- \label{eq:laguerre-schlafli}
-\end{equation}
-For $x\ne0$, set $z=1-x/s$, i.e.\ $s=x/(1-z)$.  Then
-\[
- 1-z=\frac{x}{s},\qquad dz=\frac{x}{s^2}\,ds,\qquad
- -\frac{xz}{1-z}=x-s,\qquad z^{n+1}=\frac{(s-x)^{n+1}}{s^{n+1}},
-\]
-and the small circle around $z=0$ becomes a small counterclockwise loop around $s=x$
-(since $s\approx x(1+z)$ for small $z$). Substituting into \eqref{eq:laguerre-schlafli},
-\[
- L_n(x)=\frac{1}{2\pi i}\oint
- e^{x-s}\cdot\frac{s}{x}\cdot\frac{s^{n+1}}{(s-x)^{n+1}}\cdot\frac{x}{s^2}\,ds
- =\frac{e^x}{2\pi i}\oint
- \frac{s^ne^{-s}}{(s-x)^{n+1}}\,ds.
-\]
-Cauchy's derivative formula from Chapter~1,
-$\frac{1}{2\pi i}\oint\frac{f(s)}{(s-x)^{n+1}}\,ds=\frac{f^{(n)}(x)}{n!}$ with $f(s)=s^ne^{-s}$,
-now yields Rodrigues' formula (at $x=0$ by continuity):
-\begin{equation}
- L_n(x)=\frac{e^x}{n!}\frac{d^n}{dx^n}\bigl(x^ne^{-x}\bigr).
- \label{eq:laguerre-rodrigues}
-\end{equation}
-\textbf{Example ($n=2$).} Two product-rule steps give
-$\frac{d}{dx}(x^2e^{-x})=(2x-x^2)e^{-x}$ and
-$\frac{d^2}{dx^2}(x^2e^{-x})=(2-4x+x^2)e^{-x}$, so
-$L_2=\frac12(2-4x+x^2)=1-2x+\frac12x^2$, matching \eqref{eq:laguerre-series}.
-\end{frame}
 
 \begin{frame}{Shapes of the first Laguerre polynomials}
 \footnotesize
@@ -1497,13 +1238,8 @@ series / first polynomials
 generating function
   & $\dfrac{1}{1-t}\exp\left(-\dfrac{xt}{1-t}\right)
        =\displaystyle\sum_{n=0}^{\infty}L_n(x)t^n$ \\
-recurrence
-  & $(n+1)L_{n+1}=(2n+1-x)L_n-nL_{n-1}$ \\
-  & $xL_n'=n(L_n-L_{n-1})$ \\
 orthonormality
-  & $\displaystyle\int_0^{\infty}L_mL_n\,e^{-x}\,dx=\delta_{mn}$ \\
-Rodrigues
-  & $L_n=\dfrac{e^x}{n!}\dfrac{d^n}{dx^n}(x^ne^{-x})$
+  & $\displaystyle\int_0^{\infty}L_mL_n\,e^{-x}\,dx=\delta_{mn}$
 \end{tabular}
 \end{center}
 {\scriptsize Generating series requires $|t|<1$.}
@@ -1597,14 +1333,8 @@ $T_n(\cos\theta)=\cos(n\theta)$ keeps every $T_n$ between $-1$ and $1$ on $[-1,1
   \qquad k=1,\ldots,n.
   \label{eq:cheby-nodes}
 \end{equation}
-The angles are equally spaced, but $x=\cos\theta$ crowds the nodes near $\pm1$.
-This is what interpolation needs: the error of the polynomial through $n$ nodes contains
-the factor $\prod_k(x-x_k)$ (quoted), which for these nodes equals $T_n(x)/2^{n-1}$ (same zeros and
-leading coefficient), so it never exceeds $2^{1-n}$ and ripples evenly.  For equally spaced
-nodes this factor is largest near $\pm1$, where the interpolant can blow up (Runge's phenomenon, e.g.\ for $1/(1+25x^2)$).
-\begin{center}
-  \includegraphics[width=0.72\linewidth]{figs/chebyshev-nodes.pdf}
-\end{center}
+The angles are equally spaced, but $x=\cos\theta$ crowds the nodes near $\pm1$. These nodes are
+the best interpolation points for polynomials on $[-1,1]$ (quoted).
 
 \textbf{Orthogonality.}
 We want the weight that turns $\int T_nT_m\,w\,dx$ into cosine orthogonality.  Since
@@ -1715,11 +1445,11 @@ Chebyshev $T_n$
  $P_n$: axisymmetric Laplace / multipoles;
 $H_n$: quantum harmonic oscillator;
 $L_n$: its generalized family occurs in the hydrogen radial equation;
-$T_n$: $\cos n\theta$ and stable interpolation.
+$T_n$: $\cos n\theta$ written as a polynomial.
 }
 
 \vspace{0.4em}
-Each family has a Sturm--Liouville ODE, a recurrence, and orthogonality on its own interval
+Each family has a Sturm--Liouville ODE and orthogonality on its own interval
 and weight, so each supports series expansions just as Fourier series use $e^{inx}$.
 \end{frame}
 

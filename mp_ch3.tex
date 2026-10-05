@@ -22,13 +22,7 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{frametitle continuation}[from second]
 
-\AtBeginSection[]
-{
- \begin{frame}<beamer>
- \frametitle{Table of contents}
- \tableofcontents[currentsection]
- \end{frame}
-}
+% Per-section TOC frames removed to keep the deck within 60 slides.
 
 \usepackage{Kyushu}
 
@@ -489,8 +483,8 @@ using \((m+1)!=(m+1)\,m!\). Factoring out the \(j=0\) term, for fixed \(m\),
 \]
 So \(J_0(0)=1\), while for \(m\ge1\), \(J_m\) vanishes at the center like \(x^m\).
 
-\textbf{Far from the center (large \(x\)).} For fixed \(m\) and large positive \(x\) (derived in
-Chapter~5 by steepest descent),
+\textbf{Far from the center (large \(x\)).} For fixed \(m\) and large positive \(x\) (Chapter~5 explains
+where it comes from),
 \[
   J_m(x)\approx\sqrt{\frac{2}{\pi x}}\;
   \cos\left(x-\frac{m\pi}{2}-\frac{\pi}{4}\right).
@@ -718,8 +712,7 @@ We can solve for \(a_k\) unless \(F(r+k)=0\), that is, unless \(r+k\) is the \em
        root, \(r+k\) never hits the other root. Both roots give Frobenius series.
  \item \textbf{Roots differing by a positive integer \(N\):} starting from \(r_1\), \(r_1+k\) never equals
        \(r_2\), so \(r_1\) always gives a series. Starting from \(r_2\), the step \(k=N\) has \(F(r_2+N)=0\). Then
-       the undivided equation decides: it may be consistent (giving a second series; Euler example
-       below) or contradictory (Bessel at \(n=2m\)). If contradictory, the second solution contains
+       the undivided equation decides: it may be consistent (giving a second series) or contradictory (Bessel at \(n=2m\)). If contradictory, the second solution contains
        a logarithm (next frame).
  \item \textbf{Repeated root:} only one series; the second solution contains a logarithm.
 \end{itemize}
@@ -763,74 +756,7 @@ The second solution is \(\ln x\), not another power of \(x\).
 unless \(c_N=0\), which is the ``consistent'' case of the previous frame.
 \end{frame}
 
-\begin{frame}[allowframebreaks=1.00]{Example: an irregular singular point}
-\footnotesize
 
-\textbf{The equation \(x^4y''+2x^3y'+y=0\).} For \(x\ne0\), divide by \(x^4\):
-\[
-  y''+\frac{2}{x}y'+\frac{1}{x^4}y=0,\qquad
-  P(x)=\frac{2}{x},\quad Q(x)=\frac{1}{x^4}.
-\]
-Here \(xP(x)=2\) is fine, but \(x^2Q(x)=1/x^2\) still blows up at \(0\). So the test fails: \(x=0\) is an
-\emph{irregular} singular point.
-
-\textbf{Why a Frobenius series cannot work here.} Suppose \(y=a_0x^r+\)(higher powers), with \(a_0\ne0\).
-Then \(y'=ra_0x^{r-1}+\cdots\) and \(y''=r(r-1)a_0x^{r-2}+\cdots\). Find the lowest power in each term:
-\[
- x^4y''=r(r-1)a_0\,x^{r+2}+\cdots,\qquad
- 2x^3y'=2ra_0\,x^{r+2}+\cdots,\qquad
- y=a_0\,x^{r}+\cdots .
-\]
-The lowest power of all, \(x^r\), appears only in the last term. For the sum to be zero its
-coefficient must vanish: \(a_0=0\). This contradicts \(a_0\ne0\). (At a regular singular point all
-three terms would start at the same power, and they could cancel.)
-\par\framebreak\par
-\textbf{What the solutions really look like.} Change variables to \(u=1/x\) and write \(y(x)=Y(u)\).
-Since \(\frac{du}{dx}=-\frac1{x^2}=-u^2\), the chain rule gives \(\frac{d}{dx}=-u^2\frac{d}{du}\). So
-\[
- y'=-u^2Y_u,
- \qquad
- y''=-u^2\frac{d}{du}\bigl(-u^2Y_u\bigr)=-u^2\bigl(-2uY_u-u^2Y_{uu}\bigr)=u^4Y_{uu}+2u^3Y_u .
-\]
-Now substitute, with \(x^4=u^{-4}\) and \(2x^3=2u^{-3}\):
-\[
- x^4y''=Y_{uu}+\frac2uY_u,\qquad 2x^3y'=-\frac2uY_u,\qquad
- x^4y''+2x^3y'+y=Y_{uu}+Y .
-\]
-So the equation becomes \(Y_{uu}+Y=0\), with solutions \(\cos u\) and \(\sin u\):
-\[
- y(x)=c_1\cos\left(\frac1x\right)
-      +c_2\sin\left(\frac1x\right).
-\]
-As \(x\to0\), \(1/x\to\infty\), so these oscillate infinitely often near the origin. No power \(x^r\) times a
-Taylor series can do that.
-\end{frame}
-
-\begin{frame}[allowframebreaks=1.00]{Example: an Euler equation with an integer root gap}
-\footnotesize
-
-\textbf{The equation \(x^2y''-6y=0\), \(x>0\).} It is an \emph{Euler} equation: each derivative
-\(y^{(j)}\) is multiplied by a constant times \(x^j\). Such an equation sends \(x^r\) to a multiple of \(x^r\),
-so pure powers are natural solutions.
-
-\textbf{Classify \(x=0\).} In normalized form \(y''-\frac6{x^2}y=0\), so \(P=0\), \(Q=-6/x^2\), \(xP=0\), \(x^2Q=-6\).
-Both are analytic: \(x=0\) is a regular singular point.
-
-\textbf{Solve.} Substitute \(y=x^r\), \(y''=r(r-1)x^{r-2}\):
-\[
- x^2y''-6y=r(r-1)x^r-6x^r=\bigl[r^2-r-6\bigr]x^r=(r-3)(r+2)\,x^r .
-\]
-So \(r=3\) or \(r=-2\), and
-\[
- y_1=x^3,\qquad y_2=x^{-2},\qquad
- y=c_1x^3+c_2x^{-2}.
-\]
-\textbf{The point of the example.} The roots differ by the integer \(5\), the case where trouble
-\emph{can} happen; yet here there is no logarithm. In the language of the previous frames: starting
-from \(r_2=-2\), the step \(k=5\) reaches \(r_2+5=3\), the other root, so \(F(3)=0\) multiplies \(a_5\). But here
-\(xP\) and \(x^2Q\) have no further terms, so nothing else appears in that equation: it reads
-\(0\cdot a_5=0\). That is consistent, and \(a_5\) is simply free (it adds a multiple of \(x^3\)).
-\end{frame}
 
 % ======================================================================
 \section{Second solutions}
@@ -1101,250 +1027,70 @@ Split the integral at \(t=0\). In the part \(t<0\), substitute \(t\to-t\): the e
  \cos\left(\frac{t^3}{3}+xt\right)dt
  \label{eq:airy-integral}
 \end{equation}
-(an oscillatory integral, understood as the limit of \(\int_0^T\) as \(T\to\infty\)). Since \(C=\widehat y(0)=\int y\,dx\),
-this choice means
-\begin{equation}
- \int_{-\infty}^{\infty}Ai(x)e^{-itx}\,dx=e^{it^3/3},
- \qquad
- \int_{-\infty}^{\infty}Ai(x)\,dx=1.
- \label{eq:airy-fourier}
-\end{equation}
-\par\framebreak\par
-\textbf{Step 4: the value \(Ai(0)\)} (the constant quoted in \eqref{eq:airy-ic}). At \(x=0\), substitute
-\(t=3^{1/3}u\), so \(t^3/3=u^3\) and \(dt=3^{1/3}du\):
-\[
- Ai(0)=\frac1\pi\int_0^\infty\cos\frac{t^3}{3}\,dt=\frac{3^{1/3}}{\pi}\int_0^\infty\cos(u^3)\,du .
-\]
-Chapter~2 computed \(\int_0^\infty\cos(u^p)\,du=\Gamma(1+\frac1p)\cos\frac{\pi}{2p}\). With \(p=3\), and
-\(\Gamma(\frac43)=\frac13\Gamma(\frac13)\), \(\cos\frac\pi6=\frac{\sqrt3}2\):
-\[
- Ai(0)=\frac{3^{1/3}}{\pi}\cdot\frac{\Gamma(\frac13)}{3}\cdot\frac{\sqrt3}{2}.
-\]
-Simplify with the reflection formula: \(\Gamma(\frac13)\Gamma(\frac23)=\frac{\pi}{\sin(\pi/3)}=\frac{2\pi}{\sqrt3}\), so
-\(\Gamma(\frac13)=\frac{2\pi}{\sqrt3\,\Gamma(2/3)}\). Then
-\[
- Ai(0)=\frac{3^{1/3}}{\pi}\cdot\frac{2\pi}{3\sqrt3\,\Gamma(\frac23)}\cdot\frac{\sqrt3}{2}
- =\frac{3^{1/3}}{3\,\Gamma(\frac23)}=\frac{1}{3^{2/3}\,\Gamma(\frac23)} .
-\]
-\par\framebreak\par
-\textbf{Step 5: the slope \(Ai'(0)\).} Differentiate \eqref{eq:airy-integral} under the integral:
-\(\frac{d}{dx}\cos(\frac{t^3}3+xt)=-t\sin(\frac{t^3}3+xt)\). At \(x=0\), with the same substitution
-(\(t\,dt=3^{2/3}u\,du\)):
-\[
- Ai'(0)=-\frac1\pi\int_0^\infty t\sin\frac{t^3}{3}\,dt
- =-\frac{3^{2/3}}{\pi}\int_0^\infty u\sin(u^3)\,du
- =-\frac{3^{2/3}}{\pi}\,\operatorname{Im}\int_0^\infty u\,e^{iu^3}\,du .
-\]
-Rotate the path as in Chapter~2: on the ray \(u=re^{i\pi/6}\), \(u^3=r^3e^{i\pi/2}=ir^3\), so \(iu^3=-r^3\), and
-\(u\,du=e^{i\pi/6}r\cdot e^{i\pi/6}dr=e^{i\pi/3}r\,dr\). With \(w=r^3\),
-\(\int_0^\infty re^{-r^3}dr=\frac13\int_0^\infty w^{-1/3}e^{-w}dw=\frac13\Gamma(\frac23)\). Hence
-\[
- \int_0^\infty u\,e^{iu^3}\,du=e^{i\pi/3}\cdot\frac{\Gamma(\frac23)}{3},
- \qquad
- \operatorname{Im}e^{i\pi/3}=\frac{\sqrt3}{2}.
-\]
-So \(Ai'(0)=-\frac{3^{2/3}}{\pi}\cdot\frac{\sqrt3}{2}\cdot\frac{\Gamma(\frac23)}{3}\). Replacing
-\(\Gamma(\frac23)=\frac{2\pi}{\sqrt3\,\Gamma(1/3)}\), the factors \(\pi\), \(2\), \(\sqrt3\) cancel:
-\[
- Ai'(0)=-\frac{3^{2/3}}{3\,\Gamma(\frac13)}=-\frac{1}{3^{1/3}\,\Gamma(\frac13)} .
-\]
-A solution is fixed by its value and slope at \(0\), so the integral is exactly the \(Ai\) of
-\eqref{eq:airy-ic}.
-\par\framebreak\par
-\textbf{The Wronskian of \(Ai\) and \(Bi\).} For \(y''-xy=0\), \(P=0\), so by Abel's identity
-\eqref{eq:abel-identity} \(W[Ai,Bi]=Ai\,Bi'-Ai'\,Bi\) is a constant. Evaluate it at \(x=0\), using
-\(Bi(0)=\sqrt3\,Ai(0)\) and \(Bi'(0)=-\sqrt3\,Ai'(0)\):
-\[
- W=Ai(0)\bigl(-\sqrt3\,Ai'(0)\bigr)-Ai'(0)\bigl(\sqrt3\,Ai(0)\bigr)=-2\sqrt3\,Ai(0)\,Ai'(0).
-\]
-Insert the values from Steps~4 and~5, then \(\Gamma(\frac13)\Gamma(\frac23)=\frac{2\pi}{\sqrt3}\):
-\begin{equation}
- W[Ai,Bi]
- =\frac{2\sqrt3}{3^{2/3}\cdot3^{1/3}\;\Gamma(\frac23)\,\Gamma(\frac13)}
- =\frac{2\sqrt3}{3}\cdot\frac{\sqrt3}{2\pi}=\frac1\pi .
- \label{eq:airy-wronskian}
-\end{equation}
-Since \(W\ne0\), \(Ai\) and \(Bi\) are independent at every \(x\).
+(an oscillatory integral, understood as the limit of \(\int_0^T\) as \(T\to\infty\)).
 
-\textbf{An integral for \(Bi\)} (quoted; the Fourier method cannot produce it, since \(Bi\) has no transform):
-\[
- Bi(x)=\frac1\pi\int_0^\infty
- \left[
- e^{-t^3/3+xt}
- +\sin\left(\frac{t^3}{3}+xt\right)
- \right]dt.
-\]
-The exponential term carries the growth for \(x>0\); the sine term carries the oscillation for \(x<0\).
+\textbf{The constants.} Setting \(x=0\) in \eqref{eq:airy-integral} and evaluating with the gamma
+integrals of Chapter~2 reproduces exactly the values \(Ai(0)\) and \(Ai'(0)\) quoted in
+\eqref{eq:airy-ic} (we skip this computation). So the integral is the same \(Ai\) as before.
 \end{frame}
 
-\begin{frame}[allowframebreaks=1.00]{Large-argument behavior by stationary phase}
+\begin{frame}[allowframebreaks=1.00]{Large-argument behavior and the zeros of $Ai$}
 \footnotesize
-\textbf{Goal.} Find how \(Ai(x)\) and \(Bi(x)\) behave for large \(|x|\), starting from the integral
-\eqref{eq:airy-integral}. Expected: oscillation with a slowly shrinking amplitude for \(x<0\), and
-exponential decay (\(Ai\)) or growth (\(Bi\)) for \(x>0\). The tools are Chapter~1's stationary phase and
-Laplace's method.
+\textbf{Goal.} Find how \(Ai\) and \(Bi\) behave for large \(|x|\), and where \(Ai\) is zero. Chapter~7 needs
+both: which solution decays as \(x\to+\infty\), and the zeros of \(Ai\).
 
-\textbf{Part 1: large negative \(x\).} Write \(x=-q\) with \(q\to+\infty\).
-
-\emph{Step 1: set up.} By \eqref{eq:airy-integral},
-\[
- Ai(-q)=\frac1\pi\int_0^\infty\cos\Bigl(\frac{t^3}{3}-qt\Bigr)dt=\frac1\pi\operatorname{Re}J(q),
-\]
-where
-\[
- J(q)=\int_0^\infty e^{i\phi(t)}\,dt,\qquad \phi(t)=\frac{t^3}{3}-qt .
-\]
-\emph{Step 2: the stationary point.} \(\phi'(t)=t^2-q=0\) at \(t_0=\sqrt q\). There
-\[
- \phi(t_0)=\frac{q^{3/2}}{3}-q\cdot q^{1/2}=-\frac23q^{3/2},
- \qquad \phi''(t)=2t,\quad\phi''(t_0)=2\sqrt q>0 .
-\]
-\par\framebreak\par
-\emph{Step 3: apply Chapter~1's stationary-phase formula} (with \(g=1\) and the sign \(+\), since \(\phi''>0\)):
-\[
- J(q)\approx e^{i\phi(t_0)}\,e^{i\pi/4}\sqrt{\frac{2\pi}{\phi''(t_0)}}
- =e^{-\frac23iq^{3/2}}\,e^{i\pi/4}\sqrt{\frac{2\pi}{2\sqrt q}}
- =\sqrt\pi\;q^{-1/4}\;e^{-i\left(\frac23q^{3/2}-\frac\pi4\right)} .
-\]
-Name the phase \(\chi(q)=\frac23q^{3/2}+\frac\pi4\). Then \(\frac23q^{3/2}-\frac\pi4=\chi-\frac\pi2\), so
-\[
- J(q)\approx\sqrt\pi\;q^{-1/4}\,e^{i(\pi/2-\chi)} .
-\]
-(Two remarks we accept: the large parameter is hidden inside \(\phi\) — put \(t=\sqrt q\,\tau\) and the phase
-becomes \(q^{3/2}(\tau^3/3-\tau)\). And the endpoint \(t=0\) adds only a term of size \(1/q\), much smaller
-than \(q^{-1/4}\).)
-
-\emph{Step 4: real and imaginary parts.} \(e^{i(\pi/2-\chi)}=\cos(\frac\pi2-\chi)+i\sin(\frac\pi2-\chi)=\sin\chi+i\cos\chi\).
+\textbf{The idea: freeze the coefficient.} In \(y''=xy\), when \(|x|\) is large, the coefficient \(x\) changes
+slowly compared with the solution. Over a short stretch near a point \(x_1\), treat it as a constant:
+\(y''\approx x_1\,y\).
 \begin{itemize}
-  \item \(Ai(-q)=\frac1\pi\operatorname{Re}J\approx\frac1\pi\sqrt\pi\,q^{-1/4}\sin\chi\).
-  \item \(Bi(-q)\): its integral is \(\frac1\pi\int_0^\infty\bigl[e^{-t^3/3-qt}+\sin(\frac{t^3}3-qt)\bigr]dt\). The
-        sine part is \(\frac1\pi\operatorname{Im}J\approx\frac1\pi\sqrt\pi\,q^{-1/4}\cos\chi\); the exponential part is
-        about \(\frac1\pi\int_0^\infty e^{-qt}dt=\frac1{\pi q}\), negligible.
+  \item \(x_1>0\): \(y''=k^2y\) with \(k=\sqrt{x_1}\). Solutions \(e^{\pm kx}\): growth or decay, at the local
+        rate \(\sqrt x\).
+  \item \(x_1<0\): \(y''=-\kappa^2y\) with \(\kappa=\sqrt{|x_1|}\). Solutions \(\cos\kappa x\), \(\sin\kappa x\):
+        oscillation, with the local wave number \(\sqrt{|x|}\).
 \end{itemize}
+\textbf{Add up the local rates.} Because the rate changes along the way, the total exponent is the
+accumulated rate, not rate \(\times\) distance:
+\[
+ \int_0^x\sqrt s\,ds=\frac23x^{3/2}\quad(x>0),\qquad
+ \int_0^q\sqrt s\,ds=\frac23q^{3/2}\quad(x=-q<0).
+\]
+\textbf{Why the amplitude shrinks on the oscillating side (intuition).} For an oscillator whose
+stiffness changes slowly, (amplitude)\(^2\times\)(wave number) stays constant, like a pendulum whose
+string is slowly shortened. With wave number \(\sqrt q\), the amplitude goes like \(q^{-1/4}\).
 \par\framebreak\par
-\textbf{Result for \(x<0\).}
-With \(\chi=\frac23q^{3/2}+\frac\pi4\),
-\begin{equation}
- Ai(-q)\approx\frac{q^{-1/4}}{\sqrt\pi}\sin\chi,
- \qquad
- Bi(-q)\approx\frac{q^{-1/4}}{\sqrt\pi}\cos\chi,
- \qquad q\to+\infty.
- \label{eq:airy-neg-asymptotic}
-\end{equation}
-\textbf{Picture.} In the form \(y''+\kappa^2y=0\), the local wave number is \(\kappa=\sqrt q\). It grows with \(q\), so
-the waves get shorter and shorter, and the phase \(\chi\) adds them up: \(\chi'(q)=\sqrt q=\kappa\). The
-amplitude \(q^{-1/4}/\sqrt\pi\) is exactly what the constant Wronskian requires: for \(A\sin\chi\) and \(A\cos\chi\)
-with slowly varying \(A\), the Wronskian is about \(A^2\chi'=A^2\sqrt q\), and setting it equal to \(1/\pi\)
-\eqref{eq:airy-wronskian} gives \(A=q^{-1/4}/\sqrt\pi\).
-\par\framebreak\par
-\textbf{Part 2: large positive \(x\).} Now the phase \(t^3/3+xt\) has derivative \(t^2+x>0\): no real
-stationary point. The saddle points move off the real axis, to \(t=\pm i\sqrt x\), where the
-integrand is real and exponential. The results are
+\textbf{Results} (the constants in front are quoted; they come from a careful analysis of the integral
+\eqref{eq:airy-integral}). For \(x\to+\infty\),
 \begin{equation}
  Ai(x)\approx\frac{x^{-1/4}}{2\sqrt\pi}\,e^{-\frac23x^{3/2}},
  \qquad
- Bi(x)\approx\frac{x^{-1/4}}{\sqrt\pi}\,e^{+\frac23x^{3/2}},
- \qquad x\to+\infty.
+ Bi(x)\approx\frac{x^{-1/4}}{\sqrt\pi}\,e^{+\frac23x^{3/2}}.
  \label{eq:airy-pos-asymptotic}
 \end{equation}
-\textbf{\(Ai\): shift the path up to the saddle \(t=i\sqrt x\).} Write \(Ai\) over the whole line,
-\(Ai(x)=\frac1{2\pi}\int_{-\infty}^\infty e^{i(t^3/3+xt)}dt\) (Step~3 of the previous frame), and move the path to
-\(t=i\sqrt x+s\), \(s\) real (allowed by Cauchy's theorem). Expand:
-\[
- \frac13(i\sqrt x+s)^3=\frac13\bigl[-ix^{3/2}-3xs+3i\sqrt x\,s^2+s^3\bigr],
- \qquad x(i\sqrt x+s)=ix^{3/2}+xs .
-\]
-\par\framebreak\par
-\textbf{\(Ai\), continued.} Adding, the \(xs\) terms cancel:
-\(\frac{t^3}3+xt=\frac{2i}{3}x^{3/2}+i\sqrt x\,s^2+\frac{s^3}{3}\). Multiply by \(i\):
-\[
- i\Bigl(\frac{t^3}3+xt\Bigr)=-\frac23x^{3/2}-\sqrt x\,s^2+\frac i3s^3 .
-\]
-For large \(x\) the Gaussian factor \(e^{-\sqrt x s^2}\) confines \(s\) to a small window, where \(\frac i3 s^3\) is
-negligible. So, using \(\int e^{-\sqrt xs^2}ds=\sqrt{\pi/\sqrt x}=\sqrt\pi\,x^{-1/4}\),
-\[
- Ai(x)\approx\frac1{2\pi}\,e^{-\frac23x^{3/2}}\,\sqrt\pi\,x^{-1/4}=\frac{x^{-1/4}}{2\sqrt\pi}\,e^{-\frac23x^{3/2}} .
-\]
-(The \(\frac12\) comes from the \(\frac1{2\pi}\) of the full-line form.)
-\par\framebreak\par
-\textbf{\(Bi\): Laplace's method on its exponential term.} Let \(h(t)=-\frac{t^3}3+xt\). Then \(h'(t)=-t^2+x=0\) at
-\(t=\sqrt x\), with \(h(\sqrt x)=-\frac{x^{3/2}}3+x^{3/2}=\frac23x^{3/2}\) and \(h''(\sqrt x)=-2\sqrt x\). By
-Laplace's method (Chapter~1),
-\[
- Bi(x)\approx\frac1\pi\,e^{\frac23x^{3/2}}\sqrt{\frac{2\pi}{2\sqrt x}}=\frac{x^{-1/4}}{\sqrt\pi}\,e^{\frac23x^{3/2}} .
-\]
-\textbf{Why \(Ai\) is a special function.} As \(x\to0\) the two saddles \(t=\pm\sqrt{-x}\) (real for \(x<0\), imaginary
-for \(x>0\)) merge into one, and neither formula holds. \(Ai\) is the smooth bridge between the
-oscillating side and the decaying side.
-\end{frame}
+For \(x=-q\), \(q\to+\infty\), with the phase \(\chi=\frac23q^{3/2}+\frac\pi4\),
+\begin{equation}
+ Ai(-q)\approx\frac{q^{-1/4}}{\sqrt\pi}\sin\chi,
+ \qquad
+ Bi(-q)\approx\frac{q^{-1/4}}{\sqrt\pi}\cos\chi .
+ \label{eq:airy-neg-asymptotic}
+\end{equation}
+The exponents and the phase are the accumulated rates found above. \(Ai\) is the solution that
+decays for \(x>0\); \(Bi\) grows.
 
-\begin{frame}[allowframebreaks=1.00]{Zeros, rotated arguments, and the outgoing pair}
-\footnotesize
-\textbf{Where is \(Ai\) zero?} For \(x>0\), \(Ai\) is positive and decaying; for \(x<0\) it oscillates
-\eqref{eq:airy-neg-asymptotic}. In fact all zeros of \(Ai\), even complex ones, lie on the negative real axis
-(quoted; DLMF~\S9.9). Write them as \(x=-q_p\):
-\[
- q_p=2.3381,\;4.0879,\;5.5206,\ldots
-\]
-\textbf{Estimating them by hand.} By \eqref{eq:airy-neg-asymptotic}, \(Ai(-q)\approx0\) when \(\sin\chi=0\), that is,
-\(\chi=p\pi\). Since \(\chi=\frac23q^{3/2}+\frac\pi4>\frac\pi4\), the first allowed value is \(p=1\). Solve for \(q\):
+\textbf{Zeros of \(Ai\).} For \(x>0\), \(Ai\) is positive and decaying. For \(x<0\), by
+\eqref{eq:airy-neg-asymptotic}, \(Ai(-q)\approx0\) when \(\sin\chi=0\), that is, \(\chi=p\pi\) with
+\(p=1,2,\dots\) (since \(\chi>\frac\pi4\)). Solve for \(q\):
 \[
  \frac23q_p^{3/2}+\frac\pi4=p\pi
- \ \Longrightarrow\ 
+ \ \Longrightarrow\
  q_p^{3/2}=\frac32\Bigl(p\pi-\frac\pi4\Bigr)=\frac{3\pi(4p-1)}{8}
- \ \Longrightarrow\ 
+ \ \Longrightarrow\
  q_p\approx\Bigl[\frac{3\pi(4p-1)}{8}\Bigr]^{2/3}.
 \]
-This gives \(2.32,\ 4.08,\ 5.52,\dots\): within \(1\%\) already at \(p=1\). The zeros grow like \(p^{2/3}\), so they get
-closer together (the waves get shorter).
-\par\framebreak\par
-\textbf{Rotated solutions.} We need one more Airy solution to build the traveling waves below.
-\begin{itemize}
-  \item \emph{Rotating the argument.} Let \(y''(x)=x\,y(x)\) and define \(w(z)=y(ze^{i\theta})\). By the chain rule,
-        \(w'(z)=e^{i\theta}y'(ze^{i\theta})\) and
-        \[
-         w''(z)=e^{2i\theta}y''(ze^{i\theta})=e^{2i\theta}\,(ze^{i\theta})\,y(ze^{i\theta})=e^{3i\theta}\,z\,w(z).
-        \]
-        So \(w\) is again an Airy solution when \(e^{3i\theta}=1\), for example \(\theta=-2\pi/3\).
-  \item \emph{Which combination is it?} \(Ai(ze^{-2\pi i/3})\) must then be a combination of \(Ai\) and \(Bi\). Matching
-        value and slope at \(z=0\) (below) shows
-\end{itemize}
-\begin{equation}
- Bi(z)-iAi(z)=2e^{-i\pi/6}\,Ai\left(ze^{-2\pi i/3}\right).
- \label{eq:airy-connection}
-\end{equation}
-\textbf{Check at \(z=0\)}, using \eqref{eq:airy-ic}:
-\begin{itemize}
-  \item value: left \(=\sqrt3Ai(0)-iAi(0)=(\sqrt3-i)\,Ai(0)=2e^{-i\pi/6}Ai(0)\) \(=\) right;
-  \item slope: left \(=-\sqrt3Ai'(0)-iAi'(0)=-(\sqrt3+i)\,Ai'(0)\); right \(=2e^{-i\pi/6}\cdot e^{-2\pi i/3}Ai'(0)
-        =2e^{-5\pi i/6}Ai'(0)=(-\sqrt3-i)\,Ai'(0)\) (the extra factor is from the chain rule).
-\end{itemize}
-Two solutions with equal value and slope are equal.
-\par\framebreak\par
-\textbf{The outgoing pair.} Define the \emph{Fock--Airy functions}
-\begin{equation}
- w_1(z)=\sqrt\pi\,[Bi(z)+iAi(z)],\qquad
- w_2(z)=\sqrt\pi\,[Bi(z)-iAi(z)].
- \label{eq:fock-w}
-\end{equation}
-\textbf{Why: they are traveling waves.} By \eqref{eq:airy-neg-asymptotic},
-\[
- w_2(-q)\approx\sqrt\pi\cdot\frac{q^{-1/4}}{\sqrt\pi}\bigl(\cos\chi-i\sin\chi\bigr)=q^{-1/4}e^{-i\chi(q)} .
-\]
-This has a single phase, like \(e^{-ikx}=\cos kx-i\sin kx\), which travels, while \(\sin kx\) alone is a
-standing wave. With the time factor \(e^{+i\omega t}\) (common in engineering), \(e^{i(\omega t-\chi(q))}\) moves
-toward larger \(q\), away from the turning point: \(w_2\) is \emph{outgoing}. It is the Airy analogue of the
-Hankel function \(H^{(2)}=J-iY\) of Chapter~5. (With the time factor \(e^{-i\omega t}\), \(w_1\) and \(w_2\) swap
-roles.)
-
-\textbf{Where \(w_2\) is zero.} By \eqref{eq:airy-connection}, \(w_2(z)=2\sqrt\pi\,e^{-i\pi/6}Ai(ze^{-2\pi i/3})\). The prefactor is
-never zero, so \(w_2(z)=0\) exactly when \(ze^{-2\pi i/3}\) is a zero of \(Ai\), that is, \(ze^{-2\pi i/3}=-q_p\):
-\[
- z=-q_p\,e^{2\pi i/3}=q_p\,e^{i\pi}e^{2\pi i/3}=q_p\,e^{5\pi i/3}=q_p\,e^{-i\pi/3}.
-\]
-So the zeros of \(w_2\) lie on the ray \(\arg z=-\pi/3\). In wave problems near a curved surface, these
-complex zeros determine how fast the outgoing modes decay.
+This gives \(2.32,\ 4.08,\ 5.52,\dots\); the exact zeros \(x=-q_p\) are at
+\(q_p=2.3381,\ 4.0879,\ 5.5206,\dots\), within \(1\%\) already at \(p=1\). (All zeros of \(Ai\) lie on the
+negative real axis; quoted.)
 \end{frame}
+
 
 \begin{frame}{Chapter summary}
 \scriptsize
@@ -1360,7 +1106,7 @@ complex zeros determine how fast the outgoing modes decay.
         positive integer $m$, the negative-root branch fails a compatibility equation,
         and the missing solution is $Y_m$.
   \item Airy (ordinary point): Taylor solutions $f_0,f_1$; the decaying $Ai$ has the Fourier
-        integral \eqref{eq:airy-integral}; $W[Ai,Bi]=1/\pi$; oscillation for $x<0$,
+        integral \eqref{eq:airy-integral}; oscillation for $x<0$,
         decay/growth for $x>0$; zeros of $Ai$ at $-q_p$.
   \item Ordinary points have two analytic solutions.  Regular singular points have at
         least one Frobenius solution; an integer root gap may introduce a logarithm or a

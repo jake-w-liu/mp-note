@@ -58,13 +58,12 @@ arguments. This chapter develops the functions that form the basic
         interpolation that produces the Euler--Mascheroni constant \(\gamma\).
   \item The \textbf{gamma function} \(\Gamma(z)\): the canonical meromorphic
         interpolation of the shifted factorial. Integral definition, recursion,
-        half-integers, poles, reflection, Euler's limit form, Hankel's contour for
-        \(1/\Gamma\), and Stirling.
+        half-integers, poles, reflection, and Stirling's formula.
   \item The \textbf{beta function} \(B(p,q)\): the integral that encodes binomial
         structure, linked to gamma by \(B(p,q)=\Gamma(p)\Gamma(q)/\Gamma(p+q)\).
   \item \textbf{Riemann zeta function}
         \(\zeta(s)\) for \(\operatorname{Re}s>1\): series, integral representation,
-        Euler product, and the Basel value \(\zeta(2)=\pi^2/6\).
+        and the Basel value \(\zeta(2)=\pi^2/6\).
 \end{itemize}
 The common question is how to extend a discrete pattern to a function we can
 differentiate, integrate, and use in later chapters. Write \(\mathbb N=\{1,2,\dots\}\) and \(\mathbb N_0=\{0,1,2,\dots\}\).
@@ -567,213 +566,8 @@ It computes \(\Gamma\) at negative arguments from positive ones: at \(z=\tfrac12
 \end{frame}
 
 
-\begin{frame}[allowframebreaks=1.00]{Euler's limit representation}
-\footnotesize
-\textbf{Goal.} Show that
-\[
- \Gamma(z)=\lim_{n\to\infty}\frac{n^z\,n!}{z(z+1)\cdots(z+n)},
- \qquad z\notin\{0,-1,-2,\dots\}.
-\]
-\textbf{Why this is useful.} The right side has no integral, only a product. So it makes sense for
-every \(z\) except \(0,-1,-2,\dots\), and those excluded points are visibly the places where a
-denominator factor is zero: they are the poles of \(\Gamma\).
-
-\textbf{Plan.} The integral \(\int_0^\infty e^{-t}t^{z-1}dt\) cannot be done in closed form for
-general \(z\). Replace \(e^{-t}\) by a polynomial that approximates it; the resulting integral can be
-done exactly. Then let the approximation get better.
-\par\framebreak\par
-\textbf{Step 1: approximate \(e^{-t}\) by a polynomial.} From calculus,
-\((1+x/n)^n\to e^x\) as \(n\to\infty\). With \(x=-t\):
-\[
- \Bigl(1-\frac tn\Bigr)^n\;\longrightarrow\;e^{-t}.
-\]
-The left side is a polynomial in \(t\) that is zero at \(t=n\), so we stop the integral there.
-Define, for \(\operatorname{Re}z>0\),
-\[
- F_n(z)=\int_0^n\left(1-\frac{t}{n}\right)^n t^{z-1}\,dt .
-\]
-As \(n\to\infty\), \(F_n(z)\to\int_0^\infty e^{-t}t^{z-1}\,dt=\Gamma(z)\). (Moving the limit inside
-the integral is allowed because \((1-t/n)^n\le e^{-t}\); we accept this step.)
-
-\textbf{Step 2: compute \(F_n\) exactly.} Substitute \(t=nu\), so \(dt=n\,du\), the limits become
-\(0\) and \(1\), and \(t^{z-1}=n^{z-1}u^{z-1}\). The powers of \(n\) combine to \(n^z\):
-\[
- F_n(z)=n^z\int_0^1(1-u)^n u^{z-1}\,du .
-\]
-\par\framebreak\par
-\textbf{Step 2, continued: integrate by parts.} Differentiate \((1-u)^n\) and integrate
-\(u^{z-1}\) (antiderivative \(u^z/z\)). The boundary term is zero, because \((1-u)^n=0\) at \(u=1\)
-and \(u^z=0\) at \(u=0\):
-\[
- \int_0^1(1-u)^n u^{z-1}\,du
- =\frac{n}{z}\int_0^1(1-u)^{n-1}u^{z}\,du .
-\]
-The power of \(1-u\) went down by one, the power of \(u\) went up by one, and a factor came out
-in front. Do the same again:
-\[
- =\frac{n}{z}\cdot\frac{n-1}{z+1}\int_0^1(1-u)^{n-2}u^{z+1}\,du
- =\cdots
- =\frac{n}{z}\cdot\frac{n-1}{z+1}\cdots\frac{1}{z+n-1}\int_0^1u^{z+n-1}\,du .
-\]
-The last integral is \(1/(z+n)\). The numerators multiply to \(n!\). Hence
-\[
- \int_0^1(1-u)^n u^{z-1}\,du=\frac{n!}{z(z+1)\cdots(z+n)},
- \qquad
- F_n(z)=\frac{n^z\, n!}{z(z+1)\cdots(z+n)}.
-\]
-\par\framebreak\par
-\textbf{Result for \(\operatorname{Re}z>0\).} Since \(F_n(z)\to\Gamma(z)\) (Step~1),
-\begin{equation}
- \Gamma(z)=\lim_{n\to\infty}\frac{n^z n!}{z(z+1)\cdots(z+n)},
- \qquad z\notin\{0,-1,-2,\ldots\}.
- \label{eq:gamma-euler-limit}
-\end{equation}
-\textbf{Step 3: the formula also holds for \(\operatorname{Re}z\le0\).} So far we know it only for
-\(\operatorname{Re}z>0\). Take any other \(z\) (not a pole) and pick \(m\) with
-\(\operatorname{Re}(z+m)>0\). Two facts:
-\begin{itemize}
-  \item the formula holds for \(z+m\);
-  \item \(\Gamma(z)\) is \(\Gamma(z+m)\) divided by \(z(z+1)\cdots(z+m-1)\), by \eqref{eq:gamma-continue}.
-\end{itemize}
-Write the product formula for \(\Gamma(z+m)\) and divide. The denominator becomes
-\(z(z+1)\cdots(z+m+n)\), and the result can be rearranged as
-\[
- \frac{n^{z+m}n!}{z(z+1)\cdots(z+n+m)}
- =\underbrace{\frac{n^{z}n!}{z(z+1)\cdots(z+n)}}_{\text{the formula at }z}
- \;\cdot\;\frac{n}{z+n+1}\cdot\frac{n}{z+n+2}\cdots\frac{n}{z+n+m}.
-\]
-There are only \(m\) extra factors, and each tends to \(1\) as \(n\to\infty\). So both sides have the
-same limit, and \eqref{eq:gamma-euler-limit} holds at \(z\) too.
-\end{frame}
 
 
-\begin{frame}[allowframebreaks=1.00]{Hankel's contour formula for $1/\Gamma$}
-\footnotesize
-\textbf{Why we want it.} Euler's integral \eqref{eq:gamma-def} needs \(\operatorname{Re}z>0\).
-Hankel's integral gives \(1/\Gamma(a)\) for \emph{every} complex \(a\) in one formula, and in
-Chapter~5 it turns a Bessel integral of noninteger order into its power series, one \(1/\Gamma\)
-factor per term. The idea is Chapter~1's keyhole contour, opened up.
-
-\textbf{What we will prove.} For every complex number \(a\),
-\[
-  \frac1{\Gamma(a)}=\frac1{2\pi i}\int_{\mathcal H}e^{t}\,t^{-a}\,dt,
-\]
-where \(\mathcal H\) is the loop contour of Step~1 (the numbered form is
-\eqref{eq:hankel-gamma} at the end of Step~2).
-
-\textbf{Where \(e^tt^{-a}\) comes from.} Euler's integral \eqref{eq:gamma-def} at \(z=1-a\) reads
-\(\Gamma(1-a)=\int_0^\infty e^{-r}r^{-a}\,dr\). The substitution \(t=-r\) moves it to the negative
-real axis, where \(e^{-r}=e^{t}\) and \(r^{-a}=(-t)^{-a}\): so \(e^tt^{-a}\) is Euler's integrand
-in disguise. That integral converges only for \(\operatorname{Re}a<1\), because \(r^{-a}\)
-blows up at \(r=0\). Hankel's idea is to go \emph{around} the troublesome point \(t=0\) instead
-of running into it. Since \(t^{-a}\) takes different values on the two sides of the negative axis
-(phases \(e^{\pm i\pi a}\), computed in Step~2), the two legs of the loop do not cancel; they
-leave a factor \(\sin(\pi a)\), which the reflection formula \eqref{eq:gamma-reflect}
-turns into \(1/\Gamma(a)\).
-
-\par\framebreak\par
-\begin{columns}[T]
-\begin{column}{0.60\textwidth}
-\textbf{Step 1: the contour.} The power \(t^{-a}=e^{-a\log t}\) is multivalued, because
-\(\log t\) is (Chapter~1). To make it single-valued, cut the plane along the negative real
-axis and take \(-\pi<\arg t<\pi\).
-
-The Hankel contour \(\mathcal H\) (right) comes in from \(-\infty\) just \emph{below} the cut,
-circles the origin counterclockwise, and goes back to \(-\infty\) just \emph{above} the cut.
-
-\textbf{Why it converges for every \(a\).} The loop never touches \(t=0\). Far out on the legs,
-\(e^t\) decays like \(e^{-|t|}\), much faster than any power \(t^{-a}\) can grow. So the
-integral is finite for every complex \(a\). It is even an \emph{entire} function of \(a\)
-(analytic for all complex \(a\)).
-\end{column}
-\begin{column}{0.38\textwidth}
-\centering
-\begin{tikzpicture}[scale=0.62,>=stealth]
-  \draw[->,gray] (-3.3,0)--(1.3,0) node[right]{\scriptsize$\operatorname{Re}t$};
-  \draw[->,gray] (0,-1.3)--(0,1.3) node[above]{\scriptsize$\operatorname{Im}t$};
-  \draw[orange!80!black,very thick] (-3.3,0)--(0,0);
-  \node[orange!80!black,font=\scriptsize] at (-2.4,-0.95) {cut};
-  \draw[blue!70!black,thick,decoration={markings,
-      mark=at position 0.22 with {\arrow{>}},
-      mark=at position 0.52 with {\arrow{>}},
-      mark=at position 0.84 with {\arrow{>}}},postaction={decorate}]
-    (-3.3,-0.3)--(-0.52,-0.3) arc[start angle=-150,end angle=150,radius=0.6]--(-3.3,0.3);
-  \node[blue!70!black,font=\scriptsize] at (0.95,0.75) {$\mathcal H$};
-  \fill (0,0) circle (1.5pt);
-\end{tikzpicture}
-\end{column}
-\end{columns}
-
-\par\framebreak\par
-\textbf{Step 2: compute the integral when \(0<a<1\).} For these \(a\) the legs turn into Euler
-integrals we know. We aim to show
-\(\int_{\mathcal H}e^tt^{-a}\,dt=2i\sin(\pi a)\,\Gamma(1-a)\).
-
-\textbf{(a) Shrink the circle.} The integrand is analytic away from the cut. By Cauchy's theorem
-(Chapter~1), changing the radius \(\varepsilon\) of the small circle does not change the integral.
-So we may let \(\varepsilon\to0\).
-
-\textbf{(b) The two legs.} On both legs \(t=-r\) with \(r>0\), so \(e^t=e^{-r}\) and \(dt=-dr\). They
-differ only in the angle of \(t\), and that changes \(t^{-a}=r^{-a}e^{-ia\arg t}\):
-\begin{itemize}
-  \item lower leg: \(\arg t=-\pi\), so \(t^{-a}=r^{-a}e^{+i\pi a}\); it runs from \(r=\infty\) in to
-        \(r=\varepsilon\);
-  \item upper leg: \(\arg t=+\pi\), so \(t^{-a}=r^{-a}e^{-i\pi a}\); it runs from \(r=\varepsilon\) out to
-        \(r=\infty\).
-\end{itemize}
-Therefore
-\begin{align*}
- \int_{\mathrm{lower}}e^t t^{-a}\,dt
- &=\int_\infty^\varepsilon e^{-r}\,r^{-a}e^{i\pi a}\,(-dr)
- =e^{i\pi a}\int_\varepsilon^\infty e^{-r}r^{-a}\,dr,\\
- \int_{\mathrm{upper}}e^t t^{-a}\,dt
- &=\int_\varepsilon^\infty e^{-r}\,r^{-a}e^{-i\pi a}\,(-dr)
- =-e^{-i\pi a}\int_\varepsilon^\infty e^{-r}r^{-a}\,dr.
-\end{align*}
-The two legs do not cancel, because the phases \(e^{\pm i\pi a}\) differ.
-\par\framebreak\par
-\textbf{(c) The small circle vanishes.} On it \(|t|=\varepsilon\), \(|e^t|\le e^{\varepsilon}\) and
-\(|t^{-a}|=\varepsilon^{-a}\); its length is \(2\pi\varepsilon\). So its contribution is at most
-\(2\pi\varepsilon\cdot e^{\varepsilon}\varepsilon^{-a}=2\pi e^\varepsilon\varepsilon^{1-a}\), which tends to
-\(0\) because \(a<1\).
-
-\textbf{(d) Add up.} The whole contour is lower leg + circle + upper leg. Let \(\varepsilon\to0\):
-the circle gives \(0\), and both leg integrals become
-\(\int_0^\infty e^{-r}r^{-a}\,dr\), which is Euler's integral \eqref{eq:gamma-def} at \(z=1-a\), that is,
-\(\Gamma(1-a)\). So
-\[
- \int_{\mathcal H}e^tt^{-a}\,dt
- =e^{i\pi a}\,\Gamma(1-a)-e^{-i\pi a}\,\Gamma(1-a)
- =\bigl(e^{i\pi a}-e^{-i\pi a}\bigr)\Gamma(1-a)
- =2i\sin(\pi a)\,\Gamma(1-a),
-\]
-where the last step is \(e^{i\theta}-e^{-i\theta}=2i\sin\theta\) (Chapter~1) with \(\theta=\pi a\).
-\par\framebreak\par
-\textbf{(e) Use the reflection formula.} Divide the result of (d) by \(2\pi i\):
-\[
- \frac1{2\pi i}\int_{\mathcal H}e^tt^{-a}\,dt=\frac{2i\sin(\pi a)\,\Gamma(1-a)}{2\pi i}
- =\frac{\sin(\pi a)\,\Gamma(1-a)}{\pi}.
-\]
-Now rearrange the reflection formula \eqref{eq:gamma-reflect}: from
-\(\Gamma(a)\Gamma(1-a)=\pi/\sin(\pi a)\), multiply both sides by \(\sin(\pi a)/\bigl(\pi\,\Gamma(a)\bigr)\):
-\[
- \frac{\sin(\pi a)\,\Gamma(1-a)}{\pi}=\frac{1}{\Gamma(a)}.
-\]
-Combining the two displays,
-\begin{equation}
- \frac1{2\pi i}\int_{\mathcal H}e^t t^{-a}\,dt=\frac1{\Gamma(a)}.
- \label{eq:hankel-gamma}
-\end{equation}
-
-\textbf{Step 3: extend to every \(a\).} Step~2 proved the formula only for \(0<a<1\).
-\begin{itemize}
-  \item The left side is entire in \(a\) (Step~1).
-  \item The right side is entire too. \(1/\Gamma\) could fail only where \(\Gamma=0\), and
-        \(\Gamma\) is never zero (reflection-formula frame). At the poles of \(\Gamma\), \(1/\Gamma=0\).
-\end{itemize}
-Two entire functions that agree on the segment \((0,1)\) agree everywhere (identity theorem).
-So \eqref{eq:hankel-gamma} holds for all complex \(a\).
-\end{frame}
 
 
 \begin{frame}[allowframebreaks=1.00]{Worked examples: gamma integrals}
@@ -865,8 +659,7 @@ Substitute \(\varphi=p\theta\) (\(d\theta=d\varphi/p\); \(\theta=\pi/(2p)\) beco
 \]
 \par\framebreak\par
 \textbf{Step 2, continued.} On \([0,\pi/2]\) the graph of \(\sin\varphi\) lies above its chord from
-\((0,0)\) to \((\pi/2,1)\), so \(\sin\varphi\ge2\varphi/\pi\) (the same fact as in Chapter~1's Jordan's
-lemma). A larger exponent of \(e^{-(\cdot)}\) gives a smaller value, so
+\((0,0)\) to \((\pi/2,1)\), so \(\sin\varphi\ge2\varphi/\pi\). A larger exponent of \(e^{-(\cdot)}\) gives a smaller value, so
 \[
  \frac Rp\int_0^{\pi/2}e^{-R^p\sin\varphi}\,d\varphi
  \le\frac Rp\int_0^{\pi/2}e^{-2R^p\varphi/\pi}\,d\varphi
@@ -911,8 +704,7 @@ and along the inner arc. Let \(R\to\infty\), \(\varepsilon\to0\); the two arcs d
 \footnotesize
 
 \textbf{Why we want it.} Factorials grow very fast: \(10!=3\,628\,800\) and
-\(20!\approx2.4\times10^{18}\). Counting problems (for example the large binomial coefficient of
-Chapter~1) need \(n!\) for huge \(n\), where computing the product directly is impractical. We
+\(20!\approx2.4\times10^{18}\). Counting problems need \(n!\) for huge \(n\), where computing the product directly is impractical. We
 want a simple formula that is accurate when \(n\) is large.
 
 \textbf{Goal.} Show that, as \(n\to\infty\),
@@ -1038,13 +830,6 @@ two terms \(n\log n-n\) already dominate; this crude form is common in statistic
   \Gamma(z)\Gamma(1-z)
    &=\frac{\pi}{\sin(\pi z)},
      &&z\notin\mathbb Z,\\[2pt]
-  \Gamma(z)
-   &=\lim_{n\to\infty}
-     \frac{n^z n!}{z(z+1)\cdots(z+n)},
-     &&z\notin\{0,-1,-2,\dots\},\\[2pt]
-  \frac1{\Gamma(z)}
-   &=\frac1{2\pi i}\int_{\mathcal H}e^t t^{-z}\,dt,
-     &&\text{$\mathcal H$: Hankel contour},\\[2pt]
   n!
    &\sim\sqrt{2\pi n}\left(\frac ne\right)^n,
      &&n\to\infty.
@@ -1362,97 +1147,24 @@ Moving the sum inside the integral (allowed here; we accept this step),
 \(t^{s-1}/t=t^{s-2}\). That is integrable at \(0\) exactly when \(\operatorname{Re}s-2>-1\), that is,
 \(\operatorname{Re}s>1\): the same condition as for the series.
 \par\framebreak\par
+\textbf{Two reference values} (quoted here without proof):
+\[
+  \zeta(2)=\sum_{n=1}^{\infty}\frac1{n^2}=\frac{\pi^2}{6}\approx1.6449,\qquad
+  \zeta(4)=\sum_{n=1}^{\infty}\frac1{n^4}=\frac{\pi^4}{90}.
+\]
+Check: the first \(100\) terms of \(\zeta(2)\) already sum to \(1.6350\). The first is the Basel
+identity; Chapter~7 uses it for the string spectrum.
+
 \textbf{Application: black-body radiation.} In Planck's law, with \(t=h\nu/(k_BT)\), the factor
 \(1/(e^t-1)\) is the average number of photons in a mode. The total radiated energy (the
 Stefan--Boltzmann \(T^4\) law) contains the integral \(\int_0^\infty t^3/(e^t-1)\,dt\). By
-\eqref{eq:zeta-int} with \(s=4\), together with \(\Gamma(4)=3!=6\) and the value
-\(\zeta(4)=\pi^4/90\) (quoted),
+\eqref{eq:zeta-int} with \(s=4\), together with \(\Gamma(4)=3!=6\),
 \[
   \int_0^\infty\frac{t^3}{e^t-1}\,dt=\Gamma(4)\,\zeta(4)=6\cdot\frac{\pi^4}{90}=\frac{\pi^4}{15}.
 \]
 \end{frame}
 
 
-\begin{frame}[allowframebreaks=1.00]{The Euler product over primes}
-\footnotesize
-
-\textbf{Why.} It connects \(\zeta\) to the prime numbers \(2,3,5,7,11,\dots\); one consequence is
-that there are infinitely many primes.
-
-\textbf{Goal.} For \(\operatorname{Re}s>1\), show that the sum over all \(n\) equals a product over
-all primes \(p\):
-\[
- \zeta(s)=\prod_{p\ \text{prime}}\frac1{1-p^{-s}}
- \qquad(\text{this is \eqref{eq:euler-product} below}).
-\]
-\textbf{Idea.} Start from \(\zeta(s)=1+2^{-s}+3^{-s}+4^{-s}+5^{-s}+\cdots\) and remove, one prime at a
-time, all terms whose index is a multiple of that prime. The key fact is \(a^{-s}b^{-s}=(ab)^{-s}\).
-
-\textbf{Step 1: remove the multiples of \(2\).} Multiply \(\zeta(s)\) by \(2^{-s}\). Each term
-\(n^{-s}\) becomes \((2n)^{-s}\):
-\[
- 2^{-s}\zeta(s)=2^{-s}+4^{-s}+6^{-s}+8^{-s}+\cdots,
-\]
-which is exactly the list of even-index terms. Subtract it from \(\zeta(s)\):
-\[
- (1-2^{-s})\,\zeta(s)=1+3^{-s}+5^{-s}+7^{-s}+9^{-s}+\cdots\qquad(\text{odd indices only}).
-\]
-\par\framebreak\par
-\textbf{Step 2: remove the multiples of \(3\).} Multiply the last line by \(3^{-s}\). Each odd index
-\(m\) becomes \(3m\):
-\[
- 3^{-s}(1-2^{-s})\,\zeta(s)=3^{-s}+9^{-s}+15^{-s}+21^{-s}+\cdots,
-\]
-the odd multiples of \(3\). They all appear in the series of Step~1, so subtracting removes them
-and nothing else:
-\[
- (1-3^{-s})(1-2^{-s})\,\zeta(s)
- =1+5^{-s}+7^{-s}+11^{-s}+13^{-s}+\cdots .
-\]
-\textbf{Step 3: continue.} Do the same with \(5,7,11,\dots\). Each prime removes those of its
-multiples that are still present. After all primes \(p\le P\) have been used, the surviving terms
-are \(1\) and the \(n^{-s}\) whose index \(n\) has no prime factor \(\le P\):
-\[
- \Bigl[\prod_{p\le P}(1-p^{-s})\Bigr]\zeta(s)
- =1+\sum_{\substack{n>1:\ \text{all prime}\\ \text{factors of } n \text{ are } >P}}n^{-s}.
-\]
-\par\framebreak\par
-\textbf{Step 4: let \(P\to\infty\).} Every surviving index \(n>1\) has a prime factor larger than
-\(P\), so \(n>P\). Hence the leftover sum is at most \(\sum_{n>P}|n^{-s}|=\sum_{n>P}n^{-\sigma}\): the
-tail of a convergent series, which tends to \(0\) as \(P\to\infty\). In the limit only the \(1\)
-survives:
-\[
- \Bigl[\prod_{p}(1-p^{-s})\Bigr]\zeta(s)=1 .
-\]
-Divide by the product:
-\begin{equation}
-  \zeta(s)
-   =\prod_{p\ \mathrm{prime}}
-     \frac1{1-p^{-s}},
-  \qquad \operatorname{Re}s>1.
-  \label{eq:euler-product}
-\end{equation}
-\par\framebreak\par
-\textbf{Consequence: there are infinitely many primes} (Euler's proof). Suppose there were only
-finitely many. Take real \(s\to1^+\).
-\begin{itemize}
-  \item \emph{Right side of \eqref{eq:euler-product}:} a finite product of numbers
-        \(1/(1-p^{-s})\to1/(1-p^{-1})\). So it stays finite.
-  \item \emph{Left side:} for any \(N\), \(\zeta(s)\ge1+2^{-s}+\cdots+N^{-s}\) (all terms are
-        positive), and as \(s\to1^+\) this partial sum tends to \(H_N\). Since \(H_N>\log(N+1)\) can be
-        made as large as we like, \(\zeta(s)\) is unbounded as \(s\to1^+\).
-\end{itemize}
-A finite quantity cannot equal an unbounded one. So there are infinitely many primes.
-
-\textbf{A reference value.} The Basel identity (quoted here; Chapter~1 derives it from a sum of
-residues) is
-\[
-  \zeta(2)=\sum_{n=1}^{\infty}\frac1{n^2}=\frac{\pi^2}{6}\approx1.6449 .
-\]
-Check: the first \(100\) terms already sum to \(1.6350\). We stop at \(\operatorname{Re}s>1\). The point
-for this course is \eqref{eq:zeta-int}: \(\Gamma\) appears as the weight, so \(\zeta\) lives in the
-same integral language as \(\Gamma\) and \(B\).
-\end{frame}
 
 
 \begin{frame}{Where we have been}
@@ -1464,10 +1176,8 @@ same integral language as \(\Gamma\) and \(B\).
         \(\Gamma(\tfrac12)=\sqrt\pi\), and
         \(\Gamma(z)\Gamma(1-z)=\pi/\sin(\pi z)\) for
         \(z\notin\mathbb Z\); poles at \(0,-1,-2,\dots\) with residue
-        \((-1)^n/n!\) \eqref{eq:gamma-residue}; Euler limit \eqref{eq:gamma-euler-limit} and Stirling
-        \(n!\sim\sqrt{2\pi n}\,(n/e)^n\) \eqref{eq:stirling}; Hankel's contour
-        \eqref{eq:hankel-gamma} writes the entire function \(1/\Gamma\) as an
-        integral on \(\mathcal H\).
+        \((-1)^n/n!\) \eqref{eq:gamma-residue}; Stirling
+        \(n!\sim\sqrt{2\pi n}\,(n/e)^n\) \eqref{eq:stirling}.
   \item \textbf{Beta:}
         \[
           B(p,q)
@@ -1478,7 +1188,6 @@ same integral language as \(\Gamma\) and \(B\).
   \item \textbf{Zeta:}
         \[
           \zeta(s)=\sum_{n=1}^{\infty}n^{-s}
-                  =\prod_p(1-p^{-s})^{-1}
            =\frac1{\Gamma(s)}\int_0^\infty\frac{t^{s-1}}{e^t-1}\,dt,
           \qquad \operatorname{Re}s>1,
         \]
