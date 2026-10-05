@@ -50,32 +50,38 @@
 \tableofcontents
 \end{frame}
 
-\begin{frame}{Where we are going}
+\begin{frame}[allowframebreaks=1.00]{Where we are going}
 \footnotesize
-\textbf{Why Bessel functions?} A drumhead, a circular waveguide or a pipe
-obeys the Helmholtz equation $(\nabla^2+k^2)u=0$. In polar coordinates
-$\nabla^2u=u_{rr}+u_r/r+u_{\theta\theta}/r^2$, so an angular mode
-$u=R(r)e^{im\theta}$ gives $r^2R''+rR'+(k^2r^2-m^2)R=0$. With $x=kr$ and $y(x)=R(r)$
-this is Bessel's equation of integer order $m$ (Chapters~3 and~4):
+\textbf{Why Bessel functions?} A drumhead, a circular waveguide, or sound in a pipe all obey the
+Helmholtz equation \((\nabla^2+k^2)u=0\). In polar coordinates
+\(\nabla^2u=u_{rr}+\frac1ru_r+\frac1{r^2}u_{\theta\theta}\). Look for a single angular mode
+\(u=R(r)\,e^{im\theta}\):
+\begin{itemize}
+  \item \(u_{rr}=R''e^{im\theta}\), \(\;u_r=R'e^{im\theta}\), \(\;u_{\theta\theta}=(im)^2Re^{im\theta}=-m^2Re^{im\theta}\);
+  \item substitute and cancel the common factor \(e^{im\theta}\):
+        \(R''+\frac1rR'-\frac{m^2}{r^2}R+k^2R=0\);
+  \item multiply by \(r^2\): \(r^2R''+rR'+(k^2r^2-m^2)R=0\).
+\end{itemize}
+With \(x=kr\) and \(y(x)=R(r)\) (as in Chapter~3) this is Bessel's equation of integer order \(m\):
 \begin{equation}
   x^2 y''(x)+x y'(x)+(x^2-m^2)y(x)=0.
   \label{eq:bessel-ode-opening}
 \end{equation}
-This chapter develops
+\par\framebreak\par
+\textbf{This chapter develops}
 \begin{itemize}
-  \item a generating function for the integer-order family $J_m$, and the power series;
-  \item the order and derivative recurrences;
-  \item one carefully derived real integral representation, the Schl\"afli contour
-        for integer order, and the open Sommerfeld contour for noninteger order;
-  \item the small- and large-argument expansions (large $x$ by steepest descent
-        from Ch.~1, through the saddles $t=\pm i$ of the Schl\"afli contour);
-  \item the second solution $Y_m$, a short look at Hankel functions $H^{(1)},H^{(2)}$,
-        and the discrete Fourier--Bessel series on the disk;
-  \item the half-integer orders, where the family reduces to elementary
-        functions: the spherical Bessel and Hankel functions.
+  \item a generating function for the whole family \(J_m\), and from it the power series;
+  \item recurrences linking neighbouring orders and derivatives;
+  \item integral representations: a real integral, the Schl\"afli contour for integer order, and an
+        open contour for noninteger order;
+  \item the behaviour for small and for large \(x\) (large \(x\) by steepest descent, Chapter~1);
+  \item the second solution \(Y_m\), the Hankel functions \(H^{(1)},H^{(2)}\) (traveling waves), and the
+        Fourier--Bessel series on the disk;
+  \item half-integer orders, where everything reduces to elementary functions: the spherical Bessel
+        and Hankel functions.
 \end{itemize}
-Throughout, $m,n\in\mathbb Z$ unless stated otherwise; in small- and large-$x$ limits
-the order is held fixed.
+Throughout, \(m,n\) are integers unless stated otherwise; in small- and large-\(x\) limits the order is held
+fixed.
 \end{frame}
 
 % ======================================================================
@@ -84,23 +90,35 @@ the order is held fixed.
 
 \begin{frame}[allowframebreaks=1.00]{Generating function for the family $\{J_m\}$}
 \footnotesize
-\textbf{Why a generating function?} A plane wave $e^{iky}$ solves $(\nabla^2+k^2)u=0$.
-In polar coordinates $y=r\sin\theta$, so it reads $e^{ix\sin\theta}$ with $x=kr$. It is
-$2\pi$-periodic in $\theta$, so it has a Fourier series $\sum_m c_m(x)e^{im\theta}$.
-Each term is itself a solution $R(r)e^{im\theta}$ from the opening slide (the Laplacian
-does not mix angular modes), finite at $r=0$. So the coefficients should be the regular
-Bessel functions $J_m(x)$.
-With $t=e^{i\theta}$ we have $2i\sin\theta=t-t^{-1}$, and the plane wave becomes
-$\exp[\frac x2(t-t^{-1})]$. We therefore \emph{define} $J_m$ by the Laurent series
+\textbf{The idea.} Find one simple function whose Fourier coefficients are all the \(J_m\) at once.
+Physics suggests a candidate: a plane wave.
+
+\textbf{Step 1: a plane wave is a solution.} \(u=e^{iky}\) solves \((\nabla^2+k^2)u=0\) (since
+\(\partial_y^2e^{iky}=-k^2e^{iky}\)). In polar coordinates \(y=r\sin\theta\), so with \(x=kr\) it reads
+\[
+ u=e^{ix\sin\theta}.
+\]
+\textbf{Step 2: expand it in angular modes.} It is \(2\pi\)-periodic in \(\theta\), so it has a Fourier series
+\(e^{ix\sin\theta}=\sum_mc_m(x)\,e^{im\theta}\). Each term \(c_m(x)e^{im\theta}\) is itself a solution (the Laplacian
+does not mix different \(e^{im\theta}\)), and it is finite at \(r=0\). So by the opening slide \(c_m\) solves
+Bessel's equation and is regular at \(0\): we expect \(c_m=J_m\).
+\par\framebreak\par
+\textbf{Step 3: rewrite with \(t=e^{i\theta}\).} Then \(e^{im\theta}=t^m\), and
+\(\sin\theta=\frac{e^{i\theta}-e^{-i\theta}}{2i}=\frac{t-t^{-1}}{2i}\), so
+\[
+ ix\sin\theta=ix\cdot\frac{t-t^{-1}}{2i}=\frac x2\bigl(t-t^{-1}\bigr).
+\]
+\textbf{Definition.} We therefore \emph{define} \(J_m(x)\) as the coefficients of the Laurent series
 \begin{equation}
  g(x,t)=\exp\left[\frac x2(t-t^{-1})\right]
        =\sum_{m=-\infty}^{\infty}J_m(x)t^m,\qquad t\ne0,
  \label{eq:genf}
 \end{equation}
-and check next that these $J_m$ are the Chapter~3 series solutions.
-The notation $[t^m]g$ means the coefficient of $t^m$, so $J_m(x)=[t^m]g(x,t)$.
-Multiplying out $g$ gives the power series; differentiating $g$ relates
-neighboring orders.
+and check on the next frame that these \(J_m\) are the Chapter~3 series. Notation: \([t^m]g\) means ``the
+coefficient of \(t^m\) in \(g\)'', so \(J_m(x)=[t^m]g(x,t)\).
+
+\textbf{What \(g\) is good for.} Multiplying out \(g\) gives the power series of every \(J_m\); differentiating
+\(g\) gives relations between neighbouring orders.
 \end{frame}
 
 
@@ -110,24 +128,23 @@ neighboring orders.
 \textbf{Goal.} The generating function \eqref{eq:genf} defines $J_m(x)$ as a coefficient. We
 want the explicit power series of that coefficient, to compare with Chapter~3.
 
-\textbf{Expand, then collect one power.} Since $g=e^{xt/2}e^{-x/(2t)}$,
+\textbf{Step 1: expand each exponential.} Split \(g=e^{xt/2}\cdot e^{-x/(2t)}\) and use
+\(e^u=\sum_ju^j/j!\), with \(u=xt/2\) in the first factor and \(u=-x/(2t)\) in the second:
 \[
  e^{xt/2}=\sum_{j=0}^{\infty}\frac{(x/2)^j}{j!}t^j,
  \qquad
  e^{-x/(2t)}=\sum_{k=0}^{\infty}\frac{(-1)^k(x/2)^k}{k!}t^{-k}.
 \]
-Their product is
+\textbf{Step 2: multiply.} Multiplying a term of the first series by a term of the second,
 \[
- g(x,t)=\sum_{j,k\ge0}\frac{(-1)^k}{j!k!}
+ g(x,t)=\sum_{j,k\ge0}\frac{(-1)^k}{j!\,k!}
                   \left(\frac x2\right)^{j+k}t^{j-k}.
 \]
-For $t\ne0$ both exponential series converge absolutely, so we may group terms.
-To obtain $t^m$ with $m\ge0$, require
-\[
- j-k=m\quad\Longrightarrow\quad j=k+m,
- \qquad j+k=2k+m.
-\]
-Substitute this into the coefficient of the double sum:
+(Both series converge absolutely for \(t\ne0\), so the terms may be grouped in any order.)
+
+\textbf{Step 3: collect one power of \(t\).} The power of \(t\) is \(j-k\). To get \(t^m\) (with \(m\ge0\)) we
+need \(j-k=m\), that is, \(j=k+m\). Then \(j!=(k+m)!\) and \(j+k=2k+m\). Summing over the remaining
+index \(k\):
 \begin{equation}
  J_m(x)=[t^m]g(x,t)=\sum_{k=0}^{\infty}
  \frac{(-1)^k}{k!(m+k)!}\left(\frac x2\right)^{2k+m},
@@ -334,40 +351,48 @@ for the spherical Bessel functions.
 which is \eqref{eq:int-rep} below. The route: split the Jacobi--Anger expansion into its real
 (cosine) and imaginary (sine) parts, then project each onto the matching Fourier mode on $[0,\pi]$.
 
-For real $x$, start from the
-Jacobi--Anger expansion \eqref{eq:jacobi-anger} and pair the orders $m$ and
-$-m$.  Since $J_{-m}=(-1)^mJ_m$ by \eqref{eq:neg-order}, for $m\ge1$
+\textbf{Step 1: pair the orders \(m\) and \(-m\).} Take \(x\) real, so every \(J_m(x)\) is real. In the
+Jacobi--Anger expansion \eqref{eq:jacobi-anger}, group the terms \(m\) and \(-m\) (for \(m\ge1\)). Since
+\(J_{-m}=(-1)^mJ_m\) by \eqref{eq:neg-order}, and \(e^{i\phi}\pm e^{-i\phi}\) is \(2\cos\phi\) or \(2i\sin\phi\),
 \[
  J_me^{im\theta}+J_{-m}e^{-im\theta}
  =J_m\bigl(e^{im\theta}+(-1)^me^{-im\theta}\bigr)
  =\begin{cases}2J_m\cos(m\theta),&m\text{ even},\\
  2iJ_m\sin(m\theta),&m\text{ odd}.\end{cases}
 \]
-So the even orders ($m=2k$) give real cosine terms and the odd orders ($m=2k+1$)
-imaginary sine terms. Since every $J_m(x)$ is real for real $x$, the real and imaginary
-parts of \eqref{eq:jacobi-anger} are
+\textbf{Step 2: real and imaginary parts.} The even orders give real cosine terms, the odd orders give
+imaginary sine terms. The left side is \(e^{ix\sin\theta}=\cos(x\sin\theta)+i\sin(x\sin\theta)\). Comparing real
+and imaginary parts:
 \begin{align*}
  \cos(x\sin\theta)
- &=J_0(x)+2\sum_{k=1}^{\infty}J_{2k}(x)\cos(2k\theta),\\
+ &=J_0(x)+2J_2(x)\cos2\theta+2J_4(x)\cos4\theta+\cdots,\\
  \sin(x\sin\theta)
- &=2\sum_{k=0}^{\infty}J_{2k+1}(x)
-                 \sin\bigl((2k+1)\theta\bigr).
+ &=2J_1(x)\sin\theta+2J_3(x)\sin3\theta+\cdots .
 \end{align*}
-
+These are ordinary Fourier series in \(\theta\), with the \(J_m\) as coefficients.
 \par\framebreak\par
-Project these two Fourier series on $[0,\pi]$: multiply by $\cos(m\theta)$ or
-$\sin(m\theta)$ and integrate. By the orthogonality integrals
-$\int_0^\pi\cos(j\theta)\cos(m\theta)\,d\theta=\int_0^\pi\sin(j\theta)\sin(m\theta)\,d\theta
-=\frac\pi2\delta_{jm}$ ($j,m\ge1$), together with $\int_0^\pi1\,d\theta=\pi$ and $\int_0^\pi\cos(m\theta)\,d\theta=0$ ($m\ge1$),
-only the matching term survives: for $m\ge0$,
-$\int_0^\pi\cos(x\sin\theta)\cos(m\theta)\,d\theta$ is $\pi J_m(x)$ for even $m$ and $0$ for odd $m$,
-while $\int_0^\pi\sin(x\sin\theta)\sin(m\theta)\,d\theta$ is $\pi J_m(x)$ for odd $m$ and $0$ for even $m$.
-For each $m$ exactly one projection is nonzero; add them:
+\textbf{Step 3: pick out one coefficient (projection).} Use the integrals on \([0,\pi]\), for
+\(j,m\ge1\):
 \[
- \int_0^\pi\bigl[\cos(x\sin\theta)\cos(m\theta)+\sin(x\sin\theta)\sin(m\theta)\bigr]\,d\theta=\pi J_m(x).
+ \int_0^\pi\cos j\theta\cos m\theta\,d\theta=\int_0^\pi\sin j\theta\sin m\theta\,d\theta=\frac\pi2\,\delta_{jm},
 \]
-Using $\cos(A-B)=\cos A\cos B+\sin A\sin B$ with $A=m\theta$, $B=x\sin\theta$ gives, for
-$m\ge0$ (negative orders then follow from \eqref{eq:neg-order}), and in particular for $m=0$,
+together with \(\int_0^\pi\cos m\theta\,d\theta=0\) and \(\int_0^\pi d\theta=\pi\).
+\begin{itemize}
+  \item \emph{\(m\) even, \(m\ge2\).} Multiply the cosine series by \(\cos m\theta\) and integrate: only the term
+        \(2J_m\cos m\theta\) survives, giving \(2J_m\cdot\frac\pi2=\pi J_m\). The sine series contains only odd
+        modes, so \(\int_0^\pi\sin(x\sin\theta)\sin m\theta\,d\theta=0\).
+  \item \emph{\(m\) odd.} The other way round: \(\int_0^\pi\sin(x\sin\theta)\sin m\theta\,d\theta=\pi J_m\), and the cosine
+        integral is \(0\).
+  \item \emph{\(m=0\).} \(\int_0^\pi\cos(x\sin\theta)\,d\theta=\pi J_0\), and the sine integral is \(0\) (since
+        \(\sin0=0\)).
+\end{itemize}
+\textbf{Step 4: add the two integrals.} In every case exactly one of them is \(\pi J_m\) and the other is \(0\),
+so their sum is \(\pi J_m\):
+\[
+ \int_0^\pi\bigl[\cos(x\sin\theta)\cos m\theta+\sin(x\sin\theta)\sin m\theta\bigr]\,d\theta=\pi J_m(x).
+\]
+The bracket is \(\cos(A-B)=\cos A\cos B+\sin A\sin B\) with \(A=m\theta\), \(B=x\sin\theta\). Dividing by \(\pi\), for
+\(m\ge0\) (negative orders then follow from \eqref{eq:neg-order}):
 \begin{align}
  J_m(x)&=\frac1\pi\int_0^\pi\cos(m\theta-x\sin\theta)\,d\theta,
  \label{eq:int-rep}\\
@@ -414,47 +439,64 @@ because the integrand is analytic for all $t\ne0$ (Cauchy's theorem, Chapter~1) 
 
 \begin{frame}[allowframebreaks=1.00]{Noninteger order needs an open contour}
 \footnotesize
-\textbf{Goal.} Extend the contour formula \eqref{eq:schlafli} from integer order $n$ to a general
-order $\nu$, and check that it reproduces the general-order series \eqref{eq:series-gamma}.
 
-The Schl\"afli loop \eqref{eq:schlafli} is legal only because $t^{-n-1}$ is
-single-valued for integer $n$. For a general order $\nu$, one trip around $0$ multiplies
-$t^{-\nu-1}$ by $e^{-2\pi i\nu}\ne1$, so a closed loop does not close up. The power
-$t^{-\nu-1}=e^{-(\nu+1)\log t}$ needs a branch: take $-\pi<\arg t<\pi$ with the
-cut on the negative real axis. A closed loop can no longer cross the cut, so it
-opens into the Hankel contour $\mathcal H$ of Chapter~2: from $-\infty$ below
-the cut, counterclockwise around the origin, and back to $-\infty$ above.
-Define
+\textbf{Goal.} Extend the contour formula \eqref{eq:schlafli} from integer order \(n\) to a general order
+\(\nu\), and check that it reproduces the general-order series \eqref{eq:series-gamma}.
+
+\textbf{Step 1: why the closed loop fails.} For general \(\nu\), \(t^{-\nu-1}=e^{-(\nu+1)\log t}\). Go once around
+\(0\): \(\log t\) increases by \(2\pi i\), so \(t^{-\nu-1}\) gets multiplied by \(e^{-(\nu+1)2\pi i}=e^{-2\pi i\nu}\), which is not
+\(1\) unless \(\nu\) is an integer. So the integrand does not come back to its starting value, and a closed
+loop around \(0\) makes no sense.
+
+\textbf{Step 2: cut and open the loop.} Make \(t^{-\nu-1}\) single-valued by cutting the plane along the
+negative real axis (\(-\pi<\arg t<\pi\)). A loop may no longer cross the cut, so it opens up into the Hankel
+contour \(\mathcal H\) of Chapter~2: in from \(-\infty\) below the cut, counterclockwise around \(0\), and back out to
+\(-\infty\) above the cut. Define
 \begin{equation}
  \mathcal J_\nu(x)=\frac1{2\pi i}
  \int_{\mathcal H}e^{\frac x2(t-t^{-1})}t^{-\nu-1}\,dt,
  \qquad x>0.
  \label{eq:sommerfeld-t}
 \end{equation}
-Both legs converge, since $e^{xt/2}\to0$ as $t\to-\infty$.
-
-\textbf{Which Bessel function is this?} Expand only the descending exponential,
-$e^{-x/(2t)}=\sum_q\frac{(-1)^q}{q!}\bigl(\frac x2\bigr)^qt^{-q}$, and integrate term by term.
-In the $q$th term set $u=xt/2$: the contour is $\mathcal H$ scaled by
-$x/2$, and, since $t=2u/x$ and $dt=(2/x)\,du$,
-$t^{-\nu-q-1}dt=(x/2)^{\nu+q+1}u^{-\nu-q-1}\cdot(2/x)\,du=(x/2)^{\nu+q}u^{-\nu-q-1}du$. Hankel's reciprocal
-formula $\frac1{2\pi i}\int_{\mathcal H}e^uu^{-a}\,du=1/\Gamma(a)$ from Chapter~2 (\S2.2), with $a=\nu+q+1$, gives
+It converges: far out on the legs, \(t\to-\infty\), so \(e^{xt/2}\to0\) very fast, while \(e^{-x/(2t)}\to1\).
+\par\framebreak\par
+\textbf{Step 3: which function is this? Expand.} Expand only the factor \(e^{-x/(2t)}\) in its power series,
+\(e^{-x/(2t)}=\sum_{q\ge0}\frac{(-1)^q}{q!}\bigl(\frac x2\bigr)^qt^{-q}\), and integrate term by term. The \(q\)-th term
+needs
+\[
+ \frac1{2\pi i}\int_{\mathcal H}e^{xt/2}\,t^{-\nu-q-1}\,dt .
+\]
+\textbf{Step 4: reduce each term to Hankel's formula.} Substitute \(u=xt/2\), so \(t=2u/x\), \(dt=\frac2x\,du\), and
+\(\mathcal H\) scales by the positive number \(x/2\) (still a Hankel contour). The powers of \(x/2\):
+\[
+ t^{-\nu-q-1}\,dt=\Bigl(\frac{2u}{x}\Bigr)^{-\nu-q-1}\frac2x\,du
+ =\Bigl(\frac x2\Bigr)^{\nu+q+1}\Bigl(\frac x2\Bigr)^{-1}u^{-\nu-q-1}\,du ,
+\]
+so \(t^{-\nu-q-1}\,dt=(x/2)^{\nu+q}\,u^{-\nu-q-1}\,du\).
+Hankel's formula from Chapter~2, \(\frac1{2\pi i}\int_{\mathcal H}e^uu^{-a}\,du=\frac1{\Gamma(a)}\), with \(a=\nu+q+1\), gives
 \[
  \frac1{2\pi i}\int_{\mathcal H}e^{xt/2}t^{-\nu-q-1}\,dt
- =\left(\frac x2\right)^{\nu+q}\frac1{2\pi i}\int_{\mathcal H}e^{u}u^{-\nu-q-1}\,du
+ =\Bigl(\frac x2\Bigr)^{\nu+q}\frac1{2\pi i}\int_{\mathcal H}e^{u}u^{-\nu-q-1}\,du
  =\frac{(x/2)^{\nu+q}}{\Gamma(\nu+q+1)}.
 \]
-Multiplying by the $q$th coefficient $(-1)^q(x/2)^q/q!$ and summing, \eqref{eq:sommerfeld-t} is term-by-term
-the general-order series \eqref{eq:series-gamma}:
+\par\framebreak\par
+\textbf{Step 5: sum.} Multiply by the \(q\)-th coefficient \((-1)^q(x/2)^q/q!\) and add. The powers of
+\(x/2\) combine to \((x/2)^{\nu+2q}\):
+\[
+ \mathcal J_\nu(x)
+ =\sum_{q=0}^{\infty}\frac{(-1)^q(x/2)^q}{q!}\cdot\frac{(x/2)^{\nu+q}}{\Gamma(\nu+q+1)},
+\]
+that is,
 \begin{equation}
  \mathcal J_\nu(x)
- =\sum_{q=0}^{\infty}\frac{(-1)^q(x/2)^q}{q!}\,\frac{(x/2)^{\nu+q}}{\Gamma(\nu+q+1)}
  =\sum_{q=0}^{\infty}\frac{(-1)^q(x/2)^{\nu+2q}}{q!\,\Gamma(\nu+q+1)}
- =J_\nu(x).
+ =J_\nu(x),
  \label{eq:sommerfeld-series}
 \end{equation}
-So the open contour plus the $1/\Gamma$ identity does for general order what coefficient
-extraction did for integer order.
+which is exactly the general-order series \eqref{eq:series-gamma}.
+
+\textbf{Message.} For integer order, the loop integral extracted a Laurent coefficient. For noninteger
+order, the loop must be opened along the cut, and Hankel's \(1/\Gamma\) formula does the same job.
 \end{frame}
 
 \begin{frame}{Sommerfeld's form on the $z$-plane (optional)}
@@ -465,8 +507,8 @@ direction, so the result writes $J_\nu$ as a superposition of plane waves over (
 angles $z$. This is the form used in cylinder and wedge scattering; nothing later in this
 course depends on it.
 
-\textbf{The substitution.} In \eqref{eq:sommerfeld-t}, $t^{-1}=-ie^{iz}$,
-$\log t=i(\pi/2-z)$ and $dt=-i\,t\,dz$, so
+\textbf{The substitution.} In \eqref{eq:sommerfeld-t} put \(t=e^{i(\pi/2-z)}=i\,e^{-iz}\). Then
+\(t^{-1}=-i\,e^{iz}\), \(\log t=i(\pi/2-z)\), and \(dt=-i\,t\,dz\). So \(t-t^{-1}=i(e^{-iz}+e^{iz})=2i\cos z\), and
 \[
  \frac x2(t-t^{-1})=\frac{ix}2\bigl(e^{-iz}+e^{iz}\bigr)=ix\cos z,
  \qquad t^{-\nu-1}dt=t^{-\nu}\frac{dt}{t}=-i\,e^{i\nu(z-\pi/2)}\,dz.
@@ -653,34 +695,51 @@ For $x>0$, dividing Bessel's equation \eqref{eq:bessel-ode-opening} by $x^2$ giv
  y''+\frac1x y'+\left(1-\frac{m^2}{x^2}\right)y=0.
  \label{eq:bessel-normal-form}
 \end{equation}
-With $m$ replaced by a real order $\nu$, it depends on the order only through $\nu^2$.
-The series \eqref{eq:series-gamma} solves it
-(Chapter~3: Frobenius root $r=\nu$). Therefore $J_{-\nu}(x)$, the same series with $\nu\to-\nu$,
-is also a solution. For fixed real $\nu\notin\mathbb Z$, define
+\textbf{Two solutions for noninteger \(\nu\).} With \(m\) replaced by a real order \(\nu\), the equation contains
+the order only through \(\nu^2\). The series \eqref{eq:series-gamma} solves it (Chapter~3, root \(r=\nu\)). Changing
+\(\nu\) to \(-\nu\) does not change \(\nu^2\), so \(J_{-\nu}(x)\) is a solution too.
+
+\textbf{Definition.} For fixed real \(\nu\notin\mathbb Z\), define
 \begin{equation}
   Y_\nu(x)=
   \frac{J_\nu(x)\cos(\pi\nu)-J_{-\nu}(x)}{\sin(\pi\nu)}.
   \label{eq:neumann-def}
 \end{equation}
-\textbf{Why this combination?} At integer $\nu$ numerator and denominator both vanish, so
-the limit can stay finite (integer-order slide below), and at large $x$ it turns $J_\nu$'s cosine into a sine
-(end of this section).
+\textbf{Why this particular combination?} Two reasons. (1) At integer \(\nu\), both numerator and
+denominator become zero, so the limit can be finite; this gives \(Y_m\) for integer order (next frame).
+(2) At large \(x\), it turns \(J_\nu\)'s cosine into a sine (end of this section).
 
 \par\framebreak\par
-\textbf{Independence.} Abel's identity (Chapter~3) for \eqref{eq:bessel-normal-form} at order $\nu$ ($P=1/x$) makes the Wronskian of
-two solutions exactly $C/x$. The leading terms $J_{\pm\nu}\approx(x/2)^{\pm\nu}/\Gamma(1\pm\nu)$ of \eqref{eq:series-gamma}
-therefore fix $C$ (the corrections only add higher powers of $x$), since
-$W[(x/2)^{\nu},(x/2)^{-\nu}]=(-\nu-\nu)/x$:
+\textbf{Independence: compute the Wronskian.}
+
+\emph{Step 1: it has the form \(C/x\).} For \eqref{eq:bessel-normal-form}, \(P=1/x\). By Abel's identity
+(Chapter~3), the Wronskian of any two solutions is \(C\,e^{-\int dx/x}=C\,e^{-\ln x}=C/x\). So we only need the
+constant \(C\), and the leading terms near \(x=0\) are enough to find it (the corrections bring higher
+powers of \(x\), which cannot affect the \(1/x\) term).
+
+\emph{Step 2: the leading terms.} \(J_{\pm\nu}\approx\frac{(x/2)^{\pm\nu}}{\Gamma(1\pm\nu)}\). For the two powers,
+using \(\frac{d}{dx}(x/2)^{\pm\nu}=\pm\frac\nu x(x/2)^{\pm\nu}\),
 \[
- W[J_\nu,J_{-\nu}]=\frac{-\nu-\nu}{\Gamma(1+\nu)\Gamma(1-\nu)\,x}
- =-\frac{2}{\Gamma(\nu)\Gamma(1-\nu)\,x}=-\frac{2\sin(\pi\nu)}{\pi x},
+ W\bigl[(x/2)^{\nu},(x/2)^{-\nu}\bigr]
+ =(x/2)^\nu\cdot\Bigl(-\frac\nu x\Bigr)(x/2)^{-\nu}-\frac\nu x(x/2)^\nu\cdot(x/2)^{-\nu}
+ =-\frac{2\nu}{x}.
 \]
-using $\Gamma(1+\nu)=\nu\Gamma(\nu)$ and Euler's reflection formula $\Gamma(\nu)\Gamma(1-\nu)=\pi/\sin(\pi\nu)$ (Chapter~2).
-Since $W[J_\nu,J_\nu]=0$, \eqref{eq:neumann-def} gives
+\par\framebreak\par
+\emph{Step 3: include the constants and simplify.} Divide by \(\Gamma(1+\nu)\Gamma(1-\nu)\). Since
+\(\Gamma(1+\nu)=\nu\,\Gamma(\nu)\) and, by the reflection formula (Chapter~2),
+\(\Gamma(\nu)\Gamma(1-\nu)=\pi/\sin(\pi\nu)\):
 \[
- W[J_\nu,Y_\nu]=-\frac{W[J_\nu,J_{-\nu}]}{\sin(\pi\nu)}=\frac{2}{\pi x}\ne0,
+ W[J_\nu,J_{-\nu}]=\frac{-2\nu}{\Gamma(1+\nu)\,\Gamma(1-\nu)\,x}
+ =\frac{-2\nu}{\nu\,\Gamma(\nu)\Gamma(1-\nu)\,x}
+ =-\frac{2\sin(\pi\nu)}{\pi x}.
 \]
-so $J_\nu$ and $Y_\nu$ are independent.
+\emph{Step 4: the Wronskian of \(J_\nu\) and \(Y_\nu\).} The Wronskian is linear in each slot, and
+\(W[J_\nu,J_\nu]=0\). By \eqref{eq:neumann-def},
+\[
+ W[J_\nu,Y_\nu]=\frac{\cos(\pi\nu)\,W[J_\nu,J_\nu]-W[J_\nu,J_{-\nu}]}{\sin(\pi\nu)}
+ =\frac{0+\frac{2\sin(\pi\nu)}{\pi x}}{\sin(\pi\nu)}=\frac{2}{\pi x}\ne0,
+\]
+so \(J_\nu\) and \(Y_\nu\) are independent. (This is the normalization \(2/(\pi x)\) already met in Chapter~3.)
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Integer order: define the second solution by a limit}
@@ -991,14 +1050,34 @@ So $\psi=R(r)\times(\text{angular part})$ needs
 \[
  \frac1{r^2}(r^2R')'+\Bigl[k^2-\frac{n(n+1)}{r^2}\Bigr]R=0.
 \]
-Multiply by $r^2$ and put $x=kr$ (so $r\,d/dr=x\,d/dx$):
+\textbf{Step 1: scale.} Multiply by \(r^2\) and put \(x=kr\) (so \(r\frac{d}{dr}=x\frac{d}{dx}\)); with
+\((r^2R')'=r^2R''+2rR'\):
 \[
  x^2R''+2xR'+\bigl[x^2-n(n+1)\bigr]R=0.
 \]
-Put $R=x^{-1/2}w$. Then $R'=x^{-1/2}w'-\tfrac12x^{-3/2}w$ and
-$R''=x^{-1/2}w''-x^{-3/2}w'+\tfrac34x^{-5/2}w$, so $x^2R''+2xR'=x^{3/2}w''+x^{1/2}w'-\tfrac14x^{-1/2}w$.
-Multiplying the radial equation by $\sqrt x$ and using $n(n+1)+\tfrac14=(n+\tfrac12)^2$
-therefore gives Bessel's equation of order $n+\tfrac12$:
+This is almost Bessel's equation, but the middle term is \(2xR'\) instead of \(xR'\).
+
+\textbf{Step 2: remove the extra \(xR'\).} Try \(R=x^{-1/2}w\) (a power of \(x\) times a new function; the power
+\(-\frac12\) is the one that works). By the product rule,
+\[
+ R'=x^{-1/2}w'-\tfrac12x^{-3/2}w,\qquad
+ R''=x^{-1/2}w''-x^{-3/2}w'+\tfrac34x^{-5/2}w .
+\]
+Multiply by \(x^2\) and by \(2x\) and add:
+\[
+ x^2R''=x^{3/2}w''-x^{1/2}w'+\tfrac34x^{-1/2}w,\qquad
+ 2xR'=2x^{1/2}w'-x^{-1/2}w,
+\]
+\[
+ x^2R''+2xR'=x^{3/2}w''+x^{1/2}w'-\tfrac14x^{-1/2}w .
+\]
+\par\framebreak\par
+\textbf{Step 3: Bessel's equation appears.} Insert this into Step~1 together with
+\(\bigl[x^2-n(n+1)\bigr]R=\bigl[x^2-n(n+1)\bigr]x^{-1/2}w\), and multiply everything by \(x^{1/2}\):
+\[
+ x^2w''+xw'-\tfrac14w+\bigl[x^2-n(n+1)\bigr]w=0 .
+\]
+Since \(n(n+1)+\tfrac14=n^2+n+\tfrac14=(n+\tfrac12)^2\), this is Bessel's equation of order \(n+\frac12\):
 \[
  x^2w''+xw'+\bigl[x^2-(n+\tfrac12)^2\bigr]w=0.
 \]
@@ -1022,59 +1101,94 @@ outgoing and incoming waves are the \emph{spherical Hankel functions}
 
 \begin{frame}[allowframebreaks=1.00]{Elementary functions at half-integer order}
 \footnotesize
-Half-integer order is the exceptional case in which the Bessel family reduces
-to elementary functions. At $n=0$, put $u=xR$: since $(xR)''=xR''+2R'$, the radial equation
-$x^2R''+2xR'+x^2R=0$ becomes $x(u''+u)=0$, so $u=A\sin x+B\cos x$. The constants follow from \eqref{eq:series-gamma}:
-$u=xj_0=\sqrt{\pi x/2}\,J_{1/2}$ contains only odd powers $x^{2k+1}$, with leading term
-$\sqrt{\pi x/2}\,(x/2)^{1/2}/\Gamma(\tfrac32)=x$ (as $\Gamma(\tfrac32)=\tfrac{\sqrt\pi}2$), so $u=\sin x$.
-At $\nu=\tfrac12$, \eqref{eq:neumann-def} gives $Y_{1/2}=-J_{-1/2}$ ($\cos\tfrac\pi2=0$, $\sin\tfrac\pi2=1$), so
-$u=xy_0=-\sqrt{\pi x/2}\,J_{-1/2}$ contains only even powers $x^{2k}$, with leading term
-$-\sqrt{\pi x/2}\,(x/2)^{-1/2}/\Gamma(\tfrac12)=-1$, so $u=-\cos x$. Hence
-\[
- j_0(x)=\frac{\sin x}{x},\qquad y_0(x)=-\frac{\cos x}{x},\qquad
- h_0^{(1,2)}(x)=j_0\pm iy_0=\frac{\sin x\mp i\cos x}{x}=\frac{\mp i\,e^{\pm ix}}{x}.
-\]
-In words: $xj_0=\sin x=(e^{ix}-e^{-ix})/(2i)$ is a standing wave, an outgoing and an
-incoming spherical wave of equal strength, while each $h_0^{(1,2)}$ is a single travelling
-spherical wave, exactly the Hankel picture of the cylindrical case.
+\textbf{Goal.} At half-integer order the Bessel family reduces to elementary functions. Find \(j_0,y_0\),
+then \(j_1,y_1\), and the behaviour of \(j_n,y_n,h_n\) for large and small \(x\).
 
-The recurrences of the parent functions supply the higher orders. Take \eqref{eq:product-rec-upper} at
-order $\tfrac12$ (it also holds for noninteger order and for $Y$; quoted):
-$\frac{d}{dx}(x^{-1/2}J_{1/2})=-x^{-1/2}J_{3/2}$. Multiplying by $\sqrt{\pi/2}$ gives $j_0'=-j_1$,
-and likewise $y_0'=-y_1$. Differentiating $j_0=\sin x/x$ and $y_0=-\cos x/x$ above then gives
+\textbf{Step 1: solve the case \(n=0\) directly.} The radial equation is \(x^2R''+2xR'+x^2R=0\). Put \(u=xR\).
+Then \(u'=R+xR'\) and \(u''=2R'+xR''\), so \(x\,u''=x^2R''+2xR'\). The equation becomes
 \[
- j_1(x)=\frac{\sin x}{x^2}-\frac{\cos x}{x},\qquad
- y_1(x)=-\frac{\cos x}{x^2}-\frac{\sin x}{x}.
+ x\,u''+x\cdot(xR)=x\,(u''+u)=0
+ \quad\Longrightarrow\quad u''+u=0
+ \quad\Longrightarrow\quad u=A\sin x+B\cos x .
 \]
+\textbf{Step 2: which combination is \(j_0\)?} By \eqref{eq:spherical-jy}, \(u=xj_0=\sqrt{\pi x/2}\,J_{1/2}\). Near \(0\),
+\(J_{1/2}\approx\frac{(x/2)^{1/2}}{\Gamma(3/2)}\) with \(\Gamma(\frac32)=\frac{\sqrt\pi}2\), so
+\[
+ u\approx\sqrt{\frac{\pi x}{2}}\cdot\sqrt{\frac x2}\cdot\frac{2}{\sqrt\pi}=x .
+\]
+\(\sin x\approx x\) and \(\cos x\approx1\) near \(0\), so \(A=1\), \(B=0\): \(u=\sin x\).
 
-\textbf{Far field.} Insert the Hankel asymptotics $H^{(1,2)}_\nu\sim\sqrt{2/(\pi x)}\,e^{\pm i\chi_\nu}$
-(Hankel-function slide) at $\nu=n+\tfrac12$ into \eqref{eq:spherical-h}.
-Since $\chi_{n+1/2}=x-(n+1)\pi/2$, $\sqrt{\pi/(2x)}\sqrt{2/(\pi x)}=1/x$, and $e^{\mp i(n+1)\pi/2}=(\mp i)^{n+1}$,
-the leading terms are
+\textbf{Step 3: which combination is \(y_0\)?} At \(\nu=\frac12\), \eqref{eq:neumann-def} gives
+\(Y_{1/2}=\frac{J_{1/2}\cos\frac\pi2-J_{-1/2}}{\sin\frac\pi2}=-J_{-1/2}\). So \(u=xy_0=-\sqrt{\pi x/2}\,J_{-1/2}\), and with
+\(J_{-1/2}\approx\frac{(x/2)^{-1/2}}{\Gamma(1/2)}\), \(\Gamma(\frac12)=\sqrt\pi\):
+\[
+ u\approx-\sqrt{\frac{\pi x}{2}}\cdot\sqrt{\frac2x}\cdot\frac{1}{\sqrt\pi}=-1
+ \quad\Longrightarrow\quad u=-\cos x .
+\]
+\par\framebreak\par
+\textbf{Result for \(n=0\).} Dividing by \(x\),
+\[
+ j_0(x)=\frac{\sin x}{x},\qquad y_0(x)=-\frac{\cos x}{x}.
+\]
+For the Hankel functions, use \(\sin x-i\cos x=-i(\cos x+i\sin x)=-ie^{ix}\) and
+\(\sin x+i\cos x=i(\cos x-i\sin x)=ie^{-ix}\):
+\[
+ h_0^{(1)}=j_0+iy_0=\frac{\sin x-i\cos x}{x}=\frac{-i\,e^{ix}}{x},\qquad
+ h_0^{(2)}=j_0-iy_0=\frac{i\,e^{-ix}}{x}.
+\]
+\textbf{In words.} \(xj_0=\sin x=\frac{e^{ix}-e^{-ix}}{2i}\) is a \emph{standing} wave: an outgoing and an incoming
+spherical wave of equal strength. Each \(h_0^{(1,2)}\) is a single \emph{traveling} spherical wave, just as
+for the cylindrical Hankel functions.
+\par\framebreak\par
+\textbf{Step 4: higher orders from a recurrence.} The product recurrence \eqref{eq:product-rec-upper},
+\(\frac{d}{dx}(x^{-\nu}J_\nu)=-x^{-\nu}J_{\nu+1}\), also holds for noninteger \(\nu\) and for \(Y\) (quoted). At \(\nu=\frac12\),
+multiplied by \(\sqrt{\pi/2}\), it says \(j_0'=-j_1\); likewise \(y_0'=-y_1\). So
+\[
+ j_1=-\frac{d}{dx}\frac{\sin x}{x}=-\frac{x\cos x-\sin x}{x^2}=\frac{\sin x}{x^2}-\frac{\cos x}{x},
+\]
+\[
+ y_1=\frac{d}{dx}\frac{\cos x}{x}=\frac{-x\sin x-\cos x}{x^2}=-\frac{\cos x}{x^2}-\frac{\sin x}{x}.
+\]
+\textbf{Step 5: the far field.} Insert the Hankel asymptotics \(H^{(1,2)}_\nu\approx\sqrt{2/(\pi x)}\,e^{\pm i\chi_\nu}\) (Hankel
+slide) at \(\nu=n+\frac12\) into \eqref{eq:spherical-h}. Three simplifications:
+\[
+ \chi_{n+1/2}=x-\frac{(n+\frac12)\pi}2-\frac\pi4=x-\frac{(n+1)\pi}{2},
+\]
+\[
+ \sqrt{\frac{\pi}{2x}}\sqrt{\frac{2}{\pi x}}=\frac1x,\qquad
+ e^{\mp i(n+1)\pi/2}=(\mp i)^{n+1}.
+\]
+\par\framebreak\par
+So the leading terms are
 \begin{equation}
- h_n^{(1)}(x)\sim\frac{(-i)^{n+1}e^{ix}}{x},\qquad
- h_n^{(2)}(x)\sim\frac{i^{n+1}e^{-ix}}{x},\qquad x\to+\infty.
+ h_n^{(1)}(x)\approx\frac{(-i)^{n+1}e^{ix}}{x},\qquad
+ h_n^{(2)}(x)\approx\frac{i^{n+1}e^{-ix}}{x},\qquad x\to+\infty.
  \label{eq:spherical-h-far}
 \end{equation}
-The $1/x$ envelope is spherical spreading, the analogue of the $1/\sqrt x$
-cylindrical envelope of $H_m^{(1,2)}$.
+The \(1/x\) envelope is spherical spreading (energy \(\propto\) amplitude\(^2\propto1/x^2\), spread over a sphere of
+area \(\propto x^2\)), the analogue of the \(1/\sqrt x\) envelope of the cylindrical \(H_m^{(1,2)}\).
 
-\textbf{Convention flag.} With this chapter's $e^{-i\omega t}$, $h_n^{(1)}$ and $H_\nu^{(1)}$ are
-outgoing; with $e^{+i\omega t}$, common in applied scattering, $h_n^{(2)}$ and $H_\nu^{(2)}$ are.
-Always pair a Hankel label with its time convention.
+\textbf{Convention flag.} With this chapter's time factor \(e^{-i\omega t}\), \(h_n^{(1)}\) and \(H_\nu^{(1)}\) are outgoing;
+with \(e^{+i\omega t}\), common in applied scattering, \(h_n^{(2)}\) and \(H_\nu^{(2)}\) are. Always state the time
+convention with a Hankel label.
 
+\textbf{Step 6: small argument} (\(x\to0^+\), \(n\) fixed). First a gamma value: applying \(\Gamma(a+1)=a\Gamma(a)\)
+repeatedly from \(\Gamma(\frac12)=\sqrt\pi\),
+\[
+ \Gamma\bigl(n+\tfrac32\bigr)=\tfrac{2n+1}{2}\cdot\tfrac{2n-1}{2}\cdots\tfrac12\cdot\sqrt\pi=\frac{(2n+1)!!}{2^{n+1}}\sqrt\pi,
+\]
+where \((2n+1)!!=1\cdot3\cdot5\cdots(2n+1)\);
+and in the same way \(\Gamma(n+\frac12)=\frac{(2n-1)!!}{2^n}\sqrt\pi\) (with \((-1)!!=1\)).
 \par\framebreak\par
-\textbf{Small argument} ($x\to0^+$, fixed $n$). Repeated $\Gamma(a+1)=a\Gamma(a)$ from
-$\Gamma(\tfrac12)=\sqrt\pi$ gives $\Gamma(n+\tfrac12)=\tfrac12\cdot\tfrac32\cdots\tfrac{2n-1}{2}\,\sqrt\pi=\frac{(2n-1)!!}{2^n}\sqrt\pi$ (so, with
-$n\to n+1$, $\Gamma(n+\tfrac32)=\frac{(2n+1)!!}{2^{n+1}}\sqrt\pi$), with
-$(2n+1)!!=1\cdot3\cdots(2n+1)$ and $(-1)!!=1$. Multiply the leading terms of
-\eqref{eq:series-gamma} and \eqref{eq:Ysmall-general} by $\sqrt{\pi/(2x)}$:
+\textbf{Step 6, continued.} Multiply the leading terms of \eqref{eq:series-gamma} and \eqref{eq:Ysmall-general} by
+\(\sqrt{\pi/(2x)}\), and simplify the powers of \(2\) and \(x\):
 \begin{align*}
- j_n(x)&\sim\sqrt{\frac{\pi}{2x}}\,\frac{(x/2)^{n+1/2}}{\Gamma(n+\tfrac32)}
- =\frac{\sqrt\pi\,x^n}{2^{n+1}\Gamma(n+\tfrac32)}=\frac{x^n}{(2n+1)!!},\\
- y_n(x)&\sim-\sqrt{\frac{\pi}{2x}}\,\frac{\Gamma(n+\tfrac12)}{\pi}\Bigl(\frac2x\Bigr)^{n+1/2}
- =-\frac{2^n\Gamma(n+\tfrac12)}{\sqrt\pi\,x^{n+1}}=-\frac{(2n-1)!!}{x^{n+1}}.
+ j_n(x)&\approx\sqrt{\frac{\pi}{2x}}\,\frac{(x/2)^{n+1/2}}{\Gamma(n+\tfrac32)}
+ =\frac{\sqrt\pi\,x^n}{2^{n+1}\,\Gamma(n+\tfrac32)}=\frac{x^n}{(2n+1)!!},\\
+ y_n(x)&\approx-\sqrt{\frac{\pi}{2x}}\,\frac{\Gamma(n+\tfrac12)}{\pi}\Bigl(\frac2x\Bigr)^{n+1/2}
+ =-\frac{2^n\,\Gamma(n+\tfrac12)}{\sqrt\pi\,x^{n+1}}=-\frac{(2n-1)!!}{x^{n+1}}.
 \end{align*}
+Check with \(n=0\): \(j_0\approx1\) and \(y_0\approx-1/x\), as from \(\sin x/x\) and \(-\cos x/x\).
 \end{frame}
 
 % ======================================================================
