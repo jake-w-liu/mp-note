@@ -126,29 +126,37 @@ angle between functions (an inner product), and then convergence.
 \begin{frame}[allowframebreaks=1.00]{Inner products, norms, and coefficients}
 \footnotesize
 
-\textbf{Step 1: choose the inner product.}  It plays the role of the dot product:
-it measures length and angle.  We take it \emph{linear in its first slot}.  An inner
-product $(\cdot,\cdot)$ satisfies
+\textbf{Goal.} Expand a function in a set of ``mode'' functions, \(f=\sum a_iu_i\), and find the coefficients
+\(a_i\). For ordinary vectors we would use the dot product; we need the same tool for functions.
+
+\textbf{Step 1: from dot product to integral.} For vectors in \(\mathbb R^N\),
+\(u\cdot v=\sum_{k}u_kv_k\). Think of a function \(u(x)\) on \([a,b]\) as a vector with very many
+components: its values \(u(x_k)\) at closely spaced points \(x_k\), spacing \(\Delta x\). Then
+\(\sum_ku(x_k)v(x_k)\,\Delta x\to\int_a^bu(x)v(x)\,dx\). So the natural ``dot product'' of functions is an
+integral. For complex-valued functions we also conjugate the second factor (reason below):
+\begin{equation}
+  (u,v)=\int_a^b u(x)\overline{v(x)}\,dx.
+  \label{eq:l2ip}
+\end{equation}
+\textbf{The rules.} An inner product \((\cdot,\cdot)\) must satisfy (we take it linear in the first slot):
 \begin{enumerate}
-  \item $(au+bv,w)=a(u,w)+b(v,w)$; in particular $(cu,v)=c\,(u,v)$ for a scalar $c$,
-  \item $(u,v)=\overline{(v,u)}$,
-  \item $(u,u)\geq0$, with equality only for the zero vector.
+  \item \((au+bv,w)=a(u,w)+b(v,w)\); in particular \((cu,v)=c\,(u,v)\) for a number \(c\);
+  \item \((u,v)=\overline{(v,u)}\);
+  \item \((u,u)\geq0\), with equality only for \(u=0\).
 \end{enumerate}
-Conjugate symmetry forces \emph{conjugate-linearity in the second slot} (swap the
-slots by property 2, pull out $c$ by property 1, swap back):
+\par\framebreak\par
+\textbf{Why the conjugate?} Without it, \((u,u)=\int u^2dx\) could be negative or complex for complex \(u\)
+(try \(u=i\)), and could not be a squared length. With it, \((u,u)=\int|u|^2dx\ge0\).
+
+\textbf{A consequence: the second slot is conjugate-linear.} Swap the slots (rule~2), pull out \(c\)
+(rule~1), and swap back:
 \begin{equation}
   (u,cv)=\overline{(cv,u)}=\overline{c\,(v,u)}
   =\overline{c}\;\overline{(v,u)}=\overline{c}\,(u,v).
   \label{eq:ip-conj-linear-second}
 \end{equation}
-The conjugate keeps lengths positive: $(iu,iu)=i\,\overline{i}\,(u,u)=(u,u)$.
-For functions, the sum over components becomes an integral.  The standard $L^2$
-inner product on $[a,b]$ is
-\begin{equation}
-  (u,v)=\int_a^b u(x)\overline{v(x)}\,dx.
-  \label{eq:l2ip}
-\end{equation}
-For a real weight $w>0$ inside $(a,b)$ (zero allowed at an endpoint), the weighted inner product is
+\textbf{Weighted inner product.} Sometimes different points should count differently. With a real
+weight \(w(x)>0\) inside \((a,b)\) (it may vanish at an endpoint),
 \begin{equation}
   (u,v)_w=\int_a^b u(x)\overline{v(x)}\,w(x)\,dx.
   \label{eq:wip}
@@ -156,7 +164,7 @@ For a real weight $w>0$ inside $(a,b)$ (zero allowed at an endpoint), the weight
 For example, the drum problem \eqref{eq:bessel-SL} has $w(s)=s$: a ring at radius $s$
 has area $2\pi s\,ds$, so $w$ counts each radius by its area.
 
-The induced norm (length) is
+\textbf{Length and angle.} The length (norm) is
 \begin{equation}
   \|u\|=\sqrt{(u,u)},
   \qquad
@@ -166,6 +174,7 @@ The induced norm (length) is
 and $u/\|u\|$ has length one.  Two vectors are \emph{orthogonal} when $(u,v)=0$;
 an \emph{orthonormal} set satisfies $(u_i,u_j)=\delta_{ij}$, where $\delta_{ij}=1$ for $i=j$ and $0$ otherwise.
 
+\par\framebreak\par
 \textbf{Step 2: extract coefficients by orthogonality.}  Suppose
 $f=\sum_{i=1}^{N}a_iu_i$ with orthogonal $u_i$.  Take the inner product with $u_j$;
 by linearity in the first slot, and because $(u_i,u_j)=0$ for $i\ne j$, only the
@@ -184,34 +193,38 @@ $x$-component of a vector in $\mathbb R^3$.  The same formula serves infinite
 sums (next frame).
 \end{frame}
 
-\begin{frame}{Infinite-dimensional bases and $L^2$}
+\begin{frame}[allowframebreaks=1.00]{Infinite-dimensional bases and $L^2$}
 \footnotesize
-For an infinite series of functions, we must say how its partial sums approach the
-function. The space $L^2(0,1)$ consists of the functions with finite square integral,
+\textbf{The new issue.} Mode expansions use infinitely many functions, so they are infinite series. We
+must say in what sense the partial sums approach \(f\).
+
+\textbf{Distance between functions.} Use the length from \eqref{eq:induced-norm} on \([0,1]\):
 \[
- \|f\|_2=\left(\int_0^1|f(x)|^2\,dx\right)^{1/2}<\infty,
+ \|f\|_2=\left(\int_0^1|f(x)|^2\,dx\right)^{1/2},\qquad \text{distance}(f,g)=\|f-g\|_2 .
 \]
-which is the norm \eqref{eq:induced-norm} of \eqref{eq:l2ip} on $[0,1]$; the distance between
-$f$ and $g$ is $\|f-g\|_2$.
+The functions with \(\|f\|_2<\infty\) form the space \(L^2(0,1)\).
 
-Use the sine modes $u_n(x)=\sin(n\pi x)$, $n=1,2,\ldots$.
-The next example shows that they are orthogonal, with $\|u_n\|^2=1/2$.
-Orthogonality alone is not enough: remove $u_1$, and the rest cannot rebuild it,
-since each coefficient $(u_1,u_n)/\|u_n\|^2$, $n\ge2$, in \eqref{eq:coeff-orthogonal}
-is zero (like building the $z$-axis from $x$ and $y$). A set that misses no
-direction is called \emph{complete}.
-
-\textbf{Completeness of the sine system (quoted from Fourier analysis).} Every
-$f\in L^2(0,1)$ has the expansion
+\textbf{Orthogonal is not enough; we also need complete.} Take the sine modes \(u_n(x)=\sin(n\pi x)\),
+\(n=1,2,\ldots\) (the next frame shows that they are orthogonal, with \(\|u_n\|^2=\frac12\)). Suppose we threw
+away \(u_1\). The remaining modes could not rebuild it: every coefficient \((u_1,u_n)/\|u_n\|^2\) with \(n\ge2\) is
+zero, so the expansion of \(u_1\) would be \(0\). (Like trying to build the \(z\)-axis out of the \(x\)- and
+\(y\)-axes.) A set of modes that misses no direction is called \emph{complete}.
+\par\framebreak\par
+\textbf{The sine modes are complete} (quoted from Fourier analysis). Every \(f\) in \(L^2(0,1)\) can be
+expanded as
 \[
  f=\sum_{n=1}^{\infty}a_nu_n,\qquad
  a_n=\frac{(f,u_n)}{\|u_n\|^2},
 \]
-the projection formula \eqref{eq:coeff-orthogonal} with infinitely many terms.  The
-sum converges in the \emph{mean-square} sense,
-$\bigl\|f-\sum_{n=1}^{N}a_nu_n\bigr\|_2\to0$ as $N\to\infty$.
-This controls the integrated squared error, not the value at every point; the
-example $f=1$ below shows the difference.
+which is the projection formula \eqref{eq:coeff-orthogonal} with infinitely many terms.
+
+\textbf{In what sense?} In the \emph{mean-square} sense: the distance between \(f\) and the partial sum
+goes to zero,
+\[
+ \Bigl\|f-\sum_{n=1}^{N}a_nu_n\Bigr\|_2\longrightarrow0\qquad(N\to\infty).
+\]
+This controls the total squared error, not the error at every single point. The example \(f=1\) below
+shows the difference: the partial sums stay \(0\) at the endpoints, yet the total error shrinks.
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Example: orthogonality of the sine modes}
@@ -305,18 +318,20 @@ The allowed functions must also satisfy any specified boundary conditions.
 $A^\dagger=\overline{A}^{T}$, and $A$ is symmetric (Hermitian) when $A^\dagger=A$.
 For a differential operator, integration by parts plays the role of transposing.
 
-\textbf{Integration by parts moves a derivative.} With $D=d/dx$,
+\textbf{Integration by parts moves a derivative.} Recall \(\int_0^1fg'\,dx=[fg]_0^1-\int_0^1f'g\,dx\). Use it
+with \(f=u\), \(g=\overline v\), for the operator \(D=d/dx\):
 \begin{equation}
  (u,Dv)=\int_0^1u\overline{v'}\,dx
  =\left[u\overline v\right]_0^1-\int_0^1u'\overline v\,dx
  =\left[u\overline v\right]_0^1+(-Du,v).
  \label{eq:ddx-adjoint-general}
 \end{equation}
-The operator left inside, apart from the boundary term, is the \emph{formal adjoint}:
-$D^\dagger=-D$.  So $D$ behaves like an antisymmetric matrix, and is not formally
-self-adjoint.
+So moving \(D\) from \(v\) to \(u\) costs a minus sign, plus a boundary term. The operator that appears on
+\(u\) (ignoring the boundary term) is called the \emph{formal adjoint}: here \(D^\dagger=-D\). So \(D\) behaves
+like an antisymmetric matrix (\(A^T=-A\)), not a symmetric one.
 
-\textbf{Two integrations restore the sign,} as $(-D)(-D)=D^2$ suggests. For $L=D^2$,
+\textbf{Two derivatives: two minus signs cancel,} as \((-D)(-D)=D^2\) suggests. For \(L=D^2\), integrate by
+parts once (first line), then once more on \(\int u'\overline{v'}\) (second line):
 \begin{align}
  (u,Lv)&=\int_0^1u\overline{v''}\,dx\notag\\
  &=\left[u\overline{v'}\right]_0^1-\int_0^1u'\overline{v'}\,dx
@@ -325,8 +340,9 @@ self-adjoint.
    +\int_0^1u''\overline v\,dx.
  \label{eq:d2-ibp-twice}
 \end{align}
-Hence $L^\dagger=L$. If $u(0)=u(1)=v(0)=v(1)=0$ (Dirichlet), both boundary
-contributions vanish:
+The operator on \(u\) is again \(D^2\): \(L^\dagger=L\) (``formally self-adjoint''). If moreover the boundary term
+vanishes, \(L\) behaves exactly like a symmetric matrix. For example, with \(u(0)=u(1)=v(0)=v(1)=0\)
+(Dirichlet conditions) every term of the bracket is zero:
 \begin{equation}
  (u,Lv)=(Lu,v).
  \label{eq:d2-adjoint}
@@ -357,29 +373,30 @@ Every eigenvalue of a self-adjoint operator (one with $(Lu,v)=(u,Lv)$ for all al
 distinct eigenvalues are orthogonal.
 \end{theorem}
 
-\textbf{Proof.} Let $Lu_i=\lambda_i u_i$, $Lu_j=\lambda_j u_j$.  Property 1,
-self-adjointness and \eqref{eq:ip-conj-linear-second} give
-\begin{align*}
-  \lambda_i(u_i,u_j)
-   &=(Lu_i,u_j)
-    =(u_i,Lu_j)
-    =(u_i,\lambda_j u_j)
-    =\overline{\lambda_j}(u_i,u_j).
-\end{align*}
-Therefore $(\lambda_i-\overline{\lambda_j})(u_i,u_j)=0$.  Taking $j=i$, $(u_i,u_i)>0$
-gives $\lambda_i=\overline{\lambda_i}$: every eigenvalue is real.  So
-$\overline{\lambda_j}=\lambda_j$, and for $\lambda_i\neq\lambda_j$ the identity forces
-$(u_i,u_j)=0$.  Section~\ref{sec:sturm-liouville} reuses this
-argument with a weight $w$.
+\textbf{Proof.} Let \(Lu_i=\lambda_i u_i\) and \(Lu_j=\lambda_j u_j\). Compute \((Lu_i,u_j)\) in two ways:
+\[
+  \underbrace{\lambda_i(u_i,u_j)=(Lu_i,u_j)}_{\text{rule 1}}
+  \;\overset{\text{self-adjoint}}{=}\;(u_i,Lu_j)=(u_i,\lambda_j u_j)
+  \;\overset{\eqref{eq:ip-conj-linear-second}}{=}\;\overline{\lambda_j}\,(u_i,u_j).
+\]
+Bring everything to one side: \((\lambda_i-\overline{\lambda_j})\,(u_i,u_j)=0\). Now read this twice.
+\begin{itemize}
+  \item \emph{Take \(j=i\).} Then \((u_i,u_i)=\|u_i\|^2>0\), so \(\lambda_i-\overline{\lambda_i}=0\): \(\lambda_i\) equals its
+        conjugate, so it is real. This holds for every eigenvalue.
+  \item \emph{Take \(\lambda_i\ne\lambda_j\).} Since \(\lambda_j\) is real, \(\lambda_i-\overline{\lambda_j}=\lambda_i-\lambda_j\ne0\), so
+        \((u_i,u_j)=0\): the eigenfunctions are orthogonal.
+\end{itemize}
+Section~\ref{sec:sturm-liouville} reuses this argument with a weight \(w\).
 
 For a repeated eigenvalue, orthogonal eigenfunctions can still be chosen
 (Gram--Schmidt: subtract from the second its projection \eqref{eq:coeff-orthogonal}
 on the first).
 
-\textbf{Application: the fixed string.}
-Let $Lu=u''$ on $[0,1]$ with the Dirichlet conditions $u(0)=u(1)=0$.  First, every
-eigenvalue is negative.  If $Lu=\mu u$ with $u\neq0$, integrate by parts; the
-endpoint term vanishes because $u(0)=u(1)=0$:
+\par\framebreak\par
+\textbf{Application: the fixed string.} Let \(Lu=u''\) on \([0,1]\) with \(u(0)=u(1)=0\).
+
+\emph{Step 1: every eigenvalue is negative.} Let \(Lu=\mu u\) with \(u\neq0\). Take the inner product with \(u\)
+and integrate by parts; the boundary term vanishes because \(u(0)=u(1)=0\):
 \begin{align*}
   \mu\|u\|^2
    =(Lu,u)
@@ -391,10 +408,9 @@ endpoint term vanishes because $u(0)=u(1)=0$:
 $\int|u'|^2dx$ is the string's stretching energy: any deflection costs energy, so
 the squared frequencies $-\mu$ (the $\lambda$ of the Sturm--Liouville form) are positive.
 
-Write $\mu=-k^2$ with $k>0$.  Then $u''+k^2u=0$ gives
-$u(x)=A\cos(kx)+B\sin(kx)$.  The boundary conditions give $u(0)=A=0$ and
-$u(1)=B\sin k=0$; a nonzero eigenfunction needs $B\neq0$, so $\sin k=0$, i.e.\
-$k=n\pi$, $n=1,2,3,\ldots$.  Thus
+\emph{Step 2: solve.} Write \(\mu=-k^2\) with \(k>0\). Then \(u''+k^2u=0\), so
+\(u(x)=A\cos(kx)+B\sin(kx)\). The left end gives \(u(0)=A=0\). The right end gives \(u(1)=B\sin k=0\). A
+nonzero eigenfunction needs \(B\neq0\), so \(\sin k=0\), that is, \(k=n\pi\) with \(n=1,2,3,\ldots\). Thus
 \begin{equation}
   u_n(x)=\sin(n\pi x),
   \qquad
@@ -417,7 +433,8 @@ second-order expressions share this property? With real coefficients, write
 \begin{equation}
  \ell[u]=p_0u''+p_1u'+p_2u.\label{eq:Lgen}
 \end{equation}
-To move the derivatives onto $v$, integrate the $u''$ term by parts twice and the $u'$ term once:
+\textbf{Step 1: move all derivatives from \(u\) to \(v\).} Integrate the \(u''\) term by parts twice (each time the
+derivative leaves \(u\) and lands on the factor \(p_0\overline v\)), and the \(u'\) term once:
 \begin{align*}
  \int_a^b p_0u''\overline v\,dx
   &=\left[p_0u'\overline v\right]_a^b-\int_a^b u'(p_0\overline v)'\,dx\\
@@ -426,7 +443,7 @@ To move the derivatives onto $v$, integrate the $u''$ term by parts twice and th
  \int_a^b p_1u'\overline v\,dx
   &=\left[p_1u\overline v\right]_a^b-\int_a^b u(p_1\overline v)'\,dx.
 \end{align*}
-Adding the untouched term $\int_a^b p_2u\overline v\,dx$ gives, in the inner product \eqref{eq:l2ip},
+\textbf{Step 2: collect.} Add the untouched term \(\int_a^b p_2u\overline v\,dx\). In the inner product \eqref{eq:l2ip},
 \begin{equation}
  (\ell[u],v)
   =\bigl[\text{boundary terms}\bigr]_a^b
@@ -439,18 +456,26 @@ the formal adjoint
 \begin{equation}
  \ell^\dagger[v]=(p_0v)''-(p_1v)'+p_2v.\label{eq:Lstar}
 \end{equation}
-Expanding $(p_0v)''=p_0v''+2p_0'v'+p_0''v$ and $(p_1v)'=p_1v'+p_1'v$ by the product rule,
+\textbf{Step 3: when is \(\ell^\dagger=\ell\)?} Expand by the product rule,
+\((p_0v)''=p_0v''+2p_0'v'+p_0''v\) and \((p_1v)'=p_1v'+p_1'v\):
 \[
- \ell^\dagger[v]=p_0v''+(2p_0'-p_1)v'+(p_0''-p_1'+p_2)v.
+ \ell^\dagger[v]=p_0v''+(2p_0'-p_1)\,v'+(p_0''-p_1'+p_2)\,v .
 \]
-Equality with $\ell[v]=p_0v''+p_1v'+p_2v$ first requires
-$2p_0'-p_1=p_1$, or $p_1=p_0'$; differentiating it gives $p_0''-p_1'=0$, so the
-coefficient of $v$ then agrees as well.  Hence
+Compare with \(\ell[v]=p_0v''+p_1v'+p_2v\), coefficient by coefficient:
+\begin{itemize}
+  \item \(v''\): \(p_0=p_0\). Always true.
+  \item \(v'\): \(2p_0'-p_1=p_1\), that is, \(p_1=p_0'\).
+  \item \(v\): \(p_0''-p_1'+p_2=p_2\), that is, \(p_1'=p_0''\). This follows from the previous line by
+        differentiating.
+\end{itemize}
+Hence
 \begin{equation}
  \ell^\dagger=\ell\quad\Longleftrightarrow\quad p_1=p_0'.\label{eq:pp1}
 \end{equation}
-The endpoint term in \eqref{eq:formal-adjoint-ibp} must still vanish on the
-allowed functions; the next frame computes it in a cleaner form.
+\textbf{Message.} \(p_1=p_0'\) means \(p_0u''+p_1u'=(p_0u')'\) (product rule). So a second-order expression is
+formally self-adjoint exactly when its derivative terms combine into \((p_0u')'\). The boundary term in
+\eqref{eq:formal-adjoint-ibp} must still vanish on the allowed functions; the next frame computes it in a
+cleaner form.
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{The Sturm--Liouville expression and Green's identity}
@@ -866,38 +891,45 @@ by $-\lambda$ and $w$ by $-w$.
 
 \begin{frame}[allowframebreaks=1.00]{A unit point source creates a jump}
 \footnotesize
-\textbf{Goal.} We want to solve the \emph{forced} problem $Lu=f$ (a string under a
-distributed load $f$) for every $f$ at once. Plan: find the response to a load
-concentrated at one point $x'$, then add such responses up.
+\textbf{Goal.} Solve the \emph{forced} problem \(Lu=f\) (for example a string under a distributed load
+\(f\)) for every \(f\) at once.
 
-\textbf{Setting.} On a regular finite interval $[a,b]$ take
+\textbf{Plan.} First find the response to a load concentrated at a single point \(x'\). A general load
+is a sum of such point loads, so the general response is the sum (integral) of point responses.
+
+\textbf{Setting.} On a finite interval \([a,b]\) take
 \[
  L[u]=-(pu')'-qu=-\ell[u]
 \]
-($\ell$ from \eqref{eq:SLop}), so that \eqref{eq:SLeq} reads $Lu=\lambda wu$, with the
-separated boundary conditions \eqref{eq:robin-bc}. The unit point load is the Dirac
-delta $\delta(x-x')$: it vanishes for $x\ne x'$ and, for continuous $f$,
-\[
- \int_a^b\delta(x-x')f(x)\,dx=f(x'),\qquad a<x'<b,
-\]
-and likewise $\int_a^b\delta(x-x')f(x')\,dx'=f(x)$ (only $x-x'$ matters, and $\delta$ is even).
-The \emph{Green function} $G(x,x')$ is the response to it: $L_xG=\delta(x-x')$ under
-the boundary conditions.
+(\(\ell\) from \eqref{eq:SLop}; the minus sign makes \eqref{eq:SLeq} read \(Lu=\lambda wu\)), with the boundary conditions
+\eqref{eq:robin-bc}.
 
-\framebreak
+\textbf{A unit point load: the Dirac delta \(\delta(x-x')\).} Think of it as a very tall, very narrow spike
+at \(x'\) with total area \(1\). Its defining property: for continuous \(f\) and \(a<x'<b\),
+\[
+ \int_a^b\delta(x-x')f(x)\,dx=f(x'),
+\]
+and likewise \(\int_a^b\delta(x-x')f(x')\,dx'=f(x)\). The \emph{Green function} \(G(x,x')\) is the response to a
+unit load at \(x'\): it solves \(L_xG=\delta(x-x')\) (\(L\) acting on the variable \(x\)) with the boundary
+conditions.
+\par\framebreak\par
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
 \footnotesize
-\textbf{First by hand: a fixed string.} Take $p=1$, $q=0$ on $[0,1]$:
-$-G''=\delta(x-x')$, $G(0)=G(1)=0$. Away from $x'$, $G''=0$, so $G$ is straight on each
-side: $G=c_1x$ for $x<x'$, $G=c_2(1-x)$ for $x>x'$.
+\textbf{First by hand: a fixed string.} Take \(p=1\), \(q=0\) on \([0,1]\): \(-G''=\delta(x-x')\), with
+\(G(0)=G(1)=0\).
+
+\emph{Away from \(x'\)}, \(G''=0\), so \(G\) is a straight line on each side. The lines must pass through the
+fixed ends:
+\[
+ G=c_1x\ (x<x'),\qquad G=c_2(1-x)\ (x>x').
+\]
+\emph{At \(x'\)}, two physical conditions:
 \begin{itemize}
- \item The string does not break: $c_1x'=c_2(1-x')$.
- \item Force balance at the load: tension ($=1$) times the drop in slope equals the
- unit load, $G'(x'^+)-G'(x'^-)=-c_2-c_1=-1$.
+ \item the string does not break (continuity): \(c_1x'=c_2(1-x')\);
+ \item force balance: the unit load equals the tension (\(=1\)) times the drop in slope. The slope
+       changes from \(c_1\) to \(-c_2\): \(\;-c_2-c_1=-1\), so \(c_1+c_2=1\).
 \end{itemize}
-Hence $c_1=1-x'$, $c_2=x'$, and $G(x,x')=x_<(1-x_>)$ with $x_<=\min(x,x')$,
-$x_>=\max(x,x')$: a tent peaking at the load.
 \end{column}
 \begin{column}{0.43\textwidth}
 \centering
@@ -913,36 +945,44 @@ $x_>=\max(x,x')$: a tent peaking at the load.
 \end{tikzpicture}
 \end{column}
 \end{columns}
+\emph{Solve.} Put \(c_2=1-c_1\) into the continuity condition:
+\(c_1x'=(1-c_1)(1-x')=1-x'-c_1+c_1x'\), so \(c_1=1-x'\) and then \(c_2=x'\). With \(x_<=\min(x,x')\),
+\(x_>=\max(x,x')\),
+\[
+ G(x,x')=x_<\,(1-x_>):
+\]
+a tent with its peak at the load.
+\par\framebreak\par
+\textbf{The general case: the same two facts.}
 
-\textbf{The same two facts in general.} Assume $0$ is not an eigenvalue: $Lu=0$ with
-these boundary conditions forces $u=0$. (A string with both ends free fails this:
-$u=$ const gives $Lu=0$, and nothing balances a point load.) Away from $x'$, $L_xG=0$, so with $y_L$ a solution satisfying the left
-condition and $y_R$ one satisfying the right,
-$G=c_1y_L(x)$ for $x<x'$ and $G=c_2y_R(x)$ for $x>x'$.
+\emph{Step 1: away from \(x'\).} There \(L_xG=0\). Let \(y_L\) be a solution of \(Ly=0\) that satisfies the
+\emph{left} boundary condition, and \(y_R\) one that satisfies the \emph{right} one. Then
+\[
+ G=c_1\,y_L(x)\ (x<x'),\qquad G=c_2\,y_R(x)\ (x>x').
+\]
+(We assume \(0\) is not an eigenvalue, that is, \(Lu=0\) with both boundary conditions only has
+\(u=0\). Then \(y_L\) and \(y_R\) are not multiples of each other, so their Wronskian
+\(W[y_L,y_R]=y_Ly_R'-y_L'y_R\) is not zero. A string with both ends free fails this: \(u=\)const solves
+\(Lu=0\), and nothing holds the string against a point load.)
 
-The Wronskian
-$W[y_L,y_R]=y_Ly_R'-y_L'y_R$, the determinant of the (value, slope) columns
-(Chapter~3), is nonzero: $W=0$ at a point would give some $y_R-cy_L$ zero value and slope
-there, so $y_R\equiv cy_L$ would satisfy both conditions with $Ly_R=0$.
-
-\emph{Slope jump (force balance).} Integrate $-(pG')'-qG=\delta$ over
-$[x'-\varepsilon,x'+\varepsilon]$ (the $\delta$ integrates to $1$):
+\emph{Step 2: the slope jumps (force balance).} Integrate \(-(pG')'-qG=\delta(x-x')\) over a tiny interval
+\([x'-\varepsilon,x'+\varepsilon]\). The \(\delta\) integrates to \(1\):
 \[
  -\bigl[pG'\bigr]_{x'-\varepsilon}^{x'+\varepsilon}
  -\int_{x'-\varepsilon}^{x'+\varepsilon}qG\,dx=1 .
 \]
-As $\varepsilon\to0$ the $qG$ integral vanishes (bounded integrand, shrinking interval) and,
-$p$ being continuous, $[pG']\to p(x')[G'(x'^+)-G'(x'^-)]$, so
+As \(\varepsilon\to0\), the \(qG\) integral vanishes (a bounded function over a shrinking interval), and the
+bracket becomes \(p(x')\bigl[G'(x'^+)-G'(x'^-)\bigr]\). So
 \begin{equation}
  G'(x'^+,x')-G'(x'^-,x')=-\frac1{p(x')} .
  \label{eq:green-jump}
 \end{equation}
-The slope drops by load over tension, as for the string.
-
-\emph{Continuity (no break).} So $pG'$ only takes a finite step: $G'$ stays bounded, and
-$G(x'+\varepsilon)-G(x'-\varepsilon)=\int_{x'-\varepsilon}^{x'+\varepsilon}G'\,dx\to0$.
-Continuity $c_1y_L(x')=c_2y_R(x')$ holds for $c_1=A\,y_R(x')$, $c_2=A\,y_L(x')$, so
-the factors cross:
+The slope drops by (load)/(tension), as for the string.
+\par\framebreak\par
+\emph{Step 3: \(G\) is continuous (the string does not break).} \(G'\) only jumps by a finite amount, so it
+stays bounded, and the change of \(G\) across the tiny interval,
+\(\int_{x'-\varepsilon}^{x'+\varepsilon}G'\,dx\), tends to \(0\). So \(c_1y_L(x')=c_2y_R(x')\). A symmetric way to satisfy this is
+\(c_1=A\,y_R(x')\), \(c_2=A\,y_L(x')\) for some constant \(A\):
 \[
  G(x,x')=
  \begin{cases}
@@ -950,25 +990,31 @@ the factors cross:
   A\,y_L(x')\,y_R(x), & x>x'.
  \end{cases}
 \]
-Differentiating each branch in $x$ at $x'$, $G'(x'^+,x')=A\,y_L(x')y_R'(x')$ and
-$G'(x'^-,x')=A\,y_L'(x')y_R(x')$, so \eqref{eq:green-jump} gives
-$A\,W[y_L,y_R](x')=-1/p(x')$. Here $pW$ is constant: Green's identity
-\eqref{eq:green-identity} on any $[x_1,x_2]$, with the real solutions $u=y_L$,
-$v=y_R$ of $\ell[y]=0$, has zero left side, so $[pW]_{x_1}^{x_2}=0$. Hence $A$ does
-not depend on $x'$, and
+\emph{Step 4: find \(A\) from the jump.} Differentiate each branch in \(x\) and set \(x=x'\):
+\(G'(x'^+)=A\,y_L(x')\,y_R'(x')\) and \(G'(x'^-)=A\,y_L'(x')\,y_R(x')\). Their difference is
+\(A\bigl[y_Ly_R'-y_L'y_R\bigr](x')=A\,W(x')\). By \eqref{eq:green-jump},
+\[
+ A\,W[y_L,y_R](x')=-\frac1{p(x')},\qquad A=-\frac{1}{p(x')\,W(x')}.
+\]
+\par\framebreak\par
+\emph{Step 5: \(A\) does not depend on \(x'\).} Divide \(Ly=0\) by \(-p\): \(y''+\frac{p'}{p}y'+\frac qp\,y=0\). By Abel's
+identity (Chapter~3), \(W=C\exp\bigl(-\int\frac{p'}{p}dx\bigr)=C\,e^{-\ln p}=\frac{C}{p}\). So \(p\,W=C\) is a
+constant, and so is \(A=-1/C\).
+
+\textbf{Result.} With \(x_<=\min(x,x')\), \(x_>=\max(x,x')\),
 \begin{equation}
- G(x,x')=-\frac{y_L(x_<)\,y_R(x_>)}{p(x')\,W[y_L,y_R](x')}.
+ G(x,x')=-\frac{y_L(x_<)\,y_R(x_>)}{p\,W[y_L,y_R]}.
  \label{eq:green-two-sol}
 \end{equation}
-\emph{Check (string):} $y_L=x$, $y_R=1-x$, $W=x\cdot(-1)-1\cdot(1-x)=-1$, $p=1$, so
-\eqref{eq:green-two-sol} is the tent $x_<(1-x_>)$.
+\emph{Check (string):} \(y_L=x\), \(y_R=1-x\), \(p=1\), and \(W=x\cdot(-1)-1\cdot(1-x)=-1\). So
+\(G=-\frac{x_<(1-x_>)}{-1}=x_<(1-x_>)\), the tent.
 
-\textbf{Superposition.} A load $f$ is a sum of point loads $f(x')\,dx'$, so
-$u(x)=\int_a^bG(x,x')f(x')\,dx'$. Indeed $L$ acts on $x$ only, so
+\textbf{Superposition.} A load \(f\) is a sum of point loads \(f(x')\,dx'\). So the response is
+\(u(x)=\int_a^bG(x,x')f(x')\,dx'\). Check: \(L\) acts on \(x\) only, so
 \[
- L_xu=\int_a^b L_xG(x,x')f(x')\,dx'=\int_a^b\delta(x-x')f(x')\,dx'=f(x),
+ L_xu=\int_a^b L_xG(x,x')\,f(x')\,dx'=\int_a^b\delta(x-x')\,f(x')\,dx'=f(x),
 \]
-and $u$ inherits the linear homogeneous boundary conditions from each $G(\cdot,x')$.
+and \(u\) satisfies the boundary conditions because each \(G(\cdot,x')\) does.
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{The same function written in eigenfunctions}
