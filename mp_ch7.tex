@@ -88,73 +88,107 @@ chooses its size and sign.
 \end{center}
 \end{frame}
 
-\begin{frame}{The first variation is an ordinary derivative}
+\begin{frame}[allowframebreaks=1.00]{The first variation is an ordinary derivative}
 \small
-Keep $u$ and $\eta$ fixed and differentiate with respect to $\varepsilon$, not $x$.
-For the preceding energy the expansion is exact:
+\textbf{The idea.} Fix \(u\) and the shape \(\eta\), and look at the ordinary function of one number,
+\(\varepsilon\mapsto J[u+\varepsilon\eta]\). If \(u\) is a minimum, this function has its minimum at \(\varepsilon=0\), so its
+derivative there must be zero, as in first-year calculus.
+
+\textbf{Compute it for our energy.} Expand the square,
+\((u'+\varepsilon\eta')^2=u'^2+2\varepsilon\,u'\eta'+\varepsilon^2\eta'^2\), and integrate:
 \begin{align*}
  J[u+\varepsilon\eta]
  &=\frac12\int_0^1(u'+\varepsilon\eta')^2\dd x\\
  &=J[u]+\varepsilon\int_0^1u'\eta'\dd x
        +\frac{\varepsilon^2}{2}\int_0^1\eta'^2\dd x.
 \end{align*}
-The coefficient of $\varepsilon$ is the \emph{first variation}:
+This is a quadratic polynomial in \(\varepsilon\). Its derivative at \(\varepsilon=0\) is the coefficient of
+\(\varepsilon\), called the \emph{first variation}:
 \begin{equation}
  \delta J[u;\eta]
  :=\left.\frac{\mathrm d}{\mathrm d\varepsilon}J[u+\varepsilon\eta]\right|_{\varepsilon=0}
  =\int_0^1u'\eta'\dd x.\label{eq:first-variation}
 \end{equation}
-At a minimum it must vanish for \textbf{every allowed $\eta$}. Otherwise, since
-$J[u+\varepsilon\eta]=J[u]+\varepsilon\,\delta J+O(\varepsilon^2)$, a small $\varepsilon$
-with sign opposite to $\delta J$ would lower $J$.
-A function with zero first variation is called \emph{stationary}.
+\par\framebreak\par
+\textbf{Why it must vanish at a minimum.} For small \(\varepsilon\),
+\(J[u+\varepsilon\eta]\approx J[u]+\varepsilon\,\delta J\). If \(\delta J\ne0\), choose a small \(\varepsilon\) with the opposite sign
+to \(\delta J\): then \(\varepsilon\,\delta J<0\) and \(J\) goes down, so \(u\) was not a minimum. Hence, at a minimum,
+\[
+ \delta J[u;\eta]=0\qquad\text{for every allowed }\eta .
+\]
+A function \(u\) with this property is called \emph{stationary} (it could also be a maximum or a saddle;
+we check which later).
 \end{frame}
 
-\begin{frame}{One integration by parts gives the equation}
+\begin{frame}[allowframebreaks=1.00]{One integration by parts gives the equation}
 \small
-For smooth $u$, integrating \eqref{eq:first-variation} by parts,
+\textbf{Step 1: move the derivative off \(\eta\).} Integrate \eqref{eq:first-variation} by parts
+(\(\int fg'=[fg]-\int f'g\) with \(f=u'\), \(g=\eta\)):
 \[
  \delta J=[u'\eta]_0^1-\int_0^1u''\eta\dd x
           =-\int_0^1u''\eta\dd x,
 \]
-since the endpoint values of $\eta$ are zero. Since $\eta$ is an arbitrary smooth
-function vanishing at the ends, the integral vanishes only if $u''=0$
-(if $u''(x_0)\ne0$, a bump $\eta\ge0$ supported near $x_0$, where $u''$ keeps one sign,
-would give a nonzero integral). Thus
+since \(\eta(0)=\eta(1)=0\).
+
+\textbf{Step 2: conclude \(u''=0\).} This integral must be zero for every \(\eta\). That forces \(u''=0\)
+everywhere. \emph{Why:} if \(u''(x_0)\ne0\), say \(u''(x_0)>0\), then \(u''>0\) on a small interval around \(x_0\).
+Choose \(\eta\) to be a small bump, positive on that interval and zero elsewhere. Then \(\int u''\eta\,dx>0\), a
+contradiction.
+
+\textbf{Step 3: solve.} \(u''=0\) gives \(u(x)=A+Bx\). The end conditions \(u(0)=0\), \(u(1)=1\) give \(A=0\), \(B=1\):
 \[
- u''=0\quad\Longrightarrow\quad u(x)=A+Bx.
+ u_*(x)=x .
 \]
-The endpoint data give $A=0$, $B=1$, so $u_*(x)=x$.
-For \emph{any} smooth $\eta$ with zero endpoints, set $\varepsilon=1$ in the exact expansion
-of the previous slide; with $u_*'=1$ its cross term is
-$\int_0^1\eta'\dd x=\eta(1)-\eta(0)=0$, so
+\par\framebreak\par
+\textbf{Step 4: it really is the minimum.} Take any competitor \(u_*+\eta\) (with \(\eta(0)=\eta(1)=0\)) and use
+the exact expansion of the previous slide with \(\varepsilon=1\):
+\[
+ J[u_*+\eta]=J[u_*]+\int_0^1u_*'\eta'\dd x+\frac12\int_0^1\eta'^2\dd x .
+\]
+Since \(u_*'=1\), the middle term is \(\int_0^1\eta'\dd x=\eta(1)-\eta(0)=0\). So
 \begin{equation}
  J[u_*+\eta]-J[u_*]=\frac12\int_0^1\eta'^2\dd x\ge0.\label{eq:line-minimum}
 \end{equation}
-Equality forces $\eta'=0$ and then $\eta=0$. This proves a unique minimum;
-stationarity alone would not. For example, $-J$ has a maximum at the same curve.
+Equality would need \(\eta'=0\), so \(\eta\) constant, so \(\eta=0\) (its end values are \(0\)). So \(u_*\) is the unique
+minimum: the straight line. (Stationarity alone would not prove this; for example \(-J\) is stationary at
+the same \(u_*\), where it has a maximum.)
 \end{frame}
 
-\begin{frame}{The general Euler--Lagrange calculation}
+\begin{frame}[allowframebreaks=1.00]{The general Euler--Lagrange calculation}
 \small
-\textbf{Goal.} The last three slides handled one energy. For a general integrand, find the
-differential equation that every minimizing (or stationary) curve must satisfy.
+\textbf{Goal.} The last slides handled one energy. Now take a general energy
+\[
+ J[u]=\int_a^b F\bigl(x,u(x),u'(x)\bigr)\dd x
+\]
+and find the differential equation that every stationary \(u\) must satisfy.
 
-Let $J[u]=\int_a^b F(x,u(x),u'(x))\dd x$, where $F(x,s,v)$ has three independent inputs: $F_s$ is its derivative in the value $s$,
-$F_v$ in the slope $v$, both evaluated at $(x,u(x),u'(x))$. In \eqref{eq:first-variation}, the chain rule on
-$\frac{\mathrm d}{\mathrm d\varepsilon}F(x,u+\varepsilon\eta,u'+\varepsilon\eta')\big|_{\varepsilon=0}$
-gives the first line; integrating the $F_v\eta'$ term by parts gives the second:
-\begin{align*}
+\textbf{Notation.} Think of \(F(x,s,v)\) as a function of three independent variables: position \(x\),
+value \(s\), slope \(v\). Write \(F_s=\partial F/\partial s\) and \(F_v=\partial F/\partial v\), evaluated at
+\((x,u(x),u'(x))\).
+
+\textbf{Step 1: differentiate in \(\varepsilon\).} Replace \(u\) by \(u+\varepsilon\eta\): the value becomes \(u+\varepsilon\eta\) and the
+slope \(u'+\varepsilon\eta'\). By the chain rule, \(\frac{d}{d\varepsilon}F(x,u+\varepsilon\eta,u'+\varepsilon\eta')\) at \(\varepsilon=0\) is
+\(F_s\cdot\eta+F_v\cdot\eta'\). So
+\[
+ \delta J[u;\eta]=\int_a^b\bigl(F_s\eta+F_v\eta'\bigr)\dd x .
+\]
+\par\framebreak\par
+\textbf{Step 2: integrate the \(\eta'\) term by parts}, \(\int F_v\eta'\,dx=[F_v\eta]-\int\frac{d}{dx}(F_v)\,\eta\,dx\):
+\[
  \delta J[u;\eta]
- &=\int_a^b\bigl(F_s\eta+F_v\eta'\bigr)\dd x\\
- &=[F_v\eta]_a^b+\int_a^b\left(F_s-\frac{\mathrm d}{\mathrm dx}F_v\right)\eta\dd x.
-\end{align*}
-Using variations that vanish at the ends gives the \emph{Euler--Lagrange equation}:
+ =[F_v\eta]_a^b+\int_a^b\Bigl(F_s-\frac{\mathrm d}{\mathrm dx}F_v\Bigr)\eta\dd x.
+\]
+\textbf{Step 3: conclude.} For variations with \(\eta(a)=\eta(b)=0\) the bracket is zero, and the bump argument
+of the previous slide forces the bracket in the integral to vanish. This is the
+\emph{Euler--Lagrange equation}:
 \begin{equation}
  \frac{\mathrm d}{\mathrm dx}F_v=F_s.\label{eq:euler-lagrange}
 \end{equation}
-\textbf{Physical check.} With $x$ as time and $F=\tfrac12Mv^2-V(s)$ (mass $M$; kinetic minus potential
-energy), \eqref{eq:euler-lagrange} reads $(Mu')'=-V'(u)$: Newton's law, the principle of least action.
+\textbf{Check 1: our first example.} \(F=\frac12v^2\): \(F_v=v=u'\), \(F_s=0\), so \((u')'=0\), that is, \(u''=0\). \checkmark
+
+\textbf{Check 2: Newton's law.} Let \(x\) be time and \(F=\tfrac12Mv^2-V(s)\) (kinetic minus potential energy).
+Then \(F_v=Mu'\) and \(F_s=-V'(u)\), so \eqref{eq:euler-lagrange} reads \((Mu')'=-V'(u)\), that is,
+\(Mu''=\)force. This is the principle of least action.
 \end{frame}
 
 \begin{frame}{The endpoint term determines the boundary condition}
@@ -179,83 +213,117 @@ For $F=\tfrac12p(x)u'^2$ it reads $p(b)u'(b)=0$, that is, $u'(b)=0$ when $p(b)>0
 \textbf{The equation and the boundary conditions come from the same calculation.}
 \end{frame}
 
-\begin{frame}{A complete example with one free endpoint}
+\begin{frame}[allowframebreaks=1.00]{A complete example with one free endpoint}
 \small
-Consider
+\textbf{The problem.} Minimize
 \[
  J[u]=\int_0^1\left(\frac12u'^2-u\right)\dd x,
  \qquad u(0)=0,\quad u(1)\ \text{free}.
 \]
-Picture a taut string (unit tension) under unit load per length, its right end a ring
-sliding on a vertical rod: $\tfrac12u'^2$ is stretching energy, $-u$ the load's potential energy.
-Here $F(x,s,v)=\tfrac12v^2-s$, so $F_s=-1$ and $F_v=u'$. Then \eqref{eq:euler-lagrange} and the natural
-condition $F_v(1)=0$ give $u''=-1$ and $u'(1)=0$.
-Integrating twice, $u'=-x+C$ with $C=1$ from $u'(1)=0$, then $u=x-\tfrac12x^2+D$ with $D=0$ from $u(0)=0$.
-For an allowed perturbation $\eta(0)=0$, with $\eta(1)$ unrestricted,
-\begin{align*}
- J[u+\eta]-J[u]
- &=\int_0^1(u'\eta'-\eta)\dd x+\frac12\int_0^1\eta'^2\dd x\\
- &=[u'\eta]_0^1-\int_0^1(u''+1)\eta\dd x
-      +\frac12\int_0^1\eta'^2\dd x
- =\frac12\int_0^1\eta'^2\dd x,
-\end{align*}
-by $u'(1)=0$, $\eta(0)=0$ (bracket) and $u''=-1$ (middle integral).
-So this stationary solution is the unique minimum: the string sags in a parabola
-($u''=-1$) and meets the frictionless rod horizontally ($u'(1)=0$).
+\textbf{Picture.} A taut string (tension \(1\)) under a load of \(1\) per unit length. Its right end is a ring
+that slides freely on a vertical rod. \(\tfrac12u'^2\) is the stretching energy; \(-u\) is the potential
+energy of the load.
+
+\textbf{Step 1: equation and boundary condition.} Here \(F(x,s,v)=\tfrac12v^2-s\), so \(F_s=-1\) and \(F_v=v=u'\).
+\begin{itemize}
+  \item Euler--Lagrange \eqref{eq:euler-lagrange}: \((u')'=-1\), that is, \(u''=-1\).
+  \item Natural condition at the free end: \(F_v(1)=0\), that is, \(u'(1)=0\).
+\end{itemize}
+\textbf{Step 2: solve.} Integrate \(u''=-1\): \(u'=-x+C\); \(u'(1)=0\) gives \(C=1\). Integrate again:
+\(u=x-\tfrac12x^2+D\); \(u(0)=0\) gives \(D=0\). So
+\[
+ u(x)=x-\tfrac12x^2 .
+\]
+\textbf{Step 3: it is the minimum.} Take a competitor \(u+\eta\) with \(\eta(0)=0\) (\(\eta(1)\) is unrestricted).
+Subtract the energies, expanding \((u'+\eta')^2\):
+\[
+ J[u+\eta]-J[u]=\int_0^1\Bigl[\tfrac12(u'+\eta')^2-(u+\eta)-\tfrac12u'^2+u\Bigr]\dd x ,
+\]
+which simplifies to
+\[
+ J[u+\eta]-J[u]=\int_0^1(u'\eta'-\eta)\dd x+\frac12\int_0^1\eta'^2\dd x .
+\]
+\par\framebreak\par
+Integrate \(u'\eta'\) by parts:
+\[
+ \int_0^1(u'\eta'-\eta)\dd x=[u'\eta]_0^1-\int_0^1(u''+1)\eta\dd x .
+\]
+The bracket is \(u'(1)\eta(1)-u'(0)\eta(0)=0\) (since \(u'(1)=0\) and \(\eta(0)=0\)), and \(u''+1=0\). So
+\[
+ J[u+\eta]-J[u]=\frac12\int_0^1\eta'^2\dd x\ge0 ,
+\]
+with equality only for \(\eta=0\). So \(u\) is the unique minimum: the string sags in a parabola (\(u''=-1\))
+and meets the frictionless rod horizontally (\(u'(1)=0\)).
 \end{frame}
 
 % ======================================================================
 \section{Energy and complex analysis}
 % ======================================================================
 
-\begin{frame}{The same energy in the plane}
+\begin{frame}[allowframebreaks=1.00]{The same energy in the plane}
 \small
-Let $\Omega$ be a bounded connected region. For a real field $u(x,y)$, define the \emph{Dirichlet energy}
+\textbf{The energy.} Let \(\Omega\) be a bounded connected region of the plane. For a real field \(u(x,y)\), the
+\emph{Dirichlet energy} is
 \begin{equation}
  \D[u]=\frac12\iint_\Omega(u_x^2+u_y^2)\dd A
-       =\frac12\iint_\Omega|\nabla u|^2\dd A.\label{eq:dirichlet-energy}
+       =\frac12\iint_\Omega|\nabla u|^2\dd A,\label{eq:dirichlet-energy}
 \end{equation}
-Here $\nabla u=(u_x,u_y)$, $\dd A=\mathrm dx\,\mathrm dy$, and $u_x=\partial u/\partial x$.
-Physically, $\D$ is the field energy of an electrostatic potential $u$; it is also the extra
-area of a soap film of small height $u$, since $\sqrt{1+|\nabla u|^2}\approx1+\tfrac12|\nabla u|^2$.
-Prescribe $u=g$ on the boundary; hence $\eta=0$ there.
+with \(\nabla u=(u_x,u_y)\) and \(\dd A=\mathrm dx\,\mathrm dy\). It is the two-dimensional version of
+\(\frac12\int u'^2dx\).
 
-\medskip
-Replace $u$ by $u+\varepsilon\eta$, expand both squares, and keep the coefficient of $\varepsilon$, just as for \eqref{eq:first-variation}:
+\textbf{Physical meaning.} \(\D\) is the field energy of an electrostatic potential \(u\). It is also the extra
+area of a soap film at small height \(u(x,y)\): the area element is \(\sqrt{1+|\nabla u|^2}\approx1+\tfrac12|\nabla u|^2\).
+
+\textbf{The problem.} Prescribe the boundary values, \(u=g\) on the boundary \(\partial\Omega\), and minimize \(\D\).
+Competitors are \(u+\varepsilon\eta\) with \(\eta=0\) on \(\partial\Omega\).
+\par\framebreak\par
+\textbf{The first variation.} As in one dimension, expand the squares:
+\((u_x+\varepsilon\eta_x)^2=u_x^2+2\varepsilon u_x\eta_x+\varepsilon^2\eta_x^2\), and the same in \(y\). So
 \[
- \delta\D[u;\eta]=\iint_\Omega(u_x\eta_x+u_y\eta_y)\dd A.
+ \D[u+\varepsilon\eta]=\D[u]+\varepsilon\iint_\Omega(u_x\eta_x+u_y\eta_y)\dd A+\frac{\varepsilon^2}2\iint_\Omega|\nabla\eta|^2\dd A,
 \]
-The next step is still integration by parts, now in the two coordinate directions.
+and the coefficient of \(\varepsilon\) is the first variation:
+\[
+ \delta\D[u;\eta]=\iint_\Omega(u_x\eta_x+u_y\eta_y)\dd A .
+\]
+\textbf{Next step:} as in one dimension, move the derivatives off \(\eta\) by integrating by parts, now in
+both directions.
 \end{frame}
 
-\begin{frame}{Planar integration by parts produces Laplace's equation}
+\begin{frame}[allowframebreaks=1.00]{Planar integration by parts produces Laplace's equation}
 \small
-The product rule, $\partial_x(\eta u_x)=\eta_xu_x+\eta u_{xx}$ and likewise in $y$, gives
+\textbf{Step 1: product rule.} \(\partial_x(\eta u_x)=\eta_xu_x+\eta u_{xx}\) and \(\partial_y(\eta u_y)=\eta_yu_y+\eta u_{yy}\). Solve
+for \(\eta_xu_x+\eta_yu_y\):
 \[
  u_x\eta_x+u_y\eta_y
- =\partial_x(\eta u_x)+\partial_y(\eta u_y)-\eta(u_{xx}+u_{yy}).
+ =\underbrace{\partial_x(\eta u_x)+\partial_y(\eta u_y)}_{\text{a divergence}}-\eta\,(u_{xx}+u_{yy}).
 \]
-Green's theorem of Chapter 1, $\oint(P\dd x+Q\dd y)=\iint(Q_x-P_y)\dd A$, with
-$P=-\eta u_y$, $Q=\eta u_x$ turns the first two terms into a flux through the boundary:
+\textbf{Step 2: the divergence part becomes a boundary term.} This is the two-dimensional
+\([fg]_a^b\). Use Green's theorem (Chapter~1), \(\oint(P\dd x+Q\dd y)=\iint(Q_x-P_y)\dd A\), with \(P=-\eta u_y\),
+\(Q=\eta u_x\); then \(Q_x-P_y=\partial_x(\eta u_x)+\partial_y(\eta u_y)\), and
 \[
  \iint_\Omega\big(\partial_x(\eta u_x)+\partial_y(\eta u_y)\big)\dd A
  =\oint_{\partial\Omega}\eta\,(u_x\dd y-u_y\dd x)
- =\int_{\partial\Omega}\eta\,\nabla u\cdot\mathbf n\dd s.
+ =\int_{\partial\Omega}\eta\;\nabla u\cdot\mathbf n\dd s .
 \]
-The tangent step $(\mathrm dx,\mathrm dy)$ has $\Omega$ on its left; turned $90^\circ$
-clockwise it points outward, so $\mathbf n\dd s=(\mathrm dy,-\mathrm dx)$. Hence
+(The step \((\mathrm dx,\mathrm dy)\) along the boundary has \(\Omega\) on its left; turned \(90^\circ\) clockwise it
+points outward, so the outward normal times length is \(\mathbf n\dd s=(\mathrm dy,-\mathrm dx)\).)
+\par\framebreak\par
+\textbf{Step 3: put it together.} Writing \(\partial_nu=\nabla u\cdot\mathbf n\) (the outward normal derivative) and
+\(\Delta u=u_{xx}+u_{yy}\) (the Laplacian),
 \begin{equation}
  \delta\D=\int_{\partial\Omega}\eta\,\partial_nu\dd s
-            -\iint_\Omega\eta\,\Delta u\dd A,\label{eq:planar-first}
+            -\iint_\Omega\eta\,\Delta u\dd A.\label{eq:planar-first}
 \end{equation}
-with $\partial_nu=\nabla u\cdot\mathbf n$ the outward normal derivative, $\dd s$ boundary
-length, and $\Delta u=u_{xx}+u_{yy}$ the Laplacian.
-Since $\eta=0$ on $\partial\Omega$, only the area integral remains, and the bump argument
-of Section~7.1 gives
+Compare with one dimension: \(\delta J=[u'\eta]-\int u''\eta\,dx\). The boundary term is the same idea, and \(u''\)
+became \(\Delta u\).
+
+\textbf{Step 4: conclude.} \(\eta=0\) on \(\partial\Omega\), so the boundary term is zero. For the area integral to vanish
+for every \(\eta\), the bump argument of Section~7.1 gives
 \begin{equation}
  \Delta u=0\quad\text{in }\Omega.\label{eq:laplace}
 \end{equation}
-Thus a stationary field is \emph{harmonic}, the class met in Chapter 6.
+So the field of least energy is \emph{harmonic}: it solves Laplace's equation, met in Chapter~6.
 \end{frame}
 
 \begin{frame}{Why the harmonic solution is a minimum}
@@ -321,8 +389,9 @@ Therefore
  \label{eq:disk-harmonic}
 \end{equation}
 fits the boundary and is the unique energy minimizer.
-For a general $g$ the sums run to $n=\infty$. Multiplying $g$ by $\cos n\theta$, $\sin n\theta$ and
-integrating (orthogonality) gives the Taylor coefficients of $F$, with $a_0$ the mean of $g$:
+For a general \(g\) the sums run to \(n=\infty\). The Fourier coefficients come from orthogonality:
+\(a_n=\frac1\pi\int_0^{2\pi}g\cos n\theta\,d\theta\), \(b_n=\frac1\pi\int_0^{2\pi}g\sin n\theta\,d\theta\), and \(a_0\) is the mean of \(g\). Combining
+them with \(\cos n\theta-i\sin n\theta=e^{-in\theta}\) gives the Taylor coefficients of \(F\):
 \[
  a_n-ib_n=\frac1\pi\int_0^{2\pi}g(\theta)e^{-in\theta}\dd\theta,
  \qquad n\ge1.
@@ -357,8 +426,9 @@ boundary values has larger energy.
 \begin{frame}{An annulus brings back the logarithm}
 \small
 Let $a<r<b$, with $0<a<b$, and prescribe $u(a)=0$, $u(b)=1$ on the two circles.
-Try a radial field $u(r)$. Since $\partial r/\partial x=x/r$, $\partial r/\partial y=y/r$, we have
-$u_x=u'x/r$, $u_y=u'y/r$, so $|\nabla u|^2=u'(r)^2$; with $\dd A=r\dd r\dd\theta$,
+Try a radial field \(u(r)\). Since \(r=\sqrt{x^2+y^2}\), \(\partial r/\partial x=x/r\) and \(\partial r/\partial y=y/r\). By the
+chain rule \(u_x=u'(r)\,x/r\) and \(u_y=u'(r)\,y/r\), so \(|\nabla u|^2=u'^2(x^2+y^2)/r^2=u'(r)^2\). With
+\(\dd A=r\dd r\dd\theta\) and the \(\theta\)-integral giving \(2\pi\),
 \[
  \D[u]=\frac12\int_0^{2\pi}\!\!\int_a^b u'(r)^2\,r\dd r\dd\theta
  =\pi\int_a^b r\,u'(r)^2\dd r.
@@ -499,70 +569,89 @@ We derive its equation directly by the quotient rule.
 
 \begin{frame}[allowframebreaks=1.00]{Vary the quotient, not the normalization separately}
 \small
-The two variations are obtained by expanding squares:
+\textbf{Goal.} Find the equation satisfied by a function \(u\) at which the Rayleigh quotient
+\(\R=\Q/\N\) is stationary.
+
+\textbf{Step 1: vary numerator and denominator.} Replace \(u\) by \(u+\varepsilon\eta\) and expand the squares, exactly as
+before. For example \(p(u'+\varepsilon\eta')^2=pu'^2+2\varepsilon\,pu'\eta'+\varepsilon^2p\eta'^2\). The coefficients of \(\varepsilon\) are
 \[
  \delta\Q=2\int_a^b(pu'\eta'+Vu\eta)\dd x,
  \qquad \delta\N=2\int_a^bwu\eta\dd x.
 \]
-At the candidate function let $\lambda=\R[u]$, a number. The three lines follow from the
-quotient rule with $\Q=\lambda\N$, inserting $\delta\Q,\delta\N$, and integrating $pu'\eta'$ by parts:
-\begin{align*}
- \delta\R
- &=\frac{\N\delta\Q-\Q\delta\N}{\N^2}
- =\frac{\delta\Q-\lambda\delta\N}{\N}\\
- &=\frac{2}{\N}\int_a^b\bigl(pu'\eta'+Vu\eta-\lambda wu\eta\bigr)\dd x\\
- &=\frac{2}{\N}\left\{[pu'\eta]_a^b+
+\textbf{Step 2: vary the quotient.} By the quotient rule, \(\delta(\Q/\N)=(\N\,\delta\Q-\Q\,\delta\N)/\N^2\). Call the
+value of the quotient at \(u\) \(\lambda=\R[u]\) (a number), so \(\Q=\lambda\N\):
+\[
+ \delta\R=\frac{\N\delta\Q-\lambda\N\delta\N}{\N^2}=\frac{\delta\Q-\lambda\,\delta\N}{\N}
+ =\frac{2}{\N}\int_a^b\bigl(pu'\eta'+Vu\eta-\lambda wu\eta\bigr)\dd x .
+\]
+\par\framebreak\par
+\textbf{Step 3: integrate by parts.} \(\int pu'\eta'\,dx=[pu'\eta]-\int(pu')'\eta\,dx\), so
+\[
+ \delta\R=\frac{2}{\N}\left\{[pu'\eta]_a^b+
      \int_a^b\bigl(-(pu')'+Vu-\lambda wu\bigr)\eta\dd x\right\}.
-\end{align*}
-The numerator is the first variation of $\Q-\lambda\N$ at fixed $\lambda$ (a Lagrange multiplier);
-since the quotient absorbs norm changes, $\eta$ is unrestricted.
+\]
+\textbf{Why vary the quotient?} Because \(\R[cu]=\R[u]\), the quotient does not care about the size of \(u\),
+so \(\eta\) can be any function (no constraint is needed to keep \(\N=1\)). Equivalently, the numerator above
+is the first variation of \(\Q-\lambda\N\) with \(\lambda\) held fixed: \(\lambda\) plays the role of a Lagrange
+multiplier.
 \end{frame}
 
-\begin{frame}{The equation is the one from Chapter 4}
+\begin{frame}[allowframebreaks=1.00]{The equation is the one from Chapter 4}
 \small
-For zero endpoint variations, the boundary term vanishes. Stationarity gives
+\textbf{The equation.} For variations with \(\eta(a)=\eta(b)=0\) the boundary term vanishes, and the bump argument
+makes the integrand zero:
 \begin{equation}
  -(pu')'+Vu=\lambda wu.\label{eq:sl-variational}
 \end{equation}
-Chapter 4 uses $(pu')'+qu=-\lambda wu$. The two conventions agree with
+This is the Sturm--Liouville equation. Chapter~4 wrote it as \((pu')'+qu=-\lambda wu\); the two agree with
 \[
- V=-q.
+ V=-q .
 \]
-Multiplying \eqref{eq:sl-variational} by $u$ and integrating (the first term by parts)
-checks the eigenvalue:
+\textbf{At a mode, the quotient is the eigenvalue.} Multiply \eqref{eq:sl-variational} by \(u\), integrate over \([a,b]\),
+and integrate the first term by parts (\(-\int(pu')'u\,dx=-[pu'u]+\int pu'^2dx\)):
 \[
  -[pu'u]_a^b+\int_a^b(pu'^2+Vu^2)\dd x
  =\lambda\int_a^bwu^2\dd x.
 \]
-With $u(a)=u(b)=0$ the bracket vanishes, so by \eqref{eq:rayleigh} $\Q[u]=\lambda\N[u]$, i.e.\ $\lambda=\R[u]$:
-at a mode, the quotient \emph{is} the eigenvalue.
-Other boundary conditions work the same way provided they make the endpoint terms vanish.
+With \(u(a)=u(b)=0\) the bracket is zero, and the two integrals are \(\Q[u]\) and \(\N[u]\) from
+\eqref{eq:rayleigh}. So \(\Q[u]=\lambda\N[u]\), that is, \(\lambda=\R[u]\). Other boundary conditions work the same
+way, as long as they make the boundary term vanish.
 \end{frame}
 
-\begin{frame}{Every trial shape gives an upper bound on $\lambda_1$}
+\begin{frame}[allowframebreaks=1.00]{Every trial shape gives an upper bound on $\lambda_1$}
 \small
-Use the fixed-endpoint eigenfunctions $\phi_j$ of Chapter 4, real and normalized by
-$\int w\phi_i\phi_j\dd x=\delta_{ij}$, with $\lambda_1\le\lambda_2\le\cdots$.
-Integration by parts (the bracket vanishes since $\phi_j(a)=\phi_j(b)=0$) and
-\eqref{eq:sl-variational} for $\phi_i$ give the \emph{mode-energy identity}
+\textbf{Goal.} Show that for \emph{any} trial function \(u\) (with the boundary conditions),
+\(\R[u]\ge\lambda_1\), the lowest eigenvalue. So every guess gives an upper bound.
+
+\textbf{Setup.} Let \(\phi_1,\phi_2,\dots\) be the eigenfunctions (Chapter~4), real, with
+\(\lambda_1\le\lambda_2\le\cdots\), normalized so that \(\int w\phi_i\phi_j\dd x=\delta_{ij}\).
+
+\textbf{Step 1: the mode-energy identity.} Integrate by parts (the boundary term vanishes since
+\(\phi_j(a)=\phi_j(b)=0\)), then use the equation \eqref{eq:sl-variational} for \(\phi_i\):
 \begin{equation}
  \int_a^b(p\phi_i'\phi_j'+V\phi_i\phi_j)\dd x
  =\int_a^b\bigl(-(p\phi_i')'+V\phi_i\bigr)\phi_j\dd x
  =\lambda_i\!\int_a^b\!w\phi_i\phi_j\dd x=\lambda_i\delta_{ij}.\label{eq:mode-energy}
 \end{equation}
-Expand $u=\sum_j c_j\phi_j$ (Chapter 4), so $c_j=\int wu\phi_j\dd x$. Inserting it into
-\eqref{eq:rayleigh}, the double sums collapse by \eqref{eq:mode-energy} and orthonormality:
+In words: different modes do not share energy, and mode \(i\) alone has energy \(\lambda_i\).
+\par\framebreak\par
+\textbf{Step 2: expand the trial function in modes.} Write \(u=\sum_jc_j\phi_j\) (Chapter~4), so
+\(u'=\sum_jc_j\phi_j'\). Insert into \(\Q\) and \(\N\). Each becomes a double sum, which collapses because of
+\eqref{eq:mode-energy} and orthonormality (only \(i=j\) survives):
 \[
- \Q[u]=\sum_{i,j}c_ic_j\lambda_i\delta_{ij}=\sum_j\lambda_jc_j^2,
+ \Q[u]=\sum_{i,j}c_ic_j\,\lambda_i\delta_{ij}=\sum_j\lambda_jc_j^2,
  \qquad
- \N[u]=\sum_{i,j}c_ic_j\delta_{ij}=\sum_jc_j^2.
+ \N[u]=\sum_{i,j}c_ic_j\,\delta_{ij}=\sum_jc_j^2.
 \]
-So $\R$ is a weighted average of the $\lambda_j$ with weights $c_j^2$, and an average
-cannot fall below its smallest entry (as $x^{\mathsf T}Ax/x^{\mathsf T}x\ge\lambda_{\min}$ for a symmetric matrix):
+\textbf{Step 3: an average is at least its smallest entry.} So \(\R\) is a weighted average of the
+\(\lambda_j\), with weights \(c_j^2\ge0\). Since every \(\lambda_j\ge\lambda_1\),
+\(\sum_j\lambda_jc_j^2\ge\lambda_1\sum_jc_j^2\), hence
 \begin{equation}
- \R[u]=\frac{\sum_j\lambda_jc_j^2}{\sum_jc_j^2}\ge\lambda_1.
+ \R[u]=\frac{\sum_j\lambda_jc_j^2}{\sum_jc_j^2}\ge\lambda_1 ,
  \label{eq:rayleigh-bound}
 \end{equation}
+with equality exactly when \(u\) is a multiple of \(\phi_1\). (Same as for a symmetric matrix:
+\(x^{\mathsf T}Ax/x^{\mathsf T}x\ge\lambda_{\min}\).)
 \end{frame}
 
 \begin{frame}{Higher modes are stationary, but are not all minima}
@@ -673,31 +762,47 @@ Minimizing without it would simply return $P_0$.
 \section{Disk modes and a computable approximation}
 % ======================================================================
 
-\begin{frame}{The normalized planar problem is Helmholtz, not Laplace}
+\begin{frame}[allowframebreaks=1.00]{The normalized planar problem is Helmholtz, not Laplace}
 \small
-On a disk with fixed zero rim values, use
+\textbf{Goal.} Find the vibration modes of a drum: minimize energy over squared size, as for the string,
+now on a disk with the rim held at \(0\).
+
+\textbf{The quotient.} Use
 \[
  \Q[u]=\iint|\nabla u|^2\dd A,\qquad
- \N[u]=\iint u^2\dd A,\qquad \R=\Q/\N.
+ \N[u]=\iint u^2\dd A,\qquad \R=\Q/\N .
 \]
-Here $\Q=2\D$ with $\D$ from \eqref{eq:dirichlet-energy}; this convention makes the quotient equal to $\lambda$.
-With $\eta=0$ on the rim, \eqref{eq:planar-first} without its boundary integral gives the second step:
+(\(\Q=2\D\) with \(\D\) from \eqref{eq:dirichlet-energy}; this convention makes the quotient equal to \(\lambda\).)
+
+\textbf{Step 1: vary.} As on the ``Vary the quotient'' slide, a stationary point of \(\R\) makes the first
+variation of \(\Q-\lambda\N\) vanish, with \(\lambda=\R[u]\). Expanding the squares,
+\(\delta(\Q-\lambda\N)=2\iint(\nabla u\cdot\nabla\eta-\lambda u\eta)\dd A\).
+
+\textbf{Step 2: integrate by parts.} By \eqref{eq:planar-first} (whose boundary term vanishes, since \(\eta=0\) on the rim),
+\(\iint\nabla u\cdot\nabla\eta\dd A=-\iint\eta\,\Delta u\dd A\). So
 \[
  \delta(\Q-\lambda\N)
  =2\iint(\nabla u\cdot\nabla\eta-\lambda u\eta)\dd A
- =-2\iint(\Delta u+\lambda u)\eta\dd A.
+ =-2\iint(\Delta u+\lambda u)\,\eta\dd A .
 \]
-Hence
+\textbf{Step 3: the equation.} This vanishes for every \(\eta\) only if
 \begin{equation}
  -\Delta u=\lambda u.\label{eq:helmholtz}
 \end{equation}
-The normalization prevents $u=0$, and $\lambda=\R[u]>0$: $\R=0$ would force $\nabla u=0$,
-so $u$ would equal its rim value $0$.
-For a membrane obeying $U_{tt}=c^2\Delta U$, substitution of
-$U=u\cos\omega t$ gives $-\omega^2u\cos\omega t=c^2(\Delta u)\cos\omega t$;
-dividing by $c^2\cos\omega t$ yields $-\Delta u=(\omega^2/c^2)u$, which is \eqref{eq:helmholtz} with $\lambda=\omega^2/c^2$:
-as for the string, stiffness over mass is the squared frequency, here over $c^2$ since $\Q,\N$
-carry no tension or density.
+This is the Helmholtz equation. Without the normalization we would get Laplace's equation, whose only
+solution with zero rim values is \(u=0\).
+
+\textbf{\(\lambda\) is positive.} \(\lambda=\R[u]=\Q/\N\ge0\). And \(\lambda=0\) would need \(\nabla u=0\) everywhere, so \(u\) constant,
+equal to its rim value \(0\); but \(u\ne0\). So \(\lambda>0\).
+
+\textbf{Physical meaning of \(\lambda\).} A membrane obeys the wave equation \(U_{tt}=c^2\Delta U\). For a mode
+\(U=u(x,y)\cos\omega t\):
+\[
+ U_{tt}=-\omega^2u\cos\omega t,\qquad c^2\Delta U=c^2(\Delta u)\cos\omega t .
+\]
+Setting them equal and dividing by \(c^2\cos\omega t\): \(-\Delta u=(\omega^2/c^2)\,u\). This is \eqref{eq:helmholtz} with
+\(\lambda=\omega^2/c^2\). As for the string, (stiffness)/(mass) is the squared frequency; the \(c^2\) appears
+because \(\Q\) and \(\N\) here contain no tension or density.
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Polar geometry supplies the Bessel weight}
@@ -709,14 +814,21 @@ Use a unit disk. In polar coordinates the radial and angular directions are perp
 \[
  |\nabla u|^2=u_r^2+\frac{u_\theta^2}{r^2},\qquad \dd A=r\dd r\dd\theta.
 \]
-\par\framebreak\par
 For a fixed integer angular order $m\ge0$, set $u=R(r)\cos(m\theta)$. Then
 $u_r=R'\cos(m\theta)$ and $u_\theta=-mR\sin(m\theta)$.
-For $m\ge1$, $\int_0^{2\pi}\cos^2(m\theta)\dd\theta
-=\int_0^{2\pi}\sin^2(m\theta)\dd\theta=\pi$.
-For $m=0$, the cosine integral is $2\pi$ and the angular derivative is zero.
-Integrating over $\theta$, $\Q=c_m\int_0^1(rR'^2+\frac{m^2}{r}R^2)\dd r$ and $\N=c_m\int_0^1rR^2\dd r$
-($c_m=\pi$ for $m\ge1$, $c_0=2\pi$). The common factor $c_m$ cancels, leaving
+So
+\[
+ |\nabla u|^2\,r=\Bigl(R'^2\cos^2 m\theta+\frac{m^2R^2}{r^2}\sin^2m\theta\Bigr)r,
+ \qquad u^2\,r=R^2\cos^2m\theta\;r .
+\]
+\par\framebreak\par
+Now integrate over \(\theta\). For \(m\ge1\), \(\int_0^{2\pi}\cos^2m\theta\,d\theta=\int_0^{2\pi}\sin^2m\theta\,d\theta=\pi\). (For
+\(m=0\) the cosine integral is \(2\pi\) and the \(\sin\) term is absent.) Hence, with \(c_m=\pi\) for \(m\ge1\) and
+\(c_0=2\pi\),
+\[
+ \Q=c_m\int_0^1\Bigl(rR'^2+\frac{m^2}{r}R^2\Bigr)\dd r,\qquad \N=c_m\int_0^1rR^2\dd r .
+\]
+The common factor \(c_m\) cancels in the quotient, leaving
 \begin{equation}
  \R_m[R]=
  \frac{\displaystyle\int_0^1\left(rR'^2+\frac{m^2}{r}R^2\right)\dd r}
@@ -726,27 +838,40 @@ The weight $r$ comes from area; $m^2/r$ comes from the angular gradient.
 The $m=0$ potential term is absent. Sine modes for $m\ge1$ give the same quotient.
 \end{frame}
 
-\begin{frame}{Varying the radial energy gives Bessel's equation}
+\begin{frame}[allowframebreaks=1.00]{Varying the radial energy gives Bessel's equation}
 \small
-Stationarity of \eqref{eq:radial-quotient}, with $\lambda=\R_m[R]$, means (as on the ``Vary the quotient'' slide)
-that the first variation of half its numerator minus $\lambda/2$ times its denominator vanishes:
-\begin{align*}
- 0&=\int_0^1\left(rR'\eta'+\frac{m^2}{r}R\eta-\lambda rR\eta\right)\dd r\\
-  &=[rR'\eta]_0^1+
-  \int_0^1\left(-(rR')'+\frac{m^2}{r}R-\lambda rR\right)\eta\dd r.
-\end{align*}
-Once the endpoint term vanishes, the radial equation is
+\textbf{Goal.} Find the equation for \(R(r)\) at which the radial quotient \eqref{eq:radial-quotient} is stationary.
+
+\textbf{Step 1: vary.} As on the ``Vary the quotient'' slide, with \(\lambda=\R_m[R]\), the first variation of
+(numerator) \(-\lambda\,\)(denominator) must vanish. Replace \(R\) by \(R+\varepsilon\eta\) and keep the coefficient of \(\varepsilon\)
+(each square gives a factor \(2\), which we drop):
 \[
- (rR')'+\left(\lambda r-\frac{m^2}{r}\right)R=0,
- \qquad
- r^2R''+rR'+(\lambda r^2-m^2)R=0,
+ 0=\int_0^1\left(rR'\eta'+\frac{m^2}{r}R\eta-\lambda rR\eta\right)\dd r .
 \]
-the second form from $(rR')'=rR''+R'$ and multiplication by $r$.
-With $\lambda=k^2>0$, put $x=kr$: then $rR'=x\,\mathrm dR/\mathrm dx$,
-$r^2R''=x^2\,\mathrm d^2R/\mathrm dx^2$, and $\lambda r^2=x^2$, which gives Bessel's
-equation of order $m$ in $x$, solved by Frobenius in Chapter 3:
-$R(r)=A J_m(kr)+B Y_m(kr)$.
-Which solution is admissible, and which $k$ are allowed, is decided at the two endpoints.
+\textbf{Step 2: integrate the first term by parts}, \(\int rR'\eta'\,dr=[rR'\eta]-\int(rR')'\eta\,dr\):
+\[
+ 0=[rR'\eta]_0^1+
+  \int_0^1\left(-(rR')'+\frac{m^2}{r}R-\lambda rR\right)\eta\dd r .
+\]
+\textbf{Step 3: the equation.} Once the boundary term is zero (next slide), the bump argument gives
+\[
+ (rR')'+\left(\lambda r-\frac{m^2}{r}\right)R=0 .
+\]
+Expand \((rR')'=rR''+R'\) and multiply by \(r\):
+\[
+ r^2R''+rR'+(\lambda r^2-m^2)R=0 .
+\]
+\par\framebreak\par
+\textbf{Step 4: recognize Bessel.} \(\lambda>0\), so write \(\lambda=k^2\) and put \(x=kr\). By the chain rule,
+\(r\frac{dR}{dr}=x\frac{dR}{dx}\) and \(r^2\frac{d^2R}{dr^2}=x^2\frac{d^2R}{dx^2}\), and \(\lambda r^2=k^2r^2=x^2\). So
+\[
+ x^2\frac{d^2R}{dx^2}+x\frac{dR}{dx}+(x^2-m^2)R=0 ,
+\]
+Bessel's equation of order \(m\), solved in Chapter~3:
+\[
+ R(r)=A\,J_m(kr)+B\,Y_m(kr).
+\]
+Which combination is allowed, and which values of \(k\), is decided at the two ends \(r=0\) and \(r=1\).
 \end{frame}
 
 \begin{frame}{At the center and the rim, check the actual terms}
