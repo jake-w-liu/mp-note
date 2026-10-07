@@ -1169,10 +1169,8 @@ Divide Step~7 by this. The factors \(2i\,e^{-i\pi a}\) cancel:
 \textbf{Goal.} Compute \(I=\int_{-\infty}^{\infty}e^{-x^2}\,dx\). Laplace's method (next frame) replaces a sharp
 peak by this bell-shaped function, so we need its area.
 
-\textbf{Step 1: square it.} There is no elementary antiderivative of \(e^{-x^2}\), so we use a trick:
-compute \(I^2\) instead. (Note \(I>0\), since the integrand is positive.) Write \(I^2\) as the product of
-two copies, with different names for the variables, and combine them into one integral over the
-plane:
+\textbf{Step 1: square it.} \(e^{-x^2}\) has no elementary antiderivative, so compute \(I^2\) instead
+(note \(I>0\)): a product of two copies, with different variable names, is one integral over the plane:
 \[
   I^2
    =\left(\int_{-\infty}^{\infty}e^{-x^2}\,dx\right)
@@ -1190,9 +1188,8 @@ plane:
    =\int_0^{2\pi}\frac12\,d\theta
     =\pi .
 \]
-Because \(I>0\), this gives
-\(\displaystyle\int_{-\infty}^{\infty}e^{-x^2}\,dx=\sqrt\pi\).
-\textbf{A rescaled version.} For \(c>0\), put \(u=\sqrt c\,x\), so \(dx=du/\sqrt c\):
+Because \(I>0\), this gives \(I=\sqrt\pi\).
+\textbf{Rescaled version.} For \(c>0\), put \(u=\sqrt c\,x\), \(dx=du/\sqrt c\):
 \begin{equation}
   \int_{-\infty}^{\infty}e^{-cx^2}\,dx=\frac1{\sqrt c}\int_{-\infty}^{\infty}e^{-u^2}\,du=\sqrt{\frac{\pi}{c}} .
   \label{eq:gauss-c}
