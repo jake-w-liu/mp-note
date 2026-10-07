@@ -155,8 +155,8 @@ weight \(w(x)>0\) inside \((a,b)\) (it may vanish at an endpoint),
   (u,v)_w=\int_a^b u(x)\overline{v(x)}\,w(x)\,dx.
   \label{eq:wip}
 \end{equation}
-For example, the drum problem \eqref{eq:bessel-SL} has $w(s)=s$: a ring at radius $s$
-has area $2\pi s\,ds$, so $w$ counts each radius by its area.
+For example, on a disk (the drum problem later in this chapter) a ring at radius $s$
+has area $2\pi s\,ds$, so the weight $w(s)=s$ counts each radius by its area.
 
 \textbf{Length and angle.} The length (norm) is
 \begin{equation}
@@ -255,19 +255,19 @@ so the functions $\sqrt2\,u_n$ are orthonormal.
 \footnotesize
 For $f\in L^2(0,1)$, write $f(x)=\sum_{n=1}^{\infty}a_n\sin(n\pi x)$ in the
 mean-square sense.  The projection formula \eqref{eq:coeff-orthogonal} and the norm
-$\|u_k\|^2=1/2$ from \eqref{eq:sin-nn} give
+$\|u_n\|^2=1/2$ from \eqref{eq:sin-nn} give
 \begin{equation}
- a_k=\frac{(f,u_k)}{\|u_k\|^2}
- =\frac{\int_0^1 f(x)\sin(k\pi x)\,dx}{1/2}
- =2\int_0^1 f(x)\sin(k\pi x)\,dx.\label{eq:sine-transform}
+ a_n=\frac{(f,u_n)}{\|u_n\|^2}
+ =\frac{\int_0^1 f(x)\sin(n\pi x)\,dx}{1/2}
+ =2\int_0^1 f(x)\sin(n\pi x)\,dx.\label{eq:sine-transform}
 \end{equation}
 The factor $2$ comes from the norm $1/2$, not from an extra convention.
 
 \begin{columns}[T]
 \begin{column}{0.53\textwidth}
 \textbf{Example: $f(x)=1$.} By \eqref{eq:sine-transform},
-$a_k=2\bigl[-\cos(k\pi x)/(k\pi)\bigr]_0^1=2\bigl(1-(-1)^k\bigr)/(k\pi)$,
-i.e.\ $a_k=4/(k\pi)$ for odd $k$ and $0$ for even $k$.  In the plot, the partial
+$a_n=2\bigl[-\cos(n\pi x)/(n\pi)\bigr]_0^1=2\bigl(1-(-1)^n\bigr)/(n\pi)$,
+i.e.\ $a_n=4/(n\pi)$ for odd $n$ and $0$ for even $n$.  In the plot, the partial
 sums stay $0$ at $x=0,1$ and overshoot near the ends (the peak stays near $1.18$ as
 $N$ grows), yet the band
 where they differ from $1$ narrows, so the error norm
@@ -341,8 +341,8 @@ vanishes, \(L\) behaves exactly like a symmetric matrix. For example, with \(u(0
  (u,Lv)=(Lu,v).
  \label{eq:d2-adjoint}
 \end{equation}
-Neumann conditions ($u'=v'=0$ at the ends) kill the bracket too; the general
-(Robin, periodic, singular) cases are checked from \eqref{eq:robin-bc} on.  This
+Neumann conditions ($u'=v'=0$ at the ends) kill the bracket too; other boundary
+conditions are checked in the next section.  This
 symmetry is what makes eigenfunctions with different eigenvalues orthogonal.
 \end{frame}
 
@@ -638,8 +638,8 @@ so $\lambda_i=\overline{\lambda_i}$: every eigenvalue is real.  With $\lambda_j$
 \textbf{Goal.} Show that the Legendre equation is a Sturm--Liouville problem, read off its
 $p$, $q$, $w$, and conclude that the Legendre polynomials are orthogonal.
 
-Separating Laplace's equation in spherical coordinates (Chapter~6) gives, in $x=\cos\theta$
-and for a nonnegative integer $n$, the Legendre equation
+We take the following equation as given (Chapter~6 shows that it comes from Laplace's equation on
+a sphere, with $x=\cos\theta$). For a nonnegative integer $n$, the Legendre equation is
 \begin{equation}
   (1-x^2)y''-2xy'+n(n+1)y=0,
   \qquad -1<x<1.
@@ -739,7 +739,8 @@ We must now check both endpoints; this is the part specific to the drum.
 
 At $s=1$, impose one common boundary condition on the whole family:
 \begin{itemize}
-  \item Dirichlet: $y_i(1)=J_m(\alpha_i)=0$ for every $i$; or
+  \item Dirichlet: $y_i(1)=J_m(\alpha_i)=0$ for every $i$, so the $\alpha_i$ are the zeros
+        $\alpha_{m,i}$ of $J_m$ (Chapter~3); or
   \item Neumann: $y_i'(1)=\alpha_iJ_m'(\alpha_i)=0$ for every $i$ (for $m=0$ this
         also admits $\alpha=0$: the constant mode $y=1$ with $\lambda=0$).
 \end{itemize}
@@ -804,11 +805,11 @@ Start from Hermite's equation (the quantum oscillator reduces to it, Chapter~6)
 Multiply it by the exponential of the integral of the $y'$ coefficient (Step~2
 shows why this factor works in general):
 \[
- Q(x)=\exp\left(\int_0^x-2t\,dt\right)=e^{-x^2},
- \qquad Q'(x)=-2xQ(x).
+ p(x)=\exp\left(\int_0^x-2t\,dt\right)=e^{-x^2},
+ \qquad p'(x)=-2xp(x).
 \]
-This gives $Qy''-2xQy'+\lambda Qy=0$, and the first two terms combine by the product rule,
-$(Qy')'=Qy''+Q'y'=Qy''-2xQy'$. Hence
+This gives $py''-2xpy'+\lambda py=0$, and the first two terms combine by the product rule,
+$(py')'=py''+p'y'=py''-2xpy'$. Hence
 \begin{equation}
  (e^{-x^2}y')'=-\lambda e^{-x^2}y.\label{eq:hermite-SL}
 \end{equation}
@@ -845,20 +846,20 @@ with real coefficients on an interval where $p_0(x)\neq0$.  Divide by $p_0$:
 \end{equation}
 Define the integrating factor
 \begin{equation}
-  Q(x)=\exp\left(\int_{x_0}^{x}\frac{p_1(t)}{p_0(t)}\,dt\right).
+  p(x)=\exp\left(\int_{x_0}^{x}\frac{p_1(t)}{p_0(t)}\,dt\right).
   \label{eq:intfactor}
 \end{equation}
-The chain rule gives $Q'=(p_1/p_0)Q$. This is the integrating-factor trick for
-$y'+Py=f$: $Q$ is chosen so that the two derivative terms collapse into one exact
-derivative. Multiplying \eqref{eq:gen2nd-div} by $Q$ gives
-$Qu''+Q'u'+Q\frac{p_2}{p_0}u=0$, and $Qu''+Q'u'=(Qu')'$, so
+The chain rule gives $p'=(p_1/p_0)p$. This is the integrating-factor trick for
+$y'+Py=f$: $p$ is chosen so that the two derivative terms collapse into one exact
+derivative. Multiplying \eqref{eq:gen2nd-div} by $p$ gives
+$pu''+p'u'+p\frac{p_2}{p_0}u=0$, and $pu''+p'u'=(pu')'$, so
 \begin{equation}
- (Qu')'+Q\frac{p_2}{p_0}u=0,
- \qquad p=Q,\quad q=Q\frac{p_2}{p_0}.
+ (pu')'+qu=0,
+ \qquad q=p\,\frac{p_2}{p_0}.
  \label{eq:gen2nd-SL}
 \end{equation}
 Equivalently, without first dividing by $p_0$, multiply the original equation
-\eqref{eq:gen2nd} by $Q/p_0$ (not by $Q$ alone).
+\eqref{eq:gen2nd} by $p/p_0$ (not by $p$ alone).
 
 \par\framebreak\par
 If the spectral parameter occurs as
@@ -866,15 +867,15 @@ If the spectral parameter occurs as
   p_0u''+p_1u'+\bigl(r_0(x)+\lambda r_1(x)\bigr)u=0,
   \label{eq:gen-spectral}
 \end{equation}
-multiplying by $Q/p_0$ exactly as for \eqref{eq:gen2nd-SL} gives
-$(Qu')'+Q\frac{r_0}{p_0}u+\lambda Q\frac{r_1}{p_0}u=0$; moving the $\lambda$ term
+multiplying by $p/p_0$ exactly as for \eqref{eq:gen2nd-SL} gives
+$(pu')'+p\frac{r_0}{p_0}u+\lambda p\frac{r_1}{p_0}u=0$; moving the $\lambda$ term
 to the right,
 \begin{equation}
-  (Qu')'+qu=-\lambda wu,
+  (pu')'+qu=-\lambda wu,
   \qquad
-  q=Q\frac{r_0}{p_0},
+  q=p\frac{r_0}{p_0},
   \qquad
-  w=Q\frac{r_1}{p_0}.
+  w=p\frac{r_1}{p_0}.
   \label{eq:gen-spectral-SL}
 \end{equation}
 The theory above needs $w>0$: if $r_1/p_0<0$ on the interval, replace $\lambda$
@@ -994,7 +995,7 @@ stays bounded, and the change of \(G\) across the tiny interval,
 \]
 \par\framebreak\par
 \emph{Step 5: \(A\) does not depend on \(x'\).} Divide \(Ly=0\) by \(-p\): \(y''+\frac{p'}{p}y'+\frac qp\,y=0\). By Abel's
-identity (Chapter~3), \(W=C\exp\bigl(-\int\frac{p'}{p}dx\bigr)=C\,e^{-\ln p}=\frac{C}{p}\). So \(p\,W=C\) is a
+identity (Chapter~3), \(W=C\exp\bigl(-\int\frac{p'}{p}dx\bigr)=C\,e^{-\log p}=\frac{C}{p}\). So \(p\,W=C\) is a
 constant, and so is \(A=-1/C\).
 
 \textbf{Result.} With \(x_<=\min(x,x')\), \(x_>=\max(x,x')\),
@@ -1109,8 +1110,8 @@ $N$ and width about $1/N$ at $x'$, with area near $1$: they approach a delta.
  a positive weight, $(pu')'+qu=-\lambda wu$ has real eigenvalues and
  weighted-orthogonal eigenfunctions for distinct eigenvalues.
  \item Multiplying a general second-order equation by an integrating factor
- puts its derivative terms into $(Qu')'$, with
- $Q=\exp\int(p_1/p_0)\,dx$. The Legendre, Bessel, and Hermite weights are
+ puts its derivative terms into $(pu')'$, with
+ $p=\exp\int(p_1/p_0)\,dx$. The Legendre, Bessel, and Hermite weights are
  $1$, $s$, and $e^{-x^2}$.
  \item For $L=-(pu')'-qu$, the Green function, the response to a unit point load,
  solves $LG=\delta(x-x')$: it is continuous at $x'$, its derivative jumps by

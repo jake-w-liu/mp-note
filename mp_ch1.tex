@@ -83,8 +83,9 @@ To analyze the special functions of physics we first build the tools of
         and real integrals.
   \item Two \textbf{contour templates} (semicircle and keyhole) turn residues into real
         integrals; the keyhole integral is the key input of the Gamma reflection formula (Ch.~2).
-  \item \textbf{Laplace's method} approximates an integral with a large parameter by a
-        Gaussian; it gives Stirling's formula for \(n!\) (Ch.~2).
+  \item The \textbf{Gaussian integral} \(\int e^{-x^2}dx=\sqrt\pi\), and \textbf{Laplace's method}, which
+        approximates an integral with a large parameter by a Gaussian; it gives Stirling's formula for
+        \(n!\) (Ch.~2).
 \end{itemize}
 \end{frame}
 
@@ -316,7 +317,7 @@ So \(e^w=z\) has infinitely many solutions, one for each integer \(k\):
 \[
   \operatorname{Log}z=\log|z|+i\operatorname{Arg}z .
 \]
-This is a single-valued, analytic function on the plane with the half-line \((-\infty,0]\) removed.
+This is a single-valued function on the plane with the half-line \((-\infty,0]\) removed.
 \par\framebreak\par
 \textbf{Why something must be removed: the branch point.} Walk once counterclockwise around
 \(0\) on the circle \(z=re^{i\theta}\), letting \(\theta\) increase continuously from \(0\) to \(2\pi\).
@@ -671,8 +672,8 @@ real line. Nothing real explains this. The reason is complex: \(1/(1+z^2)\) has 
 \begin{frame}[allowframebreaks=1.00]{Analytic continuation}
 \footnotesize
 
-\textbf{Why we want it.} Chapter~2 defines \(\Gamma(z)\) by an integral that converges only for
-\(\operatorname{Re}z>0\), and then extends \(\Gamma\) to the left half-plane. Extending a holomorphic
+\textbf{Why we want it.} Chapter~2 defines the Gamma function (which extends \(n!\)) by an integral
+that converges only for \(\operatorname{Re}z>0\), then needs it further left. Extending a holomorphic
 function beyond the region where its first formula works is called \emph{analytic continuation}.
 Two questions: how can it be done, and is the result unique?
 
@@ -727,10 +728,8 @@ disk), then $f=g$ on all of $\Omega$.
 \end{center}
 \end{columns}
 
-\textbf{How we will use it.} However \(\Gamma\) is continued, the result is the same function. And
-to prove that two holomorphic functions are equal, it is enough to prove it on a segment:
-Chapter~2 proves \(\Gamma(z)\Gamma(1-z)=\pi/\sin(\pi z)\) for \(0<z<1\), and the identity theorem
-extends it to every \(z\notin\mathbb Z\).
+\textbf{Use.} A continuation is unique; and a formula proved on a real segment holds on the whole
+connected domain (Chapter~2 does this for the Gamma function).
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Laurent series}
@@ -1062,8 +1061,7 @@ This is real, so its real part is itself:
  I(a)=\int_0^\infty\frac{x^{-a}}{1+x}\,dx,
  \qquad 0<a<1.
 \]
-Chapter~2 needs exactly this integral for the reflection formula
-\(\Gamma(a)\Gamma(1-a)=\pi/\sin(\pi a)\).
+Chapter~2 needs exactly this integral (for the ``reflection formula'' of the Gamma function).
 
 \textbf{Why \(0<a<1\)?} Near \(x=0\) the integrand behaves like \(x^{-a}\), integrable when \(a<1\). For
 large \(x\) it behaves like \(x^{-a}/x=x^{-a-1}\), integrable when \(-a-1<-1\), that is, \(a>0\).
@@ -1161,9 +1159,45 @@ Divide Step~7 by this. The factors \(2i\,e^{-i\pi a}\) cancel:
 
 
 % ======================================================================
-\section{Laplace's method}
+\section{The Gaussian integral and Laplace's method}
 % ======================================================================
 
+
+\begin{frame}[allowframebreaks=1.00]{The Gaussian integral}
+\footnotesize
+
+\textbf{Goal.} Compute \(I=\int_{-\infty}^{\infty}e^{-x^2}\,dx\). Laplace's method (next frame) replaces a sharp
+peak by this bell-shaped function, so we need its area.
+
+\textbf{Step 1: square it.} There is no elementary antiderivative of \(e^{-x^2}\), so we use a trick:
+compute \(I^2\) instead. (Note \(I>0\), since the integrand is positive.) Write \(I^2\) as the product of
+two copies, with different names for the variables, and combine them into one integral over the
+plane:
+\[
+  I^2
+   =\left(\int_{-\infty}^{\infty}e^{-x^2}\,dx\right)
+     \left(\int_{-\infty}^{\infty}e^{-y^2}\,dy\right)
+    =\iint_{\mathbb R^2}e^{-(x^2+y^2)}\,dx\,dy.
+\]
+\textbf{Step 2: polar coordinates.} The integrand depends only on \(x^2+y^2=r^2\), so use
+\(x=r\cos\theta\), \(y=r\sin\theta\). A small polar area element has sides \(dr\) and \(r\,d\theta\), so
+\(dx\,dy=r\,dr\,d\theta\). The extra factor \(r\) is exactly what makes the \(r\)-integral easy, since
+\(\frac{d}{dr}\bigl(-\tfrac12e^{-r^2}\bigr)=re^{-r^2}\):
+\[
+  I^2
+   =\int_0^{2\pi}\!\!\int_0^\infty e^{-r^2}r\,dr\,d\theta
+   =\int_0^{2\pi}\left[-\frac12e^{-r^2}\right]_{r=0}^{r=\infty}d\theta
+   =\int_0^{2\pi}\frac12\,d\theta
+    =\pi .
+\]
+Because \(I>0\), this gives
+\(\displaystyle\int_{-\infty}^{\infty}e^{-x^2}\,dx=\sqrt\pi\).
+\textbf{A rescaled version.} For \(c>0\), put \(u=\sqrt c\,x\), so \(dx=du/\sqrt c\):
+\begin{equation}
+  \int_{-\infty}^{\infty}e^{-cx^2}\,dx=\frac1{\sqrt c}\int_{-\infty}^{\infty}e^{-u^2}\,du=\sqrt{\frac{\pi}{c}} .
+  \label{eq:gauss-c}
+\end{equation}
+\end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Laplace's method: an integral with a tall, narrow peak}
 \footnotesize
@@ -1199,8 +1233,8 @@ may let the limits run to \(\pm\infty\):
  I(s)\approx g(x_0)\,e^{s\varphi(x_0)}\int_{-\infty}^{\infty}e^{-c(x-x_0)^2}\,dx,
  \qquad c=\tfrac12 s\bigl|\varphi''(x_0)\bigr| .
 \]
-With \(u=\sqrt c\,(x-x_0)\), \(dx=du/\sqrt c\), and \(\int_{-\infty}^\infty e^{-u^2}du=\sqrt\pi\) (proved in
-Chapter~2), the integral is \(\sqrt{\pi/c}=\sqrt{2\pi/(s|\varphi''(x_0)|)}\). So
+Shift \(x-x_0\to x\) and use the rescaled Gaussian integral \eqref{eq:gauss-c}: the integral is
+\(\sqrt{\pi/c}=\sqrt{2\pi/(s|\varphi''(x_0)|)}\). So
 \begin{equation}
   \int_a^b g(x)\,e^{s\varphi(x)}\,dx
   \approx
@@ -1236,7 +1270,8 @@ Chapter~2 applies \eqref{eq:laplace-real} to \(n!=\int_0^\infty t^ne^{-t}dt\).
  \item Two real-integral templates: the semicircle ($\int\cos x/(1+x^2)\,dx=\pi/e$) and the
        keyhole ($\int_0^\infty x^{-a}/(1+x)\,dx=\pi/\sin\pi a$). Always check the orientation and
        that the arcs vanish ($ML$ estimate).
- \item Laplace's method \eqref{eq:laplace-real}: near a sharp maximum the integrand is a Gaussian,
+ \item Gaussian integral: $\int e^{-x^2}dx=\sqrt\pi$ (square it, use polar coordinates).
+       Laplace's method \eqref{eq:laplace-real}: near a sharp maximum the integrand is a Gaussian,
        so the integral is (height) $\times$ (width). Chapter~2 uses it for Stirling's formula.
 \end{itemize}
 \end{frame}

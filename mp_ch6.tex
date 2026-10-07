@@ -122,8 +122,9 @@ Expand \((ru')'=ru''+u'\):
   r^2u''+ru'-n^2u=0.
   \label{eq:laplace2d-radial}
 \end{equation}
-This is a Cauchy--Euler equation, so try \(u=r^p\): \(r^2p(p-1)r^{p-2}+r\,pr^{p-1}-n^2r^p=(p^2-n^2)r^p=0\).
-So \(p=\pm n\) for \(n\ge1\): \(u=r^n\) or \(r^{-n}\). For \(n=0\) the equation is \((ru')'=0\), so \(ru'=C_0\),
+This is an Euler equation (Chapter~3), so try \(u=r^\sigma\):
+\(r^2\sigma(\sigma-1)r^{\sigma-2}+r\,\sigma r^{\sigma-1}-n^2r^\sigma=(\sigma^2-n^2)r^\sigma=0\).
+So \(\sigma=\pm n\) for \(n\ge1\): \(u=r^n\) or \(r^{-n}\). For \(n=0\) the equation is \((ru')'=0\), so \(ru'=C_0\),
 \(u'=C_0/r\), and \(u=D_0+C_0\log r\).
 
 \textbf{Step 4: regularity at the center.} On an annulus (\(r\) away from \(0\)), all these radial solutions are
@@ -1084,7 +1085,7 @@ Complete the square in $x$:
   &=-\bigl[x-(s+t)\bigr]^2+(s+t)^2-s^2-t^2\\
   &=-\bigl[x-(s+t)\bigr]^2+2st,
 \end{align*}
-so, shifting $u=x-(s+t)$ and using $\int_{-\infty}^{\infty}e^{-u^2}\,du=\sqrt\pi$ from Chapter~2,
+so, shifting $u=x-(s+t)$ and using $\int_{-\infty}^{\infty}e^{-u^2}\,du=\sqrt\pi$ from Chapter~1,
 \[
   I(s,t)=e^{2st}\int_{-\infty}^{\infty}e^{-u^2}\,du
   =\sqrt\pi\,e^{2st}
@@ -1157,7 +1158,7 @@ normalized by $L_n(0)=1$.
 The point $x=0$ is regular singular (Chapter~3). Dividing by $x$ gives $P=(1-x)/x$ and $Q=n/x$,
 so $p_0=\lim_{x\to0}xP=1$, $q_0=\lim_{x\to0}x^2Q=0$, and the indicial equation
 $r(r-1)+p_0r+q_0=0$ becomes $r^2=0$. The root $r=0$ is repeated, so one solution is an
-ordinary power series and the other contains $\ln x$ (Chapter~3). We keep the solution
+ordinary power series and the other contains $\log x$ (Chapter~3). We keep the solution
 that is finite at the origin.
 
 Set $y=\sum_{k\ge0}a_k x^k$.  Then (shifting indices as for Legendre)

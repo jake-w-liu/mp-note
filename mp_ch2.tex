@@ -188,9 +188,6 @@ the same recursion as \(H_n\).
 \]
 which lies between \(H_0=0\) and \(H_1=1\), as it should.
 
-\textbf{Looking ahead.} Once the gamma function is built below, one can show (we quote it) that
-\(f(s)=\Gamma'(s+1)/\Gamma(s+1)+\gamma\), where \(\gamma\approx0.577\) is the constant found next.
-So \(f\) links the harmonic numbers to \(\Gamma\).
 \par\framebreak\par
 \textbf{Second question: how fast does \(H_n\) grow?} We compare \(H_n\) with
 \(\log n=\int_1^n dx/x\), which is also a sum of \(1/x\), but a continuous one.
@@ -316,38 +313,14 @@ Keep track of the shift: \(\Gamma(n+1)=n!\), not \(\Gamma(n)=n!\).
 \footnotesize
 
 \textbf{Goal.} Compute \(\Gamma(\tfrac12),\Gamma(\tfrac32),\Gamma(\tfrac52),\dots\) exactly.
-These values appear later in \(J_{\pm1/2}\) (Chapter~3) and in the spherical Bessel functions
-(Chapter~5).
+These values appear later in the Bessel functions of Chapters~3 and~5.
 
 \textbf{Plan.} The recursion \(\Gamma(z+1)=z\Gamma(z)\) reduces every \(\Gamma(m+\tfrac12)\) to the
 single number \(\Gamma(\tfrac12)\). So we need only \(\Gamma(\tfrac12)\), and it turns out to be the
-Gaussian integral \(\int e^{-x^2}dx\). We first compute that integral.
+Gaussian integral \(\int e^{-x^2}dx\) of Chapter~1.
 
-\textbf{Step 1: the Gaussian integral.}  Let
-\(I=\int_{-\infty}^{\infty}e^{-x^2}\,dx\). There is no elementary antiderivative of \(e^{-x^2}\),
-so we use a trick: compute \(I^2\) instead. (Note \(I>0\), since the integrand is positive.)
-Write \(I^2\) as the product of two copies, with different names for the variables, and combine
-them into one integral over the plane:
-\begin{align*}
-  I^2
-   &=\left(\int_{-\infty}^{\infty}e^{-x^2}\,dx\right)
-     \left(\int_{-\infty}^{\infty}e^{-y^2}\,dy\right)
-    =\int_{\mathbb R^2}e^{-(x^2+y^2)}\,dx\,dy.
-\end{align*}
-\par\framebreak\par
-The integrand depends only on \(x^2+y^2=r^2\), so polar coordinates \(x=r\cos\theta\),
-\(y=r\sin\theta\) are natural. A small polar area element has sides \(dr\) and \(r\,d\theta\), so
-\(dx\,dy=r\,dr\,d\theta\). The extra factor \(r\) is exactly what makes the \(r\)-integral easy,
-since \(\frac{d}{dr}\bigl(-\tfrac12e^{-r^2}\bigr)=re^{-r^2}\):
-\[
-  I^2
-   =\int_0^{2\pi}\int_0^\infty e^{-r^2}r\,dr\,d\theta
-   =\int_0^{2\pi}
-     \left[-\frac12e^{-r^2}\right]_{r=0}^{r=\infty}d\theta
-   =\int_0^{2\pi}\frac12\,d\theta
-    =\pi,
-\]
-and because \(I>0\),
+\textbf{Step 1: recall the Gaussian integral} from Chapter~1 (computed there by squaring it and using
+polar coordinates):
 \begin{equation}
   \int_{-\infty}^{\infty}e^{-x^2}\,dx=\sqrt\pi .
   \label{eq:gauss-int}
@@ -798,6 +771,8 @@ Hence
    =\sqrt{2\pi n}\left(\frac ne\right)^n.
  \label{eq:stirling}
 \end{equation}
+This is Chapter~1's Laplace formula with \(s=n\), \(\varphi=h\), \(g=1\), \(x_0=1\), \(|h''(1)|=1\).
+
 \par\framebreak\par
 \textbf{How good is it?} At \(n=10\):
 \[

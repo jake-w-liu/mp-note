@@ -522,7 +522,7 @@ denominator become zero, so the limit can be finite; this gives \(Y_m\) for inte
 \textbf{Independence: compute the Wronskian.}
 
 \emph{Step 1: it has the form \(C/x\).} For \eqref{eq:bessel-normal-form}, \(P=1/x\). By Abel's identity
-(Chapter~3), the Wronskian of any two solutions is \(C\,e^{-\int dx/x}=C\,e^{-\ln x}=C/x\). So we only need the
+(Chapter~3), the Wronskian of any two solutions is \(C\,e^{-\int dx/x}=C\,e^{-\log x}=C/x\). So we only need the
 constant \(C\), and the leading terms near \(x=0\) are enough to find it (the corrections bring higher
 powers of \(x\), which cannot affect the \(1/x\) term).
 
@@ -594,8 +594,8 @@ $x$, $J_m$ and $Y_m$ have the same $x^{-1/2}$ envelope and phases shifted by $\p
 \footnotesize
 \textbf{Why we need it.} Chapter~3 showed that $Y_m$ blows up at the origin, which is why
 disk modes exclude it. Here we find the exact leading constants that Chapter~3 left open,
-and the noninteger formula \eqref{eq:Ysmall-general} that gives $y_n$ for small $x$ at the
-end of the chapter.
+and the noninteger formula \eqref{eq:Ysmall-general} that the spherical Bessel functions at the
+end of the chapter need.
 
 First let $\nu>0$ be fixed and noninteger. From the $k=0$ term of \eqref{eq:series-gamma}
 (used once with order $\nu$ and once with order $-\nu$),
@@ -624,7 +624,6 @@ Consequently,
 \end{equation}
 for fixed positive noninteger $\nu$.
 
-\par\framebreak\par
 For integer $m\ge1$, Chapter~3 found $\widetilde Y_m(x)\sim-2^{m-1}(m-1)!\,x^{-m}$ as $x\to0^+$. In
 \eqref{eq:Y-from-Ytilde} the term $CJ_m=O(x^m)$ is negligible, so
 \begin{equation}
@@ -634,12 +633,12 @@ For integer $m\ge1$, Chapter~3 found $\widetilde Y_m(x)\sim-2^{m-1}(m-1)!\,x^{-m
 \end{equation}
 the same as letting $\nu\to m$ in \eqref{eq:Ysmall-general}.
 
-For $m=0$, Chapter~3 found $\widetilde Y_0=\ln x+\text{const}+\cdots$ (the integrand is
-$1/[sJ_0^2(s)]=1/s+O(s)$), so $Y_0=\frac2\pi\ln x+\text{const}$. The limit
+For $m=0$, Chapter~3 found $\widetilde Y_0=\log x+\text{const}+\cdots$ (the integrand is
+$1/[sJ_0^2(s)]=1/s+O(s)$), so $Y_0=\frac2\pi\log x+\text{const}$. The limit
 definition fixes the constant (quoted, DLMF \S10.8):
 \begin{equation}
- Y_0(x)=\frac2\pi\left[\ln\left(\frac x2\right)+\gamma\right]
-       +O(x^2|\ln x|),\qquad x\to0^+,
+ Y_0(x)=\frac2\pi\left[\log\left(\frac x2\right)+\gamma\right]
+       +O(x^2|\log x|),\qquad x\to0^+,
  \label{eq:Y0-small}
 \end{equation}
 where $\gamma\approx0.5772$ is the Euler--Mascheroni constant of Chapter~2.
@@ -678,6 +677,11 @@ $\sin\chi_\nu\sin(\pi\nu)$, so
 The same sine law holds at integer order (quoted; DLMF \S10.17). Thus $J_m$ and $Y_m$
 behave like $\cos$ and $\sin$ of the same phase, with the same envelope; the next section
 combines them into travelling waves.
+
+\textbf{Why the normalization \(W[J_m,Y_m]=2/(\pi x)\) of Chapter~3 is natural.} Write \(J_m\approx A\cos\chi\),
+\(Y_m\approx A\sin\chi\) with \(A=\sqrt{2/(\pi x)}\) and \(\chi'=1\). Ignoring the slow change of \(A\),
+\(W=J_mY_m'-J_m'Y_m\approx A\cos\chi\cdot A\cos\chi-(-A\sin\chi)\cdot A\sin\chi=A^2=\frac{2}{\pi x}\): the
+normalization is exactly the one that makes \(Y_m\) a quarter-period shift of \(J_m\).
 \end{frame}
 
 % ======================================================================
@@ -720,8 +724,8 @@ the exponential forms are far-field approximations), and both are singular at th
 \begin{center}
   \includegraphics[width=0.78\linewidth]{figs/bessel_disk_modes.pdf}
 \end{center}
-Here $\alpha_{m,j}$ is the $j$th positive zero of $J_m$ (Chapter~3's $\alpha_{m,n}$): the
-condition $J_m(\alpha_{m,j})=0$ puts a radial node on the clamped rim $r=1$. There are
+Here $\alpha_{m,j}$ is the $j$th positive zero of $J_m$ (as in Chapter~3): the
+condition $J_m(\alpha_{m,j})=0$ puts a radial node on the clamped rim of the unit disk. There are
 infinitely many zeros $\alpha_{m,1}<\alpha_{m,2}<\cdots$, because the cosine law
 \eqref{eq:largex} changes sign again and again; each is simple, since at $J_m(a)=0$ the
 Wronskian \eqref{eq:JY-wronskian} reduces to $-J_m'(a)Y_m(a)=2/(\pi a)\ne0$.
@@ -740,7 +744,8 @@ Precisely, we will show that for the positive zeros $\alpha_{m,j}$ of $J_m$,
  \int_0^1xJ_m(\alpha_{m,j}x)J_m(\alpha_{m,k}x)\,dx=\frac12J_{m+1}^2(\alpha_{m,j})\,\delta_{jk};
 \]
 this frame does the case $j\ne k$ and the next the case $j=k$.
-Chapter~4's drum example put $y(x)=J_m(\alpha x)$, $0\le x\le1$, in Sturm--Liouville form:
+Chapter~4's drum example put $y=J_m(\alpha x)$, $0\le x\le1$, in Sturm--Liouville form (there the
+radius was called $s$; here we call it $x$):
 \begin{equation}
  (xy')'-\frac{m^2}{x}y=-\alpha^2x\,y,
  \label{eq:sl}
@@ -853,10 +858,17 @@ vanish at the rim where every mode does, like the sine series of $f=1$ in Chapte
 equation of half-integer order $n+\tfrac12$, which defines the spherical Bessel functions.
 
 Waves in three dimensions (sound from a small source, scattering by a sphere) obey the
-Helmholtz equation $(\nabla^2+k^2)\psi=0$. In spherical coordinates the radial part of
-$\nabla^2$ is $r^{-2}(r^2R')'$ (the full Laplacian is written out in Chapter~6), and the angular
-part contributes $-n(n+1)/r^2$, $n=0,1,2,\ldots$ (the Legendre eigenvalue of Chapters~4 and~6).
-So $\psi=R(r)\times(\text{angular part})$ needs
+Helmholtz equation $(\nabla^2+k^2)\psi=0$. For a wave that does not depend on the angle around the
+vertical axis, the spherical Laplacian (taken as known from multivariable calculus) is
+\[
+ \nabla^2\psi=\frac1{r^2}\bigl(r^2\psi_r\bigr)_r+\frac1{r^2\sin\theta}\bigl(\sin\theta\,\psi_\theta\bigr)_\theta .
+\]
+\textbf{Separate.} Put \(\psi=R(r)\Theta(\theta)\) with an angular mode satisfying
+\(\frac1{\sin\theta}(\sin\theta\,\Theta')'=-\lambda\Theta\). Two simple modes: \(\Theta=1\) (\(\lambda=0\)), and \(\Theta=\cos\theta\), for which
+\(\frac1{\sin\theta}\bigl(\sin\theta\cdot(-\sin\theta)\bigr)'=\frac{-2\sin\theta\cos\theta}{\sin\theta}=-2\cos\theta\) (\(\lambda=2\)). In general the angular modes that are
+finite at both poles have \(\lambda=n(n+1)\), \(n=0,1,2,\dots\) (quoted here; \(n=0,1\) are the two cases just
+checked, and Chapter~6 derives the rest). Then \(\nabla^2\psi=\Theta\,\frac1{r^2}(r^2R')'-\frac{n(n+1)}{r^2}R\,\Theta\); dividing
+\((\nabla^2+k^2)\psi=0\) by \(\Theta\),
 \[
  \frac1{r^2}(r^2R')'+\Bigl[k^2-\frac{n(n+1)}{r^2}\Bigr]R=0.
 \]
@@ -1075,8 +1087,8 @@ For fixed integer $m\ge1$,
 whereas
 \[
   Y_0(x)=\frac{2}{\pi}
-  \left[\ln\left(\frac{x}{2}\right)+\gamma\right]
-  +O(x^2|\ln x|),
+  \left[\log\left(\frac{x}{2}\right)+\gamma\right]
+  +O(x^2|\log x|),
 \]
 where $\gamma=0.5772\ldots$ is the Euler--Mascheroni constant (Chapter~2).
 For fixed $m$ and $x\to+\infty$,
