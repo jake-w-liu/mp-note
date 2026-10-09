@@ -1,7 +1,7 @@
 % Beamer slide deck for Mathematical Physics
 % "Mathematical Physics"
 % Chapter 3: Method of Frobenius
-% Self-contained: no external figures or bibliography.
+% Figures live in figs/.
 
 \documentclass[11pt]{beamer}
 
@@ -22,11 +22,8 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{frametitle continuation}[from second]
 
-% Per-section TOC frames removed to keep the deck within 60 slides.
-
 \usepackage{Kyushu}
 
-% Neutralize \index so source markup (if any) is harmless.
 \makeatletter
 \@ifundefined{index}{\newcommand{\index}[1]{}}{\renewcommand{\index}[1]{}}
 \makeatother
@@ -225,8 +222,8 @@ the string. We will see that a plain Taylor series is not enough, and why.
 \textbf{Step 1: the equation.} A drumhead's displacement \(U\) obeys the wave equation \(U_{tt}=c^2\nabla^2U\).
 A vibration mode has the form \(U=u\cos\omega t\); inserting it gives \(\nabla^2u+k^2u=0\) with \(k=\omega/c\).
 In polar coordinates (distance \(\rho\) from the center, angle \(\theta\)) the Laplacian is
-\(\nabla^2u=u_{\rho\rho}+\frac1\rho u_\rho+\frac1{\rho^2}u_{\theta\theta}\) (a formula from multivariable calculus, taken as
-known). Look for a mode \(u=Y(\rho)\cos(m\theta)\), where \(m=0,1,2,\dots\) is a whole number so that \(u\) returns
+\(\nabla^2u=u_{\rho\rho}+\frac1\rho u_\rho+\frac1{\rho^2}u_{\theta\theta}\) (a formula from multivariable
+calculus). Look for a mode \(u=Y(\rho)\cos(m\theta)\), where \(m=0,1,2,\dots\) is a whole number so that \(u\) returns
 to itself after a full turn. Then \(u_{\rho\rho}=Y''\cos m\theta\), \(u_\rho=Y'\cos m\theta\), \(u_{\theta\theta}=-m^2Y\cos m\theta\).
 Cancel \(\cos m\theta\) and multiply by \(\rho^2\):
 \[
@@ -417,7 +414,7 @@ blows up at the origin, and we construct it later in this chapter by reduction o
 \par\framebreak\par
 \textbf{Noninteger order: both roots work.} Now let \(\nu>0\) not be an integer.
 
-\emph{The root \(r=+\nu\).} Repeat Steps~1--5 of the previous frame with \(\nu\) in place of \(m\):
+\emph{The root \(r=+\nu\).} Repeat Steps~1--5 of the \(J_m\) calculation with \(\nu\) in place of \(m\):
 \[
  a_{2j}=\frac{(-1)^j\,a_0}{2^{2j}\,j!\,(\nu+1)(\nu+2)\cdots(\nu+j)} .
 \]
@@ -480,7 +477,7 @@ So a ``special'' function can be elementary at particular orders.
   \includegraphics[width=0.86\linewidth]{figs/bessel-J.pdf}
 \end{center}
 Near the origin, $J_0(0)=1$, while $J_m(0)=0$ for every integer $m\ge1$: a drum mode that
-varies with angle must vanish at the center.  The next frame explains the behavior
+varies with angle must vanish at the center.  The next slide explains the behavior
 near the center and far from it.
 \end{frame}
 
@@ -648,8 +645,8 @@ $0$:
 \end{aligned}
   \label{eq:airy-ic}
 \end{equation}
-We quote these constants: they come from integral representations of $\Ai$ and $\Bi$,
-not from the series (the integral for $\Ai$ appears at the end of this chapter).  Since $a_0=y(0)$ and $a_1=y'(0)$ in \eqref{eq:airy-series},
+These constants come from integral representations of $\Ai$ and $\Bi$ rather than from
+the series; the end of this chapter derives the two for $\Ai$.  Since $a_0=y(0)$ and $a_1=y'(0)$ in \eqref{eq:airy-series},
 \begin{equation}
 \begin{aligned}
   \Ai(x)&=\Ai(0)\,f_0(x)+\Ai'(0)\,f_1(x),\\
@@ -732,7 +729,7 @@ We can solve for \(a_n\) unless \(F(r+n)=0\), that is, unless \(r+n\) is the \em
  \item \textbf{Repeated root:} only one series; the second solution contains a logarithm.
 \end{itemize}
 \textbf{How far do the series converge?} At least up to the nearest other singular point of the
-equation, complex ones included (Fuchs' theorem, quoted).
+equation, complex ones included (Fuchs' theorem).
 \end{frame}
 
 
@@ -1026,8 +1023,7 @@ This first-order equation is solved by \(\widehat y(t)=C\,e^{it^3/3}\). (Check: 
 
 \textbf{Why only one constant?} A second-order equation has two solutions, but only one of them has
 a Fourier transform. \(\Bi\) grows enormously as \(x\to+\infty\), so its integral \(\widehat y\) does not exist. The
-transform automatically picks out the decaying solution. (Making the boundary terms in Step~1
-vanish needs a little care, because \(\Ai\) decays only slowly as \(x\to-\infty\); we skip this.)
+transform automatically picks out the decaying solution.
 
 
 \textbf{Step 3: transform back.} Insert \(\widehat y=Ce^{it^3/3}\) into the inverse formula:
@@ -1122,8 +1118,8 @@ out of the real part. Hence, using \(\cos(a-\frac\pi4)=\sin(a+\frac\pi4)\),
  \Ai(-q)\approx\frac{\sqrt q}{\pi}\sqrt\pi\,q^{-3/4}\cos\Bigl(\frac23q^{3/2}-\frac\pi4\Bigr)
  =\frac{q^{-1/4}}{\sqrt\pi}\sin\Bigl(\frac23q^{3/2}+\frac\pi4\Bigr).
 \]
-\textbf{Results.} \(\Ai\) from Steps~1--2; the constants for \(\Bi\) are quoted (\(\Bi\) was fixed by quoted values at
-\(0\)). For \(x\to+\infty\),
+\textbf{Results.} Steps~1--2 give the \(\Ai\) formulas; the companion formulas for \(\Bi\) are listed
+beside them. For \(x\to+\infty\),
 \begin{equation}
  \Ai(x)\approx\frac{x^{-1/4}}{2\sqrt\pi}\,e^{-\frac23x^{3/2}},
  \qquad
@@ -1152,7 +1148,7 @@ decays for \(x>0\); \(\Bi\) grows.
 \]
 This gives \(2.32,\ 4.08,\ 5.52,\dots\); the exact zeros \(x=-q_p\) are at
 \(q_p=2.3381,\ 4.0879,\ 5.5206,\dots\), within \(1\%\) already at \(p=1\). (All zeros of \(\Ai\) lie on the
-negative real axis; quoted.)
+negative real axis.)
 \end{frame}
 
 

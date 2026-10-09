@@ -1,7 +1,7 @@
 % Beamer slide deck for Mathematical Physics
 % "Mathematical Physics"
 % Chapter 4: Sturm--Liouville Theory
-% Self-contained slide text; local figures live in figs.
+% Figures live in figs/.
 
 \documentclass[11pt]{beamer}
 
@@ -22,20 +22,13 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{frametitle continuation}[from second]
 
-% Per-section TOC frames removed to keep the deck within 60 slides.
-
 \usepackage{Kyushu}
 
-% Neutralize \index so source markup (if any) is harmless.
 \makeatletter
 \@ifundefined{index}{\newcommand{\index}[1]{}}{\renewcommand{\index}[1]{}}
 \makeatother
 
 \begin{document}
-
-% Forest-first revision: classical calculus + formal adjoints via IBP.
-% Domain = sufficiently smooth functions with BCs that kill the boundary form.
-% No Sobolev/Hilbert jargon; intermediate algebra kept explicit.
 
 \newcounter{sfchapter}
 \setcounter{sfchapter}{4}
@@ -184,7 +177,7 @@ So
 which is simply $a_j=(f,u_j)$ for an orthonormal set.  Geometrically, $a_ju_j$ is the
 projection of $f$ onto the $u_j$ direction, just as $f\cdot e_x$ picks the
 $x$-component of a vector in $\mathbb R^3$.  The same formula serves infinite
-sums (next frame).
+sums (next slide).
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Infinite-dimensional bases and $L^2$}
@@ -199,12 +192,12 @@ must say in what sense the partial sums approach \(f\).
 The functions with \(\|f\|_2<\infty\) form the space \(L^2(0,1)\).
 
 \textbf{Orthogonal is not enough; we also need complete.} Take the sine modes \(u_n(x)=\sin(n\pi x)\),
-\(n=1,2,\ldots\) (the next frame shows that they are orthogonal, with \(\|u_n\|^2=\frac12\)). Suppose we threw
+\(n=1,2,\ldots\) (shown below to be orthogonal, with \(\|u_n\|^2=\frac12\)). Suppose we threw
 away \(u_1\). The remaining modes could not rebuild it: every coefficient \((u_1,u_n)/\|u_n\|^2\) with \(n\ge2\) is
 zero, so the expansion of \(u_1\) would be \(0\). (Like trying to build the \(z\)-axis out of the \(x\)- and
 \(y\)-axes.) A set of modes that misses no direction is called \emph{complete}.
 \par\framebreak\par
-\textbf{The sine modes are complete} (quoted from Fourier analysis). Every \(f\) in \(L^2(0,1)\) can be
+\textbf{The sine modes are complete} (a theorem of Fourier analysis). Every \(f\) in \(L^2(0,1)\) can be
 expanded as
 \[
  f=\sum_{n=1}^{\infty}a_nu_n,\qquad
@@ -261,7 +254,7 @@ $\|u_n\|^2=1/2$ from \eqref{eq:sin-nn} give
  =\frac{\int_0^1 f(x)\sin(n\pi x)\,dx}{1/2}
  =2\int_0^1 f(x)\sin(n\pi x)\,dx.\label{eq:sine-transform}
 \end{equation}
-The factor $2$ comes from the norm $1/2$, not from an extra convention.
+The factor $2$ is simply $1/\|u_n\|^2$.
 
 \begin{columns}[T]
 \begin{column}{0.53\textwidth}
@@ -348,7 +341,7 @@ symmetry is what makes eigenfunctions with different eigenvalues orthogonal.
 
 \begin{frame}[allowframebreaks=1.00]{Eigenfunctions and the orthogonality theorem}
 \footnotesize
-\textbf{Goal.} Show that an operator which is ``symmetric'' in the sense of the previous frame has real
+\textbf{Goal.} Show that an operator which is ``symmetric'' in the sense of the previous slide has real
 eigenvalues and orthogonal eigenfunctions, exactly as a symmetric matrix does.
 
 An eigenpair $(u,\lambda)$ of an operator $L$ satisfies $Lu=\lambda u$ with
@@ -471,14 +464,14 @@ Hence
 \end{equation}
 \textbf{Message.} \(p_1=p_0'\) means \(p_0u''+p_1u'=(p_0u')'\) (product rule). So a second-order expression is
 formally self-adjoint exactly when its derivative terms combine into \((p_0u')'\). The boundary term in
-\eqref{eq:formal-adjoint-ibp} must still vanish on the allowed functions; the next frame computes it in a
+\eqref{eq:formal-adjoint-ibp} must still vanish on the allowed functions; the next slide computes it in a
 cleaner form.
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{The Sturm--Liouville expression and Green's identity}
 \footnotesize
 
-\textbf{Goal.} The previous frame left an unevaluated boundary term and the condition $p_1=p_0'$
+\textbf{Goal.} The previous slide left an unevaluated boundary term and the condition $p_1=p_0'$
 for formal self-adjointness. Here we rewrite such an expression in its standard compact form and
 find the boundary term exactly, as a formula called Green's identity; the eigenvalue theorem
 needs it.
@@ -639,8 +632,8 @@ so $\lambda_i=\overline{\lambda_i}$: every eigenvalue is real.  With $\lambda_j$
 \textbf{Goal.} Show that the Legendre equation is a Sturm--Liouville problem, read off its
 $p$, $q$, $w$, and conclude that the Legendre polynomials are orthogonal.
 
-We take the following equation as given (Chapter~6 shows that it comes from Laplace's equation on
-a sphere, with $x=\cos\theta$). For a nonnegative integer $n$, the Legendre equation is
+Laplace's equation on a sphere leads, with $x=\cos\theta$, to the Legendre equation (derived in
+Chapter~6). For a nonnegative integer $n$ it reads
 \begin{equation}
   (1-x^2)y''-2xy'+n(n+1)y=0,
   \qquad -1<x<1.
@@ -1051,7 +1044,7 @@ modes respond little.
 
 \textbf{Example (fixed string).} Here $\phi_n=\sin(n\pi x)$ and $\lambda_n=(n\pi)^2$
 (\eqref{eq:string-eigenpairs} with the sign of $L$ flipped), and $N_n=1/2$ by \eqref{eq:sin-nn}.
-The tent of the previous frame is therefore
+The tent found above is therefore
 \[
  x_<(1-x_>)=\sum_{n=1}^{\infty}\frac{2\sin(n\pi x)\sin(n\pi x')}{(n\pi)^2};
 \]

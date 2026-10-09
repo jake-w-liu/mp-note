@@ -1,7 +1,7 @@
 % Beamer slide deck for Mathematical Physics
 % "Mathematical Physics"
 % Chapter 5: Bessel Functions
-% Original-based second trimming pass; supplied style retained.
+% Figures live in figs/.
 
 \documentclass[11pt]{beamer}
 
@@ -21,11 +21,8 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{frametitle continuation}[from second]
 
-% Per-section TOC frames removed to keep the deck within 60 slides.
-
 \usepackage{Kyushu}
 
-% Neutralize \index so source markup (if any) is harmless.
 \makeatletter
 \@ifundefined{index}{\newcommand{\index}[1]{}}{\renewcommand{\index}[1]{}}
 \makeatother
@@ -107,7 +104,7 @@ Bessel's equation and is regular at \(0\): we expect \(c_m=J_m\).
        =\sum_{m=-\infty}^{\infty}J_m(x)t^m,\qquad t\ne0,
  \label{eq:genf}
 \end{equation}
-and check on the next frame that these \(J_m\) are the Chapter~3 series. Notation: \([t^m]g\) means ``the
+and check on the next slide that these \(J_m\) are the Chapter~3 series. Notation: \([t^m]g\) means ``the
 coefficient of \(t^m\) in \(g\)'', so \(J_m(x)=[t^m]g(x,t)\).
 
 \textbf{What \(g\) is good for.} Multiplying out \(g\) gives the power series of every \(J_m\); differentiating
@@ -490,7 +487,7 @@ so they drop out of the real part. Taking the real part (\(\cos\) is even) and d
 \end{equation}
 \par\framebreak\par
 \textbf{Check against an exact case.} Chapter~3 found \(J_{1/2}(x)=\sqrt{2/(\pi x)}\,\sin x\) exactly. The formula
-(which also holds for noninteger order, as quoted later in this chapter) with \(m=\frac12\) gives \(\sqrt{2/(\pi x)}\cos\bigl(x-\frac\pi4-\frac\pi4\bigr)=\sqrt{2/(\pi x)}\sin x\): both the amplitude and the
+with order \(\frac12\) in place of \(m\) (it also holds for noninteger order) gives \(\sqrt{2/(\pi x)}\cos\bigl(x-\frac\pi4-\frac\pi4\bigr)=\sqrt{2/(\pi x)}\sin x\): both the amplitude and the
 phase agree.
 
 \textbf{Physical reading.} With \(x=kr\), \(J_m(kr)\) is a standing cylindrical wave whose amplitude falls
@@ -532,7 +529,7 @@ the order only through \(\nu^2\). The series \eqref{eq:series-gamma} solves it (
   \label{eq:neumann-def}
 \end{equation}
 \textbf{Why this particular combination?} Two reasons. (1) At integer \(\nu\), both numerator and
-denominator become zero, so the limit can be finite; this gives \(Y_m\) for integer order (next frame).
+denominator become zero, so the limit can be finite; this gives \(Y_m\) for integer order (below).
 (2) At large \(x\), it turns \(J_\nu\)'s cosine into a sine (end of this section).
 
 \par\framebreak\par
@@ -580,7 +577,7 @@ The conventional definition is the continuous limit
  \frac{J_\nu(x)\cos(\pi\nu)-J_{-\nu}(x)}{\sin(\pi\nu)},\qquad x>0.
  \label{eq:Y-integer-limit}
 \end{equation}
-This limit exists and still solves the integer-order Bessel equation (standard result).
+This limit exists and solves the integer-order Bessel equation.
 The Wronskian passes to the limit:
 \begin{equation}
  W[J_m,Y_m]=\frac2{\pi x}\ne0.
@@ -652,7 +649,7 @@ the same as letting $\nu\to m$ in \eqref{eq:Ysmall-general}.
 
 For $m=0$, Chapter~3 found $\widetilde Y_0=\log x+\text{const}+\cdots$ (the integrand is
 $1/[sJ_0^2(s)]=1/s+O(s)$), so $Y_0=\frac2\pi\log x+\text{const}$. The limit
-definition fixes the constant (quoted, DLMF \S10.8):
+definition fixes the constant:
 \begin{equation}
  Y_0(x)=\frac2\pi\left[\log\left(\frac x2\right)+\gamma\right]
        +O(x^2|\log x|),\qquad x\to0^+,
@@ -671,8 +668,8 @@ For fixed real order $\nu$, set
 \[
  \chi_\nu(x)=x-\frac{\nu\pi}{2}-\frac\pi4,\qquad A(x)=\sqrt{\frac2{\pi x}}.
 \]
-The cosine law \eqref{eq:largex} also holds for fixed noninteger $\nu$ (quoted, DLMF
-\S10.17):
+The cosine law \eqref{eq:largex} holds for fixed noninteger order $\nu$ as
+well:
 \begin{equation}
  J_\nu(x)=A(x)\cos\chi_\nu(x)+O(x^{-3/2}).
  \label{eq:Jlarge}
@@ -691,7 +688,7 @@ $\sin\chi_\nu\sin(\pi\nu)$, so
  \qquad x\to+\infty.
  \label{eq:Ylarge}
 \end{equation}
-The same sine law holds at integer order (quoted; DLMF \S10.17). Thus $J_m$ and $Y_m$
+The same sine law holds at integer order (the limit $\nu\to m$). Thus $J_m$ and $Y_m$
 behave like $\cos$ and $\sin$ of the same phase, with the same envelope; the next section
 combines them into travelling waves.
 
@@ -756,11 +753,11 @@ in ratios $1:2.30:3.60$. A string's are $1:2:3$; a drum's overtones are not harm
 \begin{frame}[allowframebreaks=1.00]{Drum modes: orthogonality}
 \footnotesize
 We want to expand a drum shape in these modes, so we need their orthogonality and norms.
-Precisely, we will show that for the positive zeros $\alpha_{m,j}$ of $J_m$,
+We will show that for the positive zeros $\alpha_{m,j}$ of $J_m$,
 \[
  \int_0^1xJ_m(\alpha_{m,j}x)J_m(\alpha_{m,k}x)\,dx=\frac12J_{m+1}^2(\alpha_{m,j})\,\delta_{jk};
 \]
-this frame does the case $j\ne k$ and the next the case $j=k$.
+this slide does the case $j\ne k$, the next one the case $j=k$.
 Chapter~4's drum example put $y=J_m(\alpha x)$, $0\le x\le1$, in Sturm--Liouville form (there the
 radius was called $s$; here we call it $x$):
 \begin{equation}
@@ -850,7 +847,7 @@ Solving for $a_k$ gives
        \int_0^1f(x)J_m(\alpha_{m,k}x)x\,dx.
  \label{eq:fourier-bessel-coeff}
 \end{equation}
-The modes are complete (a quoted Sturm--Liouville result): no radial shape with finite
+The modes are complete (a theorem of Sturm--Liouville theory): no radial shape with finite
 $\int_0^1|f|^2x\,dx$ is missed, just as for the sine series.
 
 \textbf{Example: $f=1$, $m=0$.} Put $t=\alpha_kx$ ($\alpha_k=\alpha_{0,k}$) and use
@@ -876,15 +873,15 @@ equation of half-integer order $n+\tfrac12$, which defines the spherical Bessel 
 
 Waves in three dimensions (sound from a small source, scattering by a sphere) obey the
 Helmholtz equation $(\nabla^2+k^2)\psi=0$. For a wave that does not depend on the angle around the
-vertical axis, the spherical Laplacian (taken as known from multivariable calculus) is
+vertical axis, the spherical Laplacian (from multivariable calculus) is
 \[
  \nabla^2\psi=\frac1{r^2}\bigl(r^2\psi_r\bigr)_r+\frac1{r^2\sin\theta}\bigl(\sin\theta\,\psi_\theta\bigr)_\theta .
 \]
 \textbf{Separate.} Put \(\psi=R(r)\Theta(\theta)\) with an angular mode satisfying
 \(\frac1{\sin\theta}(\sin\theta\,\Theta')'=-\lambda\Theta\). Two simple modes: \(\Theta=1\) (\(\lambda=0\)), and \(\Theta=\cos\theta\), for which
 \(\frac1{\sin\theta}\bigl(\sin\theta\cdot(-\sin\theta)\bigr)'=\frac{-2\sin\theta\cos\theta}{\sin\theta}=-2\cos\theta\) (\(\lambda=2\)). In general the angular modes that are
-finite at both poles have \(\lambda=n(n+1)\), \(n=0,1,2,\dots\) (quoted here; \(n=0,1\) are the two cases just
-checked, and Chapter~6 derives the rest). Then \(\nabla^2\psi=\Theta\,\frac1{r^2}(r^2R')'-\frac{n(n+1)}{r^2}R\,\Theta\); dividing
+finite at both poles have \(\lambda=n(n+1)\), \(n=0,1,2,\dots\) (\(n=0,1\) are the two cases just
+checked; Chapter~6 derives the rest). Then \(\nabla^2\psi=\Theta\,\frac1{r^2}(r^2R')'-\frac{n(n+1)}{r^2}R\,\Theta\); dividing
 \((\nabla^2+k^2)\psi=0\) by \(\Theta\),
 \[
  \frac1{r^2}(r^2R')'+\Bigl[k^2-\frac{n(n+1)}{r^2}\Bigr]R=0.

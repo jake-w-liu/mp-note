@@ -1,7 +1,7 @@
 % Beamer slide deck for Mathematical Physics
 % "Mathematical Physics"
 % Chapter 1: Complex Analysis
-% Self-contained slide text; local figures live in figs.
+% Figures live in figs/.
 
 \documentclass[11pt]{beamer}
 
@@ -12,10 +12,6 @@
 \usepackage{graphicx}
 \usepackage{etoolbox}
 
-% Do not split aligned derivations between continuation slides.  Such splits
-% create orphan equation lines and large blank regions in Beamer.
-
-% All figure assets are required and shipped with this source bundle.
 \graphicspath{{figs/}}
 \newcommand{\safeincludegraphics}[2][]{\includegraphics[#1]{#2}}
 
@@ -29,13 +25,10 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{frametitle continuation}[from second]
 
-% Per-section TOC frames removed to keep the deck near target length.
-
 \usepackage{Kyushu}
 
 
-% Layout controls follow the supplied local theme. The font size is unchanged; only the
-% excessive display-math whitespace and side margins are reduced.
+% Tighter display-math spacing and side margins.
 \setbeamersize{text margin left=0.65cm,text margin right=0.65cm}
 \setlength{\emergencystretch}{1em}
 \newcommand{\mpcompactspacing}{%
@@ -50,7 +43,6 @@
 \apptocmd{\footnotesize}{\mpcompactspacing}{}{}
 \apptocmd{\scriptsize}{\mpcompactspacing}{}{}
 
-% Neutralize \index so source markup (if any) is harmless.
 \makeatletter
 \@ifundefined{index}{\newcommand{\index}[1]{}}{\renewcommand{\index}[1]{}}
 \makeatother
@@ -1167,7 +1159,7 @@ Divide Step~7 by this. The factors \(2i\,e^{-i\pi a}\) cancel:
 \begin{frame}[allowframebreaks=1.00]{The Gaussian integral}
 \footnotesize
 
-\textbf{Goal.} Compute \(I=\int_{-\infty}^{\infty}e^{-x^2}\,dx\). Laplace's method (next frame) replaces a sharp
+\textbf{Goal.} Compute \(I=\int_{-\infty}^{\infty}e^{-x^2}\,dx\). Laplace's method (next slide) replaces a sharp
 peak by this bell-shaped function, so we need its area.
 
 \textbf{Step 1: square it.} \(e^{-x^2}\) has no elementary antiderivative, so compute \(I^2\) instead
@@ -1323,7 +1315,7 @@ Write \(f''(z_0)\) and \(z-z_0\) in polar form, \(f''(z_0)=|f''(z_0)|e^{i\beta}\
 \begin{itemize}
   \item The real part (the change of \(u\), hence of the size) drops fastest when \(\cos(\beta+2\psi)=-1\).
   \item In that direction \(\sin(\beta+2\psi)=0\): the imaginary part does not change, so the phase does
-        not spin. Requirement (b) holds automatically.
+        not spin. Condition (b) holds automatically.
 \end{itemize}
 So the steepest-descent direction is
 \begin{equation}
@@ -1404,7 +1396,7 @@ saddle, with \(f''(x_0)=i\varphi''(x_0)\). On the real axis \(u=\operatorname{Re
 runs at the height of the pass instead of down into the valleys. So we tilt the path at \(x_0\).
 
 
-\textbf{Step 2: the tilt.} Find \(\beta=\arg f''(x_0)\) and \(\alpha=i\,e^{-i\beta/2}\) as in Step~3 of the previous frame.
+\textbf{Step 2: the tilt.} Find \(\beta=\arg f''(x_0)\) and \(\alpha=i\,e^{-i\beta/2}\) as in Step~3 of the steepest-descent method.
 \begin{itemize}
   \item \(\varphi''(x_0)>0\): \(f''(x_0)=|\varphi''(x_0)|\,e^{i\pi/2}\), so \(\beta=\frac\pi2\) and
         \(\alpha=i\,e^{-i\pi/4}=e^{i\pi/2}e^{-i\pi/4}=e^{i\pi/4}\): a line at \(+45^\circ\).
@@ -1431,8 +1423,8 @@ Compared with Laplace's formula, the only new factor is \(e^{\pm i\pi/4}\): the 
 endpoints \(a,b\) contribute only \(O(1/s)\); several stationary points add.
 
 
-\textbf{Check: \(\varphi=x^2\), \(g=1\), on the whole line.} Rotate the whole line to \(x=e^{i\pi/4}y\) (allowed: between
-the two lines the integrand decays). Then \(isx^2=-sy^2\) and \(dx=e^{i\pi/4}dy\), so by \eqref{eq:gauss-c} the exact
+\textbf{Check: \(\varphi=x^2\), \(g=1\), on the whole line.} Rotate the whole line to \(x=e^{i\pi/4}y\) (Cauchy's theorem;
+the integrand decays between the two lines). Then \(isx^2=-sy^2\) and \(dx=e^{i\pi/4}dy\), so by \eqref{eq:gauss-c} the exact
 value is \(\int e^{isx^2}dx=e^{i\pi/4}\int e^{-sy^2}dy=e^{i\pi/4}\sqrt{\pi/s}\). The formula, with \(x_0=0\) and \(\varphi''=2\), gives
 \(e^{i\pi/4}\sqrt{2\pi/(2s)}\), the same: exact, because the phase is exactly quadratic.
 \end{frame}
@@ -1490,7 +1482,7 @@ Set \(f'(z_0)=0\) and multiply by \(z_0(1+z_0)\): \(z_0-t(1+z_0)=0\), so \(z_0(1
 \par\framebreak\par
 \textbf{Step 5: choose the path through the saddle.} \(f''(z_0)\) is positive real, so \(\beta=0\), and by
 \eqref{eq:descent-direction} the descent direction is \(\psi=\pi/2\): vertical (as in the picture in Step~1
-of the steepest-descent frame). The circle \(|z|=z_0\) crosses the real axis vertically at \(z_0\), so we use it.
+of the steepest-descent slide). The circle \(|z|=z_0\) crosses the real axis vertically at \(z_0\), so we use it.
 Two checks:
 \begin{itemize}
   \item \emph{\(z_0\) is the highest point on this circle.} On \(z=z_0e^{i\chi}\) the size of the integrand is

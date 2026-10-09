@@ -1,8 +1,7 @@
 % Beamer slide deck for Mathematical Physics
 % "Mathematical Physics"
 % Chapter 2: Gamma, Beta, Zeta
-% Core Gamma + Beta, with a Zeta module.
-% Mathematical text is self-contained; compilation also requires Kyushu.sty and the local PDFs under figs/.
+% Compilation requires Kyushu.sty and the figures under figs/.
 
 \documentclass[11pt]{beamer}
 
@@ -24,11 +23,8 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{frametitle continuation}[from second]
 
-% Section mini-TOCs omitted to keep the deck compact; full outline is above.
-
 \usepackage{Kyushu}
 
-% Neutralize \index so source markup (if any) is harmless.
 \makeatletter
 \@ifundefined{index}{\newcommand{\index}[1]{}}{\renewcommand{\index}[1]{}}
 \makeatother
@@ -210,8 +206,8 @@ rectangle has more area than the region under the curve:
 because \(1/x>1/(n+1)\) for \(n<x<n+1\). So \(a_1>a_2>a_3>\cdots\).
 
 \textbf{Step 3: the gap has a limit.} By Step~1, every \(a_n\) is positive. A decreasing sequence
-that stays above \(0\) must converge. Its limit is the Euler--Mascheroni constant (its numerical value
-is derived right after the next picture):
+that stays above \(0\) must converge. Its limit is the Euler--Mascheroni constant (we compute its value
+shortly):
 \begin{equation}
  \gamma=\lim_{n\to\infty}(H_n-\log n)=0.577215664901532\ldots.
  \label{eq:euler-gamma}
@@ -308,8 +304,8 @@ and \(\int_0 t^{\sigma-1}\,dt\) is finite exactly when \(\sigma>0\). Near \(t=\i
 power of \(t\) grows, so there is no problem.
 
 \textbf{Why this function and not another?} Many smooth functions pass through the points
-\((n+1,\,n!)\). \(\Gamma\) is the standard choice because of a uniqueness theorem (Bohr--Mollerup,
-quoted): it is the only positive function on \(x>0\) with \(f(1)=1\), \(f(x+1)=xf(x)\), and
+\((n+1,\,n!)\). \(\Gamma\) is the standard choice because of a uniqueness theorem (the Bohr--Mollerup
+theorem): it is the only positive function on \(x>0\) with \(f(1)=1\), \(f(x+1)=xf(x)\), and
 \(\log f\) convex.
 
 
@@ -789,8 +785,8 @@ As \(n\to\infty\), every term after the first tends to \(0\). So
    \;\approx\;\frac1{\sqrt n}\int_{-\infty}^{\infty}e^{-u^2/2}\,du .
 \]
 In the last step we also replaced the lower limit \(-\sqrt n\) by \(-\infty\): the integrand is
-extremely small there, so this changes almost nothing. (Both approximations become exact in the
-limit \(n\to\infty\); we accept this without the detailed estimates.)
+extremely small there, so this changes almost nothing. Both approximations become exact in the
+limit \(n\to\infty\).
 \par\framebreak\par
 \textbf{Step 6: the Gaussian integral.} Substitute \(u=\sqrt2\,v\), \(du=\sqrt2\,dv\), and use
 \(\int_{-\infty}^{\infty}e^{-v^2}dv=\sqrt\pi\) \eqref{eq:gauss-int}:
@@ -887,7 +883,7 @@ functions. We want a closed formula for them.
 \]
 (The minus sign from \(dt=-du\) was used to swap the limits back to \(0\) and \(1\).)
 
-\textbf{Property 2: a trigonometric form.} The next frame needs \(B\) written with sines and
+\textbf{Property 2: a trigonometric form.} The next slide needs \(B\) written with sines and
 cosines. Since \(\sin^2\theta+\cos^2\theta=1\), the substitution \(t=\sin^2\theta\) makes
 \(1-t=\cos^2\theta\). The pieces:
 \[
@@ -1099,7 +1095,7 @@ its exponent is \(0\):
 \begin{frame}[allowframebreaks=1.00]{From the \(p\)-series to \(\zeta(s)\)}
 \footnotesize
 
-\textbf{Why.} Sums \(\sum n^{-s}\) appear in physics: black-body radiation (end of this frame) and
+\textbf{Why.} Sums \(\sum n^{-s}\) appear in physics: black-body radiation (below) and
 the string spectrum of Chapter~7. We want to write such a sum in the same integral language as
 \(\Gamma\).
 
@@ -1134,7 +1130,7 @@ substitute \(u=nt\), to turn \(e^{-nt}\) into \(e^{-u}\). Then \(t=u/n\), \(dt=d
   \label{eq:zeta-term}
 \end{equation}
 \textbf{Step 3: add up the terms.} Divide \eqref{eq:zeta-term} by \(\Gamma(s)\) and sum over \(n\).
-Moving the sum inside the integral (allowed here; we accept this step),
+Moving the sum inside the integral,
 \[
   \zeta(s)=\sum_{n=1}^{\infty}n^{-s}
   =\frac1{\Gamma(s)}\sum_{n=1}^{\infty}\int_0^\infty t^{s-1}e^{-nt}\,dt
@@ -1160,7 +1156,7 @@ Moving the sum inside the integral (allowed here; we accept this step),
 \(t^{s-1}/t=t^{s-2}\). That is integrable at \(0\) exactly when \(\operatorname{Re}s-2>-1\), that is,
 \(\operatorname{Re}s>1\): the same condition as for the series.
 \par\framebreak\par
-\textbf{Two reference values} (quoted here without proof):
+\textbf{Two famous values} (found by Euler):
 \[
   \zeta(2)=\sum_{n=1}^{\infty}\frac1{n^2}=\frac{\pi^2}{6}\approx1.6449,\qquad
   \zeta(4)=\sum_{n=1}^{\infty}\frac1{n^4}=\frac{\pi^4}{90}.
@@ -1204,7 +1200,7 @@ Stefan--Boltzmann \(T^4\) law) contains the integral \(\int_0^\infty t^3/(e^t-1)
            =\frac1{\Gamma(s)}\int_0^\infty\frac{t^{s-1}}{e^t-1}\,dt,
           \qquad \operatorname{Re}s>1,
         \]
-        with the quoted Basel value \(\zeta(2)=\pi^2/6\).
+        and Euler's value \(\zeta(2)=\pi^2/6\).
 \end{itemize}
 Gamma and beta are the core language; later special functions are largely built from them.
 \end{frame}

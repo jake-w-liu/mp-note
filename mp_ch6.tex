@@ -1,7 +1,7 @@
 % Beamer slide deck for Mathematical Physics
 % "Mathematical Physics"
 % Chapter 6: Orthogonal Polynomials
-% Self-contained slide text; local figures live in figs.
+% Figures live in figs/.
 
 \documentclass[11pt]{beamer}
 
@@ -21,11 +21,8 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{frametitle continuation}[from second]
 
-% Per-section TOC frames removed to keep the deck within 60 slides.
-
 \usepackage{Kyushu}
 
-% Neutralize \index so source markup (if any) is harmless.
 \makeatletter
 \@ifundefined{index}{\newcommand{\index}[1]{}}{\renewcommand{\index}[1]{}}
 \makeatother
@@ -83,8 +80,8 @@ two moves return (finiteness at the poles replaces periodicity) and produce Lege
 
 \textbf{Step 1: separate the angular and radial parts.}  A function satisfying Laplace's equation $\nabla^2\psi=0$ (e.g.\ a steady temperature or an electrostatic potential in a charge-free region) is called a \emph{harmonic
 function}. The operator $\nabla^2$ is the Laplacian: $\psi_{xx}+\psi_{yy}$ in
-Cartesian coordinates. In polar coordinates $r$ is radius and $\theta$ is angle.
-We use its coordinate form without deriving it:
+Cartesian coordinates. In polar coordinates ($r$ the radius, $\theta$ the angle), Laplace's
+equation reads
 \begin{equation}
   \nabla^2\psi
    = \frac{1}{r}\,\frac{\partial}{\partial r}\left(r\,\frac{\partial\psi}{\partial r}\right)
@@ -145,12 +142,12 @@ integer $n$, and \emph{regularity at the center} kept only $r^n$.
 
 \textbf{Goal.} Solve Laplace's equation $\nabla^2\psi=0$ outside or inside a sphere, for example
 the potential of charges near a sphere. Separation of variables will split it into a radial
-equation, solved here, and an angular equation, solved on the next frames, whose solutions are
+equation, solved here, and an angular equation, solved on the next slides, whose solutions are
 the Legendre polynomials.
 
 In spherical coordinates $r$ is radius, $\theta$ is the polar angle measured from
 the positive vertical axis, and $\phi$ is the azimuthal angle around that axis.
-We use the spherical Laplacian without deriving this coordinate formula:
+The spherical Laplacian (from multivariable calculus) is
 \begin{equation}
   \nabla^2\psi
   =
@@ -189,7 +186,7 @@ $r^2u''+2ru'-\lambda u=0$. Try $u=r^\sigma$: since $u'=\sigma r^{\sigma-1}$ and
 $u''=\sigma(\sigma-1)r^{\sigma-2}$, we get
 $r^2u''+2ru'=[\sigma(\sigma-1)+2\sigma]r^\sigma=\sigma(\sigma+1)r^\sigma$, so
 $[\sigma(\sigma+1)-\lambda]r^\sigma=0$ and $\lambda=\sigma(\sigma+1)$.  Once the angular problem forces
-$\lambda=n(n+1)$ with $n=0,1,2,\ldots$ (next frames), the exponent equation
+$\lambda=n(n+1)$ with $n=0,1,2,\ldots$ (next slides), the exponent equation
 $\sigma(\sigma+1)=n(n+1)$ factors as
 \[
   \sigma^2+\sigma-n(n+1)=(\sigma-n)(\sigma+n+1)=0
@@ -219,12 +216,12 @@ $m\neq0$ come later as a short extension.
 \begin{frame}[allowframebreaks=1.00]{Axisymmetry: the ordinary Legendre equation}
 \footnotesize
 
-\textbf{Goal.} Solve the angular equation from the previous frame in the axisymmetric case, and
+\textbf{Goal.} Solve the angular equation from the previous slide in the axisymmetric case, and
 find which values of the separation constant $\lambda$ give a solution that is finite at both
 poles. The answer is $\lambda=n(n+1)$, with the Legendre polynomials $P_n$ as the solutions.
 
 \textbf{Step 1: assume no azimuthal dependence and change variables.}  If $\psi$ is independent of $\phi$
-(axisymmetry about the polar axis), the angular eigenproblem at the end of the previous frame, with $y=v(\theta)$, reduces to
+(axisymmetry about the polar axis), the angular eigenproblem at the end of the previous slide, with $y=v(\theta)$, reduces to
 \[
   \frac{1}{\sin\theta}
     \frac{d}{d\theta}
@@ -293,9 +290,9 @@ $n(n+1)-j(j+1)=(n^2-j^2)+(n-j)=(n-j)(n+j+1)$, and
   \label{eq:legendre-coeff-recurrence}
 \end{equation}
 At $j=n$ one has $a_{n+2}=0$, so the chain of the same parity as $n$ is a polynomial of
-degree $n$. We quote the standard endpoint result: for any other $\lambda$ no nonzero
-solution is finite at both poles, and for $\lambda=n(n+1)$ the other chain diverges at a pole,
-so the finite solutions are the multiples of this polynomial.
+degree $n$. One can show that for any other $\lambda$ no nonzero solution is finite at both
+poles, and that for $\lambda=n(n+1)$ the other chain blows up at a pole (example below); so the
+finite solutions are the multiples of this polynomial.
 
 
 
@@ -514,7 +511,7 @@ Rodrigues' formula gives any single \(P_n\) directly:
  \label{eq:rodrigues-legendre}
 \end{equation}
 \textbf{Why it is useful.} \((x^2-1)^n=(x-1)^n(x+1)^n\) has a zero of order \(n\) at each end \(x=\pm1\). So when we
-integrate by parts, all boundary terms vanish. This makes the norm of \(P_n\) easy (next frame).
+integrate by parts, all boundary terms vanish. This makes the norm of \(P_n\) easy (computed below).
 
 \textbf{Check \(n=2\) first:} \(\frac1{8}\frac{d^2}{dx^2}(x^4-2x^2+1)=\frac{12x^2-4}{8}=\frac{3x^2-1}{2}=P_2\). \checkmark
 
@@ -672,7 +669,7 @@ Fourier--Legendre coefficient on the next slide.
 \footnotesize
 
 We want to expand a given $f$ on $[-1,1]$ in Legendre polynomials, as Chapter~4 expanded
-in sines; that is, to find the coefficients $a_n$ in $f=\sum_n a_nP_n$. We quote \emph{completeness}: every $f$ with $\int_{-1}^1 f^2\,dx<\infty$ (the space
+in sines; that is, to find the coefficients $a_n$ in $f=\sum_n a_nP_n$. The Legendre polynomials are \emph{complete}: every $f$ with $\int_{-1}^1 f^2\,dx<\infty$ (the space
 $L^2$ of Chapter~4) is the sum of such a series,
 \[
   f(x)=\sum_{n=0}^{\infty}a_nP_n(x),
@@ -770,7 +767,7 @@ which cancels:
   +\left[\lambda-\frac{m^2}{\sin^2\theta}\right]v=0 .
 \]
 With $x=\cos\theta$, the first term becomes $\frac{d}{dx}\bigl[(1-x^2)v'\bigr]$ exactly as in
-Step~1 of the axisymmetric frame, and $\sin^2\theta=1-x^2$. Hence
+Step~1 of the axisymmetric slide, and $\sin^2\theta=1-x^2$. Hence
 \begin{equation}
   \frac{d}{dx}\left[(1-x^2)v'(x)\right]
   +\left[
@@ -778,7 +775,7 @@ Step~1 of the axisymmetric frame, and $\sin^2\theta=1-x^2$. Hence
    \right]v(x)=0.
   \label{eq:assoc-legendre-general}
 \end{equation}
-As in Step~3 of the axisymmetric frame, finiteness at both poles fixes the eigenvalues (quoted):
+As in Step~3 of the axisymmetric slide, finiteness at both poles fixes the eigenvalues:
 $\lambda=n(n+1)$ with $n=|m|,|m|+1,\ldots$, and the equation becomes
 \begin{equation}
  (1-x^2)v''-2xv'+\left[n(n+1)-\frac{m^2}{1-x^2}\right]v=0.
@@ -883,7 +880,7 @@ for $m=0$, there are none.
 \begin{frame}[allowframebreaks=1.00]{The Hermite equation and series solution}
 \footnotesize
 
-\textbf{Why this equation.} The quantum harmonic oscillator (two frames on) reduces to it,
+\textbf{Why this equation.} The quantum harmonic oscillator (below) reduces to it,
 and its polynomial solutions give the oscillator's states and energy levels.
 
 \textbf{Step 1: substitute a power series.}  The physicists' Hermite polynomials solve
@@ -949,7 +946,7 @@ $(e^{-x^2}y')'+2ne^{-x^2}y=0$ ($p=w=e^{-x^2}$, eigenvalue $2n$) and gives
   \includegraphics[width=0.86\linewidth]{figs/hermite-H.pdf}
 \end{center}
 Hermite polynomials grow away from the origin; the physical oscillator functions are
-$e^{-\xi^2/2}H_n(\xi)$, with $\xi$ a scaled position (derived in the next frame).
+$e^{-\xi^2/2}H_n(\xi)$, with $\xi$ a scaled position (derived on the next slide).
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Quantum harmonic oscillator}
@@ -1058,7 +1055,7 @@ therefore
   \label{eq:energy-levels}
 \end{equation}
 and, since the polynomial solution of \eqref{eq:hermite-eq} is unique up to a constant (Step~2 of
-the series frame), the spatial factors are
+the series slide), the spatial factors are
 $\psi_n\propto e^{-\xi^2/2}H_n(\xi)$ with $H_n$ from \eqref{eq:hermite-series}.
 
 \textbf{Physical reading.} The levels form an equally spaced ladder with step $\hbar\omega$,
@@ -1395,7 +1392,7 @@ $T_n(\cos\theta)=\cos(n\theta)$ keeps every $T_n$ between $-1$ and $1$ on $[-1,1
 \end{equation}
 The angles are equally spaced, but $x=\cos\theta$ crowds the nodes near $\pm1$. Among all
 choices of $n$ points in $[-1,1]$, these make the largest value of $|\prod_k(x-x_k)|$ as small as
-possible, namely $2^{1-n}$ (quoted); that product controls the error of polynomial interpolation,
+possible: the product is then $2^{1-n}T_n(x)$, whose largest size is $2^{1-n}$. That product controls the error of polynomial interpolation,
 so the Chebyshev nodes are excellent interpolation points.
 
 \textbf{Orthogonality.}
@@ -1481,7 +1478,7 @@ orthogonality
 \begin{center}
 \renewcommand{\arraystretch}{1.45}
 \begin{tabular}{llll}
-\textbf{Family} & \textbf{Interval} & \textbf{Weight} & \textbf{ODE (sketch)} \\
+\textbf{Family} & \textbf{Interval} & \textbf{Weight} & \textbf{ODE} \\
 \hline
 Legendre $P_n$
   & $[-1,1]$
@@ -1525,7 +1522,7 @@ For any of the four families, with polynomials $\phi_n$, interval $I$ and weight
             {\displaystyle\int_I\phi_n(x)^2w(x)\,dx},
  \qquad S_N(x)=\sum_{n=0}^N c_n\phi_n(x).
 \]
-Completeness (quoted, as for $P_n$ on the Fourier--Legendre slide) states
+Completeness (as for $P_n$ on the Fourier--Legendre slide) states
 \[
  \int_I|f(x)-S_N(x)|^2w(x)\,dx\longrightarrow0
  \quad\text{whenever}\quad\int_I|f(x)|^2w(x)\,dx<\infty.
