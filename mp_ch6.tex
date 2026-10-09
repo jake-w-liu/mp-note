@@ -787,9 +787,41 @@ poles, as it must: there $\phi$ is undefined, so a mode carrying $e^{im\phi}$ ($
 single-valued only if it is zero there. The sign $(-1)^m$ is a convention
 (Condon--Shortley phase); some texts omit it.
 
-That \eqref{eq:associated-legendre-definition} solves \eqref{eq:assoc-legendre-expanded} for every \(n\) and
-\(0\le m\le n\) follows by differentiating the Legendre equation \(m\) times (we accept this step and
-check one example below).
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Why the derivative construction works}
+\footnotesize
+
+\textbf{Goal.} Show that \eqref{eq:associated-legendre-definition} solves \eqref{eq:assoc-legendre-expanded}. Fix \(0\le m\le n\) and let \(w=d^mP_n/dx^m\).
+
+\emph{Step (a): differentiate the Legendre equation \(m\) times.} By the Leibniz rule (the coefficients
+\(1-x^2\) and \(2x\) have only two and one nonzero derivatives),
+\begin{align*}
+ \frac{d^m}{dx^m}\bigl[(1-x^2)y''\bigr]&=(1-x^2)y^{(m+2)}-2mx\,y^{(m+1)}-m(m-1)\,y^{(m)},\\
+ \frac{d^m}{dx^m}\bigl[2xy'\bigr]&=2x\,y^{(m+1)}+2m\,y^{(m)}.
+\end{align*}
+With \(y=P_n\) and \(y^{(m)}=w\), and \(-m(m-1)-2m=-m(m+1)\), the Legendre equation becomes
+\begin{equation}
+ (1-x^2)w''-2(m+1)x\,w'+\bigl[n(n+1)-m(m+1)\bigr]w=0 .
+ \label{eq:legendre-m-deriv}
+\end{equation}
+\emph{Step (b): multiply by \(h=(1-x^2)^{m/2}\).} The sign \((-1)^m\) does not matter (the equation is linear), so
+take \(v=hw\). Since \(h'=-mx(1-x^2)^{m/2-1}\), we have \((1-x^2)h'=-mx\,h\). The product rule gives
+\(v'=hw'+h'w\), \(v''=hw''+2h'w'+h''w\), so
+\[
+ (1-x^2)v''-2xv'=h(1-x^2)w''+\bigl[2(1-x^2)h'-2xh\bigr]w'+\bigl[(1-x^2)h''-2xh'\bigr]w .
+\]
+Here \(2(1-x^2)h'-2xh=-2(m+1)x\,h\), and \((1-x^2)h''-2xh'=\bigl((1-x^2)h'\bigr)'=(-mxh)'=-mh+\frac{m^2x^2}{1-x^2}h\). Add
+\(\bigl[n(n+1)-\frac{m^2}{1-x^2}\bigr]v\) and use \(\frac{m^2x^2-m^2}{1-x^2}=-m^2\):
+\begin{align*}
+ &(1-x^2)v''-2xv'+\Bigl[n(n+1)-\frac{m^2}{1-x^2}\Bigr]v\\
+ &\qquad=h\Bigl\{(1-x^2)w''-2(m+1)x\,w'+\bigl[n(n+1)-m(m+1)\bigr]w\Bigr\}=0
+\end{align*}
+by \eqref{eq:legendre-m-deriv}. So \(P_n^m\) solves the associated Legendre equation.
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Examples and spherical harmonics}
+\footnotesize
 
 \textbf{Examples.} $P_1=x$ and $P_2=(3x^2-1)/2$ give
 \[
@@ -797,13 +829,6 @@ check one example below).
  P_2^1=-3x\sqrt{1-x^2},\qquad
  P_2^2=(1-x^2)\frac{d^2}{dx^2}\frac{3x^2-1}{2}=3(1-x^2).
 \]
-\textbf{Check \(v=P_1^1=-\sqrt{1-x^2}\)} in \eqref{eq:assoc-legendre-expanded} with \(n=m=1\):
-\(v'=x(1-x^2)^{-1/2}\) and \(v''=(1-x^2)^{-1/2}+x^2(1-x^2)^{-3/2}=(1-x^2)^{-3/2}\). Then
-\[
- (1-x^2)v''-2xv'=\frac{1-2x^2}{\sqrt{1-x^2}},\qquad
- \Bigl[2-\frac1{1-x^2}\Bigr]v=-\frac{2(1-x^2)-1}{\sqrt{1-x^2}}=-\frac{1-2x^2}{\sqrt{1-x^2}},
-\]
-and the two parts add to \(0\). \checkmark
 For $m=0$ the construction returns $P_n$; for $m>n$ the derivative is zero, matching $n\ge|m|$.
 
 \textbf{Spherical harmonics: name the angular modes.}
@@ -1214,13 +1239,24 @@ and as $x\to\infty$ because $e^{-x}$ beats any polynomial. Hence, for $n\ne m$,
   \label{eq:laguerre-ortho}
 \end{equation}
 
-\textbf{Step 3: the norm.} For \(n=m\) the integral is \(1\) (quoted; it follows from the generating
-function in the table below). \textbf{Check} \(n=1\), using \(\int_0^\infty x^ke^{-x}dx=\Gamma(k+1)=k!\)
-(Chapter~2):
+\textbf{Step 3: the generating function.} For \(|t|<1\) we show
+\(G(x,t)=\frac1{1-t}\exp\bigl(-\frac{xt}{1-t}\bigr)=\sum_nL_n(x)t^n\). Expand the exponential:
 \[
- \int_0^\infty(1-x)^2e^{-x}\,dx=\int_0^\infty(1-2x+x^2)e^{-x}\,dx=1-2\cdot1!+2!=1 .
+ G(x,t)=\sum_{k\ge0}\frac{(-x)^k}{k!}\,\frac{t^k}{(1-t)^{k+1}} .
 \]
-So the standard \(L_n\) are already orthonormal:
+The \(j\)-th derivative of \((1-t)^{-(k+1)}\) at \(t=0\) is \((k+1)(k+2)\cdots(k+j)=\frac{(k+j)!}{k!}\), so its Taylor series is
+\((1-t)^{-(k+1)}=\sum_{j\ge0}\binom{k+j}{k}t^j\). The coefficient of \(t^n\) collects \(j=n-k\) for \(k=0,\dots,n\):
+\(\sum_{k=0}^{n}\frac{(-x)^k}{k!}\binom nk=L_n(x)\) by \eqref{eq:laguerre-series}.
+\par\framebreak\par
+\textbf{Step 4: the norm, by Hermite's trick.} For \(0\le s,t<1\), multiply two generating functions:
+\[
+ \int_0^\infty e^{-x}G(x,s)G(x,t)\,dx=\frac{1}{(1-s)(1-t)}\int_0^\infty e^{-cx}\,dx,\qquad
+ c=1+\frac{s}{1-s}+\frac{t}{1-t}.
+\]
+Over a common denominator, \(c=\frac{(1-s)(1-t)+s(1-t)+t(1-s)}{(1-s)(1-t)}=\frac{1-st}{(1-s)(1-t)}\), and \(\int_0^\infty e^{-cx}dx=\frac1c\).
+So the left side is \(\frac{1}{1-st}=\sum_n s^nt^n\). Expanding both \(G\)'s instead gives
+\(\sum_{m,n}s^mt^n\int_0^\infty L_mL_ne^{-x}dx\). Comparing coefficients of \(s^mt^n\) (only \(m=n\) appears, with
+coefficient \(1\)), the standard \(L_n\) are already orthonormal:
 \begin{equation}
   \int_{0}^{\infty}L_m(x)L_n(x)e^{-x}\,dx=\delta_{mn}.
   \label{eq:laguerre-norm}
@@ -1308,6 +1344,7 @@ $1-te^{-i\theta}$, using $(1-te^{i\theta})(1-te^{-i\theta})=1-2t\cos\theta+t^2$:
   =\frac{1-xt}{1-2xt+t^{2}}.
   \label{eq:cheby-gen}
 \end{equation}
+(The denominator is real, and \(\operatorname{Re}(1-te^{-i\theta})=1-t\cos\theta=1-xt\).)
 
 \textbf{Differential equation via the chain rule.}
 Set $x=\cos\theta$ and $Y(\theta):=T_n(\cos\theta)=\cos(n\theta)$, so

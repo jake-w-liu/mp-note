@@ -462,9 +462,25 @@ Going back, \(y=x^{-1/2}u\):
 \[
  J_m(x)\approx\frac{A}{\sqrt x}\cos(x-\varphi).
 \]
-\textbf{Step 4: the constants} (quoted). The equation alone cannot fix \(A\) and \(\varphi\), because they
-depend on which solution we follow from \(x=0\). Chapter~1's stationary-phase rule, applied to the
-integral representation \eqref{eq:int-rep}, gives \(A=\sqrt{2/\pi}\) and \(\varphi=\frac{m\pi}2+\frac\pi4\):
+\textbf{Step 4: the constants, from the integral representation.} The equation alone cannot fix \(A\) and
+\(\varphi\), because they depend on which solution we follow from \(x=0\). So use \eqref{eq:int-rep}. Since
+\(\cos\alpha=\operatorname{Re}e^{i\alpha}\),
+\[
+ J_m(x)=\frac1\pi\operatorname{Re}\int_0^\pi e^{im\theta}\,e^{-ix\sin\theta}\,d\theta .
+\]
+This is Chapter~1's stationary-phase integral with \(s=x\), amplitude \(e^{im\theta}\) and phase function
+\(-\sin\theta\). Its derivative \(-\cos\theta\) vanishes at \(\theta_0=\frac\pi2\), where the phase function equals \(-1\)
+and its second derivative is \(\sin\theta_0=1>0\) (so the factor is \(e^{+i\pi/4}\)):
+\[
+ \int_0^\pi e^{im\theta}e^{-ix\sin\theta}\,d\theta
+ \approx e^{im\pi/2}\,e^{-ix}\,e^{i\pi/4}\sqrt{\frac{2\pi}{x}}
+ =\sqrt{\frac{2\pi}{x}}\;e^{-i(x-\frac{m\pi}2-\frac\pi4)} .
+\]
+The endpoints add terms of size \(1/x\). One integration by parts gives them as
+\(\bigl[e^{im\theta}e^{-ix\sin\theta}/(-ix\cos\theta)\bigr]_0^\pi=-i\bigl(1+(-1)^m\bigr)/x\), which is purely imaginary,
+so they drop out of the real part. Taking the real part (\(\cos\) is even) and dividing by \(\pi\):
+\(J_m(x)\approx\frac1\pi\sqrt{\frac{2\pi}{x}}\cos\bigl(x-\frac{m\pi}2-\frac\pi4\bigr)\), that is, \(A=\sqrt{2/\pi}\) and
+\(\varphi=\frac{m\pi}2+\frac\pi4\):
 \begin{equation}
  J_m(x)=\sqrt{\frac2{\pi x}}
        \cos\left(x-\frac{m\pi}{2}-\frac\pi4\right)+O(x^{-3/2}),
@@ -962,9 +978,27 @@ For the Hankel functions, use \(\sin x-i\cos x=-i(\cos x+i\sin x)=-ie^{ix}\) and
 spherical wave of equal strength. Each \(h_0^{(1,2)}\) is a single \emph{traveling} spherical wave, just as
 for the cylindrical Hankel functions.
 \par\framebreak\par
-\textbf{Step 4: higher orders from a recurrence.} The product recurrence \eqref{eq:product-rec-upper},
-\(\frac{d}{dx}(x^{-\nu}J_\nu)=-x^{-\nu}J_{\nu+1}\), also holds for noninteger \(\nu\) and for \(Y\) (quoted). At \(\nu=\frac12\),
-multiplied by \(\sqrt{\pi/2}\), it says \(j_0'=-j_1\); likewise \(y_0'=-y_1\). So
+\textbf{Step 4: higher orders from two recurrences.} The product recurrences
+\eqref{eq:product-rec-lower}--\eqref{eq:product-rec-upper} were derived for integer order. They hold for every
+real order \(\mu\): differentiate the gamma series \eqref{eq:series-gamma} term by term.
+\begin{itemize}
+  \item \(x^{-\mu}J_\mu=\sum_{k\ge0}\frac{(-1)^kx^{2k}}{2^{2k+\mu}k!\,\Gamma(k+\mu+1)}\). The \(k=0\) term is constant; for \(k\ge1\),
+        \(\frac{d}{dx}x^{2k}=2kx^{2k-1}\) and \(\frac{2k}{k!}=\frac{2}{(k-1)!}\). Put \(k=j+1\):
+        \[
+         \frac{d}{dx}\bigl(x^{-\mu}J_\mu\bigr)=\sum_{j\ge0}\frac{(-1)^{j+1}x^{2j+1}}{2^{2j+1+\mu}\,j!\,\Gamma(j+\mu+2)}=-x^{-\mu}J_{\mu+1}.
+        \]
+  \item \(x^{\mu}J_\mu=\sum_{k\ge0}\frac{(-1)^kx^{2k+2\mu}}{2^{2k+\mu}k!\,\Gamma(k+\mu+1)}\). Differentiating brings down \(2(k+\mu)\), and
+        \(\frac{k+\mu}{\Gamma(k+\mu+1)}=\frac1{\Gamma(k+\mu)}\):
+        \[
+         \frac{d}{dx}\bigl(x^{\mu}J_\mu\bigr)=\sum_{k\ge0}\frac{(-1)^kx^{2k+2\mu-1}}{2^{2k+\mu-1}k!\,\Gamma(k+\mu)}=x^{\mu}J_{\mu-1}.
+        \]
+\end{itemize}
+\par\framebreak\par
+\textbf{Step 4, continued.} By \eqref{eq:spherical-jy}, \(j_n=\sqrt{\pi/2}\,x^{-1/2}J_{n+1/2}\). The first identity with
+\(\mu=\frac12\), times \(\sqrt{\pi/2}\), gives \(j_0'=-j_1\). For \(y\): Step~3 found \(Y_{1/2}=-J_{-1/2}\), so
+\(y_0=-\sqrt{\pi/2}\,x^{-1/2}J_{-1/2}\); and \eqref{eq:neumann-def} at \(\nu=\frac32\) gives
+\(Y_{3/2}=\bigl(J_{3/2}\cos\frac{3\pi}2-J_{-3/2}\bigr)/\sin\frac{3\pi}2=J_{-3/2}\), so \(y_1=\sqrt{\pi/2}\,x^{-1/2}J_{-3/2}\). The second
+identity with \(\mu=-\frac12\) gives \(\frac{d}{dx}(x^{-1/2}J_{-1/2})=x^{-1/2}J_{-3/2}\), hence \(y_0'=-y_1\). So
 \[
  j_1=-\frac{d}{dx}\frac{\sin x}{x}=-\frac{x\cos x-\sin x}{x^2}=\frac{\sin x}{x^2}-\frac{\cos x}{x},
 \]

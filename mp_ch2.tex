@@ -211,7 +211,8 @@ rectangle has more area than the region under the curve:
 because \(1/x>1/(n+1)\) for \(n<x<n+1\). So \(a_1>a_2>a_3>\cdots\).
 
 \textbf{Step 3: the gap has a limit.} By Step~1, every \(a_n\) is positive. A decreasing sequence
-that stays above \(0\) must converge. Its limit is the Euler--Mascheroni constant:
+that stays above \(0\) must converge. Its limit is the Euler--Mascheroni constant (its numerical value
+is derived right after the next picture):
 \begin{equation}
  \gamma=\lim_{n\to\infty}(H_n-\log n)=0.577215664901532\ldots.
  \label{eq:euler-gamma}
@@ -228,6 +229,45 @@ logarithm, which is why the overhang grows so slowly.
 The boxes of Step~1 (height \(1/k\) over \([k,k+1]\)) have total area \(H_n\); the curve \(1/x\) lies
 below them, with area \(\log(n+1)\) from \(1\) to \(n+1\). The shaded slivers between them add up to
 \(H_n-\log(n+1)\), which tends to \(\gamma\) because \(\log(n+1)-\log n=\log(1+\frac1n)\to0\).
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Computing $\gamma$: trapping it between two bounds}
+\footnotesize
+\textbf{Goal.} Step~3 showed that \(\gamma\) exists. Now find its value. Since \(a_n=H_n-\log n\) decreases to \(\gamma\),
+every \(a_n\) is an upper bound: \(\gamma<a_n\). We also need a lower bound.
+
+\textbf{Step 1: the distance to the limit is a sum of drops.} Since \(a_k\to\gamma\),
+\[
+ a_n-\gamma=(a_n-a_{n+1})+(a_{n+1}-a_{n+2})+\cdots=\sum_{k\ge n}(a_k-a_{k+1}).
+\]
+By Step~2 of the growth argument above (``the gap shrinks''), each drop is an area,
+\(a_k-a_{k+1}=\int_k^{k+1}\bigl(\frac1x-\frac1{k+1}\bigr)dx\): the region between the curve \(1/x\) and the horizontal
+line at height \(1/(k+1)\).
+
+\textbf{Step 2: compare each drop with a triangle.} The chord from \((k,\frac1k)\) to \((k+1,\frac1{k+1})\) lies above
+the curve, because \(1/x\) bends upward (its second derivative \(2/x^3\) is positive). So the region is
+smaller than the triangle below the chord and above height \(\frac1{k+1}\), which has base \(1\) and height
+\(\frac1k-\frac1{k+1}\):
+\[
+ 0<a_k-a_{k+1}<\frac12\Bigl(\frac1k-\frac1{k+1}\Bigr).
+\]
+\textbf{Step 3: add up.} The triangle areas telescope:
+\(\sum_{k\ge n}\frac12\bigl(\frac1k-\frac1{k+1}\bigr)=\frac12\bigl(\frac1n-\frac1{n+1}+\frac1{n+1}-\frac1{n+2}+\cdots\bigr)=\frac1{2n}\). So
+\(0<a_n-\gamma<\frac1{2n}\), that is,
+\begin{equation}
+ H_n-\log n-\frac1{2n}<\gamma<H_n-\log n .
+ \label{eq:gamma-bounds}
+\end{equation}
+\par\framebreak\par
+\textbf{Step 4: compute.} For \(n=10\): \(H_{10}=\frac{7381}{2520}=2.928968\) and \(\log10=2.302585\), so
+\(a_{10}=0.626383\) and
+\[
+ 0.576383<\gamma<0.626383 .
+\]
+The lower bound is much closer: over a short interval the curve is nearly straight, so the triangle
+is a good approximation and \(\gamma\approx H_n-\log n-\frac1{2n}\). For \(n=100\): \(H_{100}-\log100=0.582207\), and
+subtracting \(\frac1{200}=0.005\) gives \(\gamma\approx0.577207\). Larger \(n\) (by computer) gives
+\(\gamma=0.5772156649\ldots\), the value in \eqref{eq:euler-gamma}.
 \end{frame}
 
 
