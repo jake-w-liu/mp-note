@@ -86,6 +86,8 @@ To analyze the special functions of physics we first build the tools of
   \item The \textbf{Gaussian integral} \(\int e^{-x^2}dx=\sqrt\pi\), and \textbf{Laplace's method}, which
         approximates an integral with a large parameter by a Gaussian; it gives Stirling's formula for
         \(n!\) (Ch.~2).
+  \item The \textbf{method of steepest descent}, Laplace's method in the complex plane: move the path
+        through a saddle point; \textbf{stationary phase} is its oscillating special case.
 \end{itemize}
 \end{frame}
 
@@ -1246,12 +1248,312 @@ Shift \(x-x_0\to x\) and use the rescaled Gaussian integral \eqref{eq:gauss-c}: 
 \textbf{Check.} For \(\varphi(x)=-x^2\), \(g=1\) on the whole line, the exact value is
 \(\int e^{-sx^2}dx=\sqrt{\pi/s}\). The formula, with \(x_0=0\) and \(|\varphi''|=2\), gives
 \(\sqrt{2\pi/(2s)}=\sqrt{\pi/s}\): exact, because here the integrand \emph{is} a Gaussian.
-Chapter~2 applies \eqref{eq:laplace-real} to \(n!=\int_0^\infty t^ne^{-t}dt\).
+Chapter~2 applies \eqref{eq:laplace-real} to \(n!=\int_0^\infty t^ne^{-t}dt\). The next section extends the
+idea to complex exponents.
+\end{frame}
+
+% ======================================================================
+\section{The method of steepest descent}
+% ======================================================================
+
+\begin{frame}[allowframebreaks=1.00]{Steepest descent through a saddle point}
+\footnotesize
+
+\textbf{Why go complex.} Laplace's method needs a real exponent with a peak on the path. The integrals
+for the Bessel and Airy functions (Chapters~3 and~5) have complex exponents: on the real line they
+oscillate instead of forming a peak. Complex analysis lets us move the path to where a peak appears.
+
+\textbf{Goal.} Approximate, for a large parameter \(s\),
+\begin{equation}
+  I(s)=\int_\gamma g(z)\,e^{s f(z)}\,dz,\qquad s\to+\infty,
+  \label{eq:sd-int}
+\end{equation}
+where \(\gamma\) is a path in the plane and \(f,g\) are holomorphic near it. The answer is
+\eqref{eq:sd-result} below.
+
+\textbf{Size and phase.} Write \(f=u+iv\). By \eqref{eq:exp-uv},
+\(e^{sf}=e^{su}\bigl(\cos sv+i\sin sv\bigr)\), so
+\[
+  \bigl|e^{sf}\bigr|=e^{su}.
+\]
+The real part \(u\) decides the size, as \(\varphi\) did in Laplace's method. The imaginary part \(v\) only
+turns the phase: where \(v\) changes along the path, \(e^{sf}\) spins around the circle and neighbouring
+pieces cancel.
+
+\textbf{The freedom: move the path.} By Cauchy's theorem (Section~1.4) we may deform \(\gamma\), keeping
+its endpoints, without changing the integral, as long as we cross no singularity of \(g\,e^{sf}\). We
+use this freedom to choose a path on which (a) the highest value of \(u\) is as low as possible, and
+(b) near that highest point \(v\) stays constant, so that nothing spins.
+\par\framebreak\par
+\textbf{Step 1: the important points are saddle points.}
+\begin{columns}[T]
+\begin{column}{0.62\linewidth}
+\begin{itemize}
+  \item On the best path the highest point \(z_0\) of \(u\) is a flat point, \(u_x=u_y=0\) (otherwise we
+        could slide the path sideways, downhill, and lower it). By Cauchy--Riemann,
+        \(f'=u_x+iv_x=u_x-iu_y\), so this means \(f'(z_0)=0\). We assume \(f''(z_0)\ne0\).
+  \item Such a point is never a hilltop. From \eqref{eq:CR}, \(u_x=v_y\) gives \(u_{xx}=v_{yx}\), and
+        \(u_y=-v_x\) gives \(u_{yy}=-v_{xy}\). The mixed partial derivatives agree (\(f\) is infinitely
+        differentiable, Section~1.5), so \(u_{xx}+u_{yy}=0\): if \(u\) curves down in one direction, it
+        curves up in the perpendicular one. So \(z_0\) is a mountain pass, a \emph{saddle point}.
+\end{itemize}
+\end{column}
+\begin{column}{0.34\linewidth}
+\centering
+\safeincludegraphics[width=\linewidth,height=0.4\textheight,keepaspectratio]{figs/saddle-level-curves.pdf}
+\end{column}
+\end{columns}
+\textbf{Picture} (right, drawn for \(f''(z_0)>0\)): the terrain \(u\) near \(z_0\). It is higher than at \(z_0\) on
+the hills \(H_1,H_2\) and lower in the shaded valleys \(V_1,V_2\). A path from one valley to the other must
+cross the ridge, and the lowest crossing is through the pass, along the \emph{steepest-descent path}
+\(\gamma_{\mathrm{sd}}\).
+
+\par\framebreak\par
+\textbf{Step 2: the direction of steepest descent.} Near \(z_0\), the Taylor series has no linear term,
+because \(f'(z_0)=0\):
+\begin{equation}
+  f(z)=f(z_0)+\tfrac12 f''(z_0)(z-z_0)^2+O\bigl((z-z_0)^3\bigr).
+  \label{eq:saddle-taylor}
+\end{equation}
+Write \(f''(z_0)\) and \(z-z_0\) in polar form, \(f''(z_0)=|f''(z_0)|e^{i\beta}\) and \(z-z_0=re^{i\psi}\). Then
+\[
+  \tfrac12 f''(z_0)(z-z_0)^2
+  =\tfrac12|f''(z_0)|\,r^2\,e^{i(\beta+2\psi)}
+  =\tfrac12|f''(z_0)|\,r^2\bigl[\cos(\beta+2\psi)+i\sin(\beta+2\psi)\bigr].
+\]
+\begin{itemize}
+  \item The real part (the change of \(u\), hence of the size) drops fastest when \(\cos(\beta+2\psi)=-1\).
+  \item In that direction \(\sin(\beta+2\psi)=0\): the imaginary part does not change, so the phase does
+        not spin. Requirement (b) holds automatically.
+\end{itemize}
+So the steepest-descent direction is
+\begin{equation}
+  \beta+2\psi=\pi\pmod{2\pi},
+  \qquad\text{that is,}\qquad
+  \psi=\frac{\pi-\beta}{2}\pmod{\pi}.
+  \label{eq:descent-direction}
+\end{equation}
+The ``\(\pmod\pi\)'' gives two opposite rays from \(z_0\), one into each valley. (The perpendicular
+direction, \(\beta+2\psi=0\), is the steepest \emph{ascent}, toward the hills.)
+\par\framebreak\par
+\textbf{Step 3: walk along the descent line.} Deform \(\gamma\) so that it crosses \(z_0\) along the descent
+line, and parametrize the line by a real number \(r\):
+\[
+  z=z_0+\alpha r,\qquad
+  \alpha=e^{i(\pi-\beta)/2}=e^{i\pi/2}e^{-i\beta/2}=i\,e^{-i\beta/2},
+  \qquad dz=\alpha\,dr .
+\]
+Check: \(\alpha^2=i^2e^{-i\beta}=-e^{-i\beta}\), so \(f''(z_0)\,\alpha^2=|f''(z_0)|e^{i\beta}\cdot(-e^{-i\beta})=-|f''(z_0)|\), a
+negative real number. Hence, along the line, by \eqref{eq:saddle-taylor},
+\[
+  s\,f(z)\approx s\,f(z_0)-\tfrac12\,s\,|f''(z_0)|\,r^2 .
+\]
+\textbf{Step 4: only a small window matters.} The factor \(\exp\bigl(-\tfrac12 s|f''(z_0)|r^2\bigr)\) is negligible
+once \(|r|\) is a few times \(1/\sqrt{s|f''(z_0)|}\), the same width as in Laplace's method. Inside this
+window the cubic term \(s\cdot O(r^3)\) has size \(s\cdot s^{-3/2}=s^{-1/2}\to0\), and \(g(z)\approx g(z_0)\). The rest of
+the path lies lower, in the valleys, and contributes almost nothing. So we replace \(f\) by its
+quadratic approximation, \(g\) by \(g(z_0)\), and integrate \(r\) over the whole line.
+\par\framebreak\par
+\textbf{Step 5: do the Gaussian integral.} With these replacements (\(A\sim B\) means \(A/B\to1\)),
+\[
+  I(s)\sim\int_{-\infty}^{\infty}g(z_0)\,e^{sf(z_0)}\,e^{-\frac12 s|f''(z_0)|r^2}\,\alpha\,dr
+  =g(z_0)\,e^{sf(z_0)}\,\alpha\int_{-\infty}^{\infty}e^{-\frac12 s|f''(z_0)|r^2}\,dr .
+\]
+By the rescaled Gaussian integral \eqref{eq:gauss-c} with \(c=\tfrac12 s|f''(z_0)|\), the last integral is
+\(\sqrt{\pi/c}=\sqrt{2\pi/(s|f''(z_0)|)}\). With \(\alpha=i\,e^{-i\beta/2}\):
+\begin{equation}
+  I(s)\sim
+  g(z_0)\,e^{sf(z_0)}\;i\,e^{-i\beta/2}\;
+  \sqrt{\frac{2\pi}{s|f''(z_0)|}},
+  \qquad \beta=\arg f''(z_0).
+  \label{eq:sd-result}
+\end{equation}
+\textbf{Reading the formula.} \(e^{sf(z_0)}\) is the height of the pass, \(\sqrt{2\pi/(s|f''(z_0)|)}\) the width of
+the peak, and \(i\,e^{-i\beta/2}\) the direction in which the path crosses the pass.
+\par\framebreak\par
+\textbf{Laplace's method is the real special case.} Let the path be the real axis and \(f=\varphi\) real,
+with a maximum at \(x_0\): \(\varphi''(x_0)<0\). Then \(\beta=\arg\varphi''(x_0)=\pi\), and
+\(\alpha=i\,e^{-i\pi/2}=i\cdot(-i)=1\). So the real axis is already the descent line, and
+\eqref{eq:sd-result} becomes Laplace's formula \eqref{eq:laplace-real}. The complex method adds one new
+freedom: moving the path to a saddle that the original path does not pass through (example below).
+
+\textbf{Practical remarks.}
+\begin{itemize}
+  \item \emph{Orientation.} Crossing the pass in the opposite direction replaces \(\alpha\) by \(-\alpha\) and flips
+        the sign of the answer. Cross it in the direction of the original path.
+  \item \emph{Several saddles} of the same height: add their contributions.
+  \item \emph{Endpoint maximum.} If the highest point is an endpoint of the path rather than a saddle,
+        the contribution is smaller. For example, one integration by parts gives
+        \(\int_0^\infty g(t)e^{-st}dt=g(0)/s+O(1/s^2)\), which falls off like \(1/s\), not \(1/\sqrt s\).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Stationary phase: steepest descent on a tilted line}
+\footnotesize
+
+\textbf{Goal.} Approximate an \emph{oscillating} integral, with \(\varphi\) and \(g\) real on the real axis,
+\[
+  \int_a^b g(x)\,e^{is\varphi(x)}\,dx,\qquad s\to+\infty .
+\]
+The answer is \eqref{eq:stationary-phase} below.
+
+\textbf{Intuition.} Here \(|e^{is\varphi}|=1\): there is no peak at all. Where \(\varphi'\ne0\), the phase \(s\varphi\)
+changes quickly, \(e^{is\varphi}\) goes around the circle many times, and neighbouring pieces cancel.
+Only near a \emph{stationary point} \(x_0\), where \(\varphi'(x_0)=0\) and the phase is momentarily flat, do
+the pieces line up and add. (This is why light follows the path of stationary optical length.)
+
+\textbf{Step 1: it is a steepest-descent integral.} Assume \(g\) and \(\varphi\) are holomorphic near the real
+axis, and put \(f(z)=i\varphi(z)\) in \eqref{eq:sd-int}. Then \(f'(x_0)=i\varphi'(x_0)=0\): the stationary point is a
+saddle, with \(f''(x_0)=i\varphi''(x_0)\). On the real axis \(u=\operatorname{Re}\bigl(i\varphi(x)\bigr)=0\): the axis
+runs at the height of the pass instead of down into the valleys. So we tilt the path at \(x_0\).
+\par\framebreak\par
+\textbf{Step 2: the tilt.} Find \(\beta=\arg f''(x_0)\) and \(\alpha=i\,e^{-i\beta/2}\) of Step~3 above.
+\begin{itemize}
+  \item \(\varphi''(x_0)>0\): \(f''(x_0)=|\varphi''(x_0)|\,e^{i\pi/2}\), so \(\beta=\frac\pi2\) and
+        \(\alpha=i\,e^{-i\pi/4}=e^{i\pi/2}e^{-i\pi/4}=e^{i\pi/4}\): a line at \(+45^\circ\).
+  \item \(\varphi''(x_0)<0\): \(f''(x_0)=|\varphi''(x_0)|\,e^{-i\pi/2}\), so \(\beta=-\frac\pi2\) and \(\alpha=i\,e^{i\pi/4}=e^{3\pi i/4}\).
+        This points to the left; the original path runs to the right, so by the orientation remark
+        we use \(-\alpha=e^{-i\pi/4}\): a line at \(-45^\circ\).
+\end{itemize}
+In both cases the direction is \(e^{i(\pi/4)\operatorname{sgn}\varphi''(x_0)}\), where \(\operatorname{sgn}\varphi''(x_0)=\pm1\) is the
+sign of \(\varphi''(x_0)\), and \(|f''(x_0)|=|\varphi''(x_0)|\). Near \(x_0\) we replace the real axis by this short
+tilted segment (Cauchy's theorem); away from \(x_0\) the path stays on the axis. There \(\varphi'\ne0\), so those
+parts contribute only \(O(1/s)\) (one integration by parts, as in the endpoint remark), less than the
+\(1/\sqrt s\) of the saddle.
+
+\textbf{Step 3: apply \eqref{eq:sd-result}} with \(e^{sf(x_0)}=e^{is\varphi(x_0)}\):
+\begin{equation}
+  \int_a^b g(x)\,e^{is\varphi(x)}\,dx
+  \sim
+  g(x_0)\,e^{is\varphi(x_0)}\,
+  e^{i(\pi/4)\operatorname{sgn}\varphi''(x_0)}
+  \sqrt{\frac{2\pi}{s\bigl|\varphi''(x_0)\bigr|}} .
+  \label{eq:stationary-phase}
+\end{equation}
+It is Laplace's formula with one extra phase factor \(e^{\pm i\pi/4}\), the \(45^\circ\) tilt of the path. The
+endpoints \(a,b\) also contribute only \(O(1/s)\), and several stationary points add their contributions.
+\par\framebreak\par
+\textbf{Check: \(\varphi=x^2\), \(g=1\), on the whole line.} Here the tilted line \(x=e^{i\pi/4}y\) can be used
+everywhere: \(isx^2=is\,e^{i\pi/2}y^2=-sy^2\) and \(dx=e^{i\pi/4}dy\), so by \eqref{eq:gauss-c} the exact value is
+\[
+  \int_{-\infty}^{\infty}e^{isx^2}\,dx=e^{i\pi/4}\int_{-\infty}^{\infty}e^{-sy^2}\,dy=e^{i\pi/4}\sqrt{\frac{\pi}{s}} .
+\]
+(Rotating the whole line is allowed: between the two lines the integrand decays, and the closing arcs
+contribute nothing.) The formula, with \(x_0=0\) and \(\varphi''=2>0\), gives
+\(e^{i\pi/4}\sqrt{2\pi/(2s)}=e^{i\pi/4}\sqrt{\pi/s}\): exact, because the phase is exactly quadratic.
+\end{frame}
+
+\begin{frame}[allowframebreaks=1.00]{Worked example: a large binomial coefficient}
+\footnotesize
+
+\textbf{Goal.} Find how \(\binom nm=\frac{n!}{m!\,(n-m)!}\) behaves when \(n\) is large and the ratio \(t=m/n\) is
+fixed, \(0<t<1\). We write \(\binom nm\) as a contour integral and choose the contour so that it crosses a
+saddle point: a genuinely complex use of \eqref{eq:sd-result}, with \(s=n\).
+
+\textbf{Step 1: a contour integral for \(\binom nm\).} By the binomial theorem,
+\((1+z)^n=\sum_{k=0}^{n}\binom nk z^k\). So \(\binom nm\) is the coefficient of \(z^m\), and the coefficient formula
+\eqref{eq:laurent-coef} (center \(0\), any counterclockwise circle around \(0\)) gives
+\[
+  \binom nm=\frac1{2\pi i}\oint\frac{(1+z)^n}{z^{m+1}}\,dz .
+\]
+\textbf{Step 2: bring it to the form \(g\,e^{nf}\).} Split \(\frac{(1+z)^n}{z^{m+1}}=\frac1z\cdot(1+z)^n\cdot z^{-m}\) and write the
+powers as exponentials, using \(m=nt\):
+\[
+  (1+z)^n=e^{n\log(1+z)},\qquad z^{-m}=e^{-m\log z}=e^{-nt\log z}.
+\]
+So
+\[
+  \binom nm=\oint g(z)\,e^{nf(z)}\,dz,
+  \qquad
+  g(z)=\frac{1}{2\pi i\,z},
+  \qquad
+  f(z)=\log(1+z)-t\log z .
+\]
+(The integrand itself is single-valued; we use the principal logarithms only near the positive real
+axis, where the saddle will be.)
+\par\framebreak\par
+\textbf{Step 3: find the saddle.} Differentiate:
+\[
+  f'(z)=\frac1{1+z}-\frac t z,
+  \qquad
+  f''(z)=-\frac1{(1+z)^2}+\frac t{z^2}.
+\]
+Set \(f'(z_0)=0\) and multiply by \(z_0(1+z_0)\): \(z_0-t(1+z_0)=0\), so \(z_0(1-t)=t\):
+\[
+  z_0=\frac{t}{1-t}=\frac{m}{n-m}>0,\qquad 1+z_0=\frac{1}{1-t}.
+\]
+\textbf{Step 4: the height and the curvature at the saddle.} Using \(\log(1+z_0)=-\log(1-t)\) and
+\(\log z_0=\log t-\log(1-t)\):
+\begin{align*}
+  f(z_0)
+  &=-\log(1-t)-t\bigl[\log t-\log(1-t)\bigr]
+   =-t\log t-(1-t)\log(1-t),\\
+  f''(z_0)
+  &=-(1-t)^2+\frac{t\,(1-t)^2}{t^2}
+   =(1-t)^2\Bigl(\frac1t-1\Bigr)
+   =\frac{(1-t)^3}{t}>0.
+\end{align*}
+\par\framebreak\par
+\textbf{Step 5: choose the path through the saddle.} \(f''(z_0)\) is positive real, so \(\beta=0\), and by
+\eqref{eq:descent-direction} the descent direction is \(\psi=\pi/2\): vertical (the picture on the first
+steepest-descent slide). The circle \(|z|=z_0\) crosses the real axis vertically at \(z_0\), so we use it.
+Two checks:
+\begin{itemize}
+  \item \emph{\(z_0\) is the highest point on this circle.} On \(z=z_0e^{i\chi}\) the size of the integrand is
+        \(|1+z|^n/(2\pi z_0^{m+1})\), and only \(|1+z|\) varies:
+        \[
+         |1+z_0e^{i\chi}|^2=(1+z_0\cos\chi)^2+(z_0\sin\chi)^2=1+2z_0\cos\chi+z_0^2 ,
+        \]
+        which is largest at \(\chi=0\), that is, at \(z=z_0\).
+  \item \emph{Direction.} Going counterclockwise, the circle passes \(z_0\) moving upward, in the
+        direction \(+i\). This agrees with \(\alpha=i\,e^{-i\beta/2}=i\), so the sign in \eqref{eq:sd-result} is right.
+\end{itemize}
+\par\framebreak\par
+\textbf{Step 6: apply \eqref{eq:sd-result} with \(s=n\).} Here \(e^{-i\beta/2}=1\) and \(g(z_0)=1/(2\pi i\,z_0)\); the factor
+\(i\) cancels the \(i\) in \(g(z_0)\):
+\[
+  \binom nm
+  \sim
+  \frac{1}{2\pi i\,z_0}\,e^{nf(z_0)}\cdot i\cdot
+  \sqrt{\frac{2\pi}{n f''(z_0)}}
+  =
+  \frac{1}{2\pi z_0}\,\sqrt{\frac{2\pi}{n f''(z_0)}}\;e^{nf(z_0)} .
+\]
+\textbf{Step 7: simplify the prefactor.} Insert \(1/z_0=(1-t)/t\) and \(1/f''(z_0)=t/(1-t)^3\), and bring
+everything under one square root:
+\[
+  \frac{1-t}{2\pi t}\sqrt{\frac{2\pi t}{n(1-t)^3}}
+  =\sqrt{\frac{(1-t)^2}{(2\pi t)^2}\cdot\frac{2\pi t}{n(1-t)^3}}
+  =\frac{1}{\sqrt{2\pi\,n\,t\,(1-t)}} .
+\]
+\textbf{Result.}
+\begin{equation}
+  \binom nm
+  \sim
+  \frac{\exp\bigl[-n\bigl(t\log t+(1-t)\log(1-t)\bigr)\bigr]}
+       {\sqrt{2\pi n t(1-t)}},\qquad t=\frac mn .
+  \label{eq:binom-sd}
+\end{equation}
+\par\framebreak\par
+\textbf{Check: \(n=20\), \(m=10\)} (\(t=\tfrac12\)). The exponent is
+\(-20\bigl(\tfrac12\log\tfrac12+\tfrac12\log\tfrac12\bigr)=20\log2\), so the numerator is \(2^{20}=1\,048\,576\); the
+denominator is \(\sqrt{2\pi\cdot20\cdot\tfrac14}=\sqrt{10\pi}\approx5.605\). The formula gives \(\approx187\,079\); the exact
+value is \(184\,756\), so the formula is only \(1.3\%\) high, already at \(n=20\). (Chapter~2's Stirling
+formula, applied to each factorial, gives the same result.)
+
+\textbf{Meaning.} The chance of one particular sequence of \(n\) coin tosses with \(m\) heads, for a coin
+with heads-probability \(t=m/n\), is
+\(t^m(1-t)^{n-m}=e^{m\log t+(n-m)\log(1-t)}=e^{n(t\log t+(1-t)\log(1-t))}\). This cancels the exponential
+in \eqref{eq:binom-sd}, so the probability of exactly \(m\) heads is
+\[
+  \binom nm t^m(1-t)^{n-m}\approx\frac{1}{\sqrt{2\pi nt(1-t)}} ,
+\]
+the height of a Gaussian bell of variance \(nt(1-t)\), the binomial variance.
 \end{frame}
 
 
 
-\begin{frame}{Summary}
+\begin{frame}[allowframebreaks=1.00]{Summary}
 \footnotesize
 \begin{itemize}
  \item Complex differentiability means one direction-independent limit. With continuous partial
@@ -1264,12 +1566,19 @@ Chapter~2 applies \eqref{eq:laplace-real} to \(n!=\int_0^\infty t^ne^{-t}dt\).
        singularity as removable, a pole, or essential. Branch points are not isolated.
  \item The residue is the coefficient $a_{-1}$. The residue theorem evaluates a closed contour
        integral as $2\pi i$ times the sum of the enclosed residues.
+\end{itemize}
+\par\framebreak\par
+\begin{itemize}
  \item Two real-integral templates: the semicircle ($\int\cos x/(1+x^2)\,dx=\pi/e$) and the
        keyhole ($\int_0^\infty x^{-a}/(1+x)\,dx=\pi/\sin\pi a$). Always check the orientation and
        that the arcs vanish ($ML$ estimate).
  \item Gaussian integral: $\int e^{-x^2}dx=\sqrt\pi$ (square it, use polar coordinates).
        Laplace's method \eqref{eq:laplace-real}: near a sharp maximum the integrand is a Gaussian,
        so the integral is (height) $\times$ (width). Chapter~2 uses it for Stirling's formula.
+ \item Steepest descent \eqref{eq:sd-result}: deform the path through a saddle point $f'(z_0)=0$ along
+       the direction \eqref{eq:descent-direction}, where the integrand is a Gaussian that does not
+       oscillate. Laplace's method is the real case; stationary phase \eqref{eq:stationary-phase} is
+       the oscillating case, with a $45^\circ$ tilt and an extra factor $e^{\pm i\pi/4}$.
 \end{itemize}
 \end{frame}
 
