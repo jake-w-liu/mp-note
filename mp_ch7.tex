@@ -109,7 +109,8 @@ This is a quadratic polynomial in \(\varepsilon\). Its derivative at \(\varepsil
  :=\left.\frac{d}{d\varepsilon}J[u+\varepsilon\eta]\right|_{\varepsilon=0}
  =\int_0^1u'\eta'\dd x.\label{eq:first-variation}
 \end{equation}
-\par\framebreak\par
+
+
 \textbf{Why it must vanish at a minimum.} For small \(\varepsilon\),
 \(J[u+\varepsilon\eta]\approx J[u]+\varepsilon\,\delta J\). If \(\delta J\ne0\), choose a small \(\varepsilon\) with the opposite sign
 to \(\delta J\): then \(\varepsilon\,\delta J<0\) and \(J\) goes down, so \(u\) was not a minimum. Hence, at a minimum,
@@ -411,19 +412,18 @@ coefficients vanish, and $a_2-ib_2=i$. The recipe of the preceding slide gives
 \]
 since $iz^2=i(x^2-y^2)-2xy$. This is harmonic because $u_{*,xx}=u_{*,yy}=0$.
 On $x=\cos\theta$, $y=\sin\theta$ we have $2xy=\sin2\theta$, so it has the required boundary values.
-\par\framebreak
+
+
 By \eqref{eq:dirichlet-energy} with $u_{*,x}=3-2y$ and $u_{*,y}=-2x$, its energy is
 \begin{align*}
  2\D[u_*]
  &=\iint_{x^2+y^2<1}\bigl((3-2y)^2+4x^2\bigr)\dd A\\
  &=\iint_{x^2+y^2<1}\bigl(9-12y+4(x^2+y^2)\bigr)\dd A\\
- &=9\pi+4\iint_{x^2+y^2<1}(x^2+y^2)\dd A\\
- &=9\pi+4\int_0^{2\pi}\int_0^1r^3\dd r\dd\theta=9\pi+4\cdot2\pi\cdot\tfrac14=11\pi.
+ &=9\pi+4\int_0^{2\pi}\!\!\int_0^1r^3\dd r\dd\theta=9\pi+4\cdot2\pi\cdot\tfrac14=11\pi.
 \end{align*}
-The disk has area $\pi$, the term $-12y$ integrates to zero by reflection symmetry,
-and the last line uses $x^2+y^2=r^2$, $\dd A=r\dd r\dd\theta$.
-Thus $\D[u_*]=11\pi/2$, and every different smooth field with the same
-boundary values has larger energy.
+The disk has area $\pi$, the term $-12y$ integrates to zero by reflection symmetry, and
+$x^2+y^2=r^2$, $\dd A=r\dd r\dd\theta$ in polar coordinates. Thus $\D[u_*]=11\pi/2$, and every different
+smooth field with the same boundary values has larger energy.
 \end{frame}
 
 \begin{frame}{An annulus brings back the logarithm}

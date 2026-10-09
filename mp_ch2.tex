@@ -103,23 +103,19 @@ their center of mass at the edge and overhang \(H_{n-1}\).
   \item So the center of mass is now \(1/n\) behind the edge. Slide the whole stack forward by
         \(1/n\). The center of mass is back at the edge, and the overhang grew by \(1/n\).
 \end{itemize}
-\par\framebreak\par
-\textbf{Result.} Each new block adds \(1/n\) to the overhang:
-\[
-  H_n=H_{n-1}+\frac1n .
-\]
-Starting from \(H_0=0\) and adding up the increments,
+
+
+\textbf{Result.} Each new block adds \(1/n\) to the overhang: \(H_n=H_{n-1}+\frac1n\). Starting from \(H_0=0\) and adding up the increments,
 \begin{equation}
   H_n = 1 + \tfrac12 + \tfrac13 + \tfrac14 + \cdots + \tfrac1n
       = \sum_{k=1}^{n}\frac1k .
   \label{eq:harmonic}
 \end{equation}
-\par\framebreak\par
+
+
 \textbf{Names.} The infinite series \(1+\tfrac12+\tfrac13+\cdots\) is the \emph{harmonic series}.
 Its partial sums \(H_n\) are the \emph{harmonic numbers}:
-\[
-  H_1=1,\quad H_2=\tfrac32,\quad H_3=\tfrac{11}{6},\quad H_4=\tfrac{25}{12},\quad\dots
-\]
+\(H_1=1\), \(H_2=\tfrac32\), \(H_3=\tfrac{11}{6}\), \(H_4=\tfrac{25}{12}\), \dots
 \textbf{They grow without bound, but very slowly.} We will show below that
 \(H_n\approx\log n+0.577\). For example, an overhang of \(50\) block lengths needs \(H_n>100\), which
 takes about \(1.5\times10^{43}\) blocks.
@@ -159,7 +155,8 @@ number. So define
  \label{eq:harmonic-interp}
 \end{equation}
 By Step~1, \(f(n)=H_n\) for every whole number \(n\).
-\par\framebreak\par
+
+
 \textbf{Why \(\operatorname{Re}s>-1\)?} Here \(x^s=e^{s\log x}\), so \(|x^s|=x^{\operatorname{Re}s}\) on
 \(0<x<1\). The integral can fail only at the two endpoints.
 \begin{itemize}
@@ -188,7 +185,8 @@ the same recursion as \(H_n\).
 \]
 which lies between \(H_0=0\) and \(H_1=1\), as it should.
 
-\par\framebreak\par
+
+
 \textbf{Second question: how fast does \(H_n\) grow?} We compare \(H_n\) with
 \(\log n=\int_1^n dx/x\), which is also a sum of \(1/x\), but a continuous one.
 
@@ -201,7 +199,8 @@ rectangle has more area than the region under the curve:
  \;>\;\sum_{k=1}^{n}\int_k^{k+1}\frac{dx}{x}
  =\int_1^{n+1}\frac{dx}{x}=\log(n+1)\;>\;\log n.
 \]
-\par\framebreak\par
+
+
 \textbf{Step 2: the gap \(a_n=H_n-\log n\) shrinks.} Going from \(n\) to \(n+1\), \(H_n\) gains
 \(1/(n+1)\) while \(\log n\) gains \(\log(n+1)-\log n=\int_n^{n+1}dx/x\). Therefore
 \[
@@ -233,7 +232,7 @@ below them, with area \(\log(n+1)\) from \(1\) to \(n+1\). The shaded slivers be
 
 \begin{frame}[allowframebreaks=1.00]{Computing $\gamma$: trapping it between two bounds}
 \footnotesize
-\textbf{Goal.} Step~3 showed that \(\gamma\) exists. Now find its value. Since \(a_n=H_n-\log n\) decreases to \(\gamma\),
+\textbf{Goal.} Step~3 of the growth argument showed that \(\gamma\) exists. Now find its value. Since \(a_n=H_n-\log n\) decreases to \(\gamma\),
 every \(a_n\) is an upper bound: \(\gamma<a_n\). We also need a lower bound.
 
 \textbf{Step 1: the distance to the limit is a sum of drops.} Since \(a_k\to\gamma\),
@@ -258,7 +257,8 @@ smaller than the triangle below the chord and above height \(\frac1{k+1}\), whic
  H_n-\log n-\frac1{2n}<\gamma<H_n-\log n .
  \label{eq:gamma-bounds}
 \end{equation}
-\par\framebreak\par
+
+
 \textbf{Step 4: compute.} For \(n=10\): \(H_{10}=\frac{7381}{2520}=2.928968\) and \(\log10=2.302585\), so
 \(a_{10}=0.626383\) and
 \[
@@ -301,22 +301,19 @@ function} (Euler's integral):
   \qquad \operatorname{Re}z>0.
   \label{eq:gamma-def}
 \end{equation}
-\par\framebreak\par
-\textbf{Why \(\operatorname{Re}z>0\)?} Write \(\sigma=\operatorname{Re}z\), so
-\(|t^{z-1}|=t^{\sigma-1}\).
-\begin{itemize}
-  \item Near \(t=0\): \(e^{-t}\approx1\), and \(\int_0 t^{\sigma-1}\,dt\) is finite exactly when
-        \(\sigma>0\).
-  \item Near \(t=\infty\): \(e^{-t}\) decays faster than any power of \(t\) grows, so there is no
-        problem.
-\end{itemize}
+
+
+\textbf{Why \(\operatorname{Re}z>0\)?} Write \(\sigma=\operatorname{Re}z\), so \(|t^{z-1}|=t^{\sigma-1}\). Near \(t=0\), \(e^{-t}\approx1\)
+and \(\int_0 t^{\sigma-1}\,dt\) is finite exactly when \(\sigma>0\). Near \(t=\infty\), \(e^{-t}\) decays faster than any
+power of \(t\) grows, so there is no problem.
 
 \textbf{Why this function and not another?} Many smooth functions pass through the points
 \((n+1,\,n!)\). \(\Gamma\) is the standard choice because of a uniqueness theorem (Bohr--Mollerup,
 quoted): it is the only positive function on \(x>0\) with \(f(1)=1\), \(f(x+1)=xf(x)\), and
 \(\log f\) convex.
 
-\par\framebreak\par
+
+
 \textbf{Step 3: derive the recursion.}  Integrate \(\Gamma(z+1)\) by parts with \(u=t^z\),
 \(dv=e^{-t}dt\), so \(du=z\,t^{z-1}dt\) and \(v=-e^{-t}\):
 \[
@@ -359,14 +356,14 @@ These values appear later in the Bessel functions of Chapters~3 and~5.
 single number \(\Gamma(\tfrac12)\). So we need only \(\Gamma(\tfrac12)\), and it turns out to be the
 Gaussian integral \(\int e^{-x^2}dx\) of Chapter~1.
 
-\textbf{Step 1: recall the Gaussian integral} from Chapter~1 (computed there by squaring it and using
-polar coordinates):
+\textbf{Step 1: recall the Gaussian integral} from Chapter~1:
 \begin{equation}
   \int_{-\infty}^{\infty}e^{-x^2}\,dx=\sqrt\pi .
   \label{eq:gauss-int}
 \end{equation}
 
-\par\framebreak\par
+
+
 \textbf{Step 2: turn \(\Gamma\) into a Gaussian integral.} The integrand of \(\Gamma\) contains
 \(e^{-t}\); to get \(e^{-u^2}\) we substitute \(t=u^2\) in \eqref{eq:gamma-def}. Then
 \(dt=2u\,du\), \(t^{z-1}=u^{2z-2}\), and \(t:0\to\infty\) becomes \(u:0\to\infty\):
@@ -383,7 +380,8 @@ integral over \((0,\infty)\) is the integral over the whole line, which is \eqre
   =\int_{-\infty}^{\infty}e^{-u^2}\,du=\sqrt\pi.
   \label{eq:gamma-half}
 \end{equation}
-\par\framebreak\par
+
+
 \textbf{Step 4: climb with the recursion.} Use \(\Gamma(z+1)=z\,\Gamma(z)\) repeatedly:
 \[
  \Gamma\bigl(\tfrac32\bigr)=\tfrac12\,\Gamma\bigl(\tfrac12\bigr)=\frac{\sqrt\pi}{2},\qquad

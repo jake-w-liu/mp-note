@@ -297,7 +297,8 @@ degree $n$. We quote the standard endpoint result: for any other $\lambda$ no no
 solution is finite at both poles, and for $\lambda=n(n+1)$ the other chain diverges at a pole,
 so the finite solutions are the multiples of this polynomial.
 
-\par\framebreak\par
+
+
 \textbf{Example of a discarded chain: \(\lambda=2\) (\(n=1\)).} The odd chain stops at once and gives \(v=x\).
 For the even chain, \eqref{eq:legendre-coeff-recurrence-lambda} with \(\lambda=2\) gives the ratio
 \[
@@ -343,19 +344,26 @@ supplies them. The goal is to show that
 \]
 which is \eqref{eq:legendre-gen} below.
 
-\textbf{Step 1: write the axisymmetric potential.}  Place a point charge one unit from the origin on the positive polar axis. For a field point
-with spherical coordinates $(r,\theta,\phi)$, the law of cosines gives the distance to the charge,
-$R^2=r^2+1^2-2r(1)\cos\theta=1-2r\cos\theta+r^2$, so, for a nonzero physical scale factor $C$, the Coulomb potential is
+\begin{columns}[T]
+\begin{column}{0.6\linewidth}
+\textbf{Step 1: write the axisymmetric potential.} Place a point charge one unit from the origin on
+the positive polar axis. For a field point with spherical coordinates $(r,\theta,\phi)$, the law of
+cosines (figure) gives the distance to the charge, $R^2=r^2+1^2-2r(1)\cos\theta=1-2r\cos\theta+r^2$, so, for a
+nonzero physical scale factor $C$, the Coulomb potential is
 \begin{equation}
   \varphi(r,\theta)=\frac{C}{R}
   =\frac{C}{\sqrt{1-2r\cos\theta+r^2}}.
   \label{eq:coulomb}
 \end{equation}
-\begin{center}
-  \includegraphics[width=0.42\linewidth]{figs/legendre_coulomb_geometry.pdf}
-\end{center}
-(The horizontal polar axis is a direction in space, not the variable $x=\cos\theta$.)
+\end{column}
+\begin{column}{0.38\linewidth}
+\centering
+\includegraphics[width=\linewidth]{figs/legendre_coulomb_geometry.pdf}
 
+{\scriptsize (The horizontal polar axis is a direction in space, not the variable $x=\cos\theta$.)}
+\end{column}
+\end{columns}
+\par\framebreak\par
 In the region $r<1$, which does not contain the charge, the potential is harmonic (as any
 electrostatic potential away from charges), finite at the origin, and independent of $\phi$.
 The separated solutions with these properties, $r^nP_n(\cos\theta)$ (the $r^n$ branch of
@@ -375,7 +383,8 @@ $\sum_n a_nr^n=1/(1-r)=\sum_n r^n$ (geometric series). Uniqueness of power-serie
   \qquad |t|<1,\quad -1\le x\le1.
   \label{eq:legendre-gen}
 \end{equation}
-\par\framebreak\par
+
+
 \textbf{Physical meaning.} For a far point ($r>1$), $1/R=r^{-1}g(\cos\theta,1/r)=\sum_n P_n(\cos\theta)/r^{n+1}$:
 the \emph{multipole expansion} ($n=0$ monopole $1/r$, $n=1$ dipole $\cos\theta/r^2$);
 $P_n$ is the angular pattern of the $n$-th multipole.
@@ -1240,9 +1249,9 @@ and as $x\to\infty$ because $e^{-x}$ beats any polynomial. Hence, for $n\ne m$,
 \end{equation}
 
 \textbf{Step 3: the generating function.} For \(|t|<1\) we show
-\(G(x,t)=\frac1{1-t}\exp\bigl(-\frac{xt}{1-t}\bigr)=\sum_nL_n(x)t^n\). Expand the exponential:
+\(g(x,t)=\frac1{1-t}\exp\bigl(-\frac{xt}{1-t}\bigr)=\sum_nL_n(x)t^n\). Expand the exponential:
 \[
- G(x,t)=\sum_{k\ge0}\frac{(-x)^k}{k!}\,\frac{t^k}{(1-t)^{k+1}} .
+ g(x,t)=\sum_{k\ge0}\frac{(-x)^k}{k!}\,\frac{t^k}{(1-t)^{k+1}} .
 \]
 The \(j\)-th derivative of \((1-t)^{-(k+1)}\) at \(t=0\) is \((k+1)(k+2)\cdots(k+j)=\frac{(k+j)!}{k!}\), so its Taylor series is
 \((1-t)^{-(k+1)}=\sum_{j\ge0}\binom{k+j}{k}t^j\). The coefficient of \(t^n\) collects \(j=n-k\) for \(k=0,\dots,n\):
@@ -1250,11 +1259,11 @@ The \(j\)-th derivative of \((1-t)^{-(k+1)}\) at \(t=0\) is \((k+1)(k+2)\cdots(k
 \par\framebreak\par
 \textbf{Step 4: the norm, by Hermite's trick.} For \(0\le s,t<1\), multiply two generating functions:
 \[
- \int_0^\infty e^{-x}G(x,s)G(x,t)\,dx=\frac{1}{(1-s)(1-t)}\int_0^\infty e^{-cx}\,dx,\qquad
+ \int_0^\infty e^{-x}g(x,s)g(x,t)\,dx=\frac{1}{(1-s)(1-t)}\int_0^\infty e^{-cx}\,dx,\qquad
  c=1+\frac{s}{1-s}+\frac{t}{1-t}.
 \]
 Over a common denominator, \(c=\frac{(1-s)(1-t)+s(1-t)+t(1-s)}{(1-s)(1-t)}=\frac{1-st}{(1-s)(1-t)}\), and \(\int_0^\infty e^{-cx}dx=\frac1c\).
-So the left side is \(\frac{1}{1-st}=\sum_n s^nt^n\). Expanding both \(G\)'s instead gives
+So the left side is \(\frac{1}{1-st}=\sum_n s^nt^n\). Expanding both \(g\)'s instead gives
 \(\sum_{m,n}s^mt^n\int_0^\infty L_mL_ne^{-x}dx\). Comparing coefficients of \(s^mt^n\) (only \(m=n\) appears, with
 coefficient \(1\)), the standard \(L_n\) are already orthonormal:
 \begin{equation}

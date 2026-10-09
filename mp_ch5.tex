@@ -443,7 +443,8 @@ by a change of unknown; what remains is almost the oscillator \(u''+u=0\).
  y'=x^{-1/2}u'-\tfrac12x^{-3/2}u,\qquad
  y''=x^{-1/2}u''-x^{-3/2}u'+\tfrac34x^{-5/2}u .
 \]
-\par\framebreak\par
+
+
 \textbf{Step 2: insert into Bessel's equation divided by \(x^2\),}
 \(y''+\frac1xy'+\bigl(1-\frac{m^2}{x^2}\bigr)y=0\). The middle term is
 \(\frac1xy'=x^{-3/2}u'-\frac12x^{-5/2}u\). Adding the three pieces:
@@ -464,7 +465,7 @@ Going back, \(y=x^{-1/2}u\):
 \]
 \textbf{Step 4: the constants, from the integral representation.} The equation alone cannot fix \(A\) and
 \(\varphi\), because they depend on which solution we follow from \(x=0\). So use \eqref{eq:int-rep}. Since
-\(\cos\alpha=\operatorname{Re}e^{i\alpha}\),
+\(\cos(m\theta-x\sin\theta)\) is the real part of \(e^{im\theta}e^{-ix\sin\theta}\),
 \[
  J_m(x)=\frac1\pi\operatorname{Re}\int_0^\pi e^{im\theta}\,e^{-ix\sin\theta}\,d\theta .
 \]
@@ -963,7 +964,8 @@ Then \(u'=R+xR'\) and \(u''=2R'+xR''\), so \(x\,u''=x^2R''+2xR'\). The equation 
  u\approx-\sqrt{\frac{\pi x}{2}}\cdot\sqrt{\frac2x}\cdot\frac{1}{\sqrt\pi}=-1
  \quad\Longrightarrow\quad u=-\cos x .
 \]
-\par\framebreak\par
+
+
 \textbf{Result for \(n=0\).} Dividing by \(x\),
 \[
  j_0(x)=\frac{\sin x}{x},\qquad y_0(x)=-\frac{\cos x}{x}.
@@ -977,7 +979,8 @@ For the Hankel functions, use \(\sin x-i\cos x=-i(\cos x+i\sin x)=-ie^{ix}\) and
 \textbf{In words.} \(xj_0=\sin x=\frac{e^{ix}-e^{-ix}}{2i}\) is a \emph{standing} wave: an outgoing and an incoming
 spherical wave of equal strength. Each \(h_0^{(1,2)}\) is a single \emph{traveling} spherical wave, just as
 for the cylindrical Hankel functions.
-\par\framebreak\par
+
+
 \textbf{Step 4: higher orders from two recurrences.} The product recurrences
 \eqref{eq:product-rec-lower}--\eqref{eq:product-rec-upper} were derived for integer order. They hold for every
 real order \(\mu\): differentiate the gamma series \eqref{eq:series-gamma} term by term.
@@ -993,7 +996,8 @@ real order \(\mu\): differentiate the gamma series \eqref{eq:series-gamma} term 
          \frac{d}{dx}\bigl(x^{\mu}J_\mu\bigr)=\sum_{k\ge0}\frac{(-1)^kx^{2k+2\mu-1}}{2^{2k+\mu-1}k!\,\Gamma(k+\mu)}=x^{\mu}J_{\mu-1}.
         \]
 \end{itemize}
-\par\framebreak\par
+
+
 \textbf{Step 4, continued.} By \eqref{eq:spherical-jy}, \(j_n=\sqrt{\pi/2}\,x^{-1/2}J_{n+1/2}\). The first identity with
 \(\mu=\frac12\), times \(\sqrt{\pi/2}\), gives \(j_0'=-j_1\). For \(y\): Step~3 found \(Y_{1/2}=-J_{-1/2}\), so
 \(y_0=-\sqrt{\pi/2}\,x^{-1/2}J_{-1/2}\); and \eqref{eq:neumann-def} at \(\nu=\frac32\) gives
@@ -1014,7 +1018,8 @@ slide) at \(\nu=n+\frac12\) into \eqref{eq:spherical-h}. Three simplifications:
  \sqrt{\frac{\pi}{2x}}\sqrt{\frac{2}{\pi x}}=\frac1x,\qquad
  e^{\mp i(n+1)\pi/2}=(\mp i)^{n+1}.
 \]
-\par\framebreak\par
+
+
 So the leading terms are
 \begin{equation}
  h_n^{(1)}(x)\approx\frac{(-i)^{n+1}e^{ix}}{x},\qquad
@@ -1035,7 +1040,8 @@ repeatedly from \(\Gamma(\frac12)=\sqrt\pi\),
 \]
 where \((2n+1)!!=1\cdot3\cdot5\cdots(2n+1)\);
 and in the same way \(\Gamma(n+\frac12)=\frac{(2n-1)!!}{2^n}\sqrt\pi\) (with \((-1)!!=1\)).
-\par\framebreak\par
+
+
 \textbf{Step 6, continued.} Multiply the leading terms of \eqref{eq:series-gamma} and \eqref{eq:Ysmall-general} by
 \(\sqrt{\pi/(2x)}\), and simplify the powers of \(2\) and \(x\):
 \begin{align*}

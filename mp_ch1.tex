@@ -138,7 +138,8 @@ Taylor series at \(x\):
  f(x)=\sum_{k=0}^{\infty}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k.
  \label{eq:taylor0}
 \end{equation}
-\par\framebreak\par
+
+
 
 
 \textbf{Exponential.} Every derivative of $e^x$ equals $e^x$, so every derivative at
@@ -290,9 +291,9 @@ and therefore
 \begin{frame}[allowframebreaks=1.00]{Multivalued functions and branch cuts}
 \footnotesize
 
-\textbf{Why we need this.} Powers \(z^a\) and the logarithm \(\log z\) appear in many integrals later.
-(In the keyhole contour of Section~1.8 the whole answer comes from the jump of \(z^{-a}\) across
-a cut.) These functions can take several values at one point, and we must learn how to choose one.
+\textbf{Why we need this.} Powers \(z^a\) and \(\log z\) appear in many later integrals (in the keyhole
+contour of Section~1.8 the answer comes from the jump of \(z^{-a}\) across a cut). They can take
+several values at one point, and we must learn how to choose one.
 
 \textbf{A familiar example.} The equation \(x^2=y\) (with \(y>0\)) has two solutions,
 \(x=\pm\sqrt y\). The real square root picks one of them, \(+\sqrt y\), in a consistent way. A
@@ -300,10 +301,7 @@ a cut.) These functions can take several values at one point, and we must learn 
 
 \textbf{The complex logarithm.} We want to solve \(e^w=z\) for \(w\), given \(z\ne0\). Write
 \(z=re^{i\theta}\) with \(r>0\), and \(w=u+iv\) with \(u,v\) real. By \eqref{eq:exp-uv},
-\[
- e^w=e^{u+iv}=e^u(\cos v+i\sin v).
-\]
-We need this to equal \(r(\cos\theta+i\sin\theta)\). Compare moduli and angles separately:
+\(e^w=e^{u+iv}=e^u(\cos v+i\sin v)\). We need this to equal \(r(\cos\theta+i\sin\theta)\). Compare moduli and angles separately:
 \begin{itemize}
   \item moduli: \(e^u=r\), so \(u=\log r\) (the ordinary real logarithm, since \(r>0\));
   \item angles: \(\cos v=\cos\theta\) and \(\sin v=\sin\theta\), so \(v=\theta+2\pi k\) for some
@@ -316,10 +314,7 @@ So \(e^w=z\) has infinitely many solutions, one for each integer \(k\):
 \end{equation}
 \textbf{Choosing one value: the principal branch.} Restrict the angle to one interval of length
 \(2\pi\), usually \(-\pi<\operatorname{Arg}z<\pi\), and define
-\[
-  \operatorname{Log}z=\log|z|+i\operatorname{Arg}z .
-\]
-This is a single-valued function on the plane with the half-line \((-\infty,0]\) removed.
+\(\operatorname{Log}z=\log|z|+i\operatorname{Arg}z\). This is a single-valued function on the plane with the half-line \((-\infty,0]\) removed.
 \par\framebreak\par
 \textbf{Why something must be removed: the branch point.} Walk once counterclockwise around
 \(0\) on the circle \(z=re^{i\theta}\), letting \(\theta\) increase continuously from \(0\) to \(2\pi\).
@@ -330,11 +325,7 @@ same value. A point with this property is a \emph{branch point}; here it is \(z=
 \textbf{The branch cut.} To get a single-valued function, we forbid such loops by removing a curve
 from the branch point to infinity, a \emph{branch cut}. For \(\operatorname{Log}\) the cut is the
 negative real axis. Just above and just below the cut, at \(-r\) (\(r>0\)),
-\[
-  \operatorname{Log}(-r+i0)=\log r+i\pi,\qquad
-  \operatorname{Log}(-r-i0)=\log r-i\pi .
-\]
-So \(\operatorname{Log}\) jumps by \(2\pi i\) across the cut.
+\(\operatorname{Log}(-r+i0)=\log r+i\pi\) and \(\operatorname{Log}(-r-i0)=\log r-i\pi\): \(\operatorname{Log}\) jumps by \(2\pi i\) across the cut.
 
 \textbf{Roots work the same way.} Define \(z^{1/2}=e^{\frac12\log z}\) and insert all the values
 \eqref{eq:complex-log-values}:
@@ -623,7 +614,8 @@ So, for \(n=0,1,2,\ldots\),
 \end{equation}
 The right side exists for every \(n\). So a function that is complex-differentiable once is
 automatically differentiable infinitely many times. (Nothing like this holds for real functions.)
-\par\framebreak\par
+
+
 \begin{block}{Taylor series theorem}
 If $f$ is holomorphic on the disk $|z-z_0|<R$, then for every $|z-z_0|<R$,
 \[
@@ -632,11 +624,10 @@ If $f$ is holomorphic on the disk $|z-z_0|<R$, then for every $|z-z_0|<R$,
 \end{block}
 \textbf{Step 2: Cauchy's formula on a circle.} Fix \(z\) in the disk. Choose a radius \(\rho\) with
 \(|z-z_0|<\rho<R\), and let \(C_\rho\) be the circle \(|\xi-z_0|=\rho\). Cauchy's formula \eqref{eq:CIF},
-written with integration variable \(\xi\) and interior point \(z\), gives
-\[
- f(z)=\frac{1}{2\pi i}\oint_{C_\rho}\frac{f(\xi)}{\xi-z}\,d\xi.
-\]
-\par\framebreak\par
+with variable \(\xi\) and interior point \(z\), gives
+\(f(z)=\frac{1}{2\pi i}\oint_{C_\rho}\frac{f(\xi)}{\xi-z}\,d\xi\).
+
+
 \textbf{Step 3: expand the kernel \(1/(\xi-z)\) in powers of \(z-z_0\).} Write
 \(\xi-z=(\xi-z_0)-(z-z_0)\) and factor out \(\xi-z_0\):
 \[
@@ -647,7 +638,8 @@ On the circle \(|w|=|z-z_0|/\rho<1\), so the geometric series \(\frac1{1-w}=1+w+
  \frac1{\xi-z}=\frac1{\xi-z_0}\sum_{n=0}^{\infty}\Bigl(\frac{z-z_0}{\xi-z_0}\Bigr)^n
  =\sum_{n=0}^{\infty}\frac{(z-z_0)^n}{(\xi-z_0)^{n+1}}.
 \]
-\par\framebreak\par
+
+
 \textbf{Step 4: integrate term by term.} Insert the series into Step~2. The factor \((z-z_0)^n\)
 does not depend on \(\xi\), so it comes out of each integral:
 \[
@@ -658,16 +650,16 @@ does not depend on \(\xi\), so it comes out of each integral:
 This is the Taylor series. Its coefficients are the ones found by matching derivatives at the start
 of the chapter \eqref{eq:taylor-coef}. The new information is \emph{where} the series equals \(f\):
 in every disk around \(z_0\) in which \(f\) is holomorphic.
-\par\framebreak\par
+
+
 \textbf{Consequence: the radius of convergence.} The Taylor series about \(z_0\) converges (and
 equals \(f\)) out to the nearest \emph{singularity} of \(f\), a point where \(f\) cannot be made
-holomorphic (Section~1.6 classifies them). It cannot converge in a bigger disk: a convergent
-power series is holomorphic inside its disk, so it would make \(f\) holomorphic at the
-singularity, which is impossible.
+holomorphic (Section~1.6 classifies them). It cannot reach further: a convergent power series is
+holomorphic inside its disk, so it would make \(f\) holomorphic at the singularity, which is impossible.
 
 \textbf{Why complex numbers matter even for real functions.} The series
 \(1/(1+x^2)=1-x^2+x^4-\cdots\) diverges for \(|x|>1\), although \(1/(1+x^2)\) is smooth on the whole
-real line. Nothing real explains this. The reason is complex: \(1/(1+z^2)\) blows up at
+real line. The reason is complex: \(1/(1+z^2)\) blows up at
 \(z=\pm i\), at distance \(1\) from \(0\), so the radius of convergence is \(1\).
 \end{frame}
 
@@ -897,7 +889,8 @@ integrates to \(0\) except \((z-z_0)^{-1}\), which gives \(2\pi i\). So only \(a
  \label{eq:res-single}
 \end{equation}
 The residue is what is ``left over'' after integrating around the point.
-\par\framebreak\par
+
+
 \begin{block}{Residue theorem}
 Let $f$ be holomorphic inside and on a positively oriented simple closed contour $\gamma$,
 except for finitely many isolated singularities $z_1,\ldots,z_N$ in the interior.  Then
@@ -914,7 +907,8 @@ becomes a set of small circles, one around each \(z_k\). Each small circle gives
 
 \textbf{So the job reduces to computing residues.} We need practical formulas that avoid writing
 out the whole Laurent series.
-\par\framebreak\par
+
+
 \textbf{Formula 1: simple pole.} Near a simple pole,
 \(f(z)=\frac{a_{-1}}{z-z_0}+a_0+a_1(z-z_0)+\cdots\). Multiply by \(z-z_0\):
 \[
@@ -937,7 +931,8 @@ So \(a_{-1}\) is the coefficient of \((z-z_0)^{m-1}\) in the Taylor series of \(
  \label{eq:res-order-m}
 \end{equation}
 For \(m=1\) this is Formula~1; for \(m=2\) it is the first derivative of \((z-z_0)^2f(z)\) at \(z_0\).
-\par\framebreak\par
+
+
 \textbf{Formula 3: a quotient \(p/q\) where \(q\) has a simple zero.} Let \(p,q\) be holomorphic near
 \(z_0\), with \(q(z_0)=0\) and \(q'(z_0)\ne0\). The Taylor series of \(q\) starts
 \(q(z)=q'(z_0)(z-z_0)+\frac12q''(z_0)(z-z_0)^2+\cdots\), so \(q(z)/(z-z_0)\to q'(z_0)\). By Formula~1,
@@ -949,7 +944,8 @@ For \(m=1\) this is Formula~1; for \(m=2\) it is the first derivative of \((z-z_
  \label{eq:res-ratio}
 \end{equation}
 (If also \(p(z_0)=0\), the singularity is removable and the formula correctly gives \(0\).)
-\par\framebreak\par
+
+
 \textbf{Example 1: \(1/(z^2+1)\) at \(z=i\).} Use Formula~3 with \(p=1\), \(q=z^2+1\), \(q'(z)=2z\):
 \[
  \operatorname{Res}\Bigl(\frac1{z^2+1},i\Bigr)=\frac{1}{q'(i)}=\frac1{2i}.
@@ -977,14 +973,15 @@ using \((2i)^3=8i^3=-8i\).
 \begin{frame}[allowframebreaks=1.00]{Real integrals by a semicircular contour}
 \footnotesize
 
-\textbf{Why go complex.} \(\cos x/(1+x^2)\) has no elementary antiderivative at all. Yet
-\(\int_{-\infty}^\infty\) of it is easy with residues: close
-the real line into a loop, and the residue theorem does the work.
+\textbf{Why go complex.} \(\cos x/(1+x^2)\) has no elementary antiderivative. Yet \(\int_{-\infty}^\infty\) of it is
+easy: close the real line into a loop, and the residue theorem does the work.
 
 \textbf{The recipe.}
+\begin{columns}[T]
+\begin{column}{0.6\linewidth}
 \begin{enumerate}
   \item \emph{Close the path.} Go along the real axis from \(-R\) to \(R\), then back along the upper
-        semicircle \(C_R\): \(z=Re^{i\theta}\), \(0\le\theta\le\pi\) (figure below). Call the closed path
+        semicircle \(C_R\): \(z=Re^{i\theta}\), \(0\le\theta\le\pi\) (figure, right). Call the closed path
         \(\Gamma_R\). It splits into two pieces:
         \begin{equation}
          \oint_{\Gamma_R}f(z)\,dz
@@ -995,6 +992,12 @@ the real line into a loop, and the residue theorem does the work.
   \item \emph{Show the arc integral tends to \(0\)} as \(R\to\infty\) (method below).
   \item \emph{Let \(R\to\infty\).} The real-axis piece becomes the integral we want.
 \end{enumerate}
+\end{column}
+\begin{column}{0.38\linewidth}
+\centering
+\safeincludegraphics[width=\linewidth]{figs/semicircle-contour.pdf}
+\end{column}
+\end{columns}
 \par\framebreak\par
 \textbf{How to show the arc vanishes: the \(ML\) estimate.} An integral is at most (largest size of
 the integrand) \(\times\) (length of the path). On \(C_R\), let \(M_R\) be the largest value of \(|f|\); the
@@ -1017,10 +1020,6 @@ the sum running over the poles \(z_k\) of \(f\) in the upper half-plane.
 \textbf{Why upward for \(e^{iaz}\), \(a>0\)?} With \(z=x+iy\),
 \(|e^{iaz}|=|e^{iax}|\,|e^{-ay}|=e^{-ay}\). Above the axis (\(y>0\)) this is at most \(1\); below the axis it
 grows like \(e^{a|y|}\). So close upward, where \(e^{iaz}\) stays small.
-
-\begin{center}
-  \safeincludegraphics[width=0.5\linewidth]{figs/semicircle-contour.pdf}
-\end{center}
 \par\framebreak\par
 \textbf{Example 1: \(\int_{-\infty}^{\infty}\frac{\cos x}{1+x^2}\,dx\).} Since \(\cos x=\operatorname{Re}e^{ix}\),
 compute \(J=\int_{-\infty}^{\infty}\frac{e^{ix}}{1+x^2}\,dx\) and take its real part at the end.
@@ -1391,23 +1390,21 @@ freedom: moving the path to a saddle that the original path does not pass throug
 \begin{frame}[allowframebreaks=1.00]{Stationary phase: steepest descent on a tilted line}
 \footnotesize
 
-\textbf{Goal.} Approximate an \emph{oscillating} integral, with \(\varphi\) and \(g\) real on the real axis,
-\[
-  \int_a^b g(x)\,e^{is\varphi(x)}\,dx,\qquad s\to+\infty .
-\]
-The answer is \eqref{eq:stationary-phase} below.
+\textbf{Goal.} Approximate the \emph{oscillating} integral \(\int_a^b g(x)\,e^{is\varphi(x)}\,dx\) as \(s\to+\infty\), with \(\varphi\)
+and \(g\) real on the real axis. The answer is \eqref{eq:stationary-phase} below.
 
 \textbf{Intuition.} Here \(|e^{is\varphi}|=1\): there is no peak at all. Where \(\varphi'\ne0\), the phase \(s\varphi\)
 changes quickly, \(e^{is\varphi}\) goes around the circle many times, and neighbouring pieces cancel.
 Only near a \emph{stationary point} \(x_0\), where \(\varphi'(x_0)=0\) and the phase is momentarily flat, do
-the pieces line up and add. (This is why light follows the path of stationary optical length.)
+the pieces line up and add.
 
 \textbf{Step 1: it is a steepest-descent integral.} Assume \(g\) and \(\varphi\) are holomorphic near the real
 axis, and put \(f(z)=i\varphi(z)\) in \eqref{eq:sd-int}. Then \(f'(x_0)=i\varphi'(x_0)=0\): the stationary point is a
 saddle, with \(f''(x_0)=i\varphi''(x_0)\). On the real axis \(u=\operatorname{Re}\bigl(i\varphi(x)\bigr)=0\): the axis
 runs at the height of the pass instead of down into the valleys. So we tilt the path at \(x_0\).
-\par\framebreak\par
-\textbf{Step 2: the tilt.} Find \(\beta=\arg f''(x_0)\) and \(\alpha=i\,e^{-i\beta/2}\) of Step~3 above.
+
+
+\textbf{Step 2: the tilt.} Find \(\beta=\arg f''(x_0)\) and \(\alpha=i\,e^{-i\beta/2}\) as in Step~3 of the previous frame.
 \begin{itemize}
   \item \(\varphi''(x_0)>0\): \(f''(x_0)=|\varphi''(x_0)|\,e^{i\pi/2}\), so \(\beta=\frac\pi2\) and
         \(\alpha=i\,e^{-i\pi/4}=e^{i\pi/2}e^{-i\pi/4}=e^{i\pi/4}\): a line at \(+45^\circ\).
@@ -1415,8 +1412,8 @@ runs at the height of the pass instead of down into the valleys. So we tilt the 
         This points to the left; the original path runs to the right, so by the orientation remark
         we use \(-\alpha=e^{-i\pi/4}\): a line at \(-45^\circ\).
 \end{itemize}
-In both cases the direction is \(e^{i(\pi/4)\operatorname{sgn}\varphi''(x_0)}\), where \(\operatorname{sgn}\varphi''(x_0)=\pm1\) is the
-sign of \(\varphi''(x_0)\), and \(|f''(x_0)|=|\varphi''(x_0)|\). Near \(x_0\) we replace the real axis by this short
+In both cases the direction is \(e^{i(\pi/4)\operatorname{sgn}\varphi''(x_0)}\) (\(\operatorname{sgn}=\pm1\) is the sign), and
+\(|f''(x_0)|=|\varphi''(x_0)|\). Near \(x_0\) we replace the real axis by this short
 tilted segment (Cauchy's theorem); away from \(x_0\) the path stays on the axis. There \(\varphi'\ne0\), so those
 parts contribute only \(O(1/s)\) (one integration by parts, as in the endpoint remark), less than the
 \(1/\sqrt s\) of the saddle.
@@ -1430,17 +1427,14 @@ parts contribute only \(O(1/s)\) (one integration by parts, as in the endpoint r
   \sqrt{\frac{2\pi}{s\bigl|\varphi''(x_0)\bigr|}} .
   \label{eq:stationary-phase}
 \end{equation}
-It is Laplace's formula with one extra phase factor \(e^{\pm i\pi/4}\), the \(45^\circ\) tilt of the path. The
-endpoints \(a,b\) also contribute only \(O(1/s)\), and several stationary points add their contributions.
-\par\framebreak\par
-\textbf{Check: \(\varphi=x^2\), \(g=1\), on the whole line.} Here the tilted line \(x=e^{i\pi/4}y\) can be used
-everywhere: \(isx^2=is\,e^{i\pi/2}y^2=-sy^2\) and \(dx=e^{i\pi/4}dy\), so by \eqref{eq:gauss-c} the exact value is
-\[
-  \int_{-\infty}^{\infty}e^{isx^2}\,dx=e^{i\pi/4}\int_{-\infty}^{\infty}e^{-sy^2}\,dy=e^{i\pi/4}\sqrt{\frac{\pi}{s}} .
-\]
-(Rotating the whole line is allowed: between the two lines the integrand decays, and the closing arcs
-contribute nothing.) The formula, with \(x_0=0\) and \(\varphi''=2>0\), gives
-\(e^{i\pi/4}\sqrt{2\pi/(2s)}=e^{i\pi/4}\sqrt{\pi/s}\): exact, because the phase is exactly quadratic.
+Compared with Laplace's formula, the only new factor is \(e^{\pm i\pi/4}\): the \(45^\circ\) tilt of the path. The
+endpoints \(a,b\) contribute only \(O(1/s)\); several stationary points add.
+
+
+\textbf{Check: \(\varphi=x^2\), \(g=1\), on the whole line.} Rotate the whole line to \(x=e^{i\pi/4}y\) (allowed: between
+the two lines the integrand decays). Then \(isx^2=-sy^2\) and \(dx=e^{i\pi/4}dy\), so by \eqref{eq:gauss-c} the exact
+value is \(\int e^{isx^2}dx=e^{i\pi/4}\int e^{-sy^2}dy=e^{i\pi/4}\sqrt{\pi/s}\). The formula, with \(x_0=0\) and \(\varphi''=2\), gives
+\(e^{i\pi/4}\sqrt{2\pi/(2s)}\), the same: exact, because the phase is exactly quadratic.
 \end{frame}
 
 \begin{frame}[allowframebreaks=1.00]{Worked example: a large binomial coefficient}
@@ -1495,8 +1489,8 @@ Set \(f'(z_0)=0\) and multiply by \(z_0(1+z_0)\): \(z_0-t(1+z_0)=0\), so \(z_0(1
 \end{align*}
 \par\framebreak\par
 \textbf{Step 5: choose the path through the saddle.} \(f''(z_0)\) is positive real, so \(\beta=0\), and by
-\eqref{eq:descent-direction} the descent direction is \(\psi=\pi/2\): vertical (the picture on the first
-steepest-descent slide). The circle \(|z|=z_0\) crosses the real axis vertically at \(z_0\), so we use it.
+\eqref{eq:descent-direction} the descent direction is \(\psi=\pi/2\): vertical (as in the picture in Step~1
+of the steepest-descent frame). The circle \(|z|=z_0\) crosses the real axis vertically at \(z_0\), so we use it.
 Two checks:
 \begin{itemize}
   \item \emph{\(z_0\) is the highest point on this circle.} On \(z=z_0e^{i\chi}\) the size of the integrand is

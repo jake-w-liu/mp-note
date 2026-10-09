@@ -388,7 +388,8 @@ For a repeated eigenvalue, orthogonal eigenfunctions can still be chosen
 (Gram--Schmidt: subtract from the second its projection \eqref{eq:coeff-orthogonal}
 on the first).
 
-\par\framebreak\par
+
+
 \textbf{Application: the fixed string.} Let \(Lu=u''\) on \([0,1]\) with \(u(0)=u(1)=0\).
 
 \emph{Step 1: every eigenvalue is negative.} Let \(Lu=\mu u\) with \(u\neq0\). Take the inner product with \(u\)
@@ -814,6 +815,7 @@ $(py')'=py''+p'y'=py''-2xpy'$. Hence
  (e^{-x^2}y')'=-\lambda e^{-x^2}y.\label{eq:hermite-SL}
 \end{equation}
 The data are $p(x)=e^{-x^2}$, $q(x)=0$, $w(x)=e^{-x^2}$.
+\par\framebreak\par
 A polynomial solution of degree $n$ needs $\lambda_n=2n$: in \eqref{eq:hermite-original}
 the $x^n$ terms are $-2nx^n$ (from $-2xy'$) and $\lambda x^n$, and must cancel.
 These solutions are the physicists' Hermite polynomials $H_n$, normalized to
@@ -942,6 +944,7 @@ fixed ends:
 \end{tikzpicture}
 \end{column}
 \end{columns}
+\par\framebreak\par
 \emph{Solve.} Put \(c_2=1-c_1\) into the continuity condition:
 \(c_1x'=(1-c_1)(1-x')=1-x'-c_1+c_1x'\), so \(c_1=1-x'\) and then \(c_2=x'\). With \(x_<=\min(x,x')\),
 \(x_>=\max(x,x')\),
@@ -949,7 +952,8 @@ fixed ends:
  G(x,x')=x_<\,(1-x_>):
 \]
 a tent with its peak at the load.
-\par\framebreak\par
+
+
 \textbf{The general case: the same two facts.}
 
 \emph{Step 1: away from \(x'\).} There \(L_xG=0\). Let \(y_L\) be a solution of \(Ly=0\) that satisfies the
@@ -975,7 +979,8 @@ bracket becomes \(p(x')\bigl[G'(x'^+)-G'(x'^-)\bigr]\). So
  \label{eq:green-jump}
 \end{equation}
 The slope drops by (load)/(tension), as for the string.
-\par\framebreak\par
+
+
 \emph{Step 3: \(G\) is continuous (the string does not break).} \(G'\) only jumps by a finite amount, so it
 stays bounded, and the change of \(G\) across the tiny interval,
 \(\int_{x'-\varepsilon}^{x'+\varepsilon}G'\,dx\), tends to \(0\). So \(c_1y_L(x')=c_2y_R(x')\). A symmetric way to satisfy this is
@@ -993,7 +998,8 @@ stays bounded, and the change of \(G\) across the tiny interval,
 \[
  A\,W[y_L,y_R](x')=-\frac1{p(x')},\qquad A=-\frac{1}{p(x')\,W(x')}.
 \]
-\par\framebreak\par
+
+
 \emph{Step 5: \(A\) does not depend on \(x'\).} Divide \(Ly=0\) by \(-p\): \(y''+\frac{p'}{p}y'+\frac qp\,y=0\). By Abel's
 identity (Chapter~3), \(W=C\exp\bigl(-\int\frac{p'}{p}dx\bigr)=C\,e^{-\log p}=\frac{C}{p}\). So \(p\,W=C\) is a
 constant, and so is \(A=-1/C\).

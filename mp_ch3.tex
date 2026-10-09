@@ -232,7 +232,8 @@ Cancel \(\cos m\theta\) and multiply by \(\rho^2\):
 \[
  \rho^2Y''(\rho)+\rho Y'(\rho)+(k^2\rho^2-m^2)Y(\rho)=0.
 \]
-\par\framebreak\par
+
+
 \textbf{Scale out \(k\).} Remove \(k\) by putting \(x=k\rho\), \(Y(\rho)=y(x)\). By the
 chain rule \(Y'(\rho)=k\,y'(x)\) and \(Y''(\rho)=k^2y''(x)\). Term by term, using \(k\rho=x\):
 \[
@@ -243,7 +244,8 @@ This gives Bessel's equation
  x^2y''+xy'+(x^2-m^2)y=0.\label{eq:bessel}
 \end{equation}
 The rim \(\rho=R\) is now \(x=kR\); we return to it once we have a solution.
-\par\framebreak\par
+
+
 \textbf{Step 2: why a plain Taylor series is not enough.} Divide \eqref{eq:bessel} by \(x^2\):
 \[
  y''+\frac1x\,y'+\Bigl(1-\frac{m^2}{x^2}\Bigr)y=0 .
@@ -280,7 +282,8 @@ drop out (and it is exactly the term that will determine \(r\)):
     &=\sum_{n=0}^{\infty}(n+r)(n+r-1)a_nx^{n+r-2}.
 \end{aligned}
 \]
-\par\framebreak\par
+
+
 \textbf{Step 4: substitute and align powers.}  Substitute into \eqref{eq:bessel}. Multiplying
 \(x^2\) into \(x^{n+r-2}\), \(x\) into \(x^{n+r-1}\), and \(x^2-m^2\) into \(x^{n+r}\) gives
 \[
@@ -299,7 +302,8 @@ Only the third sum has the shifted power $x^{n+r+2}$.  Set $j=n+2$, so $n=j-2$:
 \]
 With the bookkeeping convention $a_{-2}=a_{-1}=0$, this last sum may start at $n=0$
 without adding nonzero terms.
-\par\framebreak\par
+
+
 \textbf{Step 5: collect and read off the conditions.}  All four sums now carry \(x^{n+r}\):
 \[
   \sum_{n=0}^{\infty}
@@ -357,7 +361,8 @@ Each coefficient is fixed by the one two steps back.
      =-\frac{1}{8(m+2)}\cdot\Bigl(-\frac{a_0}{4(m+1)}\Bigr)=\frac{a_0}{32(m+1)(m+2)}.
 \end{aligned}
 \]
-\par\framebreak\par
+
+
 \textbf{Step 4: the general even coefficient.} At \(n=2j\) the factor in \eqref{eq:bessel-rec} is
 \(2j(2j+2m)=4j(j+m)\). So each step multiplies by \(-1/[4j(j+m)]\). After \(j\) steps,
 \[
@@ -589,16 +594,14 @@ For the other term, multiplication by $x$ shifts the coefficients in the opposit
  xy=\sum_{j=0}^{\infty}a_jx^{j+1}
     =\sum_{n=1}^{\infty}a_{n-1}x^n.
 \]
-\par\framebreak\par
+
+
 \textbf{Step 2: compare coefficients in \(y''-xy=0\).}
 \begin{itemize}
   \item Power \(x^0\): the sum for \(xy\) starts at \(x^1\), so only \(y''\) contributes, with
         \(2\cdot1\cdot a_2\). Hence \(2a_2=0\), so \(a_2=0\).
-  \item Power \(x^n\), \(n\ge1\): \((n+2)(n+1)a_{n+2}-a_{n-1}=0\), that is,
+  \item Power \(x^n\), \(n\ge1\): \((n+2)(n+1)a_{n+2}-a_{n-1}=0\), that is, \((n+2)(n+1)a_{n+2}=a_{n-1}\).
 \end{itemize}
-\begin{equation}
- (n+2)(n+1)a_{n+2}=a_{n-1}.\label{eq:airy-coeff}
-\end{equation}
 \textbf{Step 3: the recurrence.} Replace \(n\) by \(n+1\) to write it as ``new coefficient from an old one'':
 \begin{equation}
  a_{n+3}=\frac{a_n}{(n+3)(n+2)},\qquad n=0,1,2,\ldots.
@@ -703,7 +706,8 @@ This vanishes when \(r\) solves the \emph{indicial equation}
 \end{equation}
 \textbf{Check with Bessel.} \(xP=1\) and \(x^2Q=x^2-m^2\), so \(p_0=1\), \(q_0=-m^2\), and
 \(F(r)=r(r-1)+r-m^2=r^2-m^2\). Roots \(r=\pm m\), as found before.
-\par\framebreak\par
+
+
 \textbf{Which roots give a series? The key observation.} Insert the full series
 \(y=\sum_na_nz^{n+r}\). The same computation as in Step~2, with \(r+n\) in place of \(r\), shows that the
 term \(a_nz^{n+r}\) produces \(F(r+n)\,a_n\,z^{n+r}\). The remaining parts of \(zP=p_0+p_1z+\cdots\) and
@@ -715,7 +719,8 @@ term \(a_nz^{n+r}\) produces \(F(r+n)\,a_n\,z^{n+r}\). The remaining parts of \(
 We can solve for \(a_n\) unless \(F(r+n)=0\), that is, unless \(r+n\) is the \emph{other} root of \(F\).
 (Bessel: \(F(\pm m+n)=n(n\pm2m)\), exactly the factors in \eqref{eq:bessel-rec} and
 \eqref{eq:bessel-negative-root-rec}.)
-\par\framebreak\par
+
+
 \textbf{Consequences.} Let the roots be \(r_1,r_2\), with \(r_1\) the larger (in real part).
 \begin{itemize}
  \item \textbf{Roots not differing by an integer} (complex roots included): starting from either
@@ -841,7 +846,8 @@ integrating \(1/x\), since \(\int dx/x=\log x\).
         \]
 \end{itemize}
 The second solution is \(\log x\), not another power of \(x\).
-\par\framebreak\par
+
+
 \textbf{Why every repeated root does this.}
 \begin{itemize}
   \item \emph{The double root.} \(F(r)=r^2+(p_0-1)r+q_0\). The two roots add up to \(-(p_0-1)=1-p_0\). For a
@@ -985,7 +991,8 @@ formula shows these facts directly.
 Fourier transform, multiplication by \(x\) turns into a \emph{first} derivative, and \(y''\) turns into
 multiplication by \(-t^2\). So the second-order equation becomes a first-order one, which we can
 solve at once.
-\par\framebreak\par
+
+
 \textbf{Step 1: the two rules.} Use the convention
 \[
  \widehat y(t)=\int_{-\infty}^{\infty}y(x)e^{-itx}\,dx,
@@ -1005,7 +1012,8 @@ solve at once.
          \qquad\text{so}\qquad \widehat{(xy)}=i\,\frac{d\widehat y}{dt}.
         \]
 \end{itemize}
-\par\framebreak\par
+
+
 \textbf{Step 2: transform the equation and solve.} By Step~1, \(y''-xy=0\) becomes
 \[
  -t^2\,\widehat y-i\,\widehat y\,'=0
@@ -1020,7 +1028,8 @@ This first-order equation is solved by \(\widehat y(t)=C\,e^{it^3/3}\). (Check: 
 a Fourier transform. \(\Bi\) grows enormously as \(x\to+\infty\), so its integral \(\widehat y\) does not exist. The
 transform automatically picks out the decaying solution. (Making the boundary terms in Step~1
 vanish needs a little care, because \(\Ai\) decays only slowly as \(x\to-\infty\); we skip this.)
-\par\framebreak\par
+
+
 \textbf{Step 3: transform back.} Insert \(\widehat y=Ce^{it^3/3}\) into the inverse formula:
 \[
  y(x)=\frac{C}{2\pi}\int_{-\infty}^{\infty}e^{it^3/3}e^{ixt}\,dt
@@ -1040,7 +1049,8 @@ Split the integral at \(t=0\). In the part \(t<0\), substitute \(t\to-t\): the e
 \end{equation}
 (an oscillatory integral, understood as the limit of \(\int_0^T\) as \(T\to\infty\)).
 
-\par\framebreak\par
+
+
 \textbf{The constants.} Set \(x=0\) in \eqref{eq:airy-integral} and in its \(x\)-derivative (differentiate under
 the integral sign):
 \[
