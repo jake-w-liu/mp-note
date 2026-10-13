@@ -520,13 +520,13 @@ musical. The drum's overtones are not whole-number multiples of the lowest frequ
 \textbf{The question.} For the string a Taylor series worked; for the drum we needed an extra power
 \(x^r\). How can we tell in advance which kind of series to use at a point \(x_0\)?
 
-\textbf{Recipe.} Put the equation in the form \(y''+P(x)y'+Q(x)y=0\) and write \(z=x-x_0\). (A function is
+\textbf{Recipe.} Put the equation in the form \(y''+P(x)y'+Q(x)y=0\). (A function is
 \emph{analytic} at \(x_0\) if it equals a convergent Taylor series there.)
 \begin{itemize}
  \item \textbf{Ordinary point:} \(P\) and \(Q\) are analytic at \(x_0\). A plain Taylor series gives both
        solutions. \emph{Example:} Airy's equation \(y''-xy=0\) at \(x_0=0\): \(P=0\), \(Q=-x\).
- \item \textbf{Regular singular point:} \(P\) or \(Q\) blows up at \(x_0\), but only mildly: \(zP\) and \(z^2Q\) are
-       analytic. Use a power \(z^r\) times a Taylor series (Frobenius).
+ \item \textbf{Regular singular point:} \(P\) or \(Q\) blows up at \(x_0\), but only mildly: \(xP\) and \(x^2Q\) are
+       analytic. Use a power \(x^r\) times a Taylor series (Frobenius).
        \emph{Example:} Bessel at \(x_0=0\): \(P=1/x\), \(Q=1-m^2/x^2\), so \(xP=1\) and \(x^2Q=x^2-m^2\) are fine.
  \item \textbf{Irregular singular point:} worse blow-up; Frobenius is not guaranteed to work.
        \emph{Example:} \(x^4y''+2x^3y'+y=0\) at \(0\): \(Q=1/x^4\), and \(x^2Q=1/x^2\) still blows up.
@@ -534,7 +534,7 @@ musical. The drum's overtones are not whole-number multiples of the lowest frequ
        infinitely often near \(0\); no power \(x^r\) times a Taylor series can do that.
 \end{itemize}
 \textbf{Why this test?} Near a regular singular point, the equation looks like an Euler equation
-(as we saw for Bessel), and Euler equations are solved by powers \(z^r\). We use the test as a recipe
+(as we saw for Bessel), and Euler equations are solved by powers \(x^r\). We use the test as a recipe
 now; the next section explains it.
 \end{frame}
 
